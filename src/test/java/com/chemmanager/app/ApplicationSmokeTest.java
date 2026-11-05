@@ -1,5 +1,6 @@
 package com.chemmanager.app;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -84,7 +85,7 @@ class ApplicationSmokeTest {
             assertNotNull(AppContext.get().navigation(), "the shell must install the navigation");
         });
         steps.add(() -> { });
-        steps.add(() -> { });
+        steps.add(this::assertContentVisible);
         steps.add(() -> shoot(stage, "02-dashboard-light"));
         addScreen(steps, stage, NavigationModule.PRODUCTS, "03-products");
         addScreen(steps, stage, NavigationModule.RAW_MATERIALS, "04-raw-materials");
@@ -134,6 +135,17 @@ class ApplicationSmokeTest {
         }
         assertTrue(new File(SHOTS, "02-dashboard-light.png").length() > 0,
                 "the dashboard screenshot must have been captured");
+    }
+
+    /** The first screen of the shell must be laid out and fully opaque, never blank. */
+    private void assertContentVisible() {
+        javafx.scene.Node host = AppContext.get().stage().getScene().getRoot().lookup("#contentHost");
+        assertNotNull(host, "the shell must expose its content host");
+        assertTrue(!host.getChildrenUnmodifiable().isEmpty(), "the shell must open a module");
+        javafx.scene.Node content = host.getChildrenUnmodifiable().get(0);
+        assertEquals(1.0, content.getOpacity(), 0.001, "the first screen must be visible");
+        assertTrue(content.getBoundsInLocal().getHeight() > 100,
+                "the first screen must be laid out, height was " + content.getBoundsInLocal().getHeight());
     }
 
     /** Adds the two steps a screen needs: open it, then photograph it once the data is applied. */

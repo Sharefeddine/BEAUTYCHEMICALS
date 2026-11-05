@@ -55,15 +55,15 @@ public final class UsersController {
 
         table = new DataTable<>(this::page, I18n.get().t("users.search_prompt"))
                 .columns(
-                        DataTable.Column.text(I18n.get().t("user.full_name"), 175, User::fullName),
-                        DataTable.Column.key(I18n.get().t("login.username"), 105, User::username),
-                        DataTable.Column.node(I18n.get().t("user.role"), 135,
+                        DataTable.Column.text(I18n.get().t("user.full_name"), 165, User::fullName),
+                        DataTable.Column.key(I18n.get().t("login.username"), 100, User::username),
+                        DataTable.Column.node(I18n.get().t("user.role"), 165,
                                 user -> StatusBadge.primary(Labels.get("role." + user.primaryRoleCode().toLowerCase(),
                                         user.primaryRoleCode()))),
-                        DataTable.Column.text(I18n.get().t("user.job_title"), 150, User::jobTitle),
-                        DataTable.Column.text(I18n.get().t("user.last_login"), 115,
+                        DataTable.Column.text(I18n.get().t("user.job_title"), 120, User::jobTitle),
+                        DataTable.Column.text(I18n.get().t("user.last_login"), 110,
                                 user -> Formatters.dateTime(user.lastLogin())),
-                        DataTable.Column.node(I18n.get().t("common.status"), 90,
+                        DataTable.Column.node(I18n.get().t("common.status"), 75,
                                 user -> StatusBadge.active(user.active())))
                 .onActivate(this::showDetail);
         VBox.setVgrow(table, javafx.scene.layout.Priority.ALWAYS);

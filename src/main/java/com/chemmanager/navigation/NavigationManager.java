@@ -8,6 +8,7 @@ import com.chemmanager.component.Icons;
 import com.chemmanager.localization.I18n;
 
 import javafx.animation.FadeTransition;
+import javafx.animation.PauseTransition;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.fxml.FXMLLoader;
@@ -45,12 +46,18 @@ public final class NavigationManager {
             return;
         }
         Node view = load(module);
-        view.setOpacity(0);
         contentHost.getChildren().setAll(view);
+        view.setOpacity(0);
         FadeTransition fade = new FadeTransition(Duration.millis(180), view);
         fade.setFromValue(0);
         fade.setToValue(1);
+        fade.setOnFinished(event -> view.setOpacity(1));
         fade.play();
+        // Safety net: while the window is being shown or resized the animation pulse can be
+        // suspended, which would leave the screen invisible. Force the final state anyway.
+        PauseTransition watchdog = new PauseTransition(Duration.millis(260));
+        watchdog.setOnFinished(event -> view.setOpacity(1));
+        watchdog.play();
         current.set(module);
         if (onModuleChanged != null) {
             onModuleChanged.accept(module);
