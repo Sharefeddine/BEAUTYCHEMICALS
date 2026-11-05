@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<HBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.chemmanager.controller.auth.LoginController"
+      styleClass="login-root" prefWidth="1120" prefHeight="700">
+
+    <!-- ============ brand / marketing panel ============ -->
+    <VBox styleClass="login-hero" prefWidth="560" minWidth="420" HBox.hgrow="ALWAYS" spacing="16">
+        <Region VBox.vgrow="ALWAYS"/>
+        <HBox spacing="14" alignment="CENTER_LEFT">
+            <Label text="C" styleClass="brand-mark"/>
+            <VBox spacing="2">
+                <Label fx:id="heroTitle" text="%login.hero_title" styleClass="hero-title"/>
+                <Label text="Chemical Manufacturing • Distribution" styleClass="hero-subtitle"/>
+            </VBox>
+        </HBox>
+        <Label fx:id="heroSubtitle" text="%login.hero_subtitle" styleClass="hero-subtitle"
+               wrapText="true" maxWidth="460"/>
+        <VBox spacing="10">
+            <Label text="%login.hero_feature1" styleClass="hero-feature"/>
+            <Label text="%login.hero_feature2" styleClass="hero-feature"/>
+            <Label text="%login.hero_feature3" styleClass="hero-feature"/>
+            <Label text="%login.hero_feature4" styleClass="hero-feature"/>
+        </VBox>
+        <HBox spacing="10">
+            <Label text="%login.hero_badge1" styleClass="hero-badge"/>
+            <Label text="%login.hero_badge2" styleClass="hero-badge"/>
+            <Label text="%login.hero_badge3" styleClass="hero-badge"/>
+        </HBox>
+        <Region VBox.vgrow="ALWAYS"/>
+        <Label fx:id="versionLabel" text="%login.version" styleClass="hero-subtitle"/>
+    </VBox>
+
+    <!-- ============ sign-in panel ============ -->
+    <StackPane prefWidth="560" minWidth="440">
+        <VBox fx:id="loginCard" styleClass="login-card" maxWidth="430" maxHeight="-Infinity"
+              alignment="CENTER_LEFT" spacing="12">
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Region HBox.hgrow="ALWAYS"/>
+                <MenuButton fx:id="languageButton"/>
+                <Button fx:id="themeButton" styleClass="icon-button"/>
+            </HBox>
+            <Label fx:id="titleLabel" text="%login.title" styleClass="login-title"/>
+            <Label fx:id="subtitleLabel" text="%login.subtitle" styleClass="login-subtitle" wrapText="true"/>
+
+            <Label fx:id="errorLabel" styleClass="login-error" wrapText="true"
+                   visible="false" managed="false"/>
+
+            <Label text="%login.username" styleClass="field-label"/>
+            <TextField fx:id="usernameField" promptText="%login.username"/>
+
+            <Label text="%login.password" styleClass="field-label"/>
+            <HBox spacing="8">
+                <StackPane HBox.hgrow="ALWAYS">
+                    <PasswordField fx:id="passwordField" promptText="%login.password"/>
+                    <TextField fx:id="passwordVisibleField" promptText="%login.password"/>
+                </StackPane>
+                <Button fx:id="togglePasswordButton" styleClass="icon-button"/>
+            </HBox>
+
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <CheckBox fx:id="rememberCheck" text="%login.remember"/>
+                <Region HBox.hgrow="ALWAYS"/>
+            </HBox>
+
+            <Button fx:id="signInButton" text="%login.sign_in" styleClass="btn, btn-primary, btn-lg"
+                    maxWidth="Infinity"/>
+
+            <VBox styleClass="login-demo-box" spacing="2">
+                <Label fx:id="demoTitleLabel" text="%login.demo_title" styleClass="text-bold"/>
+                <Label fx:id="demoBodyLabel" text="%login.demo_body" styleClass="text-muted" wrapText="true"/>
+            </VBox>
+        </VBox>
+    </StackPane>
+</HBox>

@@ -48,6 +48,11 @@ public final class ThemeManager {
         return currentTheme == Theme.DARK ? Color.web("#0f172a") : Color.web("#f4f6fb");
     }
 
+    /** Stylesheets of the active theme, for dialogs and popovers created outside the scene graph. */
+    public static java.util.List<String> activeStylesheets() {
+        return java.util.List.of(resource(BASE_STYLESHEET), resource(currentTheme.stylesheet()));
+    }
+
     private static String resource(String path) {
         var url = ThemeManager.class.getResource(path);
         if (url == null) {

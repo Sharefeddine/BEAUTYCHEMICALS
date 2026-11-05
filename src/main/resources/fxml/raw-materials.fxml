@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.chemmanager.controller.inventory.RawMaterialsController"
+      styleClass="content-area" spacing="12">
+    <HBox alignment="CENTER_LEFT" spacing="12">
+        <Label fx:id="summaryLabel" text="" styleClass="text-muted"/>
+        <Region HBox.hgrow="ALWAYS"/>
+    </HBox>
+    <HBox styleClass="toolbar" alignment="CENTER_LEFT" spacing="10">
+        <ComboBox fx:id="categoryFilter" prefWidth="190" promptText="%common.category"/>
+        <CheckBox fx:id="hazardousOnly" text="%materials.hazardous_only"/>
+        <CheckBox fx:id="lowStockOnly" text="%materials.low_stock_only"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button fx:id="refreshButton" text="%common.refresh" styleClass="btn, btn-secondary, btn-sm"/>
+        <Button fx:id="exportButton" text="%dashboard.export" styleClass="btn, btn-secondary, btn-sm"/>
+    </HBox>
+    <VBox fx:id="tableHost" VBox.vgrow="ALWAYS"/>
+</VBox>

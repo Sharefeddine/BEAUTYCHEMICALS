@@ -46,7 +46,7 @@ public final class ApiClient {
 
     public boolean ping() {
         try {
-            HttpRequest request = requestBuilder(PING, Map.of()).GET().timeout(Duration.ofSeconds(5)).build();
+            HttpRequest request = requestBuilder(ApiEndpoints.PING, Map.of()).GET().timeout(Duration.ofSeconds(5)).build();
             HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
             return response.statusCode() >= 200 && response.statusCode() < 300;
         } catch (IOException | InterruptedException | RuntimeException ex) {
@@ -63,6 +63,10 @@ public final class ApiClient {
 
     public <T> T get(String path, Map<String, String> query, Class<T> type) {
         return send(requestBuilder(path, query).GET(), type, path);
+    }
+
+    public <T> T get(String path, TypeReference<T> type) {
+        return sendTyped(requestBuilder(path, Map.of()).GET(), type, path);
     }
 
     public <T> T get(String path, Map<String, String> query, TypeReference<T> type) {

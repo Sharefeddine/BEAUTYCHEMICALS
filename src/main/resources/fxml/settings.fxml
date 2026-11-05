@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.chemmanager.controller.settings.SettingsController"
+      styleClass="content-area" spacing="12">
+    <TabPane VBox.vgrow="ALWAYS" tabClosingPolicy="UNAVAILABLE">
+
+        <!-- ======================= general ======================= -->
+        <Tab text="%settings.tab.general">
+            <ScrollPane fitToWidth="true" styleClass="scroll-pane">
+                <VBox spacing="16" style="-fx-padding: 18 4 18 4;">
+                    <VBox styleClass="card" spacing="14" style="-fx-padding: 20;">
+                        <Label text="%settings.general.title" styleClass="h3"/>
+                        <Label text="%settings.general.hint" styleClass="text-muted" wrapText="true"/>
+                        <HBox spacing="16">
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <Label text="%settings.theme" styleClass="field-label"/>
+                                <ComboBox fx:id="themeSelector" maxWidth="Infinity"/>
+                            </VBox>
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <Label text="%settings.language" styleClass="field-label"/>
+                                <ComboBox fx:id="languageSelector" maxWidth="Infinity"/>
+                            </VBox>
+                        </HBox>
+                        <HBox spacing="16">
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <Label text="%settings.currency" styleClass="field-label"/>
+                                <TextField fx:id="currencyField" promptText="DZD"/>
+                                <Label text="%settings.currency_hint" styleClass="field-hint"/>
+                            </VBox>
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <Label text="%settings.vat" styleClass="field-label"/>
+                                <TextField fx:id="vatField" promptText="19"/>
+                                <Label text="%settings.vat_hint" styleClass="field-hint"/>
+                            </VBox>
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <Label text="%settings.invoice_prefix" styleClass="field-label"/>
+                                <TextField fx:id="invoicePrefixField" promptText="FA"/>
+                                <Label text="%settings.invoice_prefix_hint" styleClass="field-hint"/>
+                            </VBox>
+                        </HBox>
+                        <HBox>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Button fx:id="saveGeneralButton" text="%common.save"
+                                    styleClass="btn, btn-primary"/>
+                        </HBox>
+                    </VBox>
+
+                    <VBox styleClass="card" spacing="10" style="-fx-padding: 20;">
+                        <Label text="%settings.backup.title" styleClass="h3"/>
+                        <VBox fx:id="backupInfo" spacing="8"/>
+                    </VBox>
+                </VBox>
+            </ScrollPane>
+        </Tab>
+
+        <!-- ======================= company ======================= -->
+        <Tab text="%settings.tab.company">
+            <ScrollPane fitToWidth="true" styleClass="scroll-pane">
+                <VBox spacing="16" style="-fx-padding: 18 4 18 4;">
+                    <VBox styleClass="card" spacing="14" style="-fx-padding: 20;">
+                        <Label text="%settings.company.title" styleClass="h3"/>
+                        <Label text="%settings.company.hint" styleClass="text-muted" wrapText="true"/>
+                        <HBox spacing="16">
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <Label text="%settings.company.name" styleClass="field-label"/>
+                                <TextField fx:id="companyNameField"/>
+                            </VBox>
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <Label text="%settings.company.legal_name" styleClass="field-label"/>
+                                <TextField fx:id="legalNameField"/>
+                            </VBox>
+                        </HBox>
+                        <VBox spacing="6">
+                            <Label text="%settings.company.activity" styleClass="field-label"/>
+                            <TextField fx:id="activityField"/>
+                        </VBox>
+                        <HBox spacing="16">
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <Label text="%settings.company.address" styleClass="field-label"/>
+                                <TextField fx:id="addressField"/>
+                            </VBox>
+                            <VBox spacing="6" prefWidth="200">
+                                <Label text="%settings.company.city" styleClass="field-label"/>
+                                <TextField fx:id="cityField"/>
+                            </VBox>
+                            <VBox spacing="6" prefWidth="180">
+                                <Label text="%settings.company.wilaya" styleClass="field-label"/>
+                                <TextField fx:id="wilayaField"/>
+                            </VBox>
+                            <VBox spacing="6" prefWidth="130">
+                                <Label text="%settings.company.postal_code" styleClass="field-label"/>
+                                <TextField fx:id="postalCodeField"/>
+                            </VBox>
+                        </HBox>
+                        <HBox spacing="16">
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <Label text="%settings.company.phone" styleClass="field-label"/>
+                                <TextField fx:id="phoneField"/>
+                            </VBox>
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <Label text="%settings.company.email" styleClass="field-label"/>
+                                <TextField fx:id="emailField"/>
+                            </VBox>
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <Label text="%settings.company.website" styleClass="field-label"/>
+                                <TextField fx:id="websiteField"/>
+                            </VBox>
+                        </HBox>
+                        <HBox spacing="16">
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <Label text="%settings.company.tax_id" styleClass="field-label"/>
+                                <TextField fx:id="taxIdField"/>
+                            </VBox>
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <Label text="%settings.company.rc" styleClass="field-label"/>
+                                <TextField fx:id="rcField"/>
+                            </VBox>
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <Label text="%settings.company.nif" styleClass="field-label"/>
+                                <TextField fx:id="nifField"/>
+                            </VBox>
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <Label text="%settings.company.ai" styleClass="field-label"/>
+                                <TextField fx:id="aiField"/>
+                            </VBox>
+                        </HBox>
+                        <Label fx:id="companyPreview" styleClass="text-muted" wrapText="true"
+                               style="-fx-font-size: 11.5px;"/>
+                        <HBox>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Button fx:id="saveCompanyButton" text="%common.save" styleClass="btn, btn-primary"/>
+                        </HBox>
+                    </VBox>
+                </VBox>
+            </ScrollPane>
+        </Tab>
+
+        <!-- ======================= data source ======================= -->
+        <Tab text="%settings.tab.data">
+            <ScrollPane fitToWidth="true" styleClass="scroll-pane">
+                <VBox spacing="16" style="-fx-padding: 18 4 18 4;">
+                    <VBox styleClass="card" spacing="14" style="-fx-padding: 20;">
+                        <Label text="%settings.data.title" styleClass="h3"/>
+                        <Label text="%settings.data.hint" styleClass="text-muted" wrapText="true"/>
+                        <HBox spacing="12" alignment="CENTER_LEFT">
+                            <Label fx:id="dataModeLabel" styleClass="text-bold"/>
+                            <Label fx:id="apiStatusLabel" styleClass="badge, badge-neutral"/>
+                        </HBox>
+                        <Label fx:id="apiUrlLabel" styleClass="text-muted"/>
+                        <HBox spacing="10">
+                            <Button fx:id="testConnectionButton" text="%settings.data.test"
+                                    styleClass="btn, btn-secondary"/>
+                            <Button fx:id="useDemoButton" text="%settings.data.use_demo"
+                                    styleClass="btn, btn-secondary"/>
+                            <Button fx:id="useApiButton" text="%settings.data.use_api"
+                                    styleClass="btn, btn-secondary"/>
+                        </HBox>
+                        <Label text="%settings.data.note" styleClass="field-hint" wrapText="true"/>
+                    </VBox>
+                </VBox>
+            </ScrollPane>
+        </Tab>
+    </TabPane>
+</VBox>

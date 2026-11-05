@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.chemmanager.controller.MainWindowController">
+
+    <left>
+        <VBox fx:id="sidebar" styleClass="sidebar">
+            <HBox fx:id="brandBox" styleClass="sidebar-brand" alignment="CENTER_LEFT" spacing="12">
+                <Label text="C" styleClass="brand-mark"/>
+                <VBox spacing="1">
+                    <Label fx:id="brandTitle" text="ChemManager ERP" styleClass="brand-title"/>
+                    <Label fx:id="brandSubtitle" text="%app.tagline" styleClass="brand-subtitle"/>
+                </VBox>
+            </HBox>
+            <ScrollPane fx:id="navScroll" styleClass="sidebar-scroll" fitToWidth="true"
+                        hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+                <VBox fx:id="navContainer" spacing="2" style="-fx-padding: 6 10 12 10;"/>
+            </ScrollPane>
+            <VBox styleClass="sidebar-footer" spacing="4">
+                <Label fx:id="versionLabel" text="v1.0.0" styleClass="brand-subtitle"/>
+            </VBox>
+        </VBox>
+    </left>
+
+    <center>
+        <StackPane fx:id="rootStack">
+            <VBox>
+                <HBox fx:id="header" styleClass="header" alignment="CENTER_LEFT" spacing="14">
+                    <Button fx:id="menuButton" styleClass="icon-button"/>
+                    <VBox spacing="1">
+                        <Label fx:id="pageTitle" text="%nav.dashboard" styleClass="header-title"/>
+                        <Label fx:id="pageSubtitle" text="%nav.dashboard.subtitle" styleClass="header-subtitle"/>
+                    </VBox>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <TextField fx:id="globalSearch" styleClass="search-field" promptText="%header.search_prompt"/>
+                    <StackPane>
+                        <Button fx:id="notificationButton" styleClass="icon-button"/>
+                        <Label fx:id="notificationBadge" text="0" styleClass="nav-badge"
+                               StackPane.alignment="TOP_RIGHT" translateX="6" translateY="-4"
+                               visible="false" managed="false"/>
+                    </StackPane>
+                    <Button fx:id="themeButton" styleClass="icon-button"/>
+                    <MenuButton fx:id="languageButton" styleClass="icon-button"/>
+                    <MenuButton fx:id="userMenu" styleClass="user-chip"/>
+                </HBox>
+                <StackPane fx:id="contentHost" styleClass="app-content-host" VBox.vgrow="ALWAYS"/>
+                <HBox fx:id="statusBar" styleClass="status-bar" alignment="CENTER_LEFT" spacing="14">
+                    <Label fx:id="dataSourceLabel" text="%status.data_source" styleClass="status-item"/>
+                    <Label fx:id="connectionLabel" text="%status.checking" styleClass="badge, badge-neutral"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label fx:id="clockLabel" text="" styleClass="status-item"/>
+                </HBox>
+            </VBox>
+            <StackPane fx:id="overlayLayer" pickOnBounds="false"/>
+        </StackPane>
+    </center>
+</BorderPane>

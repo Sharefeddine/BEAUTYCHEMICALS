@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.chemmanager.controller.dashboard.DashboardController"
+            fx:id="pageScroll" fitToWidth="true" hbarPolicy="NEVER" styleClass="scroll-pane">
+    <VBox fx:id="contentRoot" styleClass="content-area" spacing="16">
+
+        <HBox styleClass="toolbar" alignment="CENTER_LEFT" spacing="10">
+            <Label fx:id="rangeCaption" text="%dashboard.range" styleClass="field-label"/>
+            <ComboBox fx:id="rangeSelector" prefWidth="180"/>
+            <DatePicker fx:id="fromPicker" prefWidth="150"/>
+            <DatePicker fx:id="toPicker" prefWidth="150"/>
+            <Button fx:id="applyButton" text="%common.apply" styleClass="btn, btn-primary, btn-sm"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <ProgressIndicator fx:id="loading" prefWidth="22" prefHeight="22" visible="false" managed="false"/>
+            <Button fx:id="refreshButton" text="%common.refresh" styleClass="btn, btn-secondary, btn-sm"/>
+            <Button fx:id="exportButton" text="%dashboard.export" styleClass="btn, btn-secondary, btn-sm"/>
+        </HBox>
+
+        <FlowPane fx:id="kpiGrid" hgap="14" vgap="14" prefWrapLength="1280"/>
+        <FlowPane fx:id="chartGrid" hgap="14" vgap="14" prefWrapLength="1280"/>
+        <FlowPane fx:id="rankingGrid" hgap="14" vgap="14" prefWrapLength="1280"/>
+        <FlowPane fx:id="alertGrid" hgap="14" vgap="14" prefWrapLength="1280"/>
+        <FlowPane fx:id="bottomGrid" hgap="14" vgap="14" prefWrapLength="1280"/>
+
+        <Label fx:id="generatedLabel" text="" styleClass="text-muted" style="-fx-font-size: 11px;"/>
+    </VBox>
+</ScrollPane>
