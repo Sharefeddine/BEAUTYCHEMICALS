@@ -94,12 +94,12 @@ public final class ProductsController {
                                 product.isOutOfStock() ? StatusBadge.danger(product.stockOnHand() + " " + product.unit())
                                         : product.isLowStock() ? StatusBadge.warning(product.stockOnHand() + " " + product.unit())
                                         : StatusBadge.success(product.stockOnHand() + " " + product.unit())),
-                        DataTable.Column.amount(I18n.get().t("product.wholesale_price"), 105, Product::wholesalePrice),
-                        DataTable.Column.amount(I18n.get().t("product.retail_price"), 110, Product::retailPrice),
-                        DataTable.Column.text(I18n.get().t("product.margin"), 80,
+                        DataTable.Column.amount(I18n.get().t("product.wholesale_price"), 120, Product::wholesalePrice),
+                        DataTable.Column.amount(I18n.get().t("product.retail_price"), 120, Product::retailPrice),
+                        DataTable.Column.text(I18n.get().t("product.margin"), 75,
                                 product -> Formatters.percent(product.marginPercent())),
                         DataTable.Column.amount(I18n.get().t("product.stock_value"), 135, Product::stockValue),
-                        DataTable.Column.node(I18n.get().t("common.status"), 80,
+                        DataTable.Column.node(I18n.get().t("common.status"), 85,
                                 product -> StatusBadge.active(product.active())))
                 .onActivate(this::showDetail)
                 .onLoaded(page -> {

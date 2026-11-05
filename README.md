@@ -70,7 +70,22 @@ overridden by a system property (`-Ddata.mode=...`) or an environment variable
 Demo passwords are hashed with PBKDF2-HMAC-SHA256 at start-up; in API mode hashing is done by
 PHP `password_hash()` (bcrypt) and the client never receives a hash.
 
-## 3. What Phase 1 delivers
+## 3. Screenshots of the delivered build
+
+| | |
+| --- | --- |
+| ![Login](docs/screenshots/01-login-light.png) | ![Dashboard](docs/screenshots/02-dashboard-light.png) |
+| Login (light theme) | Dashboard — every KPI computed from transactions |
+| ![Products](docs/screenshots/03-products.png) | ![Raw materials](docs/screenshots/04-raw-materials.png) |
+| Product catalogue with stock, prices and margins | Raw materials with hazard, SDS and expiry |
+| ![Dark dashboard](docs/screenshots/08-dashboard-dark.png) | ![Arabic dashboard](docs/screenshots/09-dashboard-arabic.png) |
+| Dark theme | Arabic, full RTL layout |
+
+The images are produced by the headless boot test on every push, so they always show the current
+build; the full set (users, settings, planned module, English) is in
+[`docs/screenshots/`](docs/screenshots).
+
+## 4. What Phase 1 delivers
 
 * **Login** — validated form, password reveal toggle, throttling after repeated failures,
   remembered username, error messages translated from the service layer, demo hint.
@@ -97,7 +112,10 @@ PHP `password_hash()` (bcrypt) and the client never receives a hash.
   a parity test; `NodeOrientation` flips the whole scene graph, not just the labels.
 * **Light / dark themes** — CSS-variable style sheets applied at runtime.
 * **Tests** — bundles parity, PBKDF2 hashing, the 12-role permission matrix, money rounding,
-  date ranges and the dashboard aggregations (computed vs. recomputed from the dataset).
+  date ranges, the dashboard aggregations (computed vs. recomputed from the dataset) and a
+  headless boot test that opens every screen and captures the screenshots above.
+* **Tooling** — `python3 tools/fxml_check.py` validates every FXML against its controller
+  (ids, handlers, i18n keys, style classes) without a JVM.
 
 Screens that belong to phases 2–8 (formulations, production, inventory, purchasing,
 suppliers, sales, customers, distribution, finance, expenses, employees, reports, chemical
@@ -105,7 +123,7 @@ safety) already have their route, permission and screen; each shows the planned 
 of the module plus its phase. There are no disabled or decorative buttons: every control in
 the interface performs the action it advertises.
 
-## 4. Repository layout
+## 5. Repository layout
 
 ```
 pom.xml                              Maven build (Java 21 + JavaFX 21)
@@ -133,7 +151,7 @@ docs/                                architecture, ER diagram, design system, ro
 .github/workflows/ci.yml             build + tests, publishes logs to the ci-reports branch
 ```
 
-## 5. Documentation
+## 6. Documentation
 
 | Document | Content |
 | --- | --- |
@@ -143,8 +161,9 @@ docs/                                architecture, ER diagram, design system, ro
 | [`docs/04-roadmap.md`](docs/04-roadmap.md) | Eight delivery phases and their acceptance criteria |
 | [`docs/05-security-rbac.md`](docs/05-security-rbac.md) | 12 roles × permissions matrix, auth flow, audit rules |
 | [`docs/07-operations.md`](docs/07-operations.md) | Backups, restore drill, deployment, monitoring |
+| [`docs/PHASE-1-REPORT.md`](docs/PHASE-1-REPORT.md) | Phase 1 delivery report: verification, deliverables, review checklist |
 
-## 6. Editing the translations
+## 7. Editing the translations
 
 The `.properties` bundles are generated so that the three languages cannot drift apart:
 
@@ -157,7 +176,7 @@ python3 tools/i18n/audit.py    # checks that every key used in Java/FXML exists
 must be translated in `tools/i18n/ar.py` and `tools/i18n/en.py`, otherwise the build step and
 `BundleParityTest` fail.
 
-## 7. Continuous integration
+## 8. Continuous integration
 
 `.github/workflows/ci.yml` compiles the project and runs the test suite on every push. The
 full Maven log, the surefire reports and a glyph inventory are published to the `ci-reports`
