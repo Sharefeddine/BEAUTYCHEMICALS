@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.chemmanager.localization.BundleParityTest
 -------------------------------------------------------------------------------
-Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.250 s -- in com.chemmanager.localization.BundleParityTest
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.670 s -- in com.chemmanager.localization.BundleParityTest
