@@ -139,7 +139,12 @@ class ApplicationSmokeTest {
 
     /** The first screen of the shell must be laid out and fully opaque, never blank. */
     private void assertContentVisible() {
-        javafx.scene.Node host = AppContext.get().stage().getScene().getRoot().lookup("#contentHost");
+        javafx.scene.Scene scene = AppContext.get().stage().getScene();
+        // In a headless session the render pulse can be idle, so force the layout pass the way
+        // a visible window would: the assertion must validate the screen, not the pulse.
+        scene.getRoot().applyCss();
+        scene.getRoot().layout();
+        javafx.scene.Node host = scene.getRoot().lookup("#contentHost");
         assertNotNull(host, "the shell must expose its content host");
         javafx.scene.Parent pane = (javafx.scene.Parent) host;
         assertTrue(!pane.getChildrenUnmodifiable().isEmpty(), "the shell must open a module");
