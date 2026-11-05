@@ -20,48 +20,36 @@
 [INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ chemmanager-erp ---
 [INFO] Recompiling the module because of changed dependency.
 [INFO] Compiling 8 source files with javac [debug parameters release 21] to target/test-classes
-[INFO] 
-[INFO] --- surefire:3.2.5:test (default-test) @ chemmanager-erp ---
-[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
-[INFO] 
-[INFO] -------------------------------------------------------
-[INFO]  T E S T S
-[INFO] -------------------------------------------------------
-[INFO] Running com.chemmanager.security.RolesTest
-[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.122 s -- in com.chemmanager.security.RolesTest
-[INFO] Running com.chemmanager.security.PasswordHasherTest
-[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.701 s -- in com.chemmanager.security.PasswordHasherTest
-[INFO] Running com.chemmanager.service.MockDashboardServiceTest
-[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.837 s -- in com.chemmanager.service.MockDashboardServiceTest
-[INFO] Running com.chemmanager.service.MockAuthServiceTest
-[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.157 s -- in com.chemmanager.service.MockAuthServiceTest
-[INFO] Running com.chemmanager.localization.BundleParityTest
-Nov 05, 2026 5:14:58 PM java.util.prefs.FileSystemPreferences$1 run
-INFO: Created user preferences directory.
-[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.275 s -- in com.chemmanager.localization.BundleParityTest
-[INFO] Running com.chemmanager.util.DateRangesTest
-[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.010 s -- in com.chemmanager.util.DateRangesTest
-[INFO] Running com.chemmanager.util.MoneyTest
-[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.076 s -- in com.chemmanager.util.MoneyTest
-[INFO] Running com.chemmanager.app.ApplicationSmokeTest
-Nov 05, 2026 5:15:00 PM com.sun.javafx.application.PlatformImpl startup
-WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @33c7e1bb'
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/test/java/com/chemmanager/app/ApplicationSmokeTest.java:[144,25] cannot find symbol
+  symbol:   method getChildrenUnmodifiable()
+  location: variable host of type javafx.scene.Node
+[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/test/java/com/chemmanager/app/ApplicationSmokeTest.java:[145,41] cannot find symbol
+  symbol:   method getChildrenUnmodifiable()
+  location: variable host of type javafx.scene.Node
+[INFO] 2 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  6.773 s
+[INFO] Finished at: 2026-11-05T17:17:15Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.13.0:testCompile (default-testCompile) on project chemmanager-erp: Compilation failure: Compilation failure: 
+[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/test/java/com/chemmanager/app/ApplicationSmokeTest.java:[144,25] cannot find symbol
+[ERROR]   symbol:   method getChildrenUnmodifiable()
+[ERROR]   location: variable host of type javafx.scene.Node
+[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/test/java/com/chemmanager/app/ApplicationSmokeTest.java:[145,41] cannot find symbol
+[ERROR]   symbol:   method getChildrenUnmodifiable()
+[ERROR]   location: variable host of type javafx.scene.Node
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
 
-(java:2480): dbind-WARNING **: 17:15:07.882: AT-SPI: Error retrieving accessibility bus address: org.freedesktop.DBus.Error.ServiceUnknown: The name org.a11y.Bus was not provided by any .service files
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 38.52 s -- in com.chemmanager.app.ApplicationSmokeTest
-[INFO] 
-[INFO] Results:
-[INFO] 
-[INFO] Tests run: 37, Failures: 0, Errors: 0, Skipped: 0
-[INFO] 
-[INFO] 
-[INFO] --- jar:3.4.1:jar (default-jar) @ chemmanager-erp ---
-[INFO] Building jar: /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/target/chemmanager-erp.jar
-[INFO] ------------------------------------------------------------------------
-[INFO] BUILD SUCCESS
-[INFO] ------------------------------------------------------------------------
-[INFO] Total time:  52.601 s
-[INFO] Finished at: 2026-11-05T17:15:39Z
-[INFO] ------------------------------------------------------------------------
-
-EXIT_CODE=0
+EXIT_CODE=1
