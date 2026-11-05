@@ -28,57 +28,34 @@
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running com.chemmanager.security.RolesTest
-[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.074 s -- in com.chemmanager.security.RolesTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.114 s -- in com.chemmanager.security.RolesTest
 [INFO] Running com.chemmanager.security.PasswordHasherTest
-[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.715 s -- in com.chemmanager.security.PasswordHasherTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.403 s -- in com.chemmanager.security.PasswordHasherTest
 [INFO] Running com.chemmanager.service.MockDashboardServiceTest
-[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.346 s -- in com.chemmanager.service.MockDashboardServiceTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.895 s -- in com.chemmanager.service.MockDashboardServiceTest
 [INFO] Running com.chemmanager.service.MockAuthServiceTest
-[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.114 s -- in com.chemmanager.service.MockAuthServiceTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.171 s -- in com.chemmanager.service.MockAuthServiceTest
 [INFO] Running com.chemmanager.localization.BundleParityTest
-Nov 05, 2026 5:04:02 PM java.util.prefs.FileSystemPreferences$1 run
+Nov 05, 2026 5:05:44 PM java.util.prefs.FileSystemPreferences$1 run
 INFO: Created user preferences directory.
-[ERROR] Tests run: 5, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 1.093 s <<< FAILURE! -- in com.chemmanager.localization.BundleParityTest
-[ERROR] com.chemmanager.localization.BundleParityTest.noValueIsBlankOrAnUnresolvedKey -- Time elapsed: 0.014 s <<< FAILURE!
-org.opentest4j.AssertionFailedError: fr has blank values: [dashboard.purchases_hint] ==> expected: <true> but was: <false>
-	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
-	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
-	at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:63)
-	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:36)
-	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:214)
-	at com.chemmanager.localization.BundleParityTest.noValueIsBlankOrAnUnresolvedKey(BundleParityTest.java:63)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.316 s -- in com.chemmanager.localization.BundleParityTest
 [INFO] Running com.chemmanager.util.DateRangesTest
 [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.009 s -- in com.chemmanager.util.DateRangesTest
 [INFO] Running com.chemmanager.util.MoneyTest
-[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.095 s -- in com.chemmanager.util.MoneyTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.127 s -- in com.chemmanager.util.MoneyTest
 [INFO] 
 [INFO] Results:
 [INFO] 
-[ERROR] Failures: 
-[ERROR]   BundleParityTest.noValueIsBlankOrAnUnresolvedKey:63 fr has blank values: [dashboard.purchases_hint] ==> expected: <true> but was: <false>
+[INFO] Tests run: 34, Failures: 0, Errors: 0, Skipped: 0
 [INFO] 
-[ERROR] Tests run: 34, Failures: 1, Errors: 0, Skipped: 0
 [INFO] 
+[INFO] --- jar:3.4.1:jar (default-jar) @ chemmanager-erp ---
+[INFO] Building jar: /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/target/chemmanager-erp.jar
 [INFO] ------------------------------------------------------------------------
-[INFO] BUILD FAILURE
+[INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  8.547 s
-[INFO] Finished at: 2026-11-05T17:04:04Z
+[INFO] Total time:  15.474 s
+[INFO] Finished at: 2026-11-05T17:05:47Z
 [INFO] ------------------------------------------------------------------------
-[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.2.5:test (default-test) on project chemmanager-erp: There are test failures.
-[ERROR] 
-[ERROR] Please refer to /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/target/surefire-reports for the individual test results.
-[ERROR] Please refer to dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
-[ERROR] -> [Help 1]
-[ERROR] 
-[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
-[ERROR] Re-run Maven using the -X switch to enable full debug logging.
-[ERROR] 
-[ERROR] For more information about the errors and possible solutions, please read the following articles:
-[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
 
-EXIT_CODE=1
+EXIT_CODE=0
