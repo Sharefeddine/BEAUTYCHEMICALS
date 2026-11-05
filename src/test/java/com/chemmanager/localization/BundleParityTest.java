@@ -80,6 +80,26 @@ class BundleParityTest {
     }
 
     @Test
+    void valuesKeepSingleApostrophes() {
+        // properties files are also read verbatim by FXMLLoader, so doubles would be displayed
+        for (Locale locale : LOCALES) {
+            ResourceBundle bundle = bundle(locale);
+            for (String key : keys(bundle)) {
+                assertFalse(bundle.getString(key).contains("''"),
+                        locale + "/" + key + " must use a single apostrophe");
+            }
+        }
+    }
+
+    @Test
+    void apostrophesSurviveMessageFormatting() {
+        String formatted = I18n.get().t("login.remember");
+        assertTrue(formatted.contains("'"), formatted);
+        String withArgument = I18n.get().t("validation.between", "1", "2");
+        assertTrue(withArgument.contains("1") && withArgument.contains("2"), withArgument);
+    }
+
+    @Test
     void arabicBundleIsActuallyArabic() {
         ResourceBundle arabic = bundle(Locale.forLanguageTag("ar"));
         String dashboard = arabic.getString("nav.dashboard");

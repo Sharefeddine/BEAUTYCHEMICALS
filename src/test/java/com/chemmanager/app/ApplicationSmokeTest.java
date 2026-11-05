@@ -84,6 +84,7 @@ class ApplicationSmokeTest {
             assertNotNull(AppContext.get().navigation(), "the shell must install the navigation");
         });
         steps.add(() -> { });
+        steps.add(() -> { });
         steps.add(() -> shoot(stage, "02-dashboard-light"));
         addScreen(steps, stage, NavigationModule.PRODUCTS, "03-products");
         addScreen(steps, stage, NavigationModule.RAW_MATERIALS, "04-raw-materials");
@@ -112,7 +113,7 @@ class ApplicationSmokeTest {
         for (int index = 0; index < steps.size(); index++) {
             Runnable step = steps.get(index);
             boolean last = index == steps.size() - 1;
-            timeline.getKeyFrames().add(new KeyFrame(Duration.millis(700L * (index + 1)), event -> {
+            timeline.getKeyFrames().add(new KeyFrame(Duration.millis(900L * (index + 1)), event -> {
                 try {
                     step.run();
                 } catch (Throwable throwable) {

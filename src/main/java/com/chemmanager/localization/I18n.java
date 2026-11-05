@@ -105,7 +105,10 @@ public final class I18n {
         if (args == null || args.length == 0) {
             return pattern;
         }
-        return new MessageFormat(pattern, bundle.getLocale()).format(args);
+        // MessageFormat treats a single quote as the start of a quoted section, which would
+        // swallow the apostrophes of French and Arabic text; escape them before formatting.
+        String escaped = pattern.replace("'", "''");
+        return new MessageFormat(escaped, bundle.getLocale()).format(args);
     }
 
     /** Locale-aware formatter used by {@code util.Formatters}. */

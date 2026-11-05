@@ -20,7 +20,7 @@
             <Label text="C" styleClass="brand-mark"/>
             <VBox spacing="2">
                 <Label fx:id="heroTitle" text="%login.hero_title" styleClass="hero-title"/>
-                <Label text="Chemical Manufacturing • Distribution" styleClass="hero-subtitle"/>
+                <Label text="%app.tagline" styleClass="hero-subtitle"/>
             </VBox>
         </HBox>
         <Label fx:id="heroSubtitle" text="%login.hero_subtitle" styleClass="hero-subtitle"

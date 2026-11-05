@@ -73,27 +73,25 @@ public final class RawMaterialsController {
 
         table = new DataTable<>(this::loadPage, I18n.get().t("materials.search_prompt"))
                 .columns(
-                        DataTable.Column.key(I18n.get().t("material.code"), 95, RawMaterial::code),
-                        DataTable.Column.text(I18n.get().t("material.commercial_name"), 200,
+                        DataTable.Column.key(I18n.get().t("material.code"), 90, RawMaterial::code),
+                        DataTable.Column.text(I18n.get().t("material.commercial_name"), 185,
                                 RawMaterial::commercialName),
-                        DataTable.Column.text(I18n.get().t("material.chemical_name"), 190,
+                        DataTable.Column.text(I18n.get().t("material.chemical_name"), 160,
                                 material -> material.chemicalName() == null ? "—" : material.chemicalName()),
-                        DataTable.Column.node(I18n.get().t("common.category"), 120,
+                        DataTable.Column.node(I18n.get().t("common.category"), 110,
                                 material -> StatusBadge.neutral(Labels.materialCategory(material.category()))),
-                        DataTable.Column.text(I18n.get().t("material.supplier"), 160, RawMaterial::supplierName),
-                        DataTable.Column.node(I18n.get().t("material.stock"), 110,
+                        DataTable.Column.text(I18n.get().t("material.supplier"), 130, RawMaterial::supplierName),
+                        DataTable.Column.node(I18n.get().t("material.stock"), 115,
                                 material -> material.isLowStock()
                                         ? StatusBadge.warning(Formatters.quantity(material.stock(), material.storageUnit()))
                                         : StatusBadge.success(Formatters.quantity(material.stock(), material.storageUnit()))),
-                        DataTable.Column.node(I18n.get().t("material.hazard"), 130, StatusBadge::hazard),
-                        DataTable.Column.node(I18n.get().t("material.sds"), 90,
+                        DataTable.Column.node(I18n.get().t("material.hazard"), 115, StatusBadge::hazard),
+                        DataTable.Column.node(I18n.get().t("material.sds"), 70,
                                 material -> material.sdsAvailable()
                                         ? StatusBadge.success(I18n.get().t("common.available"))
                                         : StatusBadge.danger(I18n.get().t("common.missing"))),
-                        DataTable.Column.node(I18n.get().t("material.expiry_date"), 140,
-                                material -> expiryBadge(material.expirationDate())),
-                        DataTable.Column.text(I18n.get().t("material.storage_location"), 110,
-                                RawMaterial::storageLocation))
+                        DataTable.Column.node(I18n.get().t("material.expiry_date"), 120,
+                                material -> expiryBadge(material.expirationDate())))
                 .onActivate(this::showDetail)
                 .onLoaded(page -> {
                     lastPage = page;

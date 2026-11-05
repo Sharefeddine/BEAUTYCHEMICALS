@@ -202,43 +202,43 @@ public final class DashboardController {
         kpiGrid.getChildren().setAll(
                 new KpiCard(Icons.Icon.MONEY, "kpi-icon-primary")
                         .title(I18n.get().t("dashboard.sales_today"))
-                        .value(Money.format(kpis.salesToday()))
+                        .value(Money.compact(kpis.salesToday())).tooltip(Money.format(kpis.salesToday()))
                         .hint(I18n.get().t("dashboard.today_hint", Formatters.shortDate(LocalDate.now()))),
                 new KpiCard(Icons.Icon.SALES, "kpi-icon-success")
                         .title(I18n.get().t("dashboard.sales_month"))
-                        .value(Money.format(kpis.salesMonth()))
+                        .value(Money.compact(kpis.salesMonth())).tooltip(Money.format(kpis.salesMonth()))
                         .hint(I18n.get().t("dashboard.sales_year_hint", Money.compact(kpis.salesYear()))),
                 new KpiCard(Icons.Icon.REPORTS, "kpi-icon-accent")
                         .title(I18n.get().t("dashboard.sales_range"))
-                        .value(Money.format(kpis.salesInRange()))
+                        .value(Money.compact(kpis.salesInRange())).tooltip(Money.format(kpis.salesInRange()))
                         .hint(I18n.get().t("dashboard.avg_basket", Money.format(kpis.averageBasket()))),
                 new KpiCard(Icons.Icon.PURCHASING, "kpi-icon-warning")
                         .title(I18n.get().t("dashboard.purchases"))
-                        .value(Money.format(kpis.purchasesInRange()))
+                        .value(Money.compact(kpis.purchasesInRange())).tooltip(Money.format(kpis.purchasesInRange()))
                         .hint(I18n.get().t("dashboard.payables_hint", Money.compact(kpis.payables()))),
                 new KpiCard(Icons.Icon.EXPENSES, "kpi-icon-danger")
                         .title(I18n.get().t("dashboard.expenses"))
-                        .value(Money.format(kpis.expensesInRange()))
+                        .value(Money.compact(kpis.expensesInRange())).tooltip(Money.format(kpis.expensesInRange()))
                         .hint(I18n.get().t("dashboard.range_hint")),
                 new KpiCard(Icons.Icon.PERCENT, "kpi-icon-success")
                         .title(I18n.get().t("dashboard.gross_profit"))
-                        .value(Money.format(kpis.grossProfitInRange()))
+                        .value(Money.compact(kpis.grossProfitInRange())).tooltip(Money.format(kpis.grossProfitInRange()))
                         .trend(I18n.get().t("dashboard.margin", kpis.marginPercent().toPlainString()), true),
                 new KpiCard(Icons.Icon.SCALE, "kpi-icon-teal")
                         .title(I18n.get().t("dashboard.net_profit"))
-                        .value(Money.format(kpis.netProfitInRange()))
+                        .value(Money.compact(kpis.netProfitInRange())).tooltip(Money.format(kpis.netProfitInRange()))
                         .hint(I18n.get().t("dashboard.after_expenses")),
                 new KpiCard(Icons.Icon.CUBE, "kpi-icon-info")
                         .title(I18n.get().t("dashboard.inventory_value"))
-                        .value(Money.format(kpis.inventoryValue()))
+                        .value(Money.compact(kpis.inventoryValue())).tooltip(Money.format(kpis.inventoryValue()))
                         .hint(I18n.get().t("dashboard.low_stock_hint", kpis.lowStockCount())),
                 new KpiCard(Icons.Icon.SALES, "kpi-icon-warning")
                         .title(I18n.get().t("dashboard.receivables"))
-                        .value(Money.format(kpis.receivables()))
+                        .value(Money.compact(kpis.receivables())).tooltip(Money.format(kpis.receivables()))
                         .hint(I18n.get().t("dashboard.open_orders", kpis.openOrders())),
                 new KpiCard(Icons.Icon.MONEY, "kpi-icon-primary")
                         .title(I18n.get().t("dashboard.cash_position"))
-                        .value(Money.format(kpis.cashBalance()))
+                        .value(Money.compact(kpis.cashBalance())).tooltip(Money.format(kpis.cashBalance()))
                         .hint(I18n.get().t("dashboard.cash_hint", Money.compact(kpis.payables()))),
                 new KpiCard(Icons.Icon.PRODUCTION, "kpi-icon-accent")
                         .title(I18n.get().t("dashboard.production_range"))

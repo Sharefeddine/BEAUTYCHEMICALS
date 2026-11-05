@@ -1,9 +1,12 @@
 package com.chemmanager.component;
 
+import java.io.InputStream;
+
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Font;
 
 /**
  * Central icon catalogue. One semantic name per concept used across the application so the
@@ -97,6 +100,15 @@ public final class Icons {
         }
     }
 
+    /**
+     * Physical path of the glyph font inside the FontAwesomeFX artifact. JavaFX does not
+     * register fonts shipped in a jar automatically, so it is loaded once here: without this
+     * the glyphs render as empty squares on every platform.
+     */
+    private static final String FONT_RESOURCE = "/de/jensd/fx/glyphs/fontawesome/fontawesome-webfont.ttf";
+
+    private static String fontFamily;
+
     private Icons() {
     }
 
@@ -107,9 +119,33 @@ public final class Icons {
     public static FontAwesomeIconView glyph(Icon icon, double sizePx) {
         FontAwesomeIconView view = new FontAwesomeIconView(icon.glyph());
         view.getStyleClass().add("glyph-icon");
-        view.setStyle("-fx-font-size: " + sizePx + "px;");
+        String family = fontFamily();
+        if (family.isEmpty()) {
+            view.setStyle("-fx-font-size: " + sizePx + "px;");
+        } else {
+            view.setFont(Font.font(family, sizePx));
+        }
         view.setMouseTransparent(true);
         return view;
+    }
+
+    /** Loads the glyph font on first use and remembers its family name. */
+    private static synchronized String fontFamily() {
+        if (fontFamily == null) {
+            String family = "";
+            try (InputStream stream = Icons.class.getResourceAsStream(FONT_RESOURCE)) {
+                if (stream != null) {
+                    Font loaded = Font.loadFont(stream, 16);
+                    if (loaded != null && loaded.getFamily() != null && !loaded.getFamily().isBlank()) {
+                        family = loaded.getFamily();
+                    }
+                }
+            } catch (RuntimeException | java.io.IOException ex) {
+                family = "";
+            }
+            fontFamily = family;
+        }
+        return fontFamily;
     }
 
     /** Round coloured container used by KPI cards and the placeholder screens. */

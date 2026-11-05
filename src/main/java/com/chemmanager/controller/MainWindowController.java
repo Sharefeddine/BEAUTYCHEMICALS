@@ -512,6 +512,14 @@ public final class MainWindowController {
 
     private void updateConnectionStateAsync() {
         connectionLabel.setText(I18n.get().t("status.checking"));
+        if (!ServiceFactory.isApiMode()) {
+            // the demo dataset needs no network: say so instead of pretending to be offline
+            backendChecked.set(true);
+            connectionLabel.setText(I18n.get().t("status.source_demo"));
+            connectionLabel.getStyleClass().removeAll("badge-success", "badge-danger");
+            connectionLabel.getStyleClass().add("badge-neutral");
+            return;
+        }
         FxTasks.run(() -> ServiceFactory.backendReachable(), reachable -> {
             backendChecked.set(true);
             connectionLabel.setText(reachable ? I18n.get().t("status.api_online") : I18n.get().t("status.api_offline"));

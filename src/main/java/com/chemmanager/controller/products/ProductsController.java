@@ -84,22 +84,22 @@ public final class ProductsController {
 
         table = new DataTable<>(this::loadPage, I18n.get().t("products.search_prompt"))
                 .columns(
-                        DataTable.Column.key(I18n.get().t("product.sku"), 110, Product::sku),
-                        DataTable.Column.text(I18n.get().t("product.name"), 250,
+                        DataTable.Column.key(I18n.get().t("product.sku"), 100, Product::sku),
+                        DataTable.Column.text(I18n.get().t("product.name"), 210,
                                 product -> product.displayName(I18n.get().isRtl())),
-                        DataTable.Column.node(I18n.get().t("common.category"), 130,
+                        DataTable.Column.node(I18n.get().t("common.category"), 115,
                                 product -> StatusBadge.neutral(Labels.category(product.category()))),
-                        DataTable.Column.text(I18n.get().t("product.packaging"), 120, Product::packaging),
-                        DataTable.Column.node(I18n.get().t("product.stock"), 100, product ->
+                        DataTable.Column.text(I18n.get().t("product.packaging"), 105, Product::packaging),
+                        DataTable.Column.node(I18n.get().t("product.stock"), 95, product ->
                                 product.isOutOfStock() ? StatusBadge.danger(product.stockOnHand() + " " + product.unit())
                                         : product.isLowStock() ? StatusBadge.warning(product.stockOnHand() + " " + product.unit())
                                         : StatusBadge.success(product.stockOnHand() + " " + product.unit())),
-                        DataTable.Column.amount(I18n.get().t("product.wholesale_price"), 120, Product::wholesalePrice),
-                        DataTable.Column.amount(I18n.get().t("product.retail_price"), 120, Product::retailPrice),
-                        DataTable.Column.text(I18n.get().t("product.margin"), 90,
+                        DataTable.Column.amount(I18n.get().t("product.wholesale_price"), 110, Product::wholesalePrice),
+                        DataTable.Column.amount(I18n.get().t("product.retail_price"), 110, Product::retailPrice),
+                        DataTable.Column.text(I18n.get().t("product.margin"), 80,
                                 product -> Formatters.percent(product.marginPercent())),
-                        DataTable.Column.amount(I18n.get().t("product.stock_value"), 120, Product::stockValue),
-                        DataTable.Column.node(I18n.get().t("common.status"), 90,
+                        DataTable.Column.amount(I18n.get().t("product.stock_value"), 110, Product::stockValue),
+                        DataTable.Column.node(I18n.get().t("common.status"), 80,
                                 product -> StatusBadge.active(product.active())))
                 .onActivate(this::showDetail)
                 .onLoaded(page -> {
