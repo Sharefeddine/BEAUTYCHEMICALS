@@ -7,12 +7,15 @@ import java.util.function.Consumer;
 import com.chemmanager.component.Icons;
 import com.chemmanager.localization.I18n;
 
+import java.util.List;
+
 import javafx.animation.FadeTransition;
-import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -45,23 +48,43 @@ public final class NavigationManager {
         if (module == null) {
             return;
         }
+        Node previous = contentHost.getChildren().isEmpty() ? null : contentHost.getChildren().get(0);
         Node view = load(module);
-        contentHost.getChildren().setAll(view);
-        view.setOpacity(0);
-        FadeTransition fade = new FadeTransition(Duration.millis(180), view);
-        fade.setFromValue(0);
-        fade.setToValue(1);
-        fade.setOnFinished(event -> view.setOpacity(1));
-        fade.play();
-        // Safety net: while the window is being shown or resized the animation pulse can be
-        // suspended, which would leave the screen invisible. Force the final state anyway.
-        PauseTransition watchdog = new PauseTransition(Duration.millis(260));
-        watchdog.setOnFinished(event -> view.setOpacity(1));
-        watchdog.play();
+        // The new screen is visible immediately: navigation must never depend on an animation,
+        // which JavaFX does not advance while the window is being shown or resized. Only the
+        // outgoing screen is faded out and then detached.
+        view.setOpacity(1);
+        // StackPane draws the last child on top: the new screen must come last and the outgoing
+        // one stays below (mouse-transparent) only for the duration of the fade.
+        contentHost.getChildren().setAll(previous == null ? List.of(view)
+                : List.of(previous, view));
+        if (previous != null) {
+            previous.setMouseTransparent(true);
+            if (canAnimate()) {
+                FadeTransition fade = new FadeTransition(Duration.millis(160), previous);
+                fade.setToValue(0);
+                fade.setOnFinished(event -> contentHost.getChildren().remove(previous));
+                fade.play();
+                // detach it even if the animation never runs
+                Platform.runLater(() -> {
+                    if (contentHost.getChildren().contains(previous)
+                            && !fade.getStatus().equals(javafx.animation.Animation.Status.RUNNING)) {
+                        contentHost.getChildren().remove(previous);
+                    }
+                });
+            } else {
+                contentHost.getChildren().remove(previous);
+            }
+        }
         current.set(module);
         if (onModuleChanged != null) {
             onModuleChanged.accept(module);
         }
+    }
+
+    private boolean canAnimate() {
+        Scene scene = contentHost.getScene();
+        return scene != null && scene.getWindow() != null && scene.getWindow().isShowing();
     }
 
     /** Reloads the current screen (used after a language or theme change). */
