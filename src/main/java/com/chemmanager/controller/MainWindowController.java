@@ -515,7 +515,7 @@ public final class MainWindowController {
         if (!ServiceFactory.isApiMode()) {
             // the demo dataset needs no network: say so instead of pretending to be offline
             backendChecked.set(true);
-            connectionLabel.setText(I18n.get().t("status.source_demo"));
+            connectionLabel.setText(I18n.get().t("status.demo_badge"));
             connectionLabel.getStyleClass().removeAll("badge-success", "badge-danger");
             connectionLabel.getStyleClass().add("badge-neutral");
             return;

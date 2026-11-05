@@ -257,14 +257,12 @@ public final class SettingsController {
 
     private void buildBackupInfo() {
         backupInfo.getChildren().clear();
-        Label title = new Label(I18n.get().t("settings.backup.title"));
-        title.getStyleClass().add("h3");
         Label body = new Label(I18n.get().t("settings.backup.body"));
         body.getStyleClass().add("text-muted");
         body.setWrapText(true);
         HBox status = new HBox(8, StatusBadge.info(I18n.get().t("settings.backup.status")),
                 new Label(I18n.get().t("settings.backup.schedule")));
         status.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
-        backupInfo.getChildren().addAll(title, body, status);
+        backupInfo.getChildren().addAll(body, status);
     }
 }

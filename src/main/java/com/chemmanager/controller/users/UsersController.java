@@ -55,15 +55,13 @@ public final class UsersController {
 
         table = new DataTable<>(this::page, I18n.get().t("users.search_prompt"))
                 .columns(
-                        DataTable.Column.text(I18n.get().t("user.full_name"), 200, User::fullName),
-                        DataTable.Column.key(I18n.get().t("login.username"), 130, User::username),
-                        DataTable.Column.node(I18n.get().t("user.role"), 190,
+                        DataTable.Column.text(I18n.get().t("user.full_name"), 175, User::fullName),
+                        DataTable.Column.key(I18n.get().t("login.username"), 105, User::username),
+                        DataTable.Column.node(I18n.get().t("user.role"), 135,
                                 user -> StatusBadge.primary(Labels.get("role." + user.primaryRoleCode().toLowerCase(),
                                         user.primaryRoleCode()))),
-                        DataTable.Column.text(I18n.get().t("user.job_title"), 180, User::jobTitle),
-                        DataTable.Column.text(I18n.get().t("user.email"), 190, User::email),
-                        DataTable.Column.text(I18n.get().t("user.phone"), 140, User::phone),
-                        DataTable.Column.text(I18n.get().t("user.last_login"), 140,
+                        DataTable.Column.text(I18n.get().t("user.job_title"), 150, User::jobTitle),
+                        DataTable.Column.text(I18n.get().t("user.last_login"), 115,
                                 user -> Formatters.dateTime(user.lastLogin())),
                         DataTable.Column.node(I18n.get().t("common.status"), 90,
                                 user -> StatusBadge.active(user.active())))
@@ -106,7 +104,7 @@ public final class UsersController {
     private Card roleCard(Role role) {
         Card card = new Card(Labels.get(role.nameKey(), role.code()),
                 I18n.get().t("role.permission_count", role.permissions().size()));
-        card.setPrefWidth(520);
+        card.setPrefWidth(330);
         FlowPane chips = new FlowPane(6, 6);
         role.permissions().stream().sorted().limit(14).forEach(permission ->
                 chips.getChildren().add(StatusBadge.neutral(shortPermission(permission))));

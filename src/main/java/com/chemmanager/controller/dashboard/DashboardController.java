@@ -249,9 +249,10 @@ public final class DashboardController {
                         .value(Integer.toString(kpis.expiringCount()))
                         .hint(I18n.get().t("dashboard.expiring_hint")),
                 new KpiCard(Icons.Icon.REPORTS, "kpi-icon-primary")
-                        .title(I18n.get().t("dashboard.period"))
-                        .value(DateRanges.describe(range))
-                        .hint(I18n.get().t("dashboard.days_count", range.days())));
+                        .title(I18n.get().t("dashboard.average_basket"))
+                        .value(Money.compact(kpis.averageBasket()))
+                        .tooltip(Money.format(kpis.averageBasket()))
+                        .hint(I18n.get().t("dashboard.average_basket_hint", kpis.openOrders())));
     }
 
     private void renderCharts(DashboardData data) {
