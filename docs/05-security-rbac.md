@@ -11,7 +11,7 @@ each request; the JavaFX interface only hides what the user cannot use, it never
 | --- | --- |
 | Login | `POST /api/auth/login` with `{username, password}`; the client sends no other credential |
 | Password storage | `password_hash($pwd, PASSWORD_BCRYPT)` in MySQL; demo mode uses PBKDF2-HMAC-SHA256, 120 000 iterations, 16-byte random salt, constant-time comparison |
-| Session | opaque 32-byte random token, stored **hashed** (`sha256`) in `api_tokens`, sent as `Authorization: Bearer <token>` |
+| Session | opaque 32-byte random token, stored **hashed** (`sha256`) in `apiTokens.tokenHash`, sent as `Authorization: Bearer <token>` |
 | Lifetime | 8 h sliding, absolute maximum 12 h; `POST /api/auth/logout` revokes immediately |
 | Throttling | 5 failed attempts per username/IP → lockout 2 minutes, exponential after that; every failure is audited |
 | Inactive account | login refused with `login.error.inactive` |
@@ -30,7 +30,7 @@ SessionContext.set(Session(token, user, permissions, expiresAt))
    → PHP middleware recomputes the permissions from the database (never from the token payload)
 ```
 
-## 2. Permission catalogue (44 codes)
+## 2. Permission catalogue (45 codes)
 
 | Module | Codes |
 | --- | --- |
@@ -116,9 +116,9 @@ can never be silently missing from the administrator role.
 | --- | --- |
 | API routing | every route declares its required permission; the dispatcher rejects with `403` before the controller runs |
 | Service layer | ownership and state rules (e.g. only `DRAFT` can be edited, only `PENDING` can be approved) |
-| Database | `role_permissions` is the source of truth; no permission hardcoded in SQL |
+| Database | `rolePermissions` is the source of truth; no permission hardcoded in SQL |
 | Client | `NavigationManager` hides forbidden modules; actions are also checked before opening dialogs (defence in depth, never the only barrier) |
-| Audit | every write stores `user_id`, `action`, `entity`, `entity_id`, `payload` and `occurred_at` |
+| Audit | every write stores `userId`, `action`, `entity`, `entityId`, `payload` and `occurredAt` |
 
 Typical refusals:
 
@@ -142,7 +142,7 @@ Typical refusals:
 5. **No negative stock** unless the administrator explicitly enables it and the user holds
    `INVENTORY_ADJUST`.
 6. **Finalised financial documents are immutable**; corrections are credit notes.
-7. **Soft delete only.** `deleted_at` for master data, never a physical delete on documents,
+7. **Soft delete only.** `deletedAt` for master data, never a physical delete on documents,
    stock movements or audit rows.
 8. **Audit trail is append-only**; the application user has no `UPDATE`/`DELETE` grant on it.
 

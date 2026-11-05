@@ -8,13 +8,17 @@ data, approved formulations, batch-controlled production, FEFO warehousing, purc
 sales, delivery, finance and reporting — on top of a JavaFX client and a plain-PHP REST API
 backed by MySQL 8.
 
-> **Delivery status — Phase 1 (complete):** project foundation, design system, documentation,
-> login, application shell (sidebar, header, notifications, themes, AR/FR/EN) and the
-> executive dashboard with indicative data read from the service layer. Modules that ship in
-> later phases are visible in the navigation with their planned phase badge; they open a
-> "planned capabilities" screen so that no button is dead and no screen is a mock-up.
-> Phase 2 (inventory, PHP API, MySQL schema) starts **only after the Phase 1 review is
-> approved** (see [`docs/04-roadmap.md`](docs/04-roadmap.md)).
+> **Delivery status**
+>
+> * **Phase 1 — complete:** project foundation, design system, documentation, login, application
+>   shell (sidebar, header, notifications, themes, AR/FR/EN) and the executive dashboard with
+>   data read from the service layer. Modules of later phases are visible in the navigation with
+>   their phase badge; they open a "planned capabilities" screen, so no button is dead and no
+>   screen is a mock-up — see [`docs/PHASE-1-REPORT.md`](docs/PHASE-1-REPORT.md).
+> * **Phase 2 — in progress:** the MySQL 8 database is delivered (68 tables, camelCase without
+>   underscores, seeds and validation in CI) — see
+>   [`docs/PHASE-2-DATABASE.md`](docs/PHASE-2-DATABASE.md). The PHP REST API is next
+>   (see [`docs/04-roadmap.md`](docs/04-roadmap.md)).
 
 ---
 
@@ -147,6 +151,9 @@ src/main/resources/
   css/                               app.css, theme-light.css, theme-dark.css
   i18n/                              messages_fr/ar/en.properties (generated)
 tools/i18n/                          translation sources + build.py + audit.py
+tools/db/                            checkSchema.py (CI validator), generateErDoc.py
+database/schema/                     8 DDL files, 68 tables (camelCase, no underscore)
+database/seed/                       6 seeders: permissions, roles, reference data, admin, settings
 docs/                                architecture, ER diagram, design system, roadmap, RBAC
 .github/workflows/ci.yml             build + tests, publishes logs to the ci-reports branch
 ```
@@ -162,6 +169,8 @@ docs/                                architecture, ER diagram, design system, ro
 | [`docs/05-security-rbac.md`](docs/05-security-rbac.md) | 12 roles × permissions matrix, auth flow, audit rules |
 | [`docs/07-operations.md`](docs/07-operations.md) | Backups, restore drill, deployment, monitoring |
 | [`docs/PHASE-1-REPORT.md`](docs/PHASE-1-REPORT.md) | Phase 1 delivery report: verification, deliverables, review checklist |
+| [`docs/PHASE-2-DATABASE.md`](docs/PHASE-2-DATABASE.md) | Phase 2 database report: 68 tables, seeds, validation, decisions |
+| [`database/README.md`](database/README.md) | Schema conventions, installation, least-privilege account, enforced rules |
 
 ## 7. Editing the translations
 
@@ -178,6 +187,8 @@ must be translated in `tools/i18n/ar.py` and `tools/i18n/en.py`, otherwise the b
 
 ## 8. Continuous integration
 
-`.github/workflows/ci.yml` compiles the project and runs the test suite on every push. The
+`.github/workflows/ci.yml` first validates the database (identifiers, foreign keys, seed
+consistency, generated ER document), then compiles the client and runs the test suite on every
+push. The
 full Maven log, the surefire reports and a glyph inventory are published to the `ci-reports`
 branch so a build failure can be diagnosed without downloading artefacts.

@@ -16,6 +16,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Validate database schema, seeds and generated ER document
+        run: |
+          python3 tools/db/checkSchema.py
+          python3 tools/db/generateErDoc.py --check
+
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:

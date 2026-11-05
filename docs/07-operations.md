@@ -41,9 +41,9 @@ ever stored on the workstation.
 ```bash
 # 1. database
 mysql -u root -p -e "CREATE DATABASE chemmanager CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
-mysql -u root -p chemmanager < database/schema/01_schema.sql
-mysql -u root -p chemmanager < database/seed/01_permissions.sql
-mysql -u root -p chemmanager < database/seed/02_roles.sql
+set -e
+for file in database/schema/*.sql; do mysql -u root -p chemmanager < "$file"; done
+for file in database/seed/*.sql;  do mysql -u root -p chemmanager < "$file"; done
 # 2. application account (no DELETE, no DDL)
 mysql -u root -p chemmanager -e "
   CREATE USER 'chemapp'@'10.0.0.%' IDENTIFIED BY '<strong-password>';
@@ -93,7 +93,7 @@ Recovery targets: RPO 24 h (daily dump), RTO 2 h (restore + API restart + client
 | Check notification centre for failed backups | daily | shown to administrators at login |
 | Expired SDS / batches report | weekly | Reports → chemical safety (Phase 8) |
 | Table statistics / index review | monthly | `ANALYZE TABLE` on the largest transactional tables |
-| Purge of expired `api_tokens` | weekly | cron on the API server |
+| Purge of expired `apiTokens` | weekly | cron on the API server |
 | Archiving of closed accounting periods | yearly | read-only export, data stays queryable |
 | Client update rollout | on release | replace the jar, keep the previous version for one week |
 
@@ -102,17 +102,17 @@ Recovery targets: RPO 24 h (daily dump), RTO 2 h (restore + API restart + client
 | Symptom | First checks | Action |
 | --- | --- | --- |
 | "Server unreachable" in the client | `GET /api/health`, service status, firewall | restart php-fpm/Apache; the client keeps working read-only in `AUTO` mode only if it was started in that mode |
-| Login refused for everyone | MySQL up? `users.is_active`? clock skew on the token validity | restore the database service, then ask users to sign in again |
+| Login refused for everyone | MySQL up? `users.isActive`? clock skew on the token validity | restore the database service, then ask users to sign in again |
 | Numbers do not match the paperwork | data source indicator in the status bar (demo vs API) | the client may be running in `MOCK`; switch in Settings |
 | Two users edit the same document | `409 CONFLICT` response, audit log | the second user reloads the document; the API never merges silently |
-| A batch is missing from stock | `stock_movements` for that batch, `quality_status` | quarantined batches are invisible to sales by design |
+| A batch is missing from stock | `stockMovements` for that batch, `qualityStatus` | quarantined batches are invisible to sales by design |
 | Performance degradation | slow query log, index usage, table sizes | add the missing index through a versioned migration, never by hand |
 
 ## 8. Logging and monitoring
 
 * API logs: `/var/log/chemmanager/api-YYYY-MM-DD.log` (rotated daily, 30 days), one line per
   request with user, route, status, duration; no password or token is ever logged.
-* Audit log: `audit_logs` table, append-only, queried from the Users & Permissions module.
+* Audit log: `auditLogs` table, append-only, queried from the Users & Permissions module.
 * Client logs: `%APPDATA%\ChemManager\logs\client.log` (rotated, 10 MB), written on unexpected
   exceptions only — it contains no business data beyond identifiers.
 * Health endpoint monitored every 5 minutes; three consecutive failures raise an alert to the
@@ -121,7 +121,7 @@ Recovery targets: RPO 24 h (daily dump), RTO 2 h (restore + API restart + client
 ## 9. Security operations
 
 * Rotate API tokens by signing out everywhere (`POST /api/auth/logout-all`) after any suspicion.
-* Revoke a departing employee's account immediately (`users.is_active = 0`), which invalidates
+* Revoke a departing employee's account immediately (`users.isActive = 0`), which invalidates
   every active token at the next request.
 * Keep the schema migration history in Git and review every change; no manual `UPDATE` on
   production data without an audit ticket.

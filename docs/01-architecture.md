@@ -12,7 +12,7 @@ Version 1.0 · Phase 1 · scope: desktop client foundation + document set
 | Server-side security, no DB credentials on the client | Client talks only to a PHP REST API; MySQL is reachable from the web server only |
 | Batch traceability, FEFO, no negative stock | Batch-centric inventory model; stock movements are append-only rows, quantities derived |
 | Approved formulations are immutable | Status machine on `formulations`, edit forbidden once `APPROVED`, new change = new version |
-| Never delete financial or stock history | Soft delete (`deleted_at`, `is_active`) everywhere; no `DELETE` on documents |
+| Never delete financial or stock history | Soft delete (`deletedAt`, `isActive`) everywhere; no `DELETE` on documents |
 | Arabic RTL + French + English at runtime | `I18n` locale property + `NodeOrientation` on the scene graph, translation bundles |
 | Runs without infrastructure (demo) | `data.mode = MOCK / API / AUTO` behind service interfaces |
 | No chemical formulation generation | The application stores and approves formulas entered by qualified staff only |

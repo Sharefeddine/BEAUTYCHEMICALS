@@ -7,8 +7,9 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 /**
- * Shared Jackson configuration. The API speaks snake_case JSON (natural for PHP/MySQL),
- * so the Java records are mapped automatically and dates stay ISO-8601.
+ * Shared Jackson configuration. The API speaks lowerCamelCase JSON, exactly like the MySQL
+ * columns (see database/README.md), so a field name is written identically in SQL, PHP and Java
+ * and no translation layer is needed. Dates stay ISO-8601.
  */
 public final class JsonMapper {
 
@@ -25,7 +26,7 @@ public final class JsonMapper {
         // JavaTimeModule registers the ISO-8601 serialisers for LocalDate / LocalDateTime.
         return new ObjectMapper()
                 .registerModule(new JavaTimeModule())
-                .setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE)
+                .setPropertyNamingStrategy(PropertyNamingStrategies.LOWER_CAMEL_CASE)
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
                 .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
                 .configure(SerializationFeature.INDENT_OUTPUT, false);

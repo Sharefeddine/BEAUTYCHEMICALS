@@ -12,7 +12,7 @@ phase still works. **Phase 2 does not start before the Phase 1 review is approve
 | Maven project | Java 21 + JavaFX 21.0.4, Jackson, FontAwesomeFX, POI, JUnit 5, `mvn javafx:run` |
 | Documentation | architecture, ER model, design system, roadmap, RBAC matrix, operations |
 | Design system | `app.css` + light/dark palettes, typography, spacing, component library |
-| Security foundation | 44 permissions, 12 roles, PBKDF2 hashing, session object, permission-filtered navigation |
+| Security foundation | 45 permissions, 12 roles, PBKDF2 hashing, session object, permission-filtered navigation |
 | Localisation | FR / AR (RTL) / EN bundles (509 keys), runtime switch, parity test |
 | Login | validation, password toggle, throttling, remembered username, demo accounts |
 | Shell | grouped sidebar (18 modules), header (title, search, notifications, theme, language, profile), status bar |
@@ -27,14 +27,15 @@ phase still works. **Phase 2 does not start before the Phase 1 review is approve
 `mvn javafx:run`; every navigation entry opens a working screen; the language and theme
 switches work without restart; no KPI is hardcoded; no button is inert.
 
-## Phase 2 — Database and PHP API core
+## Phase 2 — Database and PHP API core *(database delivered, API in progress)*
 
-* MySQL 8 schema generated from `docs/02-er-diagram.md` (`database/schema/*.sql`, versioned
-  migrations), seeders for permissions, roles, admin user, categories, GHS pictograms, demo
-  company settings.
-* PHP 8 REST API without framework: front controller, router, PDO connection factory with
+* ✅ MySQL 8 schema in **camelCase without underscores**: 68 tables in `database/schema/*.sql`,
+  seeders for permissions, roles, admin user, categories, GHS pictograms, company settings and
+  numbering (`database/seed/*.sql`). ER model generated from the DDL into
+  `docs/02-er-diagram.md`. See `docs/PHASE-2-DATABASE.md`.
+* ⏳ PHP 8 REST API without framework: front controller, router, PDO connection factory with
   prepared statements, JSON envelope, error handler, CORS for the desktop client.
-* Authentication: `POST /auth/login` (bcrypt), bearer tokens (`api_tokens`, hashed),
+* Authentication: `POST /auth/login` (bcrypt), bearer tokens (`apiTokens`, hashed),
   `POST /auth/logout`, `GET /auth/me`, token expiry and revocation.
 * Middleware: authentication, permission check per route (`ROUTE_PERMISSIONS`), rate limiting,
   request logging, audit writer.
@@ -48,7 +49,7 @@ switches work without restart; no KPI is hardcoded; no button is inert.
 
 ## Phase 3 — Formulations (no generation by the app)
 
-* `formulations`, `formulation_versions`, `formulation_items` screens: version history, cost
+* `formulations`, `formulationVersions`, `formulationItems` screens: version history, cost
   from current material prices, comparison of two versions, approval workflow.
 * Rules: only `FORMULATIONS_APPROVE` holders can approve; approved versions are locked; a
   change creates a new version; no automatic/recommended formula is ever produced.
@@ -72,7 +73,7 @@ switches work without restart; no KPI is hardcoded; no button is inert.
   consumption per batch, waste capture, quality checks, batch release, finished-goods entry.
 * Batch genealogy view: finished batch → consumed material batches → supplier receptions.
 * Real production cost per batch (materials + packaging + other) and variance vs. standard.
-* **Acceptance:** a finished batch cannot be sold before `quality_status = RELEASED`; the
+* **Acceptance:** a finished batch cannot be sold before `qualityStatus = RELEASED`; the
   genealogy of a batch is complete; stock and cost are consistent after a partial production.
 
 ## Phase 6 — Sales, customers, distribution, documents
