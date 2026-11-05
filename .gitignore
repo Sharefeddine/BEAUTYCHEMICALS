@@ -38,3 +38,7 @@ backups/
 *.xlsx
 *.pdf
 !docs/**/*.pdf
+
+# Python tooling caches
+__pycache__/
+*.pyc
