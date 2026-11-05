@@ -155,7 +155,7 @@ MESSAGES = {
     "dashboard.sales_today": "مبيعات اليوم", "dashboard.sales_month": "مبيعات الشهر",
     "dashboard.sales_year_hint": "تراكمي سنوي: {0}", "dashboard.sales_range": "مبيعات الفترة",
     "dashboard.today_hint": "يومية {0}", "dashboard.avg_basket": "سلة متوسطة: {0}",
-    "dashboard.purchases_hint": "", "dashboard.payables_hint": "ديون الموردين: {0}",
+    "dashboard.payables_hint": "ديون الموردين: {0}",
     "dashboard.range_hint": "خلال الفترة المحددة", "dashboard.gross_profit": "الهامش الإجمالي",
     "dashboard.margin": "هامش {0} %", "dashboard.net_profit": "النتيجة الصافية",
     "dashboard.after_expenses": "بعد أعباء الاستغلال", "dashboard.inventory_value": "قيمة المخزون",

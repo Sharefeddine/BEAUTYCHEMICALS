@@ -155,7 +155,7 @@ MESSAGES = {
     "dashboard.sales_today": "Sales today", "dashboard.sales_month": "Sales this month",
     "dashboard.sales_year_hint": "Year to date: {0}", "dashboard.sales_range": "Sales in period",
     "dashboard.today_hint": "Journal of {0}", "dashboard.avg_basket": "Average basket: {0}",
-    "dashboard.purchases_hint": "", "dashboard.payables_hint": "Supplier debt: {0}",
+    "dashboard.payables_hint": "Supplier debt: {0}",
     "dashboard.range_hint": "Over the selected period", "dashboard.gross_profit": "Gross profit",
     "dashboard.margin": "Margin {0} %", "dashboard.net_profit": "Net profit",
     "dashboard.after_expenses": "After operating expenses", "dashboard.inventory_value": "Inventory value",

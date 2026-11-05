@@ -171,7 +171,7 @@ MESSAGES = {
     "dashboard.sales_today": "Ventes du jour", "dashboard.sales_month": "Ventes du mois",
     "dashboard.sales_year_hint": "Cumul annuel : {0}", "dashboard.sales_range": "Ventes de la période",
     "dashboard.today_hint": "Journal du {0}", "dashboard.avg_basket": "Panier moyen : {0}",
-    "dashboard.purchases_hint": "", "dashboard.payables_hint": "Dettes fournisseurs : {0}",
+    "dashboard.payables_hint": "Dettes fournisseurs : {0}",
     "dashboard.range_hint": "Sur la période sélectionnée", "dashboard.gross_profit": "Marge brute",
     "dashboard.margin": "Marge {0} %", "dashboard.net_profit": "Résultat net",
     "dashboard.after_expenses": "Après charges d''exploitation", "dashboard.inventory_value": "Valeur du stock",

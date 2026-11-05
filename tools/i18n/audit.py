@@ -38,7 +38,10 @@ def used_keys():
             with io.open(path, encoding="utf-8", errors="replace") as handle:
                 text = handle.read()
             for match in KEY_PATTERN.finditer(text):
-                found.setdefault(match.group(1), path)
+                key = match.group(1)
+                if not key.endswith("."):
+                    # keys ending with a dot are dynamic prefixes such as "role." + code
+                    found.setdefault(key, path)
             for match in FXML_PATTERN.finditer(text):
                 found.setdefault(match.group(1), path)
     return found
