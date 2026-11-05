@@ -1,0 +1,40 @@
+# Build output
+target/
+build/
+out/
+*.class
+*.jar
+!.mvn/wrapper/maven-wrapper.jar
+
+# Logs & runtime data
+logs/
+*.log
+app.log
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
+.classpath
+.project
+nbproject/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets / local configuration
+backend/config/config.php
+backend/config/config.local.php
+.env
+.env.*
+
+# Runtime / generated documents
+exports/
+backups/
+*.xlsx
+*.pdf
+!docs/**/*.pdf
