@@ -1,4 +1,38 @@
 -------------------------------------------------------------------------------
 Test set: com.chemmanager.app.ApplicationSmokeTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 31.83 s -- in com.chemmanager.app.ApplicationSmokeTest
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 31.93 s <<< FAILURE! -- in com.chemmanager.app.ApplicationSmokeTest
+com.chemmanager.app.ApplicationSmokeTest.theShellBootsAndEveryModuleOpens -- Time elapsed: 30.75 s <<< FAILURE!
+java.lang.AssertionError: application boot failed: org.opentest4j.AssertionFailedError: the first screen must be laid out, height was 0.0 ==> expected: <true> but was: <false>
+	at com.chemmanager.app.ApplicationSmokeTest.theShellBootsAndEveryModuleOpens(ApplicationSmokeTest.java:134)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+Caused by: org.opentest4j.AssertionFailedError: the first screen must be laid out, height was 0.0 ==> expected: <true> but was: <false>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:63)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:36)
+	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:214)
+	at com.chemmanager.app.ApplicationSmokeTest.assertContentVisible(ApplicationSmokeTest.java:150)
+	at com.chemmanager.app.ApplicationSmokeTest.lambda$theShellBootsAndEveryModuleOpens$16(ApplicationSmokeTest.java:119)
+	at com.sun.scenario.animation.shared.TimelineClipCore.visitKeyFrame(TimelineClipCore.java:239)
+	at com.sun.scenario.animation.shared.TimelineClipCore.playTo(TimelineClipCore.java:180)
+	at javafx.animation.Timeline.doPlayTo(Timeline.java:172)
+	at javafx.animation.AnimationAccessorImpl.playTo(AnimationAccessorImpl.java:39)
+	at com.sun.scenario.animation.shared.SingleLoopClipEnvelope.timePulse(SingleLoopClipEnvelope.java:103)
+	at javafx.animation.Animation.doTimePulse(Animation.java:1189)
+	at javafx.animation.Animation$1.lambda$timePulse$0(Animation.java:207)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at javafx.animation.Animation$1.timePulse(Animation.java:206)
+	at com.sun.scenario.animation.AbstractPrimaryTimer.timePulseImpl(AbstractPrimaryTimer.java:343)
+	at com.sun.scenario.animation.AbstractPrimaryTimer$MainLoop.run(AbstractPrimaryTimer.java:266)
+	at com.sun.javafx.tk.quantum.QuantumToolkit.pulse(QuantumToolkit.java:588)
+	at com.sun.javafx.tk.quantum.QuantumToolkit.pulse(QuantumToolkit.java:572)
+	at com.sun.javafx.tk.quantum.QuantumToolkit.pulseFromQueue(QuantumToolkit.java:565)
+	at com.sun.javafx.tk.quantum.QuantumToolkit.lambda$runToolkit$11(QuantumToolkit.java:352)
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95)
+	at com.sun.glass.ui.gtk.GtkApplication._runLoop(Native Method)
+	at com.sun.glass.ui.gtk.GtkApplication.lambda$runLoop$10(GtkApplication.java:263)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+
