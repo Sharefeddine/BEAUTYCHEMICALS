@@ -84,6 +84,8 @@ public final class DashboardController {
 
     @FXML
     private void initialize() {
+        fromPicker.setConverter(dateConverter());
+        toPicker.setConverter(dateConverter());
         rangeSelector.setConverter(new StringConverter<>() {
             @Override
             public String toString(DateRangePreset preset) {
@@ -196,6 +198,30 @@ public final class DashboardController {
         generatedLabel.setText(I18n.get().t("dashboard.generated_at",
                 Formatters.dateTime(data.generatedAt()), DateRanges.describe(data.range())));
         exportButton.setDisable(false);
+    }
+
+    /** Dates are shown in the interface locale (dd/MM/yyyy), never in the JVM default. */
+    private StringConverter<LocalDate> dateConverter() {
+        return new StringConverter<>() {
+            @Override
+            public String toString(LocalDate value) {
+                return value == null ? "" : Formatters.shortDate(value);
+            }
+
+            @Override
+            public LocalDate fromString(String text) {
+                if (text == null || text.isBlank()) {
+                    return null;
+                }
+                try {
+                    java.time.format.DateTimeFormatter formatter =
+                            java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                    return LocalDate.parse(text.trim(), formatter);
+                } catch (java.time.format.DateTimeParseException ex) {
+                    return null;
+                }
+            }
+        };
     }
 
     private void renderKpis(KpiSet kpis, DateRange range) {

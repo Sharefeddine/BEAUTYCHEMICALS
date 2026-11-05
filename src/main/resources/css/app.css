@@ -303,9 +303,6 @@
     -fx-background-radius: 10 10 0 0;
     -fx-padding: 0;
 }
-.table-view .table-row-cell:empty { -fx-background-color: transparent; -fx-border-color: transparent; }
-.table-view .table-row-cell:empty .table-cell { -fx-border-color: transparent; -fx-background-color: transparent; }
-
 .table-view .column-header {
     -fx-background-color: transparent;
     -fx-size: 38px;
@@ -704,3 +701,19 @@
     -fx-cursor: hand;
 }
 .link-button:hover { -fx-underline: true; }
+
+/* ---------------------------------------------------------------- empty table rows */
+/* A TableView paints the rows beyond the data: they must blend into the card instead of
+   showing as striped empty bands. Declared last so it wins over the row rules. */
+.table-view .table-row-cell:empty,
+.table-view .table-row-cell:empty:odd,
+.table-view .table-row-cell:empty:hover,
+.table-view .table-row-cell:empty:selected {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+.table-view .table-row-cell:empty .table-cell {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
