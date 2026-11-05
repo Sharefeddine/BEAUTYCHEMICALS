@@ -1,1 +1,164 @@
-# BEAUTYCHEMICALS
+# ChemManager ERP
+
+Desktop ERP for a chemical manufacturing, detergent and distribution company operating in
+Algeria (currency **DZD**, tax rates configurable, documents in **Arabic / French / English**).
+
+ChemManager covers the whole value chain of the business — raw materials and their safety
+data, approved formulations, batch-controlled production, FEFO warehousing, purchasing,
+sales, delivery, finance and reporting — on top of a JavaFX client and a plain-PHP REST API
+backed by MySQL 8.
+
+> **Delivery status — Phase 1 (complete):** project foundation, design system, documentation,
+> login, application shell (sidebar, header, notifications, themes, AR/FR/EN) and the
+> executive dashboard with indicative data read from the service layer. Modules that ship in
+> later phases are visible in the navigation with their planned phase badge; they open a
+> "planned capabilities" screen so that no button is dead and no screen is a mock-up.
+> Phase 2 (inventory, PHP API, MySQL schema) starts **only after the Phase 1 review is
+> approved** (see [`docs/04-roadmap.md`](docs/04-roadmap.md)).
+
+---
+
+## 1. Technology
+
+| Layer | Technology |
+| --- | --- |
+| Desktop client | Java 21, JavaFX 21.0.4 (FXML + CSS), Maven |
+| Charts / tables | JavaFX built-in `LineChart`, `BarChart`, `PieChart`, virtualised `TableView` |
+| Icons | FontAwesomeFX 9.1.2 |
+| JSON / HTTP | Jackson 2.17 (`jackson-databind`, `jackson-datatype-jsr310`), `java.net.http.HttpClient` |
+| Excel export | Apache POI 5.2.5 (`XSSFWorkbook`) |
+| Persistence | MySQL 8 (InnoDB, `utf8mb4`) — accessed **only** through the PHP API |
+| REST API | Pure PHP 8 (no framework, no Composer), PDO prepared statements |
+| Security | Server-side RBAC, bcrypt (`password_hash`), bearer tokens, audit log |
+| Tests | JUnit 5.10 (surefire) |
+
+The client never holds database credentials: it talks to the PHP API over HTTP. `data.mode`
+selects the data source (`MOCK` demo dataset, `API` PHP backend, or `AUTO` = probe then
+fall back), so the application is runnable without any infrastructure.
+
+## 2. Build and run
+
+Requirements: **JDK 21** and **Maven 3.9+**.
+
+```bash
+mvn clean verify          # compile + run the JUnit test suite
+mvn javafx:run            # start the desktop application
+mvn -DskipTests package   # build target/chemmanager-erp.jar
+```
+
+Running against the PHP API instead of the demo dataset:
+
+```bash
+java -Ddata.mode=API -Dapi.base.url=http://192.168.1.20/api -jar target/chemmanager-erp.jar
+```
+
+Every key of [`src/main/resources/app.properties`](src/main/resources/app.properties) can be
+overridden by a system property (`-Ddata.mode=...`) or an environment variable
+(`CHEMMANAGER_DATA_MODE`, `CHEMMANAGER_API_URL`); secrets never live in the repository.
+
+### Demo accounts (offline `MOCK` mode)
+
+| Username | Password | Role |
+| --- | --- | --- |
+| `admin` | `admin123` | Super administrator (all permissions) |
+| `manager` | `manager123` | General manager |
+| `production` | `prod123` | Production manager |
+| `store` | `store123` | Warehouse manager |
+| `sales` | `sales123` | Sales manager |
+| `accounting` | `acc123` | Accountant |
+
+Demo passwords are hashed with PBKDF2-HMAC-SHA256 at start-up; in API mode hashing is done by
+PHP `password_hash()` (bcrypt) and the client never receives a hash.
+
+## 3. What Phase 1 delivers
+
+* **Login** — validated form, password reveal toggle, throttling after repeated failures,
+  remembered username, error messages translated from the service layer, demo hint.
+* **Shell** — collapsible grouped sidebar (8 sections, 18 modules), header with page title,
+  global module search, notification popup with unread badge, theme switch, language switch
+  (instant, no restart), user menu with profile details and sign-out confirmation, status bar
+  with data source, connectivity state and clock.
+* **Dashboard** — KPI cards (sales today / month / range, gross margin, net profit, inventory
+  value, receivables, cash), sales-vs-purchases and revenue-vs-costs charts, production chart,
+  revenue-by-category pie, best sellers, most profitable products, top customers, low stock
+  and expiry alerts (FEFO), recent activity feed, date-range presets and an Excel export.
+  **Every value is computed from stored records** by `MockDashboardService` exactly the way
+  `DashboardRepository.php` will aggregate rows in Phase 2 — nothing is hardcoded.
+* **Products** — searchable, filterable, paged product table with stock value, margins,
+  product detail dialog and Excel export.
+* **Raw materials** — batch/expiry/hazard columns, hazardous and low-stock filters, SDS
+  availability, storage location, detail dialog, Excel export.
+* **Users & permissions** — user table with roles, status, last sign-in and a role/permission
+  matrix rendered from `DefaultRoles`, plus export.
+* **Settings** — general preferences (theme, language, currency, VAT, invoice prefix),
+  company identity used on documents, and the data-source panel that probes the API and
+  switches between demo and API mode.
+* **Bilingual / RTL** — complete AR (RTL), FR (LTR) and EN bundles (509 keys) kept in sync by
+  a parity test; `NodeOrientation` flips the whole scene graph, not just the labels.
+* **Light / dark themes** — CSS-variable style sheets applied at runtime.
+* **Tests** — bundles parity, PBKDF2 hashing, the 12-role permission matrix, money rounding,
+  date ranges and the dashboard aggregations (computed vs. recomputed from the dataset).
+
+Screens that belong to phases 2–8 (formulations, production, inventory, purchasing,
+suppliers, sales, customers, distribution, finance, expenses, employees, reports, chemical
+safety) already have their route, permission and screen; each shows the planned capabilities
+of the module plus its phase. There are no disabled or decorative buttons: every control in
+the interface performs the action it advertises.
+
+## 4. Repository layout
+
+```
+pom.xml                              Maven build (Java 21 + JavaFX 21)
+src/main/java/com/chemmanager/
+  app/                               ChemManagerApp (composition root), AppContext
+  config/                            AppConfig, ThemeManager, UserPreferences, Theme, DataMode
+  localization/                      I18n (locale property, RTL flag, MessageFormat)
+  security/                          Permission, Role, DefaultRoles, Session, PasswordHasher
+  model/                             Product, RawMaterial, User, DateRange, Severity + analytics/
+  dto/                               PagedResult, ProductQuery, MaterialQuery, API payloads
+  validation/                        Validator / ValidationResult (i18n message keys)
+  api/                               ApiClient, ApiEndpoints, ApiException, JsonMapper
+  repository/                        MockDataStore (demo dataset) + settings repositories
+  service/                           service interfaces, mock/ and api/ implementations
+  component/                         KpiCard, Card, DataTable, ChartFactory, FormFields, …
+  navigation/                        NavGroup, NavigationModule, NavigationManager
+  controller/                        shell + auth + one package per module
+  util/                              Formatters, Money, DateRanges, FxTasks, ExcelExporter, …
+src/main/resources/
+  fxml/                              20 FXML screens
+  css/                               app.css, theme-light.css, theme-dark.css
+  i18n/                              messages_fr/ar/en.properties (generated)
+tools/i18n/                          translation sources + build.py + audit.py
+docs/                                architecture, ER diagram, design system, roadmap, RBAC
+.github/workflows/ci.yml             build + tests, publishes logs to the ci-reports branch
+```
+
+## 5. Documentation
+
+| Document | Content |
+| --- | --- |
+| [`docs/01-architecture.md`](docs/01-architecture.md) | Layers, module map, request flow, Maven structure, configuration |
+| [`docs/02-er-diagram.md`](docs/02-er-diagram.md) | Entity/relationship diagram and the full relational model |
+| [`docs/03-design-system.md`](docs/03-design-system.md) | Colours, typography, spacing, components, RTL, theming |
+| [`docs/04-roadmap.md`](docs/04-roadmap.md) | Eight delivery phases and their acceptance criteria |
+| [`docs/05-security-rbac.md`](docs/05-security-rbac.md) | 12 roles × permissions matrix, auth flow, audit rules |
+| [`docs/07-operations.md`](docs/07-operations.md) | Backups, restore drill, deployment, monitoring |
+
+## 6. Editing the translations
+
+The `.properties` bundles are generated so that the three languages cannot drift apart:
+
+```bash
+python3 tools/i18n/build.py    # validates parity, rewrites messages_{fr,ar,en}.properties
+python3 tools/i18n/audit.py    # checks that every key used in Java/FXML exists
+```
+
+`src/main/resources/i18n/messages_fr.properties` is the reference bundle: a key added there
+must be translated in `tools/i18n/ar.py` and `tools/i18n/en.py`, otherwise the build step and
+`BundleParityTest` fail.
+
+## 7. Continuous integration
+
+`.github/workflows/ci.yml` compiles the project and runs the test suite on every push. The
+full Maven log, the surefire reports and a glyph inventory are published to the `ci-reports`
+branch so a build failure can be diagnosed without downloading artefacts.

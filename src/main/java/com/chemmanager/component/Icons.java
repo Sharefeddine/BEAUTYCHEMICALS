@@ -36,6 +36,7 @@ public final class Icons {
         SUN(FontAwesomeIcon.SUN_ALT),
         MOON(FontAwesomeIcon.MOON_ALT),
         GLOBE(FontAwesomeIcon.GLOBE),
+        LOGIN(FontAwesomeIcon.SIGN_IN),
         LOGOUT(FontAwesomeIcon.SIGN_OUT),
         MENU(FontAwesomeIcon.BARS),
         REFRESH(FontAwesomeIcon.REFRESH),

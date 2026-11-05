@@ -15,15 +15,17 @@ public final class FormFields {
     private FormFields() {
     }
 
+    /** Label and hint given as i18n keys. */
     public static VBox field(String labelKey, Node input) {
-        return field(I18n.get().t(labelKey), input, null);
+        return fieldKey(labelKey, input, null);
     }
 
-    public static VBox field(String labelKey, Node input, String hintKey) {
-        return field(I18n.get().t(labelKey), input,
-                hintKey == null ? null : I18n.get().t(hintKey));
+    /** Label and hint given as i18n keys. */
+    public static VBox fieldKey(String labelKey, Node input, String hintKey) {
+        return field(I18n.get().t(labelKey), input, hintKey == null ? null : I18n.get().t(hintKey));
     }
 
+    /** Label and hint already translated (used when the text is data, not a key). */
     public static VBox field(String label, Node input, String hint) {
         Label labelNode = new Label(label);
         labelNode.getStyleClass().add("field-label");
