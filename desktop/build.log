@@ -1,0 +1,113 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------------< com.chemmanager:chemmanager-erp >-------------------
+[INFO] Building ChemManager ERP 1.0.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ chemmanager-erp ---
+[INFO] Copying 8 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ chemmanager-erp ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 78 source files with javac [debug parameters release 21] to target/classes
+[INFO] Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/api/ApiClient.java:[49,50] cannot find symbol
+  symbol:   variable PING
+  location: class com.chemmanager.api.ApiClient
+[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/api/JsonMapper.java:[33,51] constructor LocalDateSerializer in class com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer cannot be applied to given types;
+  required: no arguments
+  found:    no arguments
+  reason: LocalDateSerializer() has protected access in com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer
+[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/api/JsonMapper.java:[34,53] constructor LocalDateDeserializer in class com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer cannot be applied to given types;
+  required: no arguments
+  found:    no arguments
+  reason: LocalDateDeserializer() has protected access in com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer
+[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/api/JsonMapper.java:[35,55] constructor LocalDateTimeSerializer in class com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer cannot be applied to given types;
+  required: no arguments
+  found:    no arguments
+  reason: LocalDateTimeSerializer() has protected access in com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer
+[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/api/JsonMapper.java:[36,57] constructor LocalDateTimeDeserializer in class com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer cannot be applied to given types;
+  required: no arguments
+  found:    no arguments
+  reason: LocalDateTimeDeserializer() has protected access in com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer
+[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/service/api/ApiUserService.java:[23,22] no suitable method found for get(java.lang.String,<anonymous com.fasterxml.jackson.core.type.TypeReference<java.util.List<com.chemmanager.model.User>>>)
+    method com.chemmanager.api.ApiClient.<T>get(java.lang.String,java.lang.Class<T>) is not applicable
+      (cannot infer type-variable(s) T
+        (argument mismatch; <anonymous com.fasterxml.jackson.core.type.TypeReference<java.util.List<com.chemmanager.model.User>>> cannot be converted to java.lang.Class<T>))
+    method com.chemmanager.api.ApiClient.<T>get(java.lang.String,java.util.Map<java.lang.String,java.lang.String>,java.lang.Class<T>) is not applicable
+      (cannot infer type-variable(s) T
+        (actual and formal argument lists differ in length))
+    method com.chemmanager.api.ApiClient.<T>get(java.lang.String,java.util.Map<java.lang.String,java.lang.String>,com.fasterxml.jackson.core.type.TypeReference<T>) is not applicable
+      (cannot infer type-variable(s) T
+        (actual and formal argument lists differ in length))
+[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/service/api/ApiUserService.java:[29,22] no suitable method found for get(java.lang.String,<anonymous com.fasterxml.jackson.core.type.TypeReference<java.util.List<com.chemmanager.security.Role>>>)
+    method com.chemmanager.api.ApiClient.<T>get(java.lang.String,java.lang.Class<T>) is not applicable
+      (cannot infer type-variable(s) T
+        (argument mismatch; <anonymous com.fasterxml.jackson.core.type.TypeReference<java.util.List<com.chemmanager.security.Role>>> cannot be converted to java.lang.Class<T>))
+    method com.chemmanager.api.ApiClient.<T>get(java.lang.String,java.util.Map<java.lang.String,java.lang.String>,java.lang.Class<T>) is not applicable
+      (cannot infer type-variable(s) T
+        (actual and formal argument lists differ in length))
+    method com.chemmanager.api.ApiClient.<T>get(java.lang.String,java.util.Map<java.lang.String,java.lang.String>,com.fasterxml.jackson.core.type.TypeReference<T>) is not applicable
+      (cannot infer type-variable(s) T
+        (actual and formal argument lists differ in length))
+[INFO] 7 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  4.260 s
+[INFO] Finished at: 2026-11-05T16:48:45Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.13.0:compile (default-compile) on project chemmanager-erp: Compilation failure: Compilation failure: 
+[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/api/ApiClient.java:[49,50] cannot find symbol
+[ERROR]   symbol:   variable PING
+[ERROR]   location: class com.chemmanager.api.ApiClient
+[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/api/JsonMapper.java:[33,51] constructor LocalDateSerializer in class com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer cannot be applied to given types;
+[ERROR]   required: no arguments
+[ERROR]   found:    no arguments
+[ERROR]   reason: LocalDateSerializer() has protected access in com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer
+[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/api/JsonMapper.java:[34,53] constructor LocalDateDeserializer in class com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer cannot be applied to given types;
+[ERROR]   required: no arguments
+[ERROR]   found:    no arguments
+[ERROR]   reason: LocalDateDeserializer() has protected access in com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer
+[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/api/JsonMapper.java:[35,55] constructor LocalDateTimeSerializer in class com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer cannot be applied to given types;
+[ERROR]   required: no arguments
+[ERROR]   found:    no arguments
+[ERROR]   reason: LocalDateTimeSerializer() has protected access in com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer
+[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/api/JsonMapper.java:[36,57] constructor LocalDateTimeDeserializer in class com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer cannot be applied to given types;
+[ERROR]   required: no arguments
+[ERROR]   found:    no arguments
+[ERROR]   reason: LocalDateTimeDeserializer() has protected access in com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer
+[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/service/api/ApiUserService.java:[23,22] no suitable method found for get(java.lang.String,<anonymous com.fasterxml.jackson.core.type.TypeReference<java.util.List<com.chemmanager.model.User>>>)
+[ERROR]     method com.chemmanager.api.ApiClient.<T>get(java.lang.String,java.lang.Class<T>) is not applicable
+[ERROR]       (cannot infer type-variable(s) T
+[ERROR]         (argument mismatch; <anonymous com.fasterxml.jackson.core.type.TypeReference<java.util.List<com.chemmanager.model.User>>> cannot be converted to java.lang.Class<T>))
+[ERROR]     method com.chemmanager.api.ApiClient.<T>get(java.lang.String,java.util.Map<java.lang.String,java.lang.String>,java.lang.Class<T>) is not applicable
+[ERROR]       (cannot infer type-variable(s) T
+[ERROR]         (actual and formal argument lists differ in length))
+[ERROR]     method com.chemmanager.api.ApiClient.<T>get(java.lang.String,java.util.Map<java.lang.String,java.lang.String>,com.fasterxml.jackson.core.type.TypeReference<T>) is not applicable
+[ERROR]       (cannot infer type-variable(s) T
+[ERROR]         (actual and formal argument lists differ in length))
+[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/service/api/ApiUserService.java:[29,22] no suitable method found for get(java.lang.String,<anonymous com.fasterxml.jackson.core.type.TypeReference<java.util.List<com.chemmanager.security.Role>>>)
+[ERROR]     method com.chemmanager.api.ApiClient.<T>get(java.lang.String,java.lang.Class<T>) is not applicable
+[ERROR]       (cannot infer type-variable(s) T
+[ERROR]         (argument mismatch; <anonymous com.fasterxml.jackson.core.type.TypeReference<java.util.List<com.chemmanager.security.Role>>> cannot be converted to java.lang.Class<T>))
+[ERROR]     method com.chemmanager.api.ApiClient.<T>get(java.lang.String,java.util.Map<java.lang.String,java.lang.String>,java.lang.Class<T>) is not applicable
+[ERROR]       (cannot infer type-variable(s) T
+[ERROR]         (actual and formal argument lists differ in length))
+[ERROR]     method com.chemmanager.api.ApiClient.<T>get(java.lang.String,java.util.Map<java.lang.String,java.lang.String>,com.fasterxml.jackson.core.type.TypeReference<T>) is not applicable
+[ERROR]       (cannot infer type-variable(s) T
+[ERROR]         (actual and formal argument lists differ in length))
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+
+EXIT_CODE=1
