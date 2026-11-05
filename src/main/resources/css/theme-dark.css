@@ -1,0 +1,45 @@
+/* ChemManager ERP — dark theme tokens */
+.root {
+    -c-bg: #0a111f;
+    -c-surface: #111a2b;
+    -c-surface-alt: #1a2438;
+    -c-border: #23304a;
+    -c-border-subtle: #1b2740;
+    -c-border-strong: #33425e;
+    -c-text: #e7edf7;
+    -c-text-muted: #94a3b8;
+    -c-text-faint: #64748b;
+    -c-primary: #3b82f6;
+    -c-primary-dark: #2563eb;
+    -c-primary-soft: #1c2f52;
+    -c-primary-soft-faint: #16233c;
+    -c-primary-border: #2f4a78;
+    -c-accent: #2dd4bf;
+    -c-success: #16a34a;
+    -c-success-soft: #14351f;
+    -c-success-strong: #6ee7a8;
+    -c-warning: #f59e0b;
+    -c-warning-soft: #3a2a12;
+    -c-warning-strong: #fcd34d;
+    -c-danger: #ef4444;
+    -c-danger-soft: #3a1a1c;
+    -c-danger-strong: #fca5a5;
+    -c-info: #38bdf8;
+    -c-info-soft: #122e40;
+    -c-info-strong: #7dd3fc;
+    -c-hover: #17233a;
+    -c-row-alt: #131d2f;
+    -c-shadow: rgba(0, 0, 0, 0.35);
+    -c-shadow-strong: rgba(0, 0, 0, 0.55);
+    -c-scroll-thumb: rgba(148, 163, 184, 0.28);
+    -c-scroll-thumb-hover: rgba(148, 163, 184, 0.5);
+    -c-sidebar: linear-gradient(to bottom, #070d18 0%, #0b1424 60%, #070d18 100%);
+    -c-sidebar-border: rgba(255, 255, 255, 0.06);
+    -c-sidebar-hover: rgba(255, 255, 255, 0.06);
+    -c-sidebar-active: rgba(37, 99, 235, 0.85);
+    -c-sidebar-text: #b9c6d8;
+    -c-sidebar-muted: #7d8da4;
+    -c-sidebar-group: #5a6c85;
+    -c-tooltip-bg: #020617;
+    -c-tooltip-text: #e2e8f0;
+}
