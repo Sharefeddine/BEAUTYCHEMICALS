@@ -141,8 +141,9 @@ class ApplicationSmokeTest {
     private void assertContentVisible() {
         javafx.scene.Node host = AppContext.get().stage().getScene().getRoot().lookup("#contentHost");
         assertNotNull(host, "the shell must expose its content host");
-        assertTrue(!host.getChildrenUnmodifiable().isEmpty(), "the shell must open a module");
-        javafx.scene.Node content = host.getChildrenUnmodifiable().get(0);
+        javafx.scene.Parent pane = (javafx.scene.Parent) host;
+        assertTrue(!pane.getChildrenUnmodifiable().isEmpty(), "the shell must open a module");
+        javafx.scene.Node content = pane.getChildrenUnmodifiable().get(0);
         assertEquals(1.0, content.getOpacity(), 0.001, "the first screen must be visible");
         assertTrue(content.getBoundsInLocal().getHeight() > 100,
                 "the first screen must be laid out, height was " + content.getBoundsInLocal().getHeight());
