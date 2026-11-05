@@ -66,6 +66,14 @@
       <version>${poi.version}</version>
     </dependency>
 
+    <!-- ============ Screenshots in the headless smoke test ============ -->
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-swing</artifactId>
+      <version>${javafx.version}</version>
+      <scope>test</scope>
+    </dependency>
+
     <!-- ============ Tests ============ -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>

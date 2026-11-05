@@ -48,4 +48,4 @@ jobs:
         if: always()
         env:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: bash .github/scripts/publish-report.sh desktop desktop-build.log fa-icons.txt target/surefire-reports
+        run: bash .github/scripts/publish-report.sh desktop desktop-build.log fa-icons.txt target/surefire-reports target/screenshots
