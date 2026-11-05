@@ -34,10 +34,11 @@ jobs:
           javap -classpath "$(cat cp.txt)" de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon > fa-icons.txt 2>&1
           echo "glyphs captured: $(wc -l < fa-icons.txt)"
 
-      - name: Compile and run tests
+      - name: Compile and run tests (headless JavaFX via Xvfb)
         run: |
           set +e
-          mvn -B -ntp -Dstyle.color=never verify > desktop-build.log 2>&1
+          xvfb-run --auto-servernum --server-args="-screen 0 1600x1000x24" \
+            mvn -B -ntp -Dstyle.color=never verify > desktop-build.log 2>&1
           code=$?
           echo "" >> desktop-build.log
           echo "EXIT_CODE=$code" >> desktop-build.log

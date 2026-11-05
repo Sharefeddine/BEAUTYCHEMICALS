@@ -32,7 +32,7 @@
     </left>
 
     <center>
-        <StackPane fx:id="rootStack">
+        <StackPane>
             <VBox>
                 <HBox fx:id="header" styleClass="header" alignment="CENTER_LEFT" spacing="14">
                     <Button fx:id="menuButton" styleClass="icon-button"/>
