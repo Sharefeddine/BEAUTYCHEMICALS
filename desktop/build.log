@@ -28,27 +28,27 @@
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running com.chemmanager.security.RolesTest
-[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.121 s -- in com.chemmanager.security.RolesTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.076 s -- in com.chemmanager.security.RolesTest
 [INFO] Running com.chemmanager.security.PasswordHasherTest
-[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.983 s -- in com.chemmanager.security.PasswordHasherTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.804 s -- in com.chemmanager.security.PasswordHasherTest
 [INFO] Running com.chemmanager.service.MockDashboardServiceTest
-[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.541 s -- in com.chemmanager.service.MockDashboardServiceTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.390 s -- in com.chemmanager.service.MockDashboardServiceTest
 [INFO] Running com.chemmanager.service.MockAuthServiceTest
-[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.179 s -- in com.chemmanager.service.MockAuthServiceTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.131 s -- in com.chemmanager.service.MockAuthServiceTest
 [INFO] Running com.chemmanager.localization.BundleParityTest
-Nov 05, 2026 5:21:21 PM java.util.prefs.FileSystemPreferences$1 run
+Nov 05, 2026 5:23:25 PM java.util.prefs.FileSystemPreferences$1 run
 INFO: Created user preferences directory.
-[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.670 s -- in com.chemmanager.localization.BundleParityTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.586 s -- in com.chemmanager.localization.BundleParityTest
 [INFO] Running com.chemmanager.util.DateRangesTest
 [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 s -- in com.chemmanager.util.DateRangesTest
 [INFO] Running com.chemmanager.util.MoneyTest
-[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.083 s -- in com.chemmanager.util.MoneyTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.062 s -- in com.chemmanager.util.MoneyTest
 [INFO] Running com.chemmanager.app.ApplicationSmokeTest
-Nov 05, 2026 5:21:22 PM com.sun.javafx.application.PlatformImpl startup
+Nov 05, 2026 5:23:26 PM com.sun.javafx.application.PlatformImpl startup
 WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @33c7e1bb'
 
-(java:2407): dbind-WARNING **: 17:21:24.041: AT-SPI: Error retrieving accessibility bus address: org.freedesktop.DBus.Error.ServiceUnknown: The name org.a11y.Bus was not provided by any .service files
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 32.61 s -- in com.chemmanager.app.ApplicationSmokeTest
+(java:2314): dbind-WARNING **: 17:23:27.169: AT-SPI: Error retrieving accessibility bus address: org.freedesktop.DBus.Error.ServiceUnknown: The name org.a11y.Bus was not provided by any .service files
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 31.83 s -- in com.chemmanager.app.ApplicationSmokeTest
 [INFO] 
 [INFO] Results:
 [INFO] 
@@ -60,8 +60,8 @@ WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed mod
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  44.460 s
-[INFO] Finished at: 2026-11-05T17:21:55Z
+[INFO] Total time:  40.022 s
+[INFO] Finished at: 2026-11-05T17:23:58Z
 [INFO] ------------------------------------------------------------------------
 
 EXIT_CODE=0
