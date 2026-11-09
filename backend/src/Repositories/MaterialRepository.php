@@ -38,10 +38,12 @@ final class MaterialRepository
             $params['categoryId'] = $categoryId;
         }
         if ($hazardousOnly) {
-            $where[] = "m.hazardPictograms <> ''";
+            $where[] = "COALESCE(m.hazardPictograms, '') <> ''";
         }
         if ($lowStockOnly) {
-            $where[] = 'COALESCE(v.quantity, 0) <= m.minStock';
+            // the count query has no join on the view, so the balance is expressed as a subquery
+            $where[] = 'COALESCE((SELECT SUM(b.quantity) FROM materialBatches b
+                                  WHERE b.materialId = m.id AND b.qualityStatus = \'RELEASED\'), 0) <= m.minStock';
         }
 
         $clause = 'WHERE ' . implode(' AND ', $where);

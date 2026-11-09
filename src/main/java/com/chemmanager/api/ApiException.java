@@ -17,7 +17,7 @@ public class ApiException extends RuntimeException {
     }
 
     public ApiException(String message) {
-        super(message);
+        this(0, "client_error", message, java.util.Map.of());
     }
 
     public ApiException(String message, Throwable cause) {
