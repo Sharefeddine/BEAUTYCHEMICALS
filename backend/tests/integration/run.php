@@ -381,8 +381,16 @@ $response = call('GET', '/api/auditLogs?pageSize=10', null, $token);
 check('the audit trail records the session', $response['status'] === 200
     && (int) ($response['json']['meta']['total'] ?? 0) > 0, $response['raw']);
 $actions = array_column($response['json']['data'] ?? [], 'action');
-check('the audit trail contains a LOGIN entry', in_array('LOGIN', $actions, true), implode(',', $actions));
-check('the audit trail contains a CREATE entry', in_array('CREATE', $actions, true));
+check('the audit trail records actionable entries', $actions !== [], implode(',', $actions));
+$response = call('GET', '/api/auditLogs?action=LOGIN&pageSize=10', null, $token);
+$logins = array_column($response['json']['data'] ?? [], 'action');
+check('the audit trail contains a LOGIN entry', in_array('LOGIN', $logins, true), implode(',', $logins));
+$response = call('GET', '/api/auditLogs?action=CREATE&pageSize=10', null, $token);
+check('the audit trail contains a CREATE entry',
+    in_array('CREATE', array_column($response['json']['data'] ?? [], 'action'), true), $response['raw']);
+$response = call('GET', '/api/auditLogs?action=APPROVE&pageSize=10', null, $token);
+check('the approval is audited', in_array('APPROVE',
+    array_column($response['json']['data'] ?? [], 'action'), true), $response['raw']);
 
 // ------------------------------------------------------------ users, roles, RBAC
 $response = call('GET', '/api/users?pageSize=5', null, $token);

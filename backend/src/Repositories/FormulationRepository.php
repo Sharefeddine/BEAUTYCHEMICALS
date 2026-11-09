@@ -93,12 +93,9 @@ final class FormulationRepository
         $versions = $this->versions($id);
         $summary['versionCount'] = count($versions);
         $summary['versions'] = $versions;
-        $summary['currentVersion'] = null;
-        foreach ($versions as $version) {
-            if ($version['id'] === $summary['currentVersionId']) {
-                $summary['currentVersion'] = $version;
-            }
-        }
+        $summary['currentVersion'] = $summary['currentVersionId'] === null
+            ? null
+            : $this->version($id, $summary['currentVersionId']);
 
         return $summary;
     }
