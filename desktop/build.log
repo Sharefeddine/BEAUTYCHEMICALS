@@ -10,8 +10,8 @@
 [INFO] 
 [INFO] --- compiler:3.13.0:compile (default-compile) @ chemmanager-erp ---
 [INFO] Recompiling the module because of changed source code.
-[INFO] Compiling 115 source files with javac [debug parameters release 21] to target/classes
-[INFO] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/component/ChartFactory.java: /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/component/ChartFactory.java uses unchecked or unsafe operations.
+[INFO] Compiling 125 source files with javac [debug parameters release 21] to target/classes
+[INFO] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/component/ChartFactory.java: Some input files use unchecked or unsafe operations.
 [INFO] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/component/ChartFactory.java: Recompile with -Xlint:unchecked for details.
 [INFO] 
 [INFO] --- resources:3.3.1:testResources (default-testResources) @ chemmanager-erp ---
@@ -19,7 +19,7 @@
 [INFO] 
 [INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ chemmanager-erp ---
 [INFO] Recompiling the module because of changed dependency.
-[INFO] Compiling 9 source files with javac [debug parameters release 21] to target/test-classes
+[INFO] Compiling 10 source files with javac [debug parameters release 21] to target/test-classes
 [INFO] 
 [INFO] --- surefire:3.2.5:test (default-test) @ chemmanager-erp ---
 [INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
@@ -27,34 +27,36 @@
 [INFO] -------------------------------------------------------
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
-[INFO] Running com.chemmanager.api.ApiContractTest
-[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.070 s -- in com.chemmanager.api.ApiContractTest
-[INFO] Running com.chemmanager.service.MockAuthServiceTest
-[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.016 s -- in com.chemmanager.service.MockAuthServiceTest
+[INFO] Running com.chemmanager.security.RolesTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.115 s -- in com.chemmanager.security.RolesTest
+[INFO] Running com.chemmanager.security.PasswordHasherTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.392 s -- in com.chemmanager.security.PasswordHasherTest
+[INFO] Running com.chemmanager.service.FormulationRulesTest
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.678 s -- in com.chemmanager.service.FormulationRulesTest
 [INFO] Running com.chemmanager.service.MockDashboardServiceTest
-[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.131 s -- in com.chemmanager.service.MockDashboardServiceTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.196 s -- in com.chemmanager.service.MockDashboardServiceTest
+[INFO] Running com.chemmanager.service.MockAuthServiceTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.168 s -- in com.chemmanager.service.MockAuthServiceTest
 [INFO] Running com.chemmanager.localization.BundleParityTest
-Nov 09, 2026 1:55:19 PM java.util.prefs.FileSystemPreferences$1 run
+Nov 09, 2026 2:03:34 PM java.util.prefs.FileSystemPreferences$1 run
 INFO: Created user preferences directory.
-[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.807 s -- in com.chemmanager.localization.BundleParityTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.596 s -- in com.chemmanager.localization.BundleParityTest
+[INFO] Running com.chemmanager.api.ApiContractTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.018 s -- in com.chemmanager.api.ApiContractTest
+[INFO] Running com.chemmanager.util.DateRangesTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.017 s -- in com.chemmanager.util.DateRangesTest
+[INFO] Running com.chemmanager.util.MoneyTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.095 s -- in com.chemmanager.util.MoneyTest
 [INFO] Running com.chemmanager.app.ApplicationSmokeTest
-Nov 09, 2026 1:55:20 PM com.sun.javafx.application.PlatformImpl startup
+Nov 09, 2026 2:03:35 PM com.sun.javafx.application.PlatformImpl startup
 WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @33c7e1bb'
 
-(java:2452): dbind-WARNING **: 13:55:23.297: AT-SPI: Error retrieving accessibility bus address: org.freedesktop.DBus.Error.ServiceUnknown: The name org.a11y.Bus was not provided by any .service files
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 33.92 s -- in com.chemmanager.app.ApplicationSmokeTest
-[INFO] Running com.chemmanager.security.RolesTest
-[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.012 s -- in com.chemmanager.security.RolesTest
-[INFO] Running com.chemmanager.security.PasswordHasherTest
-[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.207 s -- in com.chemmanager.security.PasswordHasherTest
-[INFO] Running com.chemmanager.util.DateRangesTest
-[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 s -- in com.chemmanager.util.DateRangesTest
-[INFO] Running com.chemmanager.util.MoneyTest
-[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 s -- in com.chemmanager.util.MoneyTest
+(java:2422): dbind-WARNING **: 14:03:37.669: AT-SPI: Error retrieving accessibility bus address: org.freedesktop.DBus.Error.ServiceUnknown: The name org.a11y.Bus was not provided by any .service files
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 33.28 s -- in com.chemmanager.app.ApplicationSmokeTest
 [INFO] 
 [INFO] Results:
 [INFO] 
-[INFO] Tests run: 39, Failures: 0, Errors: 0, Skipped: 0
+[INFO] Tests run: 47, Failures: 0, Errors: 0, Skipped: 0
 [INFO] 
 [INFO] 
 [INFO] --- jar:3.4.1:jar (default-jar) @ chemmanager-erp ---
@@ -62,8 +64,8 @@ WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed mod
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  43.618 s
-[INFO] Finished at: 2026-11-09T13:55:54Z
+[INFO] Total time:  46.303 s
+[INFO] Finished at: 2026-11-09T14:04:09Z
 [INFO] ------------------------------------------------------------------------
 
 EXIT_CODE=0
