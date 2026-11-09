@@ -7,7 +7,7 @@ framework-free PHP REST API on top of it.
 | Part | Deliverable | Verification |
 | --- | --- | --- |
 | A — Database | `database/schema/*.sql` (68 tables), `database/seed/*.sql` (6 files) | static validator + **real MySQL 8** in CI: schema and seeds are executed on every push |
-| B — API | `backend/` (front controller, router, PDO, auth, RBAC, 25 endpoints) | 25 unit tests + **77 end-to-end HTTP tests against a real MySQL instance** |
+| B — API | `backend/` (front controller, router, PDO, auth, RBAC, 32 endpoints) | 25 unit tests + **77 end-to-end HTTP tests against a real MySQL instance** |
 | Client | unchanged (still demo mode); `DATA_MODE=API` wirings lands with Phase 3 screens | 37 Java tests still green |
 
 Latest green run: **desktop 37 tests, api 25 + 77 tests, BUILD SUCCESS**.
@@ -131,7 +131,7 @@ backend/tools/console.php     db:check, user:password, token:purge, role:list, i
 | Audit | every mutation and every session event written to `auditLogs` with user, action, module, entity, IP, severity |
 | Dashboard | every figure aggregated from the ledger (`invoices`, `expenses`, `materialBatches`, `productBatches`, `productionOrders`, `vwLowStock`) — nothing hardcoded |
 
-### Endpoints (25)
+### Endpoints (32)
 
 Health `GET /api/health` · auth `POST /api/auth/login`, `GET /api/auth/me`,
 `POST /api/auth/logout`, `POST /api/auth/password` · dashboard `GET /api/dashboard/summary` ·

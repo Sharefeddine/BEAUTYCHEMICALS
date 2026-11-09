@@ -16,7 +16,7 @@ backed by MySQL 8.
 >   their phase badge; they open a "planned capabilities" screen, so no button is dead and no
 >   screen is a mock-up — see [`docs/PHASE-1-REPORT.md`](docs/PHASE-1-REPORT.md).
 > * **Phase 2 — complete:** MySQL 8 database (68 tables, camelCase without underscores, seeds) and
->   the framework-free PHP REST API (auth, RBAC, 25 endpoints) — both verified in CI against a real
+>   the framework-free PHP REST API (auth, RBAC, 32 endpoints) — both verified in CI against a real
 >   MySQL 8, 25 unit + 77 end-to-end API tests — see
 >   [`docs/PHASE-2-REPORT.md`](docs/PHASE-2-REPORT.md).
 > * **Phase 3 — next:** formulations (versioning and approval; the application never generates a
