@@ -100,19 +100,30 @@ jobs:
 
       - name: Load schema and seeds into MySQL 8
         run: |
+          set -x
+          exec > >(tee api-schema.log) 2>&1
+          mysql --version
+          for i in $(seq 1 60); do
+            if mysql -h 127.0.0.1 -P 3306 -uroot -proot -e "SELECT 1" > /dev/null 2>&1; then
+              echo "MySQL reachable after $i attempt(s)"
+              break
+            fi
+            sleep 1
+          done
           set -e
           for file in database/schema/*.sql; do
             echo "applying $file"
-            mysql -h 127.0.0.1 -uroot -proot chemmanager < "$file"
+            mysql -h 127.0.0.1 -uroot -proot chemmanager < "$file" || exit 1
           done
           for file in database/seed/*.sql; do
             echo "seeding $file"
-            mysql -h 127.0.0.1 -uroot -proot chemmanager < "$file"
+            mysql -h 127.0.0.1 -uroot -proot chemmanager < "$file" || exit 1
           done
           mysql -h 127.0.0.1 -uroot -proot chemmanager -e "
             SELECT COUNT(*) AS tablesCount FROM information_schema.tables WHERE table_schema='chemmanager';
             SELECT COUNT(*) AS permissions FROM permissions;
-            SELECT COUNT(*) AS roles FROM roles;"
+            SELECT COUNT(*) AS roles FROM roles;
+            SELECT COUNT(*) AS users FROM users;"
 
       - name: API unit tests (no database required)
         run: php backend/tests/unit/run.php
