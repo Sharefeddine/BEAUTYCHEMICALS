@@ -20,7 +20,7 @@ final class MaterialRepository
 
     /** @return array{rows:array<int,array>,total:int} */
     public function paginate(int $page, int $pageSize, string $search, ?int $categoryId, string $sort,
-                             string $direction): array
+                             string $direction, bool $hazardousOnly = false, bool $lowStockOnly = false): array
     {
         $sort = in_array($sort, self::SORTABLE, true) ? $sort : 'commercialName';
         $direction = strtoupper($direction) === 'DESC' ? 'DESC' : 'ASC';
@@ -36,6 +36,12 @@ final class MaterialRepository
         if ($categoryId !== null && $categoryId > 0) {
             $where[] = 'm.categoryId = :categoryId';
             $params['categoryId'] = $categoryId;
+        }
+        if ($hazardousOnly) {
+            $where[] = "m.hazardPictograms <> ''";
+        }
+        if ($lowStockOnly) {
+            $where[] = 'COALESCE(v.quantity, 0) <= m.minStock';
         }
 
         $clause = 'WHERE ' . implode(' AND ', $where);

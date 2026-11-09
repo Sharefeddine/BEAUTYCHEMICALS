@@ -25,7 +25,9 @@ final class MaterialController
             $request->queryString('search'),
             $request->queryInt('categoryId') > 0 ? $request->queryInt('categoryId') : null,
             $request->queryString('sort', 'commercialName'),
-            $request->queryString('direction', 'ASC')
+            $request->queryString('direction', 'ASC'),
+            in_array($request->queryString('hazardous'), ['1', 'true', 'yes'], true),
+            in_array($request->queryString('lowStock'), ['1', 'true', 'yes'], true)
         );
 
         return Response::ok($result['rows'], [

@@ -212,6 +212,8 @@ check('a deleted product is not readable', $response['status'] === 404);
 // ------------------------------------------------------------ raw materials
 $response = call('GET', '/api/rawMaterials?pageSize=5', null, $token);
 check('raw materials are listed', $response['status'] === 200 && is_array($response['json']['data']));
+$response = call('GET', '/api/rawMaterials?hazardous=1&lowStock=1&pageSize=5', null, $token);
+check('the hazardous and low-stock filters are accepted', $response['status'] === 200, $response['raw']);
 $response = call('GET', '/api/rawMaterials/categories', null, $token);
 check('material categories are seeded', count($response['json']['data'] ?? []) === 7,
     'count ' . count($response['json']['data'] ?? []));
@@ -219,11 +221,31 @@ check('material categories are seeded', count($response['json']['data'] ?? []) =
 // ------------------------------------------------------------ dashboard
 $response = call('GET', '/api/dashboard/summary', null, $token);
 check('the dashboard summary is served', $response['status'] === 200, $response['raw']);
-foreach (['revenue', 'receivables', 'expenses', 'stock', 'production', 'partners', 'alerts'] as $section) {
+foreach (['kpis', 'monthly', 'salesByCategory', 'inventoryDistribution', 'bestSellers',
+             'mostProfitable', 'topCustomers', 'lowStockAlerts', 'expiryAlerts',
+             'recentActivities'] as $section) {
     check('the dashboard contains ' . $section, isset($response['json']['data'][$section]));
 }
+check('the dashboard KPI set is complete',
+    count(array_diff(['salesToday', 'salesMonth', 'salesYear', 'salesInRange', 'purchasesInRange',
+            'expensesInRange', 'grossProfitInRange', 'netProfitInRange', 'inventoryValue', 'receivables',
+            'payables', 'cashBalance', 'productionQuantityInRange', 'averageBasket', 'lowStockCount',
+            'expiringCount', 'pendingProductionCount', 'openOrders'],
+        array_keys($response['json']['data']['kpis'] ?? []))) === 0,
+    implode(',', array_keys($response['json']['data']['kpis'] ?? [])));
+check('the monthly series has 12 points', count($response['json']['data']['monthly'] ?? []) === 12);
 $response = call('GET', '/api/dashboard/summary?from=2026-13-99&to=2026-01-01', null, $token);
 check('an invalid period is refused', $response['status'] === 422);
+
+// ------------------------------------------------------------ notifications
+$response = call('GET', '/api/notifications?limit=5', null, $token);
+check('the notification centre answers', $response['status'] === 200
+    && isset($response['json']['data']['unreadCount']), $response['raw']);
+$response = call('POST', '/api/notifications/read', ['ids' => []], $token);
+check('marking read without ids is refused', $response['status'] === 422);
+$response = call('POST', '/api/notifications/readAll', null, $token);
+check('marking everything read succeeds', $response['status'] === 200
+    && ($response['json']['data']['unreadCount'] ?? -1) === 0, $response['raw']);
 
 // ------------------------------------------------------------ settings & audit
 $response = call('GET', '/api/settings', null, $token);

@@ -7,7 +7,7 @@ framework-free PHP REST API on top of it.
 | Part | Deliverable | Verification |
 | --- | --- | --- |
 | A — Database | `database/schema/*.sql` (68 tables), `database/seed/*.sql` (6 files) | static validator + **real MySQL 8** in CI: schema and seeds are executed on every push |
-| B — API | `backend/` (front controller, router, PDO, auth, RBAC, 32 endpoints) | 25 unit tests + **77 end-to-end HTTP tests against a real MySQL instance** |
+| B — API | `backend/` (front controller, router, PDO, auth, RBAC, 35 endpoints) | 25 unit tests + **77 end-to-end HTTP tests against a real MySQL instance** |
 | Client | unchanged (still demo mode); `DATA_MODE=API` wirings lands with Phase 3 screens | 37 Java tests still green |
 
 Latest green run: **desktop 37 tests, api 25 + 77 tests, BUILD SUCCESS**.
@@ -131,7 +131,7 @@ backend/tools/console.php     db:check, user:password, token:purge, role:list, i
 | Audit | every mutation and every session event written to `auditLogs` with user, action, module, entity, IP, severity |
 | Dashboard | every figure aggregated from the ledger (`invoices`, `expenses`, `materialBatches`, `productBatches`, `productionOrders`, `vwLowStock`) — nothing hardcoded |
 
-### Endpoints (32)
+### Endpoints (35)
 
 Health `GET /api/health` · auth `POST /api/auth/login`, `GET /api/auth/me`,
 `POST /api/auth/logout`, `POST /api/auth/password` · dashboard `GET /api/dashboard/summary` ·
@@ -142,7 +142,20 @@ products `GET/POST /api/products`, `GET/PUT/DELETE /api/products/{id}`,
 `GET/POST /api/users`, `GET/PUT/DELETE /api/users/{id}`, `POST /api/users/{id}/password` ·
 roles `GET /api/roles`, `GET /api/permissions`, `GET /api/departments`,
 `GET/PUT /api/roles/{id}/permissions` · settings `GET/PUT /api/settings`,
-`PUT /api/settings/company` · audit `GET /api/auditLogs`.
+`PUT /api/settings/company` · notifications `GET /api/notifications`,
+`POST /api/notifications/read`, `POST /api/notifications/readAll` · audit `GET /api/auditLogs`.
+
+### Desktop ↔ API contract
+
+The desktop never guesses the API shape. `src/main/java/com/chemmanager/api/ApiEndpoints.java`
+holds every path, `ApiClient` unwraps the `{success, data, meta}` envelope and turns API pages
+(1-based) into `PagedResult` (0-based), and `ApiMapper` turns the JSON rows into the client models.
+`ApiContractTest` parses `backend/src/routes.php` during the desktop build and fails if a path
+declared on the client no longer exists on the server, so the two halves cannot drift apart
+silently again. Filters round-trip in both directions (`search`, `categoryId`, `type`, `status`,
+`hazardous`, `lowStock`, `page`, `pageSize`) and the dashboard payload carries exactly the KPI set,
+the 12-month series, the category/inventory shares, the five rankings and the alert/activity lists
+the executive screen renders.
 
 ### What the tests prove
 

@@ -2,6 +2,7 @@ package com.chemmanager.security;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
@@ -19,16 +20,31 @@ public final class Session {
     private final String dataSourceLabel;
 
     public Session(String token, User user, Instant startedAt, Instant expiresAt, String dataSourceLabel) {
+        this(token, user, startedAt, expiresAt, dataSourceLabel, permissionsOf(user));
+    }
+
+    /**
+     * Session whose effective permissions come from the server (API mode: the API recomputes them
+     * from rolePermissions on every request, so its answer is authoritative).
+     */
+    public Session(String token, User user, Instant startedAt, Instant expiresAt, String dataSourceLabel,
+                   Set<Permission> permissions) {
         this.token = token;
         this.user = user;
         this.startedAt = startedAt;
         this.expiresAt = expiresAt;
         this.dataSourceLabel = dataSourceLabel;
+        this.permissions = permissions == null || permissions.isEmpty()
+                ? Set.copyOf(EnumSet.noneOf(Permission.class))
+                : Collections.unmodifiableSet(EnumSet.copyOf(permissions));
+    }
+
+    private static Set<Permission> permissionsOf(User user) {
         EnumSet<Permission> effective = EnumSet.noneOf(Permission.class);
         if (user != null && user.roles() != null) {
             user.roles().forEach(role -> effective.addAll(role.permissions()));
         }
-        this.permissions = Set.copyOf(effective);
+        return effective;
     }
 
     public static Session of(User user, Duration ttl, String dataSourceLabel) {

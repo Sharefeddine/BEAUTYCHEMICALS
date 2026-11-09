@@ -8,11 +8,14 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
 import com.chemmanager.dto.ApiError;
+import com.chemmanager.dto.PagedResult;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 
@@ -46,7 +49,7 @@ public final class ApiClient {
 
     public boolean ping() {
         try {
-            HttpRequest request = requestBuilder(ApiEndpoints.PING, Map.of()).GET().timeout(Duration.ofSeconds(5)).build();
+            HttpRequest request = requestBuilder(ApiEndpoints.HEALTH, Map.of()).GET().timeout(Duration.ofSeconds(5)).build();
             HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
             return response.statusCode() >= 200 && response.statusCode() < 300;
         } catch (IOException | InterruptedException | RuntimeException ex) {
@@ -138,36 +141,117 @@ public final class ApiClient {
 
     private <T> T send(HttpRequest.Builder builder, Class<T> type, String path) {
         HttpResponse<String> response = execute(builder, path);
-        String body = response.body();
         if (type == Void.class) {
             return null;
         }
-        try {
-            if (body == null || body.isBlank()) {
-                return null;
-            }
-            return JsonMapper.get().readValue(body, type);
-        } catch (IOException ex) {
-            throw new ApiException("Malformed JSON response from " + path + ": " + ex.getMessage(), ex);
+        JsonNode data = unwrap(response.body(), path);
+        if (data == null || data.isNull()) {
+            return null;
         }
+        return convert(data, type, path);
     }
 
     private <T> T sendTyped(HttpRequest.Builder builder, TypeReference<T> type, String path) {
         HttpResponse<String> response = execute(builder, path);
+        JsonNode data = unwrap(response.body(), path);
+        if (data == null || data.isNull()) {
+            return null;
+        }
+        return convert(data, type, path);
+    }
+
+    private JsonNode sendTree(HttpRequest.Builder builder, String path) {
+        HttpResponse<String> response = execute(builder, path);
+        JsonNode data = unwrap(response.body(), path);
+
+        return data == null ? JsonMapper.get().nullNode() : data;
+    }
+
+    /**
+     * The API answers with one envelope: {@code {success:true, data:..., meta:{...}}} or
+     * {@code {success:false, error:{code,message,details}}}. Only the {@code data} node is handed
+     * to the callers, the {@code meta} block is read by {@link #getPage}.
+     */
+    private JsonNode unwrap(String body, String path) {
+        if (body == null || body.isBlank()) {
+            return null;
+        }
         try {
-            return JsonMapper.get().readValue(response.body(), type);
+            JsonNode root = JsonMapper.get().readTree(body);
+            if (root.has("success")) {
+                if (!root.path("success").asBoolean(true)) {
+                    JsonNode error = root.path("error");
+                    throw new ApiException(422, error.path("code").asText("error"),
+                            error.path("message").asText("The API rejected the request."),
+                            toStringMap(error.path("details")));
+                }
+                return root.get("data");
+            }
+            return root;
         } catch (IOException ex) {
             throw new ApiException("Malformed JSON response from " + path + ": " + ex.getMessage(), ex);
         }
     }
 
-    private JsonNode sendTree(HttpRequest.Builder builder, String path) {
-        HttpResponse<String> response = execute(builder, path);
-        try {
-            return JsonMapper.get().readTree(response.body());
-        } catch (IOException ex) {
-            throw new ApiException("Malformed JSON response from " + path + ": " + ex.getMessage(), ex);
+    private static Map<String, String> toStringMap(JsonNode node) {
+        if (node == null || !node.isObject()) {
+            return Map.of();
         }
+        Map<String, String> values = new LinkedHashMap<>();
+        node.fields().forEachRemaining(entry -> values.put(entry.getKey(), entry.getValue().asText()));
+        return values;
+    }
+
+    private <T> T convert(JsonNode node, Class<T> type, String path) {
+        try {
+            return JsonMapper.get().treeToValue(node, type);
+        } catch (IOException ex) {
+            throw new ApiException("Malformed payload from " + path + ": " + ex.getMessage(), ex);
+        }
+    }
+
+    private <T> T convert(JsonNode node, TypeReference<T> type, String path) {
+        try {
+            return JsonMapper.get().readerFor(type).readValue(node);
+        } catch (IOException ex) {
+            throw new ApiException("Malformed payload from " + path + ": " + ex.getMessage(), ex);
+        }
+    }
+
+    /**
+     * Reads a paginated list: the rows are in {@code data}, the pagination in {@code meta}.
+     */
+    public <T> PagedResult<T> getPage(String path, Map<String, String> query, Class<T> rowType) {
+        HttpResponse<String> response = execute(requestBuilder(path, query).GET(), path);
+        String body = response.body();
+        try {
+            JsonNode root = body == null || body.isBlank()
+                    ? JsonMapper.get().nullNode()
+                    : JsonMapper.get().readTree(body);
+            JsonNode rows = root.has("success") ? root.path("data") : root;
+            JsonNode meta = root.path("meta");
+            List<T> items = new ArrayList<>();
+            if (rows != null && rows.isArray()) {
+                for (JsonNode row : rows) {
+                    items.add(convert(row, rowType, path));
+                }
+            }
+            int page = meta.path("page").asInt(0);
+            int pageSize = meta.path("pageSize").asInt(Math.max(1, items.size()));
+            long total = meta.path("total").asLong(items.size());
+            // the API counts pages from 1, the client from 0
+            return new PagedResult<>(items, Math.max(0, page - 1), pageSize, total);
+        } catch (IOException ex) {
+            throw new ApiException("Malformed page from " + path + ": " + ex.getMessage(), ex);
+        }
+    }
+
+    public void putVoid(String path, Object payload) {
+        put(path, payload, Void.class);
+    }
+
+    public void delete(String path) {
+        send(requestBuilder(path, Map.of()).DELETE(), Void.class, path);
     }
 
     private HttpResponse<String> execute(HttpRequest.Builder builder, String path) {

@@ -16,6 +16,10 @@ public class ApiException extends RuntimeException {
         this.details = details == null ? Map.of() : Map.copyOf(details);
     }
 
+    public ApiException(String message) {
+        super(message);
+    }
+
     public ApiException(String message, Throwable cause) {
         super(message, cause);
         this.status = 0;

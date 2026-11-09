@@ -74,11 +74,19 @@ The schema files contain `DELIMITER $$` blocks for the triggers: they must be ex
 ```sql
 CREATE USER 'chemapp'@'10.0.0.%' IDENTIFIED BY '<strong-password>';
 GRANT SELECT, INSERT, UPDATE ON chemmanager.* TO 'chemapp'@'10.0.0.%';
--- deliberately NOT granted: DELETE, DROP, ALTER, GRANT
+-- the role matrix is replaced, not versioned: the API deletes and re-inserts the
+-- assignments of one role, which needs DELETE on those two join tables only
+GRANT DELETE ON chemmanager.userRoles TO 'chemapp'@'10.0.0.%';
+GRANT DELETE ON chemmanager.rolePermissions TO 'chemapp'@'10.0.0.%';
+-- deliberately NOT granted: DELETE anywhere else, DROP, ALTER, GRANT
 -- audit, stock movements and financial documents are therefore append-only at the DB level
 ```
 
-Deletions are logical (`deletedAt`, status `CANCELLED`): the application never issues `DELETE`.
+Every business row is deleted logically (`deletedAt`, status `CANCELLED`); the only physical
+`DELETE` statements in the API are the two join tables above, executed by
+`UserRepository::syncRoles()` and `syncRolePermissions()` when an administrator saves the
+permission matrix. Both tables hold nothing but the assignment itself, so the delete is not a
+destructive operation on history.
 
 ## First sign-in
 

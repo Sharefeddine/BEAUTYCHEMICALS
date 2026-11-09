@@ -1,17 +1,21 @@
 package com.chemmanager.service.api;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import com.chemmanager.api.ApiClient;
 import com.chemmanager.api.ApiEndpoints;
-import com.chemmanager.dto.NotificationDto;
 import com.chemmanager.model.NotificationItem;
-import com.chemmanager.model.Severity;
 import com.chemmanager.service.NotificationService;
-import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 
-/** Notification center served by {@code /notifications}. */
+/**
+ * Notification centre served by {@code /api/notifications}.
+ *
+ * <p>The badge count is the one the server computed for the signed-in user; the list is the same
+ * rows the popup shows, so both always agree.</p>
+ */
 public final class ApiNotificationService implements NotificationService {
 
     private final ApiClient client;
@@ -22,15 +26,21 @@ public final class ApiNotificationService implements NotificationService {
 
     @Override
     public List<NotificationItem> latest(int limit) {
-        Map<String, String> query = limit > 0 ? Map.of("limit", Integer.toString(limit)) : Map.of();
-        List<NotificationDto> dtos = client.get(ApiEndpoints.NOTIFICATIONS, query, new TypeReference<List<NotificationDto>>() {
-        });
-        return dtos.stream().map(ApiNotificationService::toModel).toList();
+        JsonNode payload = client.get(ApiEndpoints.NOTIFICATIONS,
+                Map.of("limit", Integer.toString(limit <= 0 ? 20 : limit)), JsonNode.class);
+        List<NotificationItem> items = new ArrayList<>();
+        if (payload != null) {
+            for (JsonNode row : payload.path("items")) {
+                items.add(ApiMapper.notification(row));
+            }
+        }
+        return items;
     }
 
     @Override
     public int unreadCount() {
-        return latest(0).stream().filter(item -> !item.isRead()).toList().size();
+        JsonNode payload = client.get(ApiEndpoints.NOTIFICATIONS, Map.of("limit", "1"), JsonNode.class);
+        return payload == null ? 0 : payload.path("unreadCount").asInt(0);
     }
 
     @Override
@@ -40,23 +50,6 @@ public final class ApiNotificationService implements NotificationService {
 
     @Override
     public void markAllRead() {
-        client.postVoid(ApiEndpoints.NOTIFICATIONS_READ, Map.of("all", true));
-    }
-
-    private static NotificationItem toModel(NotificationDto dto) {
-        NotificationItem.Category category;
-        try {
-            category = NotificationItem.Category.valueOf(dto.category() == null ? "SYSTEM" : dto.category());
-        } catch (IllegalArgumentException ex) {
-            category = NotificationItem.Category.SYSTEM;
-        }
-        Severity severity;
-        try {
-            severity = Severity.valueOf(dto.severity() == null ? "INFO" : dto.severity());
-        } catch (IllegalArgumentException ex) {
-            severity = Severity.INFO;
-        }
-        return new NotificationItem(dto.id(), category, severity, dto.title(), dto.message(),
-                dto.createdAt(), dto.moduleId(), dto.read());
+        client.postVoid(ApiEndpoints.NOTIFICATIONS_READ_ALL, null);
     }
 }

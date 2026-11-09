@@ -7,6 +7,7 @@ use ChemManager\Api\Controllers\AuthController;
 use ChemManager\Api\Controllers\DashboardController;
 use ChemManager\Api\Controllers\HealthController;
 use ChemManager\Api\Controllers\MaterialController;
+use ChemManager\Api\Controllers\NotificationController;
 use ChemManager\Api\Controllers\ProductController;
 use ChemManager\Api\Controllers\SettingsController;
 use ChemManager\Api\Controllers\UserController;
@@ -29,6 +30,7 @@ return static function (Router $router, App $app): void {
     $settingsController = new SettingsController($app);
     $dashboardController = new DashboardController($app);
     $auditController = new AuditController($app);
+    $notificationController = new NotificationController($app);
 
     // ------------------------------------------------------------------ public
     $router->add('GET', '/api/health', static fn (): \ChemManager\Api\Core\Response =>
@@ -39,6 +41,11 @@ return static function (Router $router, App $app): void {
     $router->add('GET', '/api/auth/me', [$authController, 'me']);
     $router->add('POST', '/api/auth/logout', [$authController, 'logout']);
     $router->add('POST', '/api/auth/password', [$authController, 'changePassword']);
+
+    // ------------------------------------------------------------------ notifications
+    $router->add('GET', '/api/notifications', [$notificationController, 'index']);
+    $router->add('POST', '/api/notifications/read', [$notificationController, 'markRead']);
+    $router->add('POST', '/api/notifications/readAll', [$notificationController, 'markAllRead']);
 
     // ------------------------------------------------------------------ dashboard
     $router->add('GET', '/api/dashboard/summary', [$dashboardController, 'summary'], 'DASHBOARD_VIEW');

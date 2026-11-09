@@ -64,7 +64,7 @@ final class SettingsRepository
     public function company(): ?array
     {
         return $this->db->first(
-            'SELECT id, name, legalName, activity, address, city, wilaya, postalCode, phone, email,
+            'SELECT id, name, legalName, activity, address, city, wilaya, postalCode, phone, email, website,
                     taxId, tradeRegister, nif, taxArticle, currency, vatRate, invoicePrefix, quotationPrefix,
                     deliveryPrefix, logoPath
              FROM companies ORDER BY id LIMIT 1'
