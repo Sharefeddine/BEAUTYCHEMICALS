@@ -33,7 +33,14 @@ final class Validator
 
     public function email(string $field, bool $required = false): self
     {
-        $value = trim((string) ($this->data[$field] ?? ''));
+        if (!array_key_exists($field, $this->data)) {
+            if ($required) {
+                $this->errors[$field] = 'validation.required';
+            }
+
+            return $this;
+        }
+        $value = trim((string) $this->data[$field]);
         if ($value === '') {
             if ($required) {
                 $this->errors[$field] = 'validation.required';
@@ -50,7 +57,10 @@ final class Validator
 
     public function integer(string $field, int $min, int $max): self
     {
-        $value = $this->data[$field] ?? null;
+        if (!array_key_exists($field, $this->data)) {
+            return $this;
+        }
+        $value = $this->data[$field];
         if (!is_numeric($value) || (int) $value < $min || (int) $value > $max) {
             $this->errors[$field] = 'validation.range';
         }
@@ -60,7 +70,10 @@ final class Validator
 
     public function decimal(string $field, float $min, float $max): self
     {
-        $value = $this->data[$field] ?? null;
+        if (!array_key_exists($field, $this->data)) {
+            return $this;
+        }
+        $value = $this->data[$field];
         if (!is_numeric($value) || (float) $value < $min || (float) $value > $max) {
             $this->errors[$field] = 'validation.range';
         }
@@ -70,7 +83,10 @@ final class Validator
 
     public function inList(string $field, array $allowed): self
     {
-        $value = $this->data[$field] ?? null;
+        if (!array_key_exists($field, $this->data)) {
+            return $this;
+        }
+        $value = $this->data[$field];
         if (!in_array($value, $allowed, true)) {
             $this->errors[$field] = 'validation.allowed_values';
         }
@@ -80,7 +96,10 @@ final class Validator
 
     public function pattern(string $field, string $regex, string $key = 'validation.format'): self
     {
-        $value = (string) ($this->data[$field] ?? '');
+        if (!array_key_exists($field, $this->data)) {
+            return $this;
+        }
+        $value = (string) $this->data[$field];
         if ($value !== '' && preg_match($regex, $value) !== 1) {
             $this->errors[$field] = $key;
         }

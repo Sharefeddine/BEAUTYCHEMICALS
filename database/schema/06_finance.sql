@@ -6,6 +6,8 @@
 -- before any insert, and every financial row keeps a link to its source document.
 -- =============================================================================
 
+SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 -- ------------------------------------------------------------------ cash book
 CREATE TABLE cashTransactions (
     id             BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,

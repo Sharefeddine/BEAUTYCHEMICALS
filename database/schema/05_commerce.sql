@@ -6,6 +6,8 @@
 -- credit notes, never UPDATEs on the line amounts.
 -- =============================================================================
 
+SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 -- ------------------------------------------------------------------ purchasing
 CREATE TABLE purchaseRequests (
     id            BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,

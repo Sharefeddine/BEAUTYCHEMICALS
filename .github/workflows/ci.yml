@@ -126,7 +126,9 @@ jobs:
             SELECT COUNT(*) AS users FROM users;"
 
       - name: API unit tests (no database required)
-        run: php backend/tests/unit/run.php
+        run: |
+          set -o pipefail
+          php backend/tests/unit/run.php | tee api-unit.log
 
       - name: Start the API
         run: |
@@ -139,7 +141,9 @@ jobs:
           done
 
       - name: API integration tests (real MySQL, real HTTP)
-        run: php backend/tests/integration/run.php | tee api-integration.log
+        run: |
+          set -o pipefail
+          php backend/tests/integration/run.php | tee api-integration.log
 
       - name: Publish report
         if: always()

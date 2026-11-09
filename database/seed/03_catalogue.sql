@@ -4,7 +4,7 @@
 -- Idempotent: INSERT ... ON DUPLICATE KEY UPDATE keeps a re-run harmless.
 -- =============================================================================
 
-SET NAMES utf8mb4;
+SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 INSERT INTO departments (code, nameFr, nameAr, nameEn) VALUES
   ('DIRECTION', 'Direction', 'الإدارة', 'Management'),

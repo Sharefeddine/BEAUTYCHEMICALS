@@ -2,7 +2,7 @@
 -- ChemManager ERP - seed 06: company identity, settings and document numbering
 -- =============================================================================
 
-SET NAMES utf8mb4;
+SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 INSERT INTO companies (name, legalName, activity, address, city, wilaya, postalCode, phone, email,
                        taxId, tradeRegister, nif, taxArticle, currency, vatRate,

@@ -3,8 +3,10 @@
 -- 03 - catalogue: categories, products, raw materials, partners, warehouses, batches
 --
 -- Stock is NOT stored on products/rawMaterials: it is the sum of the batch rows and
--- only changes through stockMovements (append-only ledger, see 02 and the triggers).
+-- only changes through stockMovements (append-only ledger) and the batch tables.
 -- =============================================================================
+
+SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- ------------------------------------------------------------------ partners
 CREATE TABLE suppliers (

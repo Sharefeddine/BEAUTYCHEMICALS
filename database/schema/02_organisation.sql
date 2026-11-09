@@ -6,6 +6,8 @@
 -- (payments are booked on a cash account, delivery routes are assigned to a driver).
 -- =============================================================================
 
+SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 -- ------------------------------------------------------------------ treasury
 CREATE TABLE cashAccounts (
     id             BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,

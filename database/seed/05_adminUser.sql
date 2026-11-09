@@ -7,7 +7,7 @@
 --   php backend/tools/console.php user:password admin '<new-password>'
 -- =============================================================================
 
-SET NAMES utf8mb4;
+SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 INSERT INTO users (username, passwordHash, fullName, email, phone, jobTitle, isActive, mustChangePassword)
 VALUES ('admin',

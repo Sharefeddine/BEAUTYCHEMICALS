@@ -38,6 +38,8 @@ final class Database
                         PDO::ATTR_EMULATE_PREPARES => false,
                         PDO::ATTR_STRINGIFY_FETCHES => false,
                     ]);
+                // Same collation as the tables and the views, whatever the server default is.
+                $this->pdo->exec('SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci');
             } catch (PDOException $exception) {
                 throw new ApiException(503, 'DATABASE_UNAVAILABLE',
                     'The database is not reachable.', [], $exception);

@@ -28,8 +28,10 @@ final class MaterialRepository
         $params = [];
 
         if ($search !== '') {
-            $where[] = '(m.code LIKE :search OR m.commercialName LIKE :search OR m.chemicalName LIKE :search)';
-            $params['search'] = '%' . $search . '%';
+            $where[] = '(m.code LIKE :searchCode OR m.commercialName LIKE :searchName OR m.chemicalName LIKE :searchChemical)';
+            $params['searchCode'] = '%' . $search . '%';
+            $params['searchName'] = '%' . $search . '%';
+            $params['searchChemical'] = '%' . $search . '%';
         }
         if ($categoryId !== null && $categoryId > 0) {
             $where[] = 'm.categoryId = :categoryId';

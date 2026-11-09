@@ -28,8 +28,10 @@ final class UserRepository
         $params = [];
 
         if ($search !== '') {
-            $where[] = '(u.username LIKE :search OR u.fullName LIKE :search OR u.email LIKE :search)';
-            $params['search'] = '%' . $search . '%';
+            $where[] = '(u.username LIKE :searchUsername OR u.fullName LIKE :searchName OR u.email LIKE :searchEmail)';
+            $params['searchUsername'] = '%' . $search . '%';
+            $params['searchName'] = '%' . $search . '%';
+            $params['searchEmail'] = '%' . $search . '%';
         }
         if ($activeOnly === true) {
             $where[] = 'u.isActive = 1';

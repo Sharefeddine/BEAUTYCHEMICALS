@@ -3,6 +3,8 @@
 -- 08 - system: settings, document numbering, backups
 -- =============================================================================
 
+SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 CREATE TABLE settings (
     id        BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     settingKey VARCHAR(60)    NOT NULL,
@@ -46,7 +48,7 @@ CREATE TABLE backups (
 -- ------------------------------------------------------------------ reporting views
 CREATE OR REPLACE VIEW vwStockBalances AS
 SELECT
-    'MATERIAL' AS itemKind,
+    CAST('MATERIAL' AS CHAR(8)) COLLATE utf8mb4_unicode_ci AS itemKind,
     m.id       AS itemId,
     m.code     AS itemCode,
     m.commercialName AS itemName,
@@ -60,7 +62,7 @@ WHERE m.deletedAt IS NULL
 GROUP BY m.id, m.code, m.commercialName, m.storageUnit, m.minStock
 UNION ALL
 SELECT
-    'PRODUCT' AS itemKind,
+    CAST('PRODUCT' AS CHAR(8)) COLLATE utf8mb4_unicode_ci AS itemKind,
     p.id       AS itemId,
     p.sku      AS itemCode,
     p.nameFr   AS itemName,

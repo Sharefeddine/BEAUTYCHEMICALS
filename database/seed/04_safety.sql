@@ -2,7 +2,7 @@
 -- ChemManager ERP - seed 04: GHS pictograms and hazardous-material vocabulary
 -- =============================================================================
 
-SET NAMES utf8mb4;
+SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 INSERT INTO safetyPictograms (code, nameFr, nameAr, nameEn, description, sortOrder) VALUES
   ('GHS01', 'Explosif', 'متفجر', 'Explosive', 'Matière explosible', 1),

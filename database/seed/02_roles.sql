@@ -3,7 +3,7 @@
 -- Must stay identical to com.chemmanager.security.DefaultRoles (a test checks the count).
 -- =============================================================================
 
-SET NAMES utf8mb4;
+SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 INSERT INTO roles (code, nameFr, nameAr, nameEn, descriptionFr, descriptionAr, descriptionEn, isSystem) VALUES
   ('SUPER_ADMIN', 'Super administrateur', 'مدير النظام', 'Super administrator', 'Accès total à toutes les fonctions', 'وصول كامل إلى جميع الوظائف', 'Full access to every function', 1),

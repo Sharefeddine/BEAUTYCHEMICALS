@@ -4,7 +4,7 @@
 -- Idempotent: re-running the file does not duplicate rows.
 -- =============================================================================
 
-SET NAMES utf8mb4;
+SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 INSERT INTO permissions (code, module, labelFr, labelAr, labelEn, sortOrder) VALUES
   ('DASHBOARD_VIEW', 'DASHBOARD', 'Tableau de bord', 'لوحة التحكم', 'Dashboard', 0),

@@ -6,6 +6,8 @@
 -- warehouse and production screens read before handling a hazardous material.
 -- =============================================================================
 
+SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 CREATE TABLE safetyPictograms (
     id          BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     code        VARCHAR(12)     NOT NULL COMMENT 'GHS01 ... GHS09',

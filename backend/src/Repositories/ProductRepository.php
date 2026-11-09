@@ -28,8 +28,12 @@ final class ProductRepository
         $params = [];
 
         if ($search !== '') {
-            $where[] = '(p.sku LIKE :search OR p.nameFr LIKE :search OR p.nameAr LIKE :search OR p.barcode LIKE :search)';
-            $params['search'] = '%' . $search . '%';
+            // one placeholder per occurrence: MySQL native prepares reject a repeated name
+            $where[] = '(p.sku LIKE :searchSku OR p.nameFr LIKE :searchFr OR p.nameAr LIKE :searchAr OR p.barcode LIKE :searchBarcode)';
+            $params['searchSku'] = '%' . $search . '%';
+            $params['searchFr'] = '%' . $search . '%';
+            $params['searchAr'] = '%' . $search . '%';
+            $params['searchBarcode'] = '%' . $search . '%';
         }
         if ($categoryId !== null && $categoryId > 0) {
             $where[] = 'p.categoryId = :categoryId';

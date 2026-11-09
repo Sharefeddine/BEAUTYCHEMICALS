@@ -30,8 +30,10 @@ final class AuditRepository
             $params['action'] = strtoupper($action);
         }
         if ($search !== '') {
-            $where[] = '(username LIKE :search OR entity LIKE :search OR reference LIKE :search)';
-            $params['search'] = '%' . $search . '%';
+            $where[] = '(username LIKE :searchUsername OR entity LIKE :searchEntity OR reference LIKE :searchReference)';
+            $params['searchUsername'] = '%' . $search . '%';
+            $params['searchEntity'] = '%' . $search . '%';
+            $params['searchReference'] = '%' . $search . '%';
         }
 
         $clause = 'WHERE ' . implode(' AND ', $where);

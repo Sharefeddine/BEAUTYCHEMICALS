@@ -9,6 +9,8 @@
 --   * a batch cannot be released to sellable stock before a PASS quality check.
 -- =============================================================================
 
+SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 -- ------------------------------------------------------------------ formulations
 CREATE TABLE formulations (
     id               BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
