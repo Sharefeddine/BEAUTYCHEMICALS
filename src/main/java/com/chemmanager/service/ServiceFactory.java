@@ -9,6 +9,7 @@ import com.chemmanager.security.Session;
 import com.chemmanager.security.SessionContext;
 import com.chemmanager.service.api.ApiAuthService;
 import com.chemmanager.service.api.ApiDashboardService;
+import com.chemmanager.service.api.ApiFormulationService;
 import com.chemmanager.service.api.ApiNotificationService;
 import com.chemmanager.service.api.ApiProductService;
 import com.chemmanager.service.api.ApiRawMaterialService;
@@ -16,6 +17,7 @@ import com.chemmanager.service.api.ApiSettingsService;
 import com.chemmanager.service.api.ApiUserService;
 import com.chemmanager.service.mock.MockAuthService;
 import com.chemmanager.service.mock.MockDashboardService;
+import com.chemmanager.service.mock.MockFormulationService;
 import com.chemmanager.service.mock.MockNotificationService;
 import com.chemmanager.service.mock.MockProductService;
 import com.chemmanager.service.mock.MockRawMaterialService;
@@ -40,6 +42,7 @@ public final class ServiceFactory {
     private static DashboardService dashboardService;
     private static ProductService productService;
     private static RawMaterialService rawMaterialService;
+    private static FormulationService formulationService;
     private static NotificationService notificationService;
     private static UserService userService;
     private static SettingsService settingsService;
@@ -81,6 +84,7 @@ public final class ServiceFactory {
             dashboardService = new ApiDashboardService(apiClient);
             productService = new ApiProductService(apiClient);
             rawMaterialService = new ApiRawMaterialService(apiClient);
+            formulationService = new ApiFormulationService(apiClient);
             notificationService = new ApiNotificationService(apiClient);
             userService = new ApiUserService(apiClient);
             settingsService = new ApiSettingsService(apiClient);
@@ -89,6 +93,7 @@ public final class ServiceFactory {
             dashboardService = new MockDashboardService();
             productService = new MockProductService();
             rawMaterialService = new MockRawMaterialService();
+            formulationService = new MockFormulationService();
             notificationService = new MockNotificationService();
             userService = new MockUserService();
             settingsService = new MockSettingsService();
@@ -131,6 +136,11 @@ public final class ServiceFactory {
     public static RawMaterialService rawMaterials() {
         initialise();
         return rawMaterialService;
+    }
+
+    public static FormulationService formulations() {
+        initialise();
+        return formulationService;
     }
 
     public static NotificationService notifications() {

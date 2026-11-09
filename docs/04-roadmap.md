@@ -47,13 +47,16 @@ switches work without restart; no KPI is hardcoded; no button is inert.
   token without `PRODUCTS_VIEW` gets `403`; SQL injection and password-hash checks pass;
   the desktop switches from demo to API without code changes.
 
-## Phase 3 — Formulations (no generation by the app) ⏭ *(next)*
+## Phase 3 — Formulations (no generation by the app) ✅ *(delivered)*
 
-* `formulations`, `formulationVersions`, `formulationItems` screens: version history, cost
+* ✅ `formulations`, `formulationVersions`, `formulationItems` screens: version history, cost
   from current material prices, comparison of two versions, approval workflow.
-* Rules: only `FORMULATIONS_APPROVE` holders can approve; approved versions are locked; a
+  See `docs/PHASE-3-REPORT.md`.
+* ✅ Rules: only `FORMULATIONS_APPROVE` holders can approve; approved versions are locked; a
   change creates a new version; no automatic/recommended formula is ever produced.
-* PDF export of a version (JasperReports template) with Arabic and French layouts.
+* ⏭ PDF export of a version (JasperReports template) with Arabic and French layouts —
+  moved to the document work of Phase 6, which owns the PDF engine (Quotation → Invoice →
+  Delivery note), so the formulation sheet reuses it instead of duplicating a second renderer.
 * **Acceptance:** an approved version cannot be edited (API rejects it with `409`), the cost
   recomputes when a material price changes, and every change is in the audit log.
 

@@ -12,6 +12,9 @@ import java.util.List;
 import java.util.Set;
 
 import com.chemmanager.model.CompanySettings;
+import com.chemmanager.model.Formulation;
+import com.chemmanager.model.FormulationItem;
+import com.chemmanager.model.FormulationVersion;
 import com.chemmanager.model.NotificationItem;
 import com.chemmanager.model.Product;
 import com.chemmanager.model.ProductType;
@@ -150,6 +153,67 @@ final class ApiMapper {
                 text(node, "logoPath", defaults.logoPath()),
                 setting(settings, "app.defaultLocale", defaults.localeCode()),
                 setting(settings, "app.defaultTheme", defaults.theme()));
+    }
+
+    static Formulation formulation(JsonNode node) {
+        JsonNode versions = node.path("versions");
+        int versionCount = versions.isArray() ? versions.size() : node.path("versionCount").asInt(0);
+        return new Formulation(
+                node.path("id").asLong(),
+                text(node, "code", ""),
+                text(node, "nameFr", ""),
+                text(node, "nameAr", ""),
+                node.path("productId").isNull() || node.path("productId").isMissingNode()
+                        ? null : node.path("productId").asLong(),
+                emptyToNull(text(node, "productName", null)),
+                text(node, "status", "DRAFT"),
+                node.path("currentVersionId").isNull() || node.path("currentVersionId").isMissingNode()
+                        ? null : node.path("currentVersionId").asLong(),
+                node.path("currentVersion").isNull() || node.path("currentVersion").isMissingNode()
+                        ? null : node.path("currentVersion").asInt(),
+                decimalOrZero(node, "currentCost"),
+                decimalOrZero(node, "currentYield"),
+                text(node, "currentYieldUnit", ""),
+                versionCount,
+                emptyToNull(text(node, "approvedByName", null)),
+                text(node, "notes", ""),
+                dateTime(node, "updatedAt"));
+    }
+
+    static FormulationVersion version(JsonNode node) {
+        List<FormulationItem> items = new ArrayList<>();
+        for (JsonNode row : node.path("items")) {
+            items.add(new FormulationItem(
+                    row.path("materialId").asLong(),
+                    text(row, "materialCode", ""),
+                    text(row, "materialName", ""),
+                    decimalOrZero(row, "quantity"),
+                    text(row, "unit", "KG"),
+                    decimalOrZero(row, "percentage"),
+                    text(row, "phase", ""),
+                    decimalOrZero(row, "lineCost"),
+                    decimalOrZero(row, "stockQuantity"),
+                    text(row, "hazardClass", "")));
+        }
+
+        return new FormulationVersion(
+                node.path("id").asLong(),
+                node.path("formulationId").asLong(),
+                node.path("version").asInt(0),
+                text(node, "instructions", ""),
+                decimalOrZero(node, "expectedYield"),
+                text(node, "yieldUnit", "L"),
+                node.path("isLocked").asBoolean(false),
+                emptyToNull(text(node, "approvedByName", null)),
+                dateTime(node, "approvedAt"),
+                decimalOrZero(node, "cost"),
+                node.path("itemCount").asInt(items.size()),
+                items);
+    }
+
+    static BigDecimal decimalOrZero(JsonNode node, String field) {
+        BigDecimal value = decimal(node, field);
+        return value == null ? BigDecimal.ZERO : value;
     }
 
     static NotificationItem notification(JsonNode node) {

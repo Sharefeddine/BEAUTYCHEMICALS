@@ -131,7 +131,7 @@ backend/tools/console.php     db:check, user:password, token:purge, role:list, i
 | Audit | every mutation and every session event written to `auditLogs` with user, action, module, entity, IP, severity |
 | Dashboard | every figure aggregated from the ledger (`invoices`, `expenses`, `materialBatches`, `productBatches`, `productionOrders`, `vwLowStock`) — nothing hardcoded |
 
-### Endpoints (35)
+### Endpoints (35 at the end of Phase 2)
 
 Health `GET /api/health` · auth `POST /api/auth/login`, `GET /api/auth/me`,
 `POST /api/auth/logout`, `POST /api/auth/password` · dashboard `GET /api/dashboard/summary` ·

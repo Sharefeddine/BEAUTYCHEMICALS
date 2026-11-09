@@ -16,11 +16,14 @@ backed by MySQL 8.
 >   their phase badge; they open a "planned capabilities" screen, so no button is dead and no
 >   screen is a mock-up — see [`docs/PHASE-1-REPORT.md`](docs/PHASE-1-REPORT.md).
 > * **Phase 2 — complete:** MySQL 8 database (68 tables, camelCase without underscores, seeds) and
->   the framework-free PHP REST API (auth, RBAC, 35 endpoints) — both verified in CI against a real
->   MySQL 8, 25 unit + 77 end-to-end API tests — see
+>   the framework-free PHP REST API (auth, RBAC, 46 endpoints) — both verified in CI against a real
+>   MySQL 8, 25 unit + 106 end-to-end API tests — see
 >   [`docs/PHASE-2-REPORT.md`](docs/PHASE-2-REPORT.md).
-> * **Phase 3 — next:** formulations (versioning and approval; the application never generates a
->   formula), with the client switched to the API.
+> * **Phase 3 — complete:** formulations — families, versions, bill of materials priced from the
+>   current purchase prices, approval that locks the version, version comparison, on both halves.
+>   The application never generates a formula — see
+>   [`docs/PHASE-3-REPORT.md`](docs/PHASE-3-REPORT.md).
+> * **Phase 4 — next:** inventory, warehouses, FEFO allocation and purchasing.
 
 ---
 

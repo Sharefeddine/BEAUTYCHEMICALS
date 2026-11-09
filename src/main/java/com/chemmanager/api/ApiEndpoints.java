@@ -20,6 +20,7 @@ public final class ApiEndpoints {
     public static final String PRODUCT_CATEGORIES = "/api/products/categories";
     public static final String RAW_MATERIALS = "/api/rawMaterials";
     public static final String MATERIAL_CATEGORIES = "/api/rawMaterials/categories";
+    public static final String FORMULATIONS = "/api/formulations";
     public static final String NOTIFICATIONS = "/api/notifications";
     public static final String NOTIFICATIONS_READ = "/api/notifications/read";
     public static final String NOTIFICATIONS_READ_ALL = "/api/notifications/readAll";

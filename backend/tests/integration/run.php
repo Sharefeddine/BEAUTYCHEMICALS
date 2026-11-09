@@ -218,6 +218,118 @@ $response = call('GET', '/api/rawMaterials/categories', null, $token);
 check('material categories are seeded', count($response['json']['data'] ?? []) === 7,
     'count ' . count($response['json']['data'] ?? []));
 
+// ------------------------------------------------------------ formulations
+$response = call('GET', '/api/rawMaterials?pageSize=10', null, $token);
+$materials = $response['json']['data'] ?? [];
+$materialA = (int) ($materials[0]['id'] ?? 0);
+$materialB = (int) ($materials[1]['id'] ?? 0);
+$materialPriceA = (float) ($materials[0]['purchasePrice'] ?? 0);
+check('two raw materials are available for a formula', $materialA > 0 && $materialB > 0);
+
+$response = call('POST', '/api/formulations', ['nameFr' => '', 'nameAr' => ''], $token);
+check('a formulation without a name is refused', $response['status'] === 422, $response['raw']);
+
+$response = call('POST', '/api/formulations', [
+    'nameFr' => 'Gel douche test ' . date('His'),
+    'nameAr' => 'جل الاستحمام اختبار',
+    'notes' => 'Saisie manuelle par le responsable de production',
+], $token);
+$formulationId = (int) ($response['json']['data']['id'] ?? 0);
+$formulationCode = (string) ($response['json']['data']['code'] ?? '');
+check('a formulation is created as a draft', $response['status'] === 201
+    && ($response['json']['data']['status'] ?? '') === 'DRAFT' && $formulationId > 0, $response['raw']);
+check('the formulation receives a generated code', $formulationCode !== '');
+
+$response = call('GET', '/api/formulations?search=' . urlencode($formulationCode), null, $token);
+check('the formulation is listed', ($response['json']['meta']['total'] ?? 0) === 1, $response['raw']);
+
+$response = call('POST', '/api/formulations/' . $formulationId . '/versions', ['instructions' => 'Phase A puis phase B.'], $token);
+$versionOneId = (int) ($response['json']['data']['id'] ?? 0);
+check('the first version is created', $response['status'] === 201
+    && (int) ($response['json']['data']['version'] ?? 0) === 1 && $versionOneId > 0, $response['raw']);
+check('a new version starts empty', (int) ($response['json']['data']['itemCount'] ?? -1) === 0);
+
+$response = call('POST', '/api/formulations/' . $formulationId . '/versions/' . $versionOneId . '/approve', null, $token);
+check('an empty version cannot be approved', $response['status'] === 422, $response['raw']);
+
+$response = call('PUT', '/api/formulations/' . $formulationId . '/versions/' . $versionOneId, [
+    'expectedYield' => 100,
+    'yieldUnit' => 'KG',
+    'items' => [
+        ['materialId' => $materialA, 'quantity' => 60, 'unit' => 'KG', 'phase' => 'A'],
+        ['materialId' => $materialB, 'quantity' => 40, 'unit' => 'KG', 'phase' => 'B'],
+    ],
+], $token);
+$percentageSum = 0.0;
+foreach ($response['json']['data']['items'] ?? [] as $item) {
+    $percentageSum += (float) $item['percentage'];
+}
+check('the bill of materials is stored as entered', $response['status'] === 200
+    && (int) ($response['json']['data']['itemCount'] ?? 0) === 2, $response['raw']);
+check('percentages are computed when the units match', abs($percentageSum - 100.0) < 0.01,
+    'sum ' . $percentageSum);
+check('the cost is computed from the current purchase prices',
+    (float) ($response['json']['data']['cost'] ?? 0) > 0, $response['raw']);
+
+$response = call('PUT', '/api/formulations/' . $formulationId . '/versions/' . $versionOneId, [
+    'items' => [['materialId' => $materialA, 'quantity' => 0, 'unit' => 'KG']],
+], $token);
+check('a null quantity is refused', $response['status'] === 422, $response['raw']);
+
+$response = call('POST', '/api/formulations/' . $formulationId . '/versions/' . $versionOneId . '/approve', null, $token);
+check('a filled version is approved', $response['status'] === 200
+    && ($response['json']['data']['isLocked'] ?? false) === true, $response['raw']);
+check('the approval is stamped with the approver',
+    ($response['json']['data']['approvedByName'] ?? '') === 'admin', $response['raw']);
+
+$response = call('GET', '/api/formulations/' . $formulationId, null, $token);
+check('the formulation becomes APPROVED and points at its version', $response['status'] === 200
+    && ($response['json']['data']['status'] ?? '') === 'APPROVED'
+    && (int) ($response['json']['data']['currentVersionId'] ?? 0) === $versionOneId, $response['raw']);
+check('the approved version is served with its items',
+    count($response['json']['data']['currentVersion']['items'] ?? []) === 2);
+
+$response = call('PUT', '/api/formulations/' . $formulationId . '/versions/' . $versionOneId, [
+    'instructions' => 'modification interdite',
+], $token);
+check('an approved version cannot be edited', $response['status'] === 409
+    && ($response['json']['error']['code'] ?? '') === 'FORMULATION_LOCKED', $response['raw']);
+
+$response = call('POST', '/api/formulations/' . $formulationId . '/versions/' . $versionOneId . '/approve', null, $token);
+check('an approved version cannot be approved twice', $response['status'] === 409, $response['raw']);
+
+$response = call('POST', '/api/formulations/' . $formulationId . '/versions', null, $token);
+$versionTwoId = (int) ($response['json']['data']['id'] ?? 0);
+check('a second version copies the approved content', $response['status'] === 201
+    && (int) ($response['json']['data']['version'] ?? 0) === 2
+    && (int) ($response['json']['data']['itemCount'] ?? 0) === 2, $response['raw']);
+
+$response = call('PUT', '/api/formulations/' . $formulationId . '/versions/' . $versionTwoId, [
+    'items' => [
+        ['materialId' => $materialA, 'quantity' => 55, 'unit' => 'KG', 'phase' => 'A'],
+        ['materialId' => $materialB, 'quantity' => 45, 'unit' => 'KG', 'phase' => 'B'],
+    ],
+], $token);
+check('the draft copy can be edited', $response['status'] === 200, $response['raw']);
+
+$response = call('GET', '/api/formulations/' . $formulationId . '/compare?left=' . $versionOneId . '&right=' . $versionTwoId,
+    null, $token);
+$statuses = array_column($response['json']['data']['items'] ?? [], 'status');
+check('the versions compare material by material', $response['status'] === 200
+    && count($statuses) === 2 && !in_array('UNCHANGED', $statuses, true), $response['raw']);
+check('the comparison reports the cost delta', isset($response['json']['data']['costDelta']));
+
+$response = call('GET', '/api/formulations/' . $formulationId . '/versions', null, $token);
+check('both versions are listed, newest first', count($response['json']['data'] ?? []) === 2
+    && (int) ($response['json']['data'][0]['version'] ?? 0) === 2);
+
+$response = call('POST', '/api/formulations/' . $formulationId . '/archive', null, $token);
+check('a formulation is archived without losing its versions', $response['status'] === 200
+    && ($response['json']['data']['status'] ?? '') === 'ARCHIVED', $response['raw']);
+
+$response = call('GET', '/api/formulations/999999', null, $token);
+check('an unknown formulation answers 404', $response['status'] === 404);
+
 // ------------------------------------------------------------ dashboard
 $response = call('GET', '/api/dashboard/summary', null, $token);
 check('the dashboard summary is served', $response['status'] === 200, $response['raw']);

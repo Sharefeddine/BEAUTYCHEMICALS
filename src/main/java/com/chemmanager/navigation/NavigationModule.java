@@ -16,7 +16,7 @@ public enum NavigationModule {
     RAW_MATERIALS("raw-materials", NavGroup.CATALOG, Icons.Icon.MATERIALS, "/fxml/raw-materials.fxml",
             Permission.MATERIALS_VIEW, 1, true),
     FORMULATIONS("formulations", NavGroup.CATALOG, Icons.Icon.FORMULATIONS, "/fxml/formulations.fxml",
-            Permission.FORMULATIONS_VIEW, 3, false),
+            Permission.FORMULATIONS_VIEW, 3, true),
     PRODUCTION("production", NavGroup.OPERATIONS, Icons.Icon.PRODUCTION, "/fxml/production.fxml",
             Permission.PRODUCTION_VIEW, 3, false),
     INVENTORY("inventory", NavGroup.OPERATIONS, Icons.Icon.INVENTORY, "/fxml/inventory.fxml",

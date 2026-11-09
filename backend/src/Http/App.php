@@ -14,6 +14,7 @@ use ChemManager\Api\Core\Response;
 use ChemManager\Api\Core\Router;
 use ChemManager\Api\Repositories\AuditRepository;
 use ChemManager\Api\Repositories\DashboardRepository;
+use ChemManager\Api\Repositories\FormulationRepository;
 use ChemManager\Api\Repositories\MaterialRepository;
 use ChemManager\Api\Repositories\NotificationRepository;
 use ChemManager\Api\Repositories\ProductRepository;
@@ -38,6 +39,7 @@ final class App
     public readonly UserRepository $users;
     public readonly ProductRepository $products;
     public readonly MaterialRepository $materials;
+    public readonly FormulationRepository $formulations;
     public readonly NotificationRepository $notifications;
     public readonly SettingsRepository $settings;
     public readonly DashboardRepository $dashboard;
@@ -59,6 +61,7 @@ final class App
         $this->users = new UserRepository($this->db, $bcryptCost);
         $this->products = new ProductRepository($this->db);
         $this->materials = new MaterialRepository($this->db);
+        $this->formulations = new FormulationRepository($this->db);
         $this->notifications = new NotificationRepository($this->db);
         $this->settings = new SettingsRepository($this->db);
         $this->dashboard = new DashboardRepository($this->db);
