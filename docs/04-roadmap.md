@@ -27,13 +27,13 @@ phase still works. **Phase 2 does not start before the Phase 1 review is approve
 `mvn javafx:run`; every navigation entry opens a working screen; the language and theme
 switches work without restart; no KPI is hardcoded; no button is inert.
 
-## Phase 2 — Database and PHP API core *(database delivered, API in progress)*
+## Phase 2 — Database and PHP API core ✅ *(delivered)*
 
 * ✅ MySQL 8 schema in **camelCase without underscores**: 68 tables in `database/schema/*.sql`,
   seeders for permissions, roles, admin user, categories, GHS pictograms, company settings and
   numbering (`database/seed/*.sql`). ER model generated from the DDL into
-  `docs/02-er-diagram.md`. See `docs/PHASE-2-DATABASE.md`.
-* ⏳ PHP 8 REST API without framework: front controller, router, PDO connection factory with
+  `docs/02-er-diagram.md`, executed on a real MySQL 8 in CI. See `docs/PHASE-2-REPORT.md`.
+* ✅ PHP 8 REST API without framework: front controller, router, PDO connection factory with
   prepared statements, JSON envelope, error handler, CORS for the desktop client.
 * Authentication: `POST /auth/login` (bcrypt), bearer tokens (`apiTokens`, hashed),
   `POST /auth/logout`, `GET /auth/me`, token expiry and revocation.
@@ -47,7 +47,7 @@ switches work without restart; no KPI is hardcoded; no button is inert.
   token without `PRODUCTS_VIEW` gets `403`; SQL injection and password-hash checks pass;
   the desktop switches from demo to API without code changes.
 
-## Phase 3 — Formulations (no generation by the app)
+## Phase 3 — Formulations (no generation by the app) ⏭ *(next)*
 
 * `formulations`, `formulationVersions`, `formulationItems` screens: version history, cost
   from current material prices, comparison of two versions, approval workflow.
