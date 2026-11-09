@@ -24,6 +24,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -102,6 +105,9 @@ public final class DataTable<T> extends VBox {
     private final ProgressIndicator busy = new ProgressIndicator();
     private final PageSource<T> source;
     private final PauseTransition debounce = new PauseTransition(Duration.millis(320));
+    private final VBox emptyState = new VBox(6);
+    private final Label emptyTitle = new Label();
+    private final Label emptyHint = new Label();
 
     private int page;
     private int pageSize = 20;
@@ -128,7 +134,14 @@ public final class DataTable<T> extends VBox {
         HBox.setHgrow(toolbar.getChildren().get(1), Priority.ALWAYS);
 
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
-        table.setPlaceholder(new Label(I18n.get().t("table.empty")));
+        emptyTitle.getStyleClass().add("empty-state-title");
+        emptyHint.getStyleClass().add("empty-state-hint");
+        emptyHint.setWrapText(true);
+        emptyState.setAlignment(Pos.CENTER);
+        emptyState.getStyleClass().add("empty-state");
+        emptyState.getChildren().addAll(emptyTitle, emptyHint);
+        table.setPlaceholder(emptyState);
+        updateEmptyState(0);
         table.setFixedCellSize(-1);
         VBox.setVgrow(table, Priority.ALWAYS);
         table.setMinHeight(320);
@@ -172,6 +185,45 @@ public final class DataTable<T> extends VBox {
         footer.getChildren().addAll(rangeLabel, spacer, busy, previousButton, nextButton, pageSizeBox);
 
         getChildren().addAll(toolbar, table, footer);
+
+        // Search first: Ctrl+F focuses it, Escape clears it (documented in docs/08-ux-guidelines.md).
+        searchField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ESCAPE && !searchField.getText().isEmpty()) {
+                searchField.clear();
+                event.consume();
+            }
+        });
+        sceneProperty().addListener((observable, previous, scene) -> {
+            KeyCombination focusSearch = new KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN);
+            if (previous != null) {
+                previous.getAccelerators().remove(focusSearch);
+            }
+            if (scene != null) {
+                scene.getAccelerators().put(focusSearch, () -> {
+                    if (!searchField.isDisabled() && isVisible()) {
+                        searchField.requestFocus();
+                        searchField.selectAll();
+                    }
+                });
+            }
+        });
+    }
+
+    /**
+     * An empty table is a state, not an absence: it says whether the dataset itself is empty or
+     * only the current search is, and how to get back to data.
+     */
+    private void updateEmptyState(int total) {
+        if (total > 0) {
+            return;
+        }
+        if (query.isEmpty()) {
+            emptyTitle.setText(I18n.get().t("table.empty"));
+            emptyHint.setText(I18n.get().t("table.empty_hint"));
+        } else {
+            emptyTitle.setText(I18n.get().t("table.empty_search", query));
+            emptyHint.setText(I18n.get().t("table.empty_hint"));
+        }
     }
 
     @SafeVarargs
@@ -207,7 +259,9 @@ public final class DataTable<T> extends VBox {
     }
 
     public DataTable<T> placeholder(String text) {
-        table.setPlaceholder(new Label(text));
+        emptyTitle.setText(text);
+        emptyHint.setText("");
+        emptyState.getChildren().setAll(emptyTitle);
         return this;
     }
 
@@ -250,6 +304,7 @@ public final class DataTable<T> extends VBox {
         rangeLabel.setText(I18n.get().t("table.range", result.firstIndex(), result.lastIndex(), result.total()));
         previousButton.setDisable(!result.hasPrevious());
         nextButton.setDisable(!result.hasNext());
+        updateEmptyState(result.total());
         if (onLoaded != null) {
             onLoaded.accept(result);
         }

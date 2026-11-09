@@ -717,3 +717,21 @@
     -fx-background-color: transparent;
     -fx-border-color: transparent;
 }
+
+/* ---------------------------------------------------------------- empty state */
+/* An empty table explains itself: a headline saying what is empty and a hint giving the next
+   action, instead of a bare "No data". See docs/08-ux-guidelines.md. */
+.table-view .placeholder .empty-state { -fx-spacing: 6; -fx-padding: 28 16 28 16; }
+.empty-state-title {
+    -fx-font-size: 13.5px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -c-text;
+}
+.empty-state-hint {
+    -fx-font-size: 12px;
+    -fx-text-fill: -c-text-muted;
+    -fx-wrap-text: true;
+    -fx-max-width: 420px;
+    -fx-text-alignment: center;
+}
+

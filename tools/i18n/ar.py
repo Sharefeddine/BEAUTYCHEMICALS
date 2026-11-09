@@ -11,6 +11,8 @@ MESSAGES = {
     "common.active": "نشط", "common.inactive": "غير نشط", "common.available": "متوفر",
     "common.missing": "مفقود", "common.yes": "نعم", "common.no": "لا", "common.reference": "المرجع",
     "table.empty": "لا توجد سجلات للعرض", "table.range": "{0}–{1} من {2}",
+    "table.empty_search": "لا توجد نتائج لـ « {0} »",
+    "table.empty_hint": "امسح البحث (Esc) أو عدّل عوامل التصفية لتوسيع القائمة.",
     "error.title": "حدث خطأ", "error.loading": "تعذر تحميل البيانات.",
     "error.network": "تعذر الوصول إلى الخادم. تحقق من الاتصال وحاول مجددًا.",
     "error.unauthorized": "انتهت الجلسة، يرجى تسجيل الدخول من جديد.",

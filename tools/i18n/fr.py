@@ -13,6 +13,8 @@ MESSAGES = {
     "common.available": "Disponible", "common.missing": "Manquant", "common.yes": "Oui", "common.no": "Non",
     "common.reference": "Référence",
     "table.empty": "Aucun enregistrement à afficher", "table.range": "{0}–{1} sur {2}",
+    "table.empty_search": "Aucun résultat pour « {0} »",
+    "table.empty_hint": "Effacez la recherche (Échap) ou modifiez les filtres pour élargir la liste.",
     "error.title": "Une erreur est survenue", "error.loading": "Impossible de charger les données.",
     "error.network": "Serveur injoignable. Vérifiez la connexion et réessayez.",
     "error.unauthorized": "Session expirée, veuillez vous reconnecter.",

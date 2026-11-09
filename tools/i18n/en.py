@@ -11,6 +11,8 @@ MESSAGES = {
     "common.active": "Active", "common.inactive": "Inactive", "common.available": "Available",
     "common.missing": "Missing", "common.yes": "Yes", "common.no": "No", "common.reference": "Reference",
     "table.empty": "No records to display", "table.range": "{0}–{1} of {2}",
+    "table.empty_search": "No results for “{0}”",
+    "table.empty_hint": "Clear the search (Esc) or change the filters to widen the list.",
     "error.title": "Something went wrong", "error.loading": "Unable to load data.",
     "error.network": "Server unreachable. Check the connection and try again.",
     "error.unauthorized": "Session expired, please sign in again.",
