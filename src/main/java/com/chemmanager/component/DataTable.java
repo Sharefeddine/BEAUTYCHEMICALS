@@ -213,7 +213,7 @@ public final class DataTable<T> extends VBox {
      * An empty table is a state, not an absence: it says whether the dataset itself is empty or
      * only the current search is, and how to get back to data.
      */
-    private void updateEmptyState(int total) {
+    private void updateEmptyState(long total) {
         if (total > 0) {
             return;
         }
