@@ -1,0 +1,26 @@
++ mysql --version
+mysql  Ver 8.4.11-0ubuntu0.26.04.1 for Linux on x86_64 ((Ubuntu))
+++ seq 1 60
++ for i in $(seq 1 60)
++ mysql -h 127.0.0.1 -P 3306 -uroot -proot -e 'SELECT 1'
++ echo 'MySQL reachable after 1 attempt(s)'
+MySQL reachable after 1 attempt(s)
++ break
++ set -e
++ for file in database/schema/*.sql
++ echo 'applying database/schema/01_core.sql'
+applying database/schema/01_core.sql
++ mysql -h 127.0.0.1 -uroot -proot chemmanager
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ for file in database/schema/*.sql
++ echo 'applying database/schema/02_organisation.sql'
+applying database/schema/02_organisation.sql
++ mysql -h 127.0.0.1 -uroot -proot chemmanager
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ for file in database/schema/*.sql
++ echo 'applying database/schema/03_catalogue.sql'
+applying database/schema/03_catalogue.sql
++ mysql -h 127.0.0.1 -uroot -proot chemmanager
+mysql: [Warning] Using a password on the command line interface can be insecure.
+ERROR 3823 (HY000) at line 234: Column 'materialBatchId' cannot be used in a check constraint 'ckStockMovementsTarget': needed in a foreign key constraint 'fkStockMovementsMaterialBatch' referential action.
++ exit 1
