@@ -22,5 +22,387 @@ mysql: [Warning] Using a password on the command line interface can be insecure.
 applying database/schema/03_catalogue.sql
 + mysql -h 127.0.0.1 -uroot -proot chemmanager
 mysql: [Warning] Using a password on the command line interface can be insecure.
-ERROR 3823 (HY000) at line 234: Column 'materialBatchId' cannot be used in a check constraint 'ckStockMovementsTarget': needed in a foreign key constraint 'fkStockMovementsMaterialBatch' referential action.
-+ exit 1
++ for file in database/schema/*.sql
++ echo 'applying database/schema/04_production.sql'
+applying database/schema/04_production.sql
++ mysql -h 127.0.0.1 -uroot -proot chemmanager
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ for file in database/schema/*.sql
++ echo 'applying database/schema/05_commerce.sql'
+applying database/schema/05_commerce.sql
++ mysql -h 127.0.0.1 -uroot -proot chemmanager
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ for file in database/schema/*.sql
++ echo 'applying database/schema/06_finance.sql'
+applying database/schema/06_finance.sql
++ mysql -h 127.0.0.1 -uroot -proot chemmanager
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ for file in database/schema/*.sql
++ echo 'applying database/schema/07_safety.sql'
+applying database/schema/07_safety.sql
++ mysql -h 127.0.0.1 -uroot -proot chemmanager
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ for file in database/schema/*.sql
++ echo 'applying database/schema/08_system.sql'
+applying database/schema/08_system.sql
++ mysql -h 127.0.0.1 -uroot -proot chemmanager
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ for file in database/seed/*.sql
++ echo 'seeding database/seed/01_permissions.sql'
+seeding database/seed/01_permissions.sql
++ mysql -h 127.0.0.1 -uroot -proot chemmanager
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ for file in database/seed/*.sql
++ echo 'seeding database/seed/02_roles.sql'
+seeding database/seed/02_roles.sql
++ mysql -h 127.0.0.1 -uroot -proot chemmanager
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ for file in database/seed/*.sql
++ echo 'seeding database/seed/03_catalogue.sql'
+seeding database/seed/03_catalogue.sql
++ mysql -h 127.0.0.1 -uroot -proot chemmanager
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ for file in database/seed/*.sql
++ echo 'seeding database/seed/04_safety.sql'
+seeding database/seed/04_safety.sql
++ mysql -h 127.0.0.1 -uroot -proot chemmanager
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ for file in database/seed/*.sql
++ echo 'seeding database/seed/05_adminUser.sql'
+seeding database/seed/05_adminUser.sql
++ mysql -h 127.0.0.1 -uroot -proot chemmanager
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ for file in database/seed/*.sql
++ echo 'seeding database/seed/06_settings.sql'
+seeding database/seed/06_settings.sql
++ mysql -h 127.0.0.1 -uroot -proot chemmanager
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ mysql -h 127.0.0.1 -uroot -proot chemmanager -e $'\n  SELECT COUNT(*) AS tablesCount FROM information_schema.tables WHERE table_schema=\'chemmanager\';\n  SELECT COUNT(*) AS permissions FROM permissions;\n  SELECT COUNT(*) AS roles FROM roles;\n  SELECT COUNT(*) AS users FROM users;'
+mysql: [Warning] Using a password on the command line interface can be insecure.
+tablesCount
+70
+permissions
+45
+roles
+12
+users
+1
+[Mon Nov  9 10:30:36 2026] PHP 8.2.35 Development Server (http://127.0.0.1:8080) started
+[Mon Nov  9 10:30:36 2026] 127.0.0.1:59562 Accepted
+[Mon Nov  9 10:30:36 2026] 127.0.0.1:59562 [200]: GET /api/health
+[Mon Nov  9 10:30:36 2026] 127.0.0.1:59562 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59566 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59566 [200]: GET /api/health
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59566 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59568 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59568 [200]: GET /api/health
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59568 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59584 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59584 [401]: POST /api/auth/login
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59584 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59594 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59594 [200]: POST /api/auth/login
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59594 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59600 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59600 [403]: GET /api/products
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59600 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59606 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59606 [422]: POST /api/auth/password
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59606 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59620 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59620 [200]: POST /api/auth/password
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59620 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59628 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59628 [401]: GET /api/auth/me
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59628 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59642 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59642 [200]: POST /api/auth/login
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59642 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59656 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59656 [200]: GET /api/auth/me
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59656 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59664 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59664 [401]: GET /api/products
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59664 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59670 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59670 [401]: GET /api/products
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59670 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59676 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59676 [404]: GET /api/nope
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59676 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59682 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59682 [405]: DELETE /api/products
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59682 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59684 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59684 [422]: POST /api/products
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59684 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59688 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59688 [200]: GET /api/products/categories
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59688 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59690 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59690 [422]: POST /api/products
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59690 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59702 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59702 [422]: POST /api/products
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59702 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59712 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59712 [500]: GET /api/products?search=IT-103037
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59712 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59724 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59724 [422]: PUT /api/products/0
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59724 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59728 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59728 [500]: GET /api/products/0
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59728 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59734 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59734 [500]: GET /api/products/999999
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59734 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59740 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59740 [500]: DELETE /api/products/0
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59740 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59744 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59744 [500]: GET /api/products/0
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59744 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59746 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59746 [500]: GET /api/rawMaterials?pageSize=5
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59746 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59752 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59752 [200]: GET /api/rawMaterials/categories
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59752 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59754 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59754 [200]: GET /api/dashboard/summary
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59754 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59768 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59768 [422]: GET /api/dashboard/summary?from=2026-13-99&to=2026-01-01
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59768 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59782 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59782 [200]: GET /api/settings
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59782 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59788 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59788 [200]: PUT /api/settings
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59788 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59796 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59796 [200]: GET /api/settings
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59796 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59812 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59812 [200]: GET /api/auditLogs?pageSize=10
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59812 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59816 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59816 [200]: GET /api/users?pageSize=5
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59816 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59820 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59820 [200]: GET /api/roles
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59820 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59824 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59824 [200]: GET /api/permissions
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59824 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59834 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59834 [201]: POST /api/users
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59834 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59842 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59842 [200]: POST /api/auth/login
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59842 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59846 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59846 [200]: POST /api/auth/password
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59846 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59854 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59854 [200]: POST /api/auth/login
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59854 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59870 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59870 [500]: GET /api/products
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59870 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59876 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59876 [403]: POST /api/products
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59876 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59884 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59884 [403]: GET /api/users
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59884 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59890 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59890 [404]: GET /api/finance
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59890 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59898 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59898 [200]: POST /api/users/2/password
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59898 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59900 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59900 [401]: GET /api/products
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59900 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59908 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59908 [200]: DELETE /api/users/2
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59908 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59924 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59924 [401]: POST /api/auth/login
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59924 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59926 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59926 [401]: POST /api/auth/login
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59926 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59934 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59934 [401]: POST /api/auth/login
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59934 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59940 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59940 [401]: POST /api/auth/login
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59940 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59950 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59950 [401]: POST /api/auth/login
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59950 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59962 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59962 [429]: POST /api/auth/login
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59962 Closing
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59964 Accepted
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59964 [401]: POST /api/auth/login
+[Mon Nov  9 10:30:37 2026] 127.0.0.1:59964 Closing
+API integration tests against http://127.0.0.1:8080
+  ok   the API answers on /api/health
+  ok   health returns 200
+  ok   health reports the database up
+  ok   health reports the 68 tables of the schema
+  ok   a wrong password is refused
+  ok   the refusal does not reveal the account
+  ok   the seeded administrator can sign in
+  ok   the token is a 64 character opaque value
+  ok   the account is flagged for a password change
+  ok   the seeded administrator holds every permission
+  ok   a temporary password blocks the other endpoints
+  ok   a weak password is refused
+  ok   the password can be changed
+  ok   changing the password revokes the sessions
+  ok   the token is now revoked
+  ok   the new password works
+  ok   the password flag is cleared
+  ok   the sign-in response carries the roles
+  ok   /auth/me returns the session
+  ok   /auth/me returns the permission list
+  ok   a request without a token is refused
+  ok   an unknown token is refused
+  ok   an unknown route answers 404
+  ok   a wrong verb answers 405
+  ok   product validation returns every field error
+  ok   product categories are seeded
+  FAIL a product is created -> {"success":false,"error":{"code":"VALIDATION_FAILED","message":"The submitted data is invalid.","details":{"type":"validation.allowed_values"}}}
+  FAIL the arabic name round-trips
+  FAIL the created product starts with zero stock
+  FAIL a duplicate SKU is refused -> {"success":false,"error":{"code":"VALIDATION_FAILED","message":"The submitted data is invalid.","details":{"wholesalePrice":"validation.range","retailPrice":"validation.range","vatRate":"validation.range","minStock":"validation.range","type":"validation.allowed_values"}}}
+  FAIL the product is found by search
+  FAIL pagination metadata is complete
+  FAIL a product can be updated -> {"success":false,"error":{"code":"VALIDATION_FAILED","message":"The submitted data is invalid.","details":{"categoryId":"validation.range","retailPrice":"validation.range","vatRate":"validation.range","type":"validation.allowed_values"}}}
+  FAIL untouched fields are preserved
+  FAIL a product can be read back
+  FAIL an unknown product answers 404
+  FAIL a product is soft deleted
+  FAIL a deleted product is not readable
+  FAIL raw materials are listed
+  ok   material categories are seeded
+  ok   the dashboard summary is served
+  ok   the dashboard contains revenue
+  ok   the dashboard contains receivables
+  ok   the dashboard contains expenses
+  ok   the dashboard contains stock
+  ok   the dashboard contains production
+  ok   the dashboard contains partners
+  ok   the dashboard contains alerts
+  ok   an invalid period is refused
+  ok   settings and company identity are served
+  ok   the currency is the Algerian dinar
+  ok   a setting can be updated
+  ok   the setting keeps its new value
+  ok   the audit trail records the session
+  ok   the audit trail contains a LOGIN entry
+  FAIL the audit trail contains a CREATE entry
+  ok   users are listed
+  ok   the user list exposes the roles
+  ok   the 12 roles are seeded
+  ok   the VIEWER role exists
+  ok   roles expose their permission count
+  ok   the 45 permissions are seeded
+  ok   a user is created with a role
+  ok   the created user must change the password
+  ok   the new user can sign in
+  ok   the new user can set a password
+  ok   the new password is active
+  FAIL the viewer can read products -> {"success":false,"error":{"code":"INTERNAL_ERROR","message":"An unexpected error occurred."}}
+  ok   the viewer cannot create products
+  ok   the viewer cannot list users
+  ok   the viewer gets 404 on a phase 7 endpoint
+  ok   an administrator can reset a password
+  ok   the reset revokes the sessions of the user
+  ok   a user is soft deleted
+  ok   the account is locked after 5 failures
+  ok   the lockout says when to retry
+  ok   an unknown account is refused
+
+integration tests: 62 passed, 15 failed
+  FAILED: a product is created -> {"success":false,"error":{"code":"VALIDATION_FAILED","message":"The submitted data is invalid.","details":{"type":"validation.allowed_values"}}}
+  FAILED: the arabic name round-trips
+  FAILED: the created product starts with zero stock
+  FAILED: a duplicate SKU is refused -> {"success":false,"error":{"code":"VALIDATION_FAILED","message":"The submitted data is invalid.","details":{"wholesalePrice":"validation.range","retailPrice":"validation.range","vatRate":"validation.range","minStock":"validation.range","type":"validation.allowed_values"}}}
+  FAILED: the product is found by search
+  FAILED: pagination metadata is complete
+  FAILED: a product can be updated -> {"success":false,"error":{"code":"VALIDATION_FAILED","message":"The submitted data is invalid.","details":{"categoryId":"validation.range","retailPrice":"validation.range","vatRate":"validation.range","type":"validation.allowed_values"}}}
+  FAILED: untouched fields are preserved
+  FAILED: a product can be read back
+  FAILED: an unknown product answers 404
+  FAILED: a product is soft deleted
+  FAILED: a deleted product is not readable
+  FAILED: raw materials are listed
+  FAILED: the audit trail contains a CREATE entry
+  FAILED: the viewer can read products -> {"success":false,"error":{"code":"INTERNAL_ERROR","message":"An unexpected error occurred."}}
+[2026-11-09T10:30:36Z] INFO request {"method":"GET","path":"/api/health","status":200,"user":null,"ms":4}
+[2026-11-09T10:30:37Z] INFO request {"method":"GET","path":"/api/health","status":200,"user":null,"ms":2}
+[2026-11-09T10:30:37Z] INFO request {"method":"GET","path":"/api/health","status":200,"user":null,"ms":2}
+[2026-11-09T10:30:37Z] INFO request {"method":"POST","path":"/api/auth/login","status":401,"user":null,"ms":241}
+[2026-11-09T10:30:37Z] INFO request {"method":"POST","path":"/api/auth/login","status":200,"user":null,"ms":247}
+[2026-11-09T10:30:37Z] INFO request {"method":"GET","path":"/api/products","status":403,"user":"admin","ms":5}
+[2026-11-09T10:30:37Z] INFO request {"method":"POST","path":"/api/auth/password","status":422,"user":"admin","ms":6}
+[2026-11-09T10:30:37Z] INFO request {"method":"POST","path":"/api/auth/password","status":200,"user":"admin","ms":11}
+[2026-11-09T10:30:37Z] INFO request {"method":"GET","path":"/api/auth/me","status":401,"user":null,"ms":2}
+[2026-11-09T10:30:37Z] INFO request {"method":"POST","path":"/api/auth/login","status":200,"user":null,"ms":9}
+[2026-11-09T10:30:37Z] INFO request {"method":"GET","path":"/api/auth/me","status":200,"user":"admin","ms":5}
+[2026-11-09T10:30:37Z] INFO request {"method":"GET","path":"/api/products","status":401,"user":null,"ms":0}
+[2026-11-09T10:30:37Z] INFO request {"method":"GET","path":"/api/products","status":401,"user":null,"ms":2}
+[2026-11-09T10:30:37Z] INFO request {"method":"GET","path":"/api/nope","status":404,"user":null,"ms":0}
+[2026-11-09T10:30:37Z] INFO request {"method":"DELETE","path":"/api/products","status":405,"user":null,"ms":0}
+[2026-11-09T10:30:37Z] INFO request {"method":"POST","path":"/api/products","status":422,"user":"admin","ms":4}
+[2026-11-09T10:30:37Z] INFO request {"method":"GET","path":"/api/products/categories","status":200,"user":"admin","ms":5}
+[2026-11-09T10:30:37Z] INFO request {"method":"POST","path":"/api/products","status":422,"user":"admin","ms":4}
+[2026-11-09T10:30:37Z] INFO request {"method":"POST","path":"/api/products","status":422,"user":"admin","ms":4}
+[2026-11-09T10:30:37Z] ERROR api-exception {"code":"DATABASE_ERROR","message":"A database error occurred."}
+[2026-11-09T10:30:37Z] INFO request {"method":"GET","path":"/api/products","status":500,"user":"admin","ms":4}
+[2026-11-09T10:30:37Z] INFO request {"method":"PUT","path":"/api/products/0","status":422,"user":"admin","ms":4}
+[2026-11-09T10:30:37Z] ERROR unhandled {"type":"PDOException","message":"SQLSTATE[HY000]: General error: 1267 Illegal mix of collations (utf8mb4_0900_ai_ci,COERCIBLE) and (utf8mb4_general_ci,COERCIBLE) for operation '='","file":"Database.php:53"}
+[2026-11-09T10:30:37Z] INFO request {"method":"GET","path":"/api/products/0","status":500,"user":"admin","ms":5}
+[2026-11-09T10:30:37Z] ERROR unhandled {"type":"PDOException","message":"SQLSTATE[HY000]: General error: 1267 Illegal mix of collations (utf8mb4_0900_ai_ci,COERCIBLE) and (utf8mb4_general_ci,COERCIBLE) for operation '='","file":"Database.php:53"}
+[2026-11-09T10:30:37Z] INFO request {"method":"GET","path":"/api/products/999999","status":500,"user":"admin","ms":5}
+[2026-11-09T10:30:37Z] ERROR unhandled {"type":"PDOException","message":"SQLSTATE[HY000]: General error: 1267 Illegal mix of collations (utf8mb4_0900_ai_ci,COERCIBLE) and (utf8mb4_general_ci,COERCIBLE) for operation '='","file":"Database.php:53"}
+[2026-11-09T10:30:37Z] INFO request {"method":"DELETE","path":"/api/products/0","status":500,"user":"admin","ms":5}
+[2026-11-09T10:30:37Z] ERROR unhandled {"type":"PDOException","message":"SQLSTATE[HY000]: General error: 1267 Illegal mix of collations (utf8mb4_0900_ai_ci,COERCIBLE) and (utf8mb4_general_ci,COERCIBLE) for operation '='","file":"Database.php:53"}
+[2026-11-09T10:30:37Z] INFO request {"method":"GET","path":"/api/products/0","status":500,"user":"admin","ms":5}
+[2026-11-09T10:30:37Z] ERROR unhandled {"type":"PDOException","message":"SQLSTATE[HY000]: General error: 1267 Illegal mix of collations (utf8mb4_0900_ai_ci,COERCIBLE) and (utf8mb4_general_ci,COERCIBLE) for operation '='","file":"Database.php:53"}
+[2026-11-09T10:30:37Z] INFO request {"method":"GET","path":"/api/rawMaterials","status":500,"user":"admin","ms":8}
+[2026-11-09T10:30:37Z] INFO request {"method":"GET","path":"/api/rawMaterials/categories","status":200,"user":"admin","ms":4}
+[2026-11-09T10:30:37Z] INFO request {"method":"GET","path":"/api/dashboard/summary","status":200,"user":"admin","ms":17}
+[2026-11-09T10:30:37Z] INFO request {"method":"GET","path":"/api/dashboard/summary","status":422,"user":"admin","ms":3}
+[2026-11-09T10:30:37Z] INFO request {"method":"GET","path":"/api/settings","status":200,"user":"admin","ms":3}
+[2026-11-09T10:30:37Z] INFO request {"method":"PUT","path":"/api/settings","status":200,"user":"admin","ms":6}
+[2026-11-09T10:30:37Z] INFO request {"method":"GET","path":"/api/settings","status":200,"user":"admin","ms":3}
+[2026-11-09T10:30:37Z] INFO request {"method":"GET","path":"/api/auditLogs","status":200,"user":"admin","ms":3}
+[2026-11-09T10:30:37Z] INFO request {"method":"GET","path":"/api/users","status":200,"user":"admin","ms":4}
+[2026-11-09T10:30:37Z] INFO request {"method":"GET","path":"/api/roles","status":200,"user":"admin","ms":3}
+[2026-11-09T10:30:37Z] INFO request {"method":"GET","path":"/api/permissions","status":200,"user":"admin","ms":3}
+[2026-11-09T10:30:37Z] INFO request {"method":"POST","path":"/api/users","status":201,"user":"admin","ms":10}
+[2026-11-09T10:30:37Z] INFO request {"method":"POST","path":"/api/auth/login","status":200,"user":null,"ms":7}
+[2026-11-09T10:30:37Z] INFO request {"method":"POST","path":"/api/auth/password","status":200,"user":"viewer103037","ms":9}
+[2026-11-09T10:30:37Z] INFO request {"method":"POST","path":"/api/auth/login","status":200,"user":null,"ms":7}
+[2026-11-09T10:30:37Z] ERROR unhandled {"type":"PDOException","message":"SQLSTATE[HY000]: General error: 1267 Illegal mix of collations (utf8mb4_0900_ai_ci,COERCIBLE) and (utf8mb4_general_ci,COERCIBLE) for operation '='","file":"Database.php:53"}
+[2026-11-09T10:30:37Z] INFO request {"method":"GET","path":"/api/products","status":500,"user":"viewer103037","ms":3}
+[2026-11-09T10:30:37Z] INFO request {"method":"POST","path":"/api/products","status":403,"user":"viewer103037","ms":2}
+[2026-11-09T10:30:37Z] INFO request {"method":"GET","path":"/api/users","status":403,"user":"viewer103037","ms":2}
+[2026-11-09T10:30:37Z] INFO request {"method":"GET","path":"/api/finance","status":404,"user":null,"ms":0}
+[2026-11-09T10:30:37Z] INFO request {"method":"POST","path":"/api/users/2/password","status":200,"user":"admin","ms":8}
+[2026-11-09T10:30:37Z] INFO request {"method":"GET","path":"/api/products","status":401,"user":null,"ms":1}
+[2026-11-09T10:30:37Z] INFO request {"method":"DELETE","path":"/api/users/2","status":200,"user":"admin","ms":7}
+[2026-11-09T10:30:37Z] INFO request {"method":"POST","path":"/api/auth/login","status":401,"user":null,"ms":5}
+[2026-11-09T10:30:37Z] INFO request {"method":"POST","path":"/api/auth/login","status":401,"user":null,"ms":6}
+[2026-11-09T10:30:37Z] INFO request {"method":"POST","path":"/api/auth/login","status":401,"user":null,"ms":5}
+[2026-11-09T10:30:37Z] INFO request {"method":"POST","path":"/api/auth/login","status":401,"user":null,"ms":5}
+[2026-11-09T10:30:37Z] INFO request {"method":"POST","path":"/api/auth/login","status":401,"user":null,"ms":5}
+[2026-11-09T10:30:37Z] INFO request {"method":"POST","path":"/api/auth/login","status":429,"user":null,"ms":1}
+[2026-11-09T10:30:37Z] INFO request {"method":"POST","path":"/api/auth/login","status":401,"user":null,"ms":2}

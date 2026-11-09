@@ -22,5 +22,68 @@ mysql: [Warning] Using a password on the command line interface can be insecure.
 applying database/schema/03_catalogue.sql
 + mysql -h 127.0.0.1 -uroot -proot chemmanager
 mysql: [Warning] Using a password on the command line interface can be insecure.
-ERROR 3823 (HY000) at line 234: Column 'materialBatchId' cannot be used in a check constraint 'ckStockMovementsTarget': needed in a foreign key constraint 'fkStockMovementsMaterialBatch' referential action.
-+ exit 1
++ for file in database/schema/*.sql
++ echo 'applying database/schema/04_production.sql'
+applying database/schema/04_production.sql
++ mysql -h 127.0.0.1 -uroot -proot chemmanager
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ for file in database/schema/*.sql
++ echo 'applying database/schema/05_commerce.sql'
+applying database/schema/05_commerce.sql
++ mysql -h 127.0.0.1 -uroot -proot chemmanager
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ for file in database/schema/*.sql
++ echo 'applying database/schema/06_finance.sql'
+applying database/schema/06_finance.sql
++ mysql -h 127.0.0.1 -uroot -proot chemmanager
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ for file in database/schema/*.sql
++ echo 'applying database/schema/07_safety.sql'
+applying database/schema/07_safety.sql
++ mysql -h 127.0.0.1 -uroot -proot chemmanager
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ for file in database/schema/*.sql
++ echo 'applying database/schema/08_system.sql'
+applying database/schema/08_system.sql
++ mysql -h 127.0.0.1 -uroot -proot chemmanager
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ for file in database/seed/*.sql
++ echo 'seeding database/seed/01_permissions.sql'
+seeding database/seed/01_permissions.sql
++ mysql -h 127.0.0.1 -uroot -proot chemmanager
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ for file in database/seed/*.sql
++ echo 'seeding database/seed/02_roles.sql'
+seeding database/seed/02_roles.sql
++ mysql -h 127.0.0.1 -uroot -proot chemmanager
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ for file in database/seed/*.sql
++ echo 'seeding database/seed/03_catalogue.sql'
+seeding database/seed/03_catalogue.sql
++ mysql -h 127.0.0.1 -uroot -proot chemmanager
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ for file in database/seed/*.sql
++ echo 'seeding database/seed/04_safety.sql'
+seeding database/seed/04_safety.sql
++ mysql -h 127.0.0.1 -uroot -proot chemmanager
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ for file in database/seed/*.sql
++ echo 'seeding database/seed/05_adminUser.sql'
+seeding database/seed/05_adminUser.sql
++ mysql -h 127.0.0.1 -uroot -proot chemmanager
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ for file in database/seed/*.sql
++ echo 'seeding database/seed/06_settings.sql'
+seeding database/seed/06_settings.sql
++ mysql -h 127.0.0.1 -uroot -proot chemmanager
+mysql: [Warning] Using a password on the command line interface can be insecure.
++ mysql -h 127.0.0.1 -uroot -proot chemmanager -e $'\n  SELECT COUNT(*) AS tablesCount FROM information_schema.tables WHERE table_schema=\'chemmanager\';\n  SELECT COUNT(*) AS permissions FROM permissions;\n  SELECT COUNT(*) AS roles FROM roles;\n  SELECT COUNT(*) AS users FROM users;'
+mysql: [Warning] Using a password on the command line interface can be insecure.
+tablesCount
+70
+permissions
+45
+roles
+12
+users
+1
