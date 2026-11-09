@@ -10,58 +10,29 @@
 [INFO] 
 [INFO] --- compiler:3.13.0:compile (default-compile) @ chemmanager-erp ---
 [INFO] Recompiling the module because of changed source code.
-[INFO] Compiling 116 source files with javac [debug parameters release 21] to target/classes
+[INFO] Compiling 115 source files with javac [debug parameters release 21] to target/classes
 [INFO] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/component/ChartFactory.java: /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/component/ChartFactory.java uses unchecked or unsafe operations.
 [INFO] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/component/ChartFactory.java: Recompile with -Xlint:unchecked for details.
-[INFO] 
-[INFO] --- resources:3.3.1:testResources (default-testResources) @ chemmanager-erp ---
-[INFO] skip non existing resourceDirectory /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/test/resources
-[INFO] 
-[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ chemmanager-erp ---
-[INFO] Recompiling the module because of changed dependency.
-[INFO] Compiling 8 source files with javac [debug parameters release 21] to target/test-classes
-[INFO] 
-[INFO] --- surefire:3.2.5:test (default-test) @ chemmanager-erp ---
-[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
-[INFO] 
-[INFO] -------------------------------------------------------
-[INFO]  T E S T S
-[INFO] -------------------------------------------------------
-[INFO] Running com.chemmanager.security.RolesTest
-[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.085 s -- in com.chemmanager.security.RolesTest
-[INFO] Running com.chemmanager.security.PasswordHasherTest
-[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.884 s -- in com.chemmanager.security.PasswordHasherTest
-[INFO] Running com.chemmanager.service.MockDashboardServiceTest
-[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.435 s -- in com.chemmanager.service.MockDashboardServiceTest
-[INFO] Running com.chemmanager.service.MockAuthServiceTest
-[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.158 s -- in com.chemmanager.service.MockAuthServiceTest
-[INFO] Running com.chemmanager.localization.BundleParityTest
-Nov 09, 2026 10:44:32 AM java.util.prefs.FileSystemPreferences$1 run
-INFO: Created user preferences directory.
-[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.681 s -- in com.chemmanager.localization.BundleParityTest
-[INFO] Running com.chemmanager.util.DateRangesTest
-[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 s -- in com.chemmanager.util.DateRangesTest
-[INFO] Running com.chemmanager.util.MoneyTest
-[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.104 s -- in com.chemmanager.util.MoneyTest
-[INFO] Running com.chemmanager.app.ApplicationSmokeTest
-Nov 09, 2026 10:44:33 AM com.sun.javafx.application.PlatformImpl startup
-WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @33c7e1bb'
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/api/ApiException.java:[21,5] variable status might not have been initialized
+[INFO] 1 error
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  4.128 s
+[INFO] Finished at: 2026-11-09T13:52:14Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.13.0:compile (default-compile) on project chemmanager-erp: Compilation failure
+[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/api/ApiException.java:[21,5] variable status might not have been initialized
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
 
-(java:2314): dbind-WARNING **: 10:44:37.941: AT-SPI: Error retrieving accessibility bus address: org.freedesktop.DBus.Error.ServiceUnknown: The name org.a11y.Bus was not provided by any .service files
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 35.06 s -- in com.chemmanager.app.ApplicationSmokeTest
-[INFO] 
-[INFO] Results:
-[INFO] 
-[INFO] Tests run: 37, Failures: 0, Errors: 0, Skipped: 0
-[INFO] 
-[INFO] 
-[INFO] --- jar:3.4.1:jar (default-jar) @ chemmanager-erp ---
-[INFO] Building jar: /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/target/chemmanager-erp.jar
-[INFO] ------------------------------------------------------------------------
-[INFO] BUILD SUCCESS
-[INFO] ------------------------------------------------------------------------
-[INFO] Total time:  45.060 s
-[INFO] Finished at: 2026-11-09T10:45:09Z
-[INFO] ------------------------------------------------------------------------
-
-EXIT_CODE=0
+EXIT_CODE=1
