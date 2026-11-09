@@ -256,10 +256,10 @@ CREATE TABLE stockMovements (
         ON UPDATE CASCADE ON DELETE RESTRICT,
     CONSTRAINT fkStockMovementsTarget FOREIGN KEY (targetWarehouseId) REFERENCES warehouses (id)
         ON UPDATE CASCADE ON DELETE RESTRICT,
-    CONSTRAINT fkStockMovementsMaterialBatch FOREIGN KEY (materialBatchId) REFERENCES materialBatches (id)
-        ON UPDATE CASCADE ON DELETE RESTRICT,
-    CONSTRAINT fkStockMovementsProductBatch FOREIGN KEY (productBatchId) REFERENCES productBatches (id)
-        ON UPDATE CASCADE ON DELETE RESTRICT,
+    -- No explicit referential action below: MySQL refuses a CHECK constraint on a column that
+    -- carries one. The default RESTRICT behaviour is exactly what an append-only ledger needs.
+    CONSTRAINT fkStockMovementsMaterialBatch FOREIGN KEY (materialBatchId) REFERENCES materialBatches (id),
+    CONSTRAINT fkStockMovementsProductBatch FOREIGN KEY (productBatchId) REFERENCES productBatches (id),
     CONSTRAINT fkStockMovementsUser FOREIGN KEY (userId) REFERENCES users (id)
         ON UPDATE CASCADE ON DELETE RESTRICT,
     CONSTRAINT ckStockMovementsQuantity CHECK (quantity > 0),
