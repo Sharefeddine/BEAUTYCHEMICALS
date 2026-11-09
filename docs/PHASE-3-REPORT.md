@@ -87,7 +87,7 @@ walked through without a server — and `FormulationRulesTest` asserts those rul
 
 | Suite | Count | What this phase adds |
 | --- | --- | --- |
-| API integration (real MySQL 8) | 86 → 106 | create/validate a family, empty version refused, items stored and priced, percentages, approval lock, double approval, version copy, edit-after-approval `409`, comparison, archive, 404 |
+| API integration (real MySQL 8) | 86 → 113 | create/validate a family, empty version refused, items stored and priced, percentages, approval lock, double approval, version copy, edit-after-approval `409`, comparison, archive, 404 |
 | Desktop unit (JUnit 5) | 39 → 47 | `FormulationRulesTest`: no generation, lock, empty approval, costing, percentages, comparison delta, history survival |
 | Contract | included in the 47 | `ApiContractTest` also covers `/api/formulations` |
 

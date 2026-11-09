@@ -17,7 +17,7 @@ backed by MySQL 8.
 >   screen is a mock-up — see [`docs/PHASE-1-REPORT.md`](docs/PHASE-1-REPORT.md).
 > * **Phase 2 — complete:** MySQL 8 database (68 tables, camelCase without underscores, seeds) and
 >   the framework-free PHP REST API (auth, RBAC, 46 endpoints) — both verified in CI against a real
->   MySQL 8, 25 unit + 106 end-to-end API tests — see
+>   MySQL 8, 25 unit + 113 end-to-end API tests — see
 >   [`docs/PHASE-2-REPORT.md`](docs/PHASE-2-REPORT.md).
 > * **Phase 3 — complete:** formulations — families, versions, bill of materials priced from the
 >   current purchase prices, approval that locks the version, version comparison, on both halves.
