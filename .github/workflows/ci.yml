@@ -54,3 +54,86 @@ jobs:
         env:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: bash .github/scripts/publish-report.sh desktop desktop-build.log fa-icons.txt target/surefire-reports target/screenshots
+
+  api:
+    name: PHP API (lint + unit + integration on MySQL 8)
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: chemmanager
+        ports: ["3306:3306"]
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -proot"
+          --health-interval=5s
+          --health-timeout=5s
+          --health-retries=30
+    env:
+      CHEMMANAGER_DB_HOST: 127.0.0.1
+      CHEMMANAGER_DB_PORT: "3306"
+      CHEMMANAGER_DB_NAME: chemmanager
+      CHEMMANAGER_DB_USER: root
+      CHEMMANAGER_DB_PASSWORD: root
+      CHEMMANAGER_ENV: ci
+      CHEMMANAGER_DEBUG: "0"
+      CHEMMANAGER_BCRYPT_COST: "4"
+      API_BASE_URL: http://127.0.0.1:8080
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up PHP 8.2
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          extensions: pdo_mysql, mbstring, curl, json
+          coverage: none
+
+      - name: Lint every PHP file
+        run: |
+          set -o pipefail
+          find backend -name '*.php' -print0 | xargs -0 -n1 php -l | tee api-lint.log
+          echo "files linted: $(grep -c 'No syntax errors' api-lint.log)"
+
+      - name: Load schema and seeds into MySQL 8
+        run: |
+          set -e
+          for file in database/schema/*.sql; do
+            echo "applying $file"
+            mysql -h 127.0.0.1 -uroot -proot chemmanager < "$file"
+          done
+          for file in database/seed/*.sql; do
+            echo "seeding $file"
+            mysql -h 127.0.0.1 -uroot -proot chemmanager < "$file"
+          done
+          mysql -h 127.0.0.1 -uroot -proot chemmanager -e "
+            SELECT COUNT(*) AS tablesCount FROM information_schema.tables WHERE table_schema='chemmanager';
+            SELECT COUNT(*) AS permissions FROM permissions;
+            SELECT COUNT(*) AS roles FROM roles;"
+
+      - name: API unit tests (no database required)
+        run: php backend/tests/unit/run.php
+
+      - name: Start the API
+        run: |
+          set -e
+          php -S 127.0.0.1:8080 -t backend/public > api-server.log 2>&1 &
+          echo "server pid $!"
+          for i in $(seq 1 40); do
+            if curl -fsS http://127.0.0.1:8080/api/health > /dev/null; then echo "api up"; break; fi
+            sleep 0.5
+          done
+
+      - name: API integration tests (real MySQL, real HTTP)
+        run: php backend/tests/integration/run.php | tee api-integration.log
+
+      - name: Publish report
+        if: always()
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cat api-server.log >> api-logs.log 2>/dev/null || true
+          cat api-integration.log >> api-logs.log 2>/dev/null || true
+          cat backend/var/api.log >> api-logs.log 2>/dev/null || true
+          bash .github/scripts/publish-report.sh api api-logs.log api-lint.log
