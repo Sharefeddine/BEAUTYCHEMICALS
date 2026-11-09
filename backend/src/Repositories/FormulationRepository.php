@@ -198,14 +198,15 @@ final class FormulationRepository
         $id = (int) $this->db->transaction(function () use ($data, $code, $actorId): int {
             $this->db->execute(
                 'INSERT INTO formulations (code, nameFr, nameAr, productId, status, notes, createdBy, updatedBy)
-                 VALUES (:code, :nameFr, :nameAr, :productId, \'DRAFT\', :notes, :actor, :actor)',
+                 VALUES (:code, :nameFr, :nameAr, :productId, \'DRAFT\', :notes, :createdBy, :updatedBy)',
                 [
                     'code' => $code,
                     'nameFr' => (string) ($data['nameFr'] ?? ''),
                     'nameAr' => (string) ($data['nameAr'] ?? ($data['nameFr'] ?? '')),
                     'productId' => isset($data['productId']) && (int) $data['productId'] > 0 ? (int) $data['productId'] : null,
                     'notes' => (string) ($data['notes'] ?? ''),
-                    'actor' => $actorId,
+                    'createdBy' => $actorId,
+                    'updatedBy' => $actorId,
                 ]
             );
 
@@ -407,10 +408,11 @@ final class FormulationRepository
 
             $this->db->execute(
                 'UPDATE formulations
-                    SET status = \'APPROVED\', currentVersionId = :versionId, approvedBy = :actor,
-                        approvedAt = NOW(), updatedBy = :actor
+                    SET status = \'APPROVED\', currentVersionId = :versionId, approvedBy = :approvedBy,
+                        approvedAt = NOW(), updatedBy = :updatedBy
                   WHERE id = :id AND deletedAt IS NULL',
-                ['versionId' => $versionId, 'actor' => $actorId, 'id' => $formulationId]
+                ['versionId' => $versionId, 'approvedBy' => $actorId, 'updatedBy' => $actorId,
+                    'id' => $formulationId]
             );
 
             $this->db->execute(

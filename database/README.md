@@ -17,7 +17,8 @@ database/
   seed/      reference and bootstrap data, executed in file-name order
     01_permissions.sql   45 permissions (mirror of com.chemmanager.security.Permission)
     02_roles.sql         12 roles and their permission matrix (mirror of DefaultRoles)
-    03_catalogue.sql     categories, departments, warehouses, cash accounts, expense types
+    03_catalogue.sql     categories, departments, warehouses, cash accounts, expense types,
+                         suppliers, finished products, raw materials (12, with GHS data)
     04_safety.sql        GHS01…GHS09 pictograms
     05_adminUser.sql     first administrator (bcrypt hash, must change password)
     06_settings.sql      company identity, settings, document sequences, accounting periods
