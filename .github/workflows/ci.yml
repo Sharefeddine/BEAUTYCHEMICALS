@@ -64,6 +64,8 @@ jobs:
         env:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: chemmanager
+          # the runner connects over TCP, so root must be allowed from outside the container
+          MYSQL_ROOT_HOST: "%"
         ports: ["3306:3306"]
         options: >-
           --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -proot"
@@ -133,7 +135,8 @@ jobs:
         env:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          cat api-schema.log >> api-logs.log 2>/dev/null || true
           cat api-server.log >> api-logs.log 2>/dev/null || true
           cat api-integration.log >> api-logs.log 2>/dev/null || true
           cat backend/var/api.log >> api-logs.log 2>/dev/null || true
-          bash .github/scripts/publish-report.sh api api-logs.log api-lint.log
+          bash .github/scripts/publish-report.sh api api-logs.log api-lint.log api-schema.log
