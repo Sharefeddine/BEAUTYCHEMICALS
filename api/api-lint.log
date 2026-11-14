@@ -8,6 +8,7 @@ No syntax errors detected in backend/src/Repositories/FormulationRepository.php
 No syntax errors detected in backend/src/Repositories/MaterialRepository.php
 No syntax errors detected in backend/src/Repositories/PurchaseRepository.php
 No syntax errors detected in backend/src/Repositories/ProductionRepository.php
+No syntax errors detected in backend/src/Repositories/ExpenseRepository.php
 No syntax errors detected in backend/src/Repositories/SettingsRepository.php
 No syntax errors detected in backend/src/Repositories/CustomerRepository.php
 No syntax errors detected in backend/src/Repositories/AuditRepository.php
@@ -26,6 +27,7 @@ No syntax errors detected in backend/src/Controllers/MaterialController.php
 No syntax errors detected in backend/src/Controllers/CustomerController.php
 No syntax errors detected in backend/src/Controllers/AuditController.php
 No syntax errors detected in backend/src/Controllers/DistributionController.php
+No syntax errors detected in backend/src/Controllers/ExpenseController.php
 No syntax errors detected in backend/src/Controllers/NotificationController.php
 No syntax errors detected in backend/src/Controllers/FinanceController.php
 No syntax errors detected in backend/src/Controllers/FormulationController.php
