@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import com.chemmanager.api.ApiEndpoints;
 import com.chemmanager.component.Dialogs;
 import com.chemmanager.component.Toasts;
 import com.chemmanager.localization.I18n;
@@ -37,7 +38,7 @@ public final class DocumentPrinter {
         }
         try {
             String html = ServiceFactory.apiClient()
-                    .getText("/api/documents/" + type + "/" + id + "?lang=" + language);
+                    .getText(ApiEndpoints.document(type, id) + "?lang=" + language);
             Path file = Files.createTempFile("chemmanager-" + type + "-" + id + "-", ".html");
             Files.writeString(file, html, StandardCharsets.UTF_8);
             file.toFile().deleteOnExit();

@@ -101,6 +101,14 @@ class CustomersUiTest {
                 .findFirst()
                 .orElseThrow(() -> new AssertionError("the demo set must hold a customer who owes money"));
 
+        Node owed = robot.lookup("#tableHost .table-row-cell").queryAll().stream()
+                .filter(node -> node instanceof TableRow<?> row && !row.isEmpty()
+                        && row.getItem() instanceof Customer customer && customer.id() == indebted.id())
+                .findFirst()
+                .orElseThrow(() -> new AssertionError("the indebted customer must be on the first page"));
+        robot.doubleClickOn(owed);
+        WaitForAsyncUtils.waitForFxEvents();
+
         String detail = detailText(robot, indebted.name());
         assertTrue(detail.contains(I18n.get().t("customers.field.balance")), detail);
         assertTrue(detail.contains(I18n.get().t("customers.field.credit_limit")), detail);

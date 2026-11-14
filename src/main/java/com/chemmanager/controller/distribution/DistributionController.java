@@ -183,8 +183,17 @@ public final class DistributionController {
                                                 ? "distribution.vehicle.active" : "distribution.vehicle.inactive"),
                                         vehicle.active() ? "badge-success" : "badge-neutral")))
                 .onActivate(this::selectVehicle)
-                .onLoaded(page -> summaryLabel.setText(I18n.get().t("distribution.summary.fleet",
-                        page.total())));
+                .onLoaded(page -> {
+                    summaryLabel.setText(I18n.get().t("distribution.summary.fleet", page.total()));
+                    if (page.items().isEmpty()) {
+                        selectedVehicle = null;
+                        showHint();
+                        updateActions();
+                    } else if (selectedVehicle == null || page.items().stream()
+                            .noneMatch(vehicle -> vehicle.id() == selectedVehicle.id())) {
+                        selectVehicle(page.items().get(0));
+                    }
+                });
 
         VBox.setVgrow(routeTable, Priority.ALWAYS);
         VBox.setVgrow(fleetTable, Priority.ALWAYS);

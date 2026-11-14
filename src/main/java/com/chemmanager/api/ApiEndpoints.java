@@ -53,8 +53,13 @@ public final class ApiEndpoints {
     public static final String VEHICLES = "/api/vehicles";
     public static final String DRIVERS = "/api/drivers";
     public static final String ROUTES = "/api/routes";
-    public static final String DOCUMENTS = "/api/documents";
+    public static final String DOCUMENTS = "/api/documents/{type}/{id}";
 
     private ApiEndpoints() {
+    }
+
+    /** A printable document: {@code quotation|order|delivery|invoice|statement}, in any language. */
+    public static String document(String type, long id) {
+        return DOCUMENTS.replace("{type}", type).replace("{id}", Long.toString(id));
     }
 }
