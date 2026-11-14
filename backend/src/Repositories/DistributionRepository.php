@@ -193,7 +193,13 @@ final class DistributionRepository
     {
         $row = $this->db->first(
             'SELECT r.*, v.plate, v.model, v.capacityKg, CONCAT(e.firstName, \' \', e.lastName) AS driverName,
-                    e.phone AS driverPhone, u.fullName AS representativeName
+                    e.phone AS driverPhone, u.fullName AS representativeName,
+                    (SELECT COUNT(*) FROM routeStops s WHERE s.routeId = r.id) AS stopCount,
+                    (SELECT COUNT(*) FROM routeStops s WHERE s.routeId = r.id AND s.status = \'DELIVERED\')
+                        AS deliveredCount,
+                    (SELECT COALESCE(SUM(di.quantity), 0) FROM routeStops s
+                        JOIN deliveryItems di ON di.deliveryNoteId = s.deliveryNoteId
+                        WHERE s.routeId = r.id) AS totalQuantity
              FROM deliveryRoutes r
              JOIN vehicles v ON v.id = r.vehicleId
              LEFT JOIN employees e ON e.id = r.driverId

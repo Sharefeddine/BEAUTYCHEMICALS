@@ -308,7 +308,15 @@ final class SalesRepository
         $row = $this->db->first(
             'SELECT o.*, c.name AS customerName, c.code AS customerCode, c.priceSegment, c.balance,
                     c.creditLimit, c.phone AS customerPhone, c.address AS customerAddress,
-                    c.wilaya AS customerWilaya, u.fullName AS representativeName, q.quoteNumber
+                    c.wilaya AS customerWilaya, u.fullName AS representativeName, q.quoteNumber,
+                    (SELECT COUNT(*) FROM salesOrderItems oi WHERE oi.orderId = o.id) AS lineCount,
+                    (SELECT COALESCE(SUM(oi.quantity), 0) FROM salesOrderItems oi WHERE oi.orderId = o.id)
+                        AS orderedQty,
+                    (SELECT COALESCE(SUM(oi.deliveredQty), 0) FROM salesOrderItems oi WHERE oi.orderId = o.id)
+                        AS deliveredQty,
+                    (SELECT COALESCE(SUM(oi.invoicedQty), 0) FROM salesOrderItems oi WHERE oi.orderId = o.id)
+                        AS invoicedQty,
+                    (SELECT COUNT(*) FROM deliveryNotes dn WHERE dn.orderId = o.id) AS deliveryCount
              FROM salesOrders o
              JOIN customers c ON c.id = o.customerId
              LEFT JOIN users u ON u.id = o.representativeId
