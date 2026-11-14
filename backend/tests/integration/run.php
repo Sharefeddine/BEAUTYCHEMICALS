@@ -1572,7 +1572,16 @@ check('a period knows what was posted into it', $response['status'] === 200
     && array_key_exists('totalIn', $periods[0]) && array_key_exists('entryCount', $periods[0]),
     $response['raw']);
 check('the demo year has an open period to work in', $openPeriods !== [], $response['raw']);
+// The month the suite actually works in is the current one, not merely the newest open row.
+$currentCode = date('Y-m');
 $openPeriod = $openPeriods[0];
+foreach ($openPeriods as $candidate) {
+    if ($candidate['code'] === $currentCode) {
+        $openPeriod = $candidate;
+    }
+}
+check('the current month is one of the open periods', $openPeriod['code'] === $currentCode,
+    'periods open: ' . implode(', ', array_column($openPeriods, 'code')));
 
 $response = call('GET', '/api/finance/cashbook?pageSize=50', null, $token);
 $bookTotal = (int) ($response['json']['meta']['total'] ?? -1);
@@ -1688,9 +1697,16 @@ check('an unknown period answers 404', $response['status'] === 404, $response['r
 $response = call('GET', '/api/finance/cashbook', null, null);
 check('the cash book is not readable without a session', $response['status'] === 401, $response['raw']);
 
-$response = call('GET', '/api/finance/cashbook', null, $viewerToken);
+// A long suite outlives the viewer's first token: sign the reader in again before checking RBAC.
+$response = call('POST', '/api/auth/login', ['username' => $viewerName, 'password' => 'Viewer456']);
+$financeViewerToken = $response['json']['data']['token'] ?? '';
+check('the read-only user can sign in again', $response['status'] === 200 && $financeViewerToken !== '',
+    $response['raw']);
+
+$response = call('GET', '/api/finance/cashbook', null, $financeViewerToken);
 check('the read-only role can look at the cash book', $response['status'] === 200, $response['raw']);
-$response = call('POST', '/api/finance/periods/' . (int) $openPeriod['id'] . '/close', null, $viewerToken);
+$response = call('POST', '/api/finance/periods/' . (int) $openPeriod['id'] . '/close', null,
+    $financeViewerToken);
 check('a role without FINANCE_CLOSE_PERIOD cannot close a month', $response['status'] === 403
     && ($response['json']['error']['code'] ?? '') === 'FORBIDDEN', $response['raw']);
 
