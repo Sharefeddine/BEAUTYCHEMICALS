@@ -26,7 +26,7 @@ public enum NavigationModule {
     SUPPLIERS("suppliers", NavGroup.COMMERCE, Icons.Icon.SUPPLIERS, "/fxml/suppliers.fxml",
             Permission.SUPPLIERS_VIEW, 4, true),
     SALES("sales", NavGroup.COMMERCE, Icons.Icon.SALES, "/fxml/sales.fxml",
-            Permission.SALES_VIEW, 6, false),
+            Permission.SALES_VIEW, 6, true),
     CUSTOMERS("customers", NavGroup.COMMERCE, Icons.Icon.CUSTOMERS, "/fxml/customers.fxml",
             Permission.CUSTOMERS_VIEW, 6, true),
     DISTRIBUTION("distribution", NavGroup.COMMERCE, Icons.Icon.DISTRIBUTION, "/fxml/distribution.fxml",

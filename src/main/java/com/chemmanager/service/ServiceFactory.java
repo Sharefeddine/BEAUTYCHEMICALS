@@ -9,6 +9,7 @@ import com.chemmanager.security.Session;
 import com.chemmanager.security.SessionContext;
 import com.chemmanager.service.api.ApiAuthService;
 import com.chemmanager.service.api.ApiCustomerService;
+import com.chemmanager.service.api.ApiSalesService;
 import com.chemmanager.service.api.ApiDashboardService;
 import com.chemmanager.service.api.ApiFormulationService;
 import com.chemmanager.service.api.ApiInventoryService;
@@ -22,6 +23,7 @@ import com.chemmanager.service.api.ApiSupplierService;
 import com.chemmanager.service.api.ApiUserService;
 import com.chemmanager.service.mock.MockAuthService;
 import com.chemmanager.service.mock.MockCustomerService;
+import com.chemmanager.service.mock.MockSalesService;
 import com.chemmanager.service.mock.MockDashboardService;
 import com.chemmanager.service.mock.MockFormulationService;
 import com.chemmanager.service.mock.MockInventoryService;
@@ -61,6 +63,7 @@ public final class ServiceFactory {
     private static UserService userService;
     private static SettingsService settingsService;
     private static CustomerService customerService;
+    private static SalesService salesService;
 
     private ServiceFactory() {
     }
@@ -108,6 +111,7 @@ public final class ServiceFactory {
             userService = new ApiUserService(apiClient);
             settingsService = new ApiSettingsService(apiClient);
             customerService = new ApiCustomerService(apiClient);
+            salesService = new ApiSalesService(apiClient);
         } else {
             authService = new MockAuthService();
             dashboardService = new MockDashboardService();
@@ -122,6 +126,7 @@ public final class ServiceFactory {
             userService = new MockUserService();
             settingsService = new MockSettingsService();
             customerService = new MockCustomerService();
+            salesService = new MockSalesService();
         }
     }
 
@@ -206,6 +211,11 @@ public final class ServiceFactory {
     public static CustomerService customers() {
         initialise();
         return customerService;
+    }
+
+    public static SalesService sales() {
+        initialise();
+        return salesService;
     }
 
     /** Short timeout used by the connectivity indicator in the status bar. */
