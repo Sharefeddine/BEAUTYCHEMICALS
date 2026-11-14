@@ -1,12 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.chemmanager.ui.ReportCentreUiTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 34.63 s <<< FAILURE! -- in com.chemmanager.ui.ReportCentreUiTest
-com.chemmanager.ui.ReportCentreUiTest.catalogueCardOpensAnotherReport(FxRobot) -- Time elapsed: 28.58 s <<< ERROR!
-java.util.concurrent.TimeoutException
-	at org.testfx.util.WaitForAsyncUtils.waitFor(WaitForAsyncUtils.java:325)
-	at com.chemmanager.ui.ReportCentreUiTest.catalogueCardOpensAnotherReport(ReportCentreUiTest.java:102)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.11 s -- in com.chemmanager.ui.ReportCentreUiTest
