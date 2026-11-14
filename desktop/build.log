@@ -10,7 +10,7 @@
 [INFO] 
 [INFO] --- compiler:3.13.0:compile (default-compile) @ chemmanager-erp ---
 [INFO] Recompiling the module because of changed source code.
-[INFO] Compiling 175 source files with javac [debug parameters release 21] to target/classes
+[INFO] Compiling 182 source files with javac [debug parameters release 21] to target/classes
 [INFO] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/component/ChartFactory.java: Some input files use unchecked or unsafe operations.
 [INFO] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/component/ChartFactory.java: Recompile with -Xlint:unchecked for details.
 [INFO] Some messages have been simplified; recompile with -Xdiags:verbose to get full output
@@ -24,8 +24,8 @@
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD FAILURE
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  3.965 s
-[INFO] Finished at: 2026-11-14T11:53:33Z
+[INFO] Total time:  3.274 s
+[INFO] Finished at: 2026-11-14T11:55:51Z
 [INFO] ------------------------------------------------------------------------
 [ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.13.0:compile (default-compile) on project chemmanager-erp: Compilation failure: Compilation failure: 
 [ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/controller/sales/SalesController.java:[693,18] method invoice() is already defined in class com.chemmanager.controller.sales.SalesController
