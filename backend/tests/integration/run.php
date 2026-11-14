@@ -2080,21 +2080,31 @@ foreach ($today as $row) {
 }
 check('the cash book filters on the day', $response['status'] === 200 && $allToday, $response['raw']);
 
-$response = call('GET', '/api/expenses/summary?from=' . date('Y-m-01') . '&to=' . date('Y-m-d'), null, $token);
+// The salary of the month is dated the 28th, so the window must cover the whole month, not today.
+$response = call('GET', '/api/expenses/summary?from=' . date('Y-m-01') . '&to=' . date('Y-m-t'), null, $token);
 $summaryCodes = array_column($response['json']['data'] ?? [], 'code');
 check('the expense summary of the month carries the salary it booked', $response['status'] === 200
     && in_array('SALARIES', $summaryCodes, true), $response['raw']);
 
+// The seeded closed months were closed before the application existed, so the closer is checked on a
+// month this suite closes itself.
 $response = call('GET', '/api/finance/periods', null, $token);
-$october = null;
+$nextPeriod = null;
 foreach ($response['json']['data'] ?? [] as $period) {
-    if (($period['code'] ?? '') === '2026-10') {
-        $october = $period;
+    if (($period['status'] ?? '') === 'OPEN' && ($period['code'] ?? '') !== date('Y-m')) {
+        $nextPeriod = $period;
+        break;
     }
 }
-check('a closed month keeps the name of who closed it', $response['status'] === 200
-    && $october !== null && ($october['status'] ?? '') === 'CLOSED'
-    && ($october['closedByName'] ?? null) !== null, $response['raw']);
+check('the calendar offers the next open month', $nextPeriod !== null, $response['raw']);
+$response = call('POST', '/api/finance/periods/' . (int) ($nextPeriod['id'] ?? 0) . '/close', null, $token);
+check('a month closed by the suite names who closed it', $response['status'] === 200
+    && ($response['json']['data']['status'] ?? '') === 'CLOSED'
+    && ($response['json']['data']['closedByName'] ?? null) !== null
+    && ($response['json']['data']['closedAt'] ?? null) !== null, $response['raw']);
+$response = call('POST', '/api/finance/periods/' . (int) ($nextPeriod['id'] ?? 0) . '/reopen', null, $token);
+check('the month is reopened for the rest of the suite', $response['status'] === 200
+    && ($response['json']['data']['status'] ?? '') === 'OPEN', $response['raw']);
 
 $response = call('GET', '/api/expenses?from=2026-10-01&to=2026-10-31', null, $token);
 check('a closed month is still readable', $response['status'] === 200, $response['raw']);
