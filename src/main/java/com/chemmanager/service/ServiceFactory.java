@@ -18,6 +18,8 @@ import com.chemmanager.service.api.ApiInventoryService;
 import com.chemmanager.service.api.ApiNotificationService;
 import com.chemmanager.service.api.ApiProductService;
 import com.chemmanager.service.api.ApiProductionService;
+import com.chemmanager.service.api.ApiReportCentreService;
+import com.chemmanager.service.api.ApiSafetyService;
 import com.chemmanager.service.api.ApiPurchasingService;
 import com.chemmanager.service.api.ApiRawMaterialService;
 import com.chemmanager.service.api.ApiSettingsService;
@@ -34,6 +36,8 @@ import com.chemmanager.service.mock.MockInventoryService;
 import com.chemmanager.service.mock.MockNotificationService;
 import com.chemmanager.service.mock.MockProductService;
 import com.chemmanager.service.mock.MockProductionService;
+import com.chemmanager.service.mock.MockReportCentreService;
+import com.chemmanager.service.mock.MockSafetyService;
 import com.chemmanager.service.mock.MockPurchasingService;
 import com.chemmanager.service.mock.MockRawMaterialService;
 import com.chemmanager.service.mock.MockSettingsService;
@@ -70,6 +74,8 @@ public final class ServiceFactory {
     private static SalesService salesService;
     private static DistributionService distributionService;
     private static FinanceService financeService;
+    private static SafetyService safetyService;
+    private static ReportCentreService reportCentreService;
 
     private ServiceFactory() {
     }
@@ -120,6 +126,8 @@ public final class ServiceFactory {
             salesService = new ApiSalesService(apiClient);
             distributionService = new ApiDistributionService(apiClient);
             financeService = new ApiFinanceService(apiClient);
+            safetyService = new ApiSafetyService(apiClient);
+            reportCentreService = new ApiReportCentreService(apiClient);
         } else {
             authService = new MockAuthService();
             dashboardService = new MockDashboardService();
@@ -137,6 +145,8 @@ public final class ServiceFactory {
             salesService = new MockSalesService();
             distributionService = new MockDistributionService();
             financeService = new MockFinanceService();
+            safetyService = new MockSafetyService();
+            reportCentreService = new MockReportCentreService();
         }
     }
 
@@ -236,6 +246,16 @@ public final class ServiceFactory {
     public static FinanceService finance() {
         initialise();
         return financeService;
+    }
+
+    public static SafetyService safety() {
+        initialise();
+        return safetyService;
+    }
+
+    public static ReportCentreService reportCentre() {
+        initialise();
+        return reportCentreService;
     }
 
     /** Short timeout used by the connectivity indicator in the status bar. */

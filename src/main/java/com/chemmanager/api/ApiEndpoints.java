@@ -67,6 +67,18 @@ public final class ApiEndpoints {
     public static final String REPORTS_MARGIN = "/api/reports/margin";
     public static final String REPORTS_CASHFLOW = "/api/reports/cashflow";
     public static final String REPORTS_RESULT = "/api/reports/result";
+    public static final String REPORTS_CATALOGUE = "/api/reports/catalogue";
+    public static final String REPORTS_SALES = "/api/reports/sales";
+    public static final String REPORTS_PURCHASES = "/api/reports/purchases";
+    public static final String REPORTS_STOCK = "/api/reports/stock";
+    public static final String REPORTS_PRODUCTION = "/api/reports/production";
+    public static final String REPORTS_SAFETY = "/api/reports/safety";
+    public static final String SAFETY_OVERVIEW = "/api/safety/overview";
+    public static final String SAFETY_PICTOGRAMS = "/api/safety/pictograms";
+    public static final String SAFETY_MATERIALS = "/api/safety/materials";
+    public static final String SAFETY_MATERIAL = "/api/safety/materials";
+    public static final String SAFETY_SHEETS = "/api/safety/sheets";
+    public static final String SAFETY_INCIDENTS = "/api/safety/incidents";
     public static final String DOCUMENTS = "/api/documents/{type}/{id}";
 
     private ApiEndpoints() {

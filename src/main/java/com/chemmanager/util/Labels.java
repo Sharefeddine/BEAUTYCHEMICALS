@@ -330,6 +330,102 @@ public final class Labels {
         return get("mcat." + (code == null ? "" : code.toLowerCase(Locale.ROOT)), humanize(code));
     }
 
+    /** Incident types: SPILL, EXPOSURE, FIRE, DAMAGE, OTHER. */
+    public static String incidentType(String type) {
+        if (type == null || type.isBlank()) {
+            return "—";
+        }
+        return get("safety.incident.type." + type.toLowerCase(Locale.ROOT), humanize(type));
+    }
+
+    /** Incident severities: MINOR, MODERATE, MAJOR, CRITICAL. */
+    public static String incidentSeverity(String severity) {
+        if (severity == null || severity.isBlank()) {
+            return "—";
+        }
+        return get("safety.incident.severity." + severity.toLowerCase(Locale.ROOT), humanize(severity));
+    }
+
+    /** Incident severities, coloured the way the register scans. */
+    public static String incidentSeverityStyle(String severity) {
+        if (severity == null) {
+            return "badge-neutral";
+        }
+        return switch (severity.toUpperCase(Locale.ROOT)) {
+            case "CRITICAL" -> "badge-danger";
+            case "MAJOR" -> "badge-warning";
+            case "MODERATE" -> "badge-info";
+            default -> "badge-neutral";
+        };
+    }
+
+    /** Incident statuses: OPEN, INVESTIGATING, CLOSED. */
+    public static String incidentStatus(String status) {
+        if (status == null || status.isBlank()) {
+            return "—";
+        }
+        return get("safety.incident.status." + status.toLowerCase(Locale.ROOT), humanize(status));
+    }
+
+    public static String incidentStatusStyle(String status) {
+        if (status == null) {
+            return "badge-neutral";
+        }
+        return switch (status.toUpperCase(Locale.ROOT)) {
+            case "CLOSED" -> "badge-success";
+            case "INVESTIGATING" -> "badge-warning";
+            default -> "badge-danger";
+        };
+    }
+
+    /** Document types of the sheet library: SDS, TECHNICAL, DISPOSAL, TRANSPORT. */
+    public static String sheetDocumentType(String type) {
+        if (type == null || type.isBlank()) {
+            return "—";
+        }
+        return get("safety.document." + type.toLowerCase(Locale.ROOT), humanize(type));
+    }
+
+    /** The paperwork state of a substance, as the register reads it. */
+    public static String sheetState(boolean hasSheet, boolean obsolete) {
+        if (!hasSheet) {
+            return get("safety.sheet.missing", "Fiche manquante");
+        }
+        return obsolete ? get("safety.sheet.obsolete", "Fiche obsolète")
+                : get("safety.sheet.current", "Fiche à jour");
+    }
+
+    public static String sheetStateStyle(boolean hasSheet, boolean obsolete) {
+        if (!hasSheet) {
+            return "badge-danger";
+        }
+        return obsolete ? "badge-warning" : "badge-success";
+    }
+
+    /** Report families of the centre: FINANCE, COMMERCE, OPERATIONS, SAFETY. */
+    public static String reportGroup(String group) {
+        if (group == null || group.isBlank()) {
+            return "—";
+        }
+        return get("reports.group." + group.toLowerCase(Locale.ROOT), humanize(group));
+    }
+
+    /** The reports the centre can produce. */
+    public static String reportName(String key) {
+        if (key == null || key.isBlank()) {
+            return "—";
+        }
+        return get("reports.centre." + key.toLowerCase(Locale.ROOT), humanize(key));
+    }
+
+    /** Risk filters of the chemical register. */
+    public static String riskFilter(String risk) {
+        if (risk == null || risk.isBlank()) {
+            return get("common.all", "Tous");
+        }
+        return get("safety.risk." + risk.toLowerCase(Locale.ROOT), humanize(risk));
+    }
+
     public static String permission(String name) {
         return get("permission." + name.toLowerCase(Locale.ROOT), humanize(name));
     }

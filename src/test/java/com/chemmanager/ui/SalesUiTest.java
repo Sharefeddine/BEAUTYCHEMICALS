@@ -190,7 +190,7 @@ class SalesUiTest {
 
     private static String detailText(FxRobot robot) {
         try {
-            WaitForAsyncUtils.waitFor(20, TimeUnit.SECONDS, () -> UiWaits.hasNoNode(robot, "#detailHost .label"));
+            WaitForAsyncUtils.waitFor(20, TimeUnit.SECONDS, () -> UiWaits.hasNode(robot, "#detailHost .label"));
         } catch (TimeoutException timeout) {
             // the assertion in the calling test prints what is actually shown
         }

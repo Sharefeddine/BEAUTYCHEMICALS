@@ -1,7 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.chemmanager.controller.safety.SafetyController"
-      styleClass="content-area" spacing="16">
-    <VBox fx:id="placeholderHost" spacing="16"/>
+      styleClass="content-area" spacing="12">
+    <HBox fx:id="kpiRow" spacing="12"/>
+    <HBox alignment="CENTER_LEFT" spacing="8">
+        <Label fx:id="summaryLabel" text="" styleClass="text-muted"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <ComboBox fx:id="riskFilter" prefWidth="190"/>
+        <Button fx:id="exportButton" text="%safety.action.export" styleClass="btn, btn-secondary, btn-sm"/>
+        <Button fx:id="refreshButton" text="%common.refresh" styleClass="btn, btn-secondary, btn-sm"/>
+    </HBox>
+    <TabPane fx:id="safetyTabs" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+        <Tab text="%safety.tab.register" fx:id="registerTab">
+            <HBox spacing="12">
+                <VBox fx:id="materialsPane" spacing="8" HBox.hgrow="ALWAYS">
+                    <VBox fx:id="materialsTableHost" VBox.vgrow="ALWAYS"/>
+                </VBox>
+                <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefWidth="400" minWidth="320">
+                    <VBox fx:id="fileHost" spacing="8"/>
+                </ScrollPane>
+            </HBox>
+        </Tab>
+        <Tab text="%safety.tab.incidents" fx:id="incidentsTab">
+            <VBox spacing="8">
+                <HBox alignment="CENTER_LEFT" spacing="8">
+                    <Label fx:id="incidentSummaryLabel" text="" styleClass="text-muted"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <ComboBox fx:id="statusFilter" prefWidth="150"/>
+                    <ComboBox fx:id="severityFilter" prefWidth="150"/>
+                    <Button fx:id="reportIncidentButton" text="%safety.action.report_incident"
+                            styleClass="btn, btn-primary, btn-sm"/>
+                    <Button fx:id="investigateButton" text="%safety.action.investigate"
+                            styleClass="btn, btn-secondary, btn-sm"/>
+                    <Button fx:id="closeIncidentButton" text="%safety.action.close_incident"
+                            styleClass="btn, btn-secondary, btn-sm"/>
+                </HBox>
+                <VBox fx:id="incidentsTableHost" VBox.vgrow="ALWAYS"/>
+            </VBox>
+        </Tab>
+    </TabPane>
 </VBox>

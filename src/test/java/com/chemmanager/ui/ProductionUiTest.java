@@ -90,7 +90,7 @@ class ProductionUiTest {
         assertFalse(newOrder.isDisabled(), "the administrator may create an order");
 
         // The first order of the demo set waits for material: it can be started, not consumed.
-        WaitForAsyncUtils.waitFor(15, TimeUnit.SECONDS, () -> UiWaits.isDisabled(robot, "#startButton"));
+        WaitForAsyncUtils.waitFor(15, TimeUnit.SECONDS, () -> !UiWaits.isDisabled(robot, "#startButton"));
         assertTrue(robot.lookup("#consumeButton").queryAs(Button.class).isDisabled(),
                 "an order that never started cannot consume material");
 

@@ -3,6 +3,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
@@ -19,13 +20,16 @@
         <ComboBox fx:id="periodSelector" prefWidth="130"/>
         <Region HBox.hgrow="ALWAYS"/>
         <Label fx:id="summaryLabel" text="" styleClass="text-muted"/>
+        <Button fx:id="exportButton" text="%reports.centre.export" styleClass="btn, btn-secondary, btn-sm"/>
         <Button fx:id="refreshButton" text="%common.refresh" styleClass="btn, btn-secondary, btn-sm"/>
     </HBox>
+    <FlowPane fx:id="catalogueHost" hgap="12" vgap="12" prefWrapLength="960"/>
     <ScrollPane fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
         <VBox spacing="12">
             <VBox fx:id="resultHost" spacing="8"/>
             <VBox fx:id="marginHost" spacing="8"/>
             <VBox fx:id="cashflowHost" spacing="8"/>
+            <VBox fx:id="centreHost" spacing="12"/>
         </VBox>
     </ScrollPane>
 </VBox>

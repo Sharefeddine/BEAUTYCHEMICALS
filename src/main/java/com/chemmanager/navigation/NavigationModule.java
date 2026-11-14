@@ -40,7 +40,7 @@ public enum NavigationModule {
     REPORTS("reports", NavGroup.INSIGHTS, Icons.Icon.REPORTS, "/fxml/reports.fxml",
             Permission.REPORTS_VIEW, 8, true),
     SAFETY("safety", NavGroup.INSIGHTS, Icons.Icon.SAFETY, "/fxml/safety.fxml",
-            Permission.SAFETY_VIEW, 8, false),
+            Permission.SAFETY_VIEW, 8, true),
     SETTINGS("settings", NavGroup.SYSTEM, Icons.Icon.SETTINGS, "/fxml/settings.fxml",
             Permission.SETTINGS_VIEW, 1, true),
     USERS("users", NavGroup.SYSTEM, Icons.Icon.USERS, "/fxml/users.fxml",

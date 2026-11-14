@@ -23,6 +23,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -41,6 +42,11 @@ public final class ReportsController {
     @FXML private DatePicker toPicker;
     @FXML private ComboBox<String> periodSelector;
     @FXML private Button refreshButton;
+    @FXML private Button exportButton;
+    @FXML private FlowPane catalogueHost;
+    @FXML private VBox centreHost;
+
+    private ReportCentrePane centre;
 
     @FXML
     private void initialize() {
@@ -49,6 +55,9 @@ public final class ReportsController {
         toPicker.setValue(LocalDate.now());
         refreshButton.setGraphic(Icons.glyph(Icons.Icon.REFRESH, 12));
         refreshButton.setOnAction(event -> reload());
+        exportButton.setGraphic(Icons.glyph(Icons.Icon.EXCEL, 12));
+        centre = new ReportCentrePane(catalogueHost, centreHost, fromPicker, toPicker);
+        exportButton.setOnAction(event -> centre.exportCurrent());
         fromPicker.setOnAction(event -> reload());
         toPicker.setOnAction(event -> reload());
         periodSelector.setOnAction(event -> reload());
@@ -56,6 +65,7 @@ public final class ReportsController {
         periodSelector.setItems(FXCollections.observableArrayList(current.toString(),
                 current.minusMonths(1).toString()));
         periodSelector.setValue(current.toString());
+        centre.reload();
 
         FxTasks.run(() -> ServiceFactory.finance().periods(), periods -> {
             java.util.List<String> codes = periods.stream().map(AccountingPeriod::code).toList();
@@ -83,6 +93,9 @@ public final class ReportsController {
                 error -> Toasts.error(error.getMessage()));
         FxTasks.run(() -> ServiceFactory.finance().result(period), this::renderResult,
                 error -> Toasts.error(error.getMessage()));
+        if (centre != null) {
+            centre.show(centre.periodicReport());
+        }
     }
 
     private void renderMargin(MarginReport report) {
