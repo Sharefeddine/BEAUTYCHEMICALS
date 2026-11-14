@@ -159,8 +159,8 @@ control whose batch is in quarantine.
 
 | Run | Commit | Result |
 | --- | --- | --- |
-| 43587132984 | `e6cb5bf` | API green — **25 unit + 241 integration** on MySQL 8 |
-| _pending_ | _pending_ | desktop `BUILD SUCCESS` with **71 tests** (14 TestFX) |
+| 43587777109 | `dd3d3e3` | both jobs green — desktop **71 tests** (14 TestFX), `BUILD SUCCESS`; API **25 unit + 241 integration checks** on MySQL 8 |
 
 The production screen is captured as a real module in the published screenshots (`ci-reports`
-branch): `desktop/screenshots/07d-production.png` (it replaces `07-planned-module.png`).
+branch): `desktop/screenshots/07d-production.png`. The `07-planned-module.png` still in that folder
+comes from earlier runs and is no longer produced by the boot test.
