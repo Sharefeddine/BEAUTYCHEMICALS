@@ -18,7 +18,7 @@ public enum NavigationModule {
     FORMULATIONS("formulations", NavGroup.CATALOG, Icons.Icon.FORMULATIONS, "/fxml/formulations.fxml",
             Permission.FORMULATIONS_VIEW, 3, true),
     PRODUCTION("production", NavGroup.OPERATIONS, Icons.Icon.PRODUCTION, "/fxml/production.fxml",
-            Permission.PRODUCTION_VIEW, 3, false),
+            Permission.PRODUCTION_VIEW, 5, true),
     INVENTORY("inventory", NavGroup.OPERATIONS, Icons.Icon.INVENTORY, "/fxml/inventory.fxml",
             Permission.INVENTORY_VIEW, 2, false),
     PURCHASING("purchasing", NavGroup.COMMERCE, Icons.Icon.PURCHASING, "/fxml/purchasing.fxml",

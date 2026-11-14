@@ -19,6 +19,7 @@ use ChemManager\Api\Repositories\InventoryRepository;
 use ChemManager\Api\Repositories\MaterialRepository;
 use ChemManager\Api\Repositories\NotificationRepository;
 use ChemManager\Api\Repositories\ProductRepository;
+use ChemManager\Api\Repositories\ProductionRepository;
 use ChemManager\Api\Repositories\PurchaseRepository;
 use ChemManager\Api\Repositories\SettingsRepository;
 use ChemManager\Api\Repositories\SupplierRepository;
@@ -45,6 +46,7 @@ final class App
     public readonly FormulationRepository $formulations;
     public readonly InventoryRepository $inventory;
     public readonly PurchaseRepository $purchases;
+    public readonly ProductionRepository $production;
     public readonly SupplierRepository $suppliers;
     public readonly NotificationRepository $notifications;
     public readonly SettingsRepository $settings;
@@ -70,6 +72,7 @@ final class App
         $this->formulations = new FormulationRepository($this->db);
         $this->inventory = new InventoryRepository($this->db);
         $this->purchases = new PurchaseRepository($this->db, $this->inventory);
+        $this->production = new ProductionRepository($this->db, $this->inventory);
         $this->suppliers = new SupplierRepository($this->db);
         $this->notifications = new NotificationRepository($this->db);
         $this->settings = new SettingsRepository($this->db);

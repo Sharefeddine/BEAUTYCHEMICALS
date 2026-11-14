@@ -13,6 +13,7 @@ import com.chemmanager.service.api.ApiFormulationService;
 import com.chemmanager.service.api.ApiInventoryService;
 import com.chemmanager.service.api.ApiNotificationService;
 import com.chemmanager.service.api.ApiProductService;
+import com.chemmanager.service.api.ApiProductionService;
 import com.chemmanager.service.api.ApiPurchasingService;
 import com.chemmanager.service.api.ApiRawMaterialService;
 import com.chemmanager.service.api.ApiSettingsService;
@@ -24,6 +25,7 @@ import com.chemmanager.service.mock.MockFormulationService;
 import com.chemmanager.service.mock.MockInventoryService;
 import com.chemmanager.service.mock.MockNotificationService;
 import com.chemmanager.service.mock.MockProductService;
+import com.chemmanager.service.mock.MockProductionService;
 import com.chemmanager.service.mock.MockPurchasingService;
 import com.chemmanager.service.mock.MockRawMaterialService;
 import com.chemmanager.service.mock.MockSettingsService;
@@ -51,6 +53,7 @@ public final class ServiceFactory {
     private static FormulationService formulationService;
     private static InventoryService inventoryService;
     private static PurchasingService purchasingService;
+    private static ProductionService productionService;
     private static SupplierService supplierService;
     private static NotificationService notificationService;
     private static UserService userService;
@@ -96,6 +99,7 @@ public final class ServiceFactory {
             formulationService = new ApiFormulationService(apiClient);
             inventoryService = new ApiInventoryService(apiClient);
             purchasingService = new ApiPurchasingService(apiClient);
+            productionService = new ApiProductionService(apiClient);
             supplierService = new ApiSupplierService(apiClient);
             notificationService = new ApiNotificationService(apiClient);
             userService = new ApiUserService(apiClient);
@@ -108,6 +112,7 @@ public final class ServiceFactory {
             formulationService = new MockFormulationService();
             inventoryService = new MockInventoryService();
             purchasingService = new MockPurchasingService();
+            productionService = new MockProductionService();
             supplierService = new MockSupplierService();
             notificationService = new MockNotificationService();
             userService = new MockUserService();
@@ -166,6 +171,11 @@ public final class ServiceFactory {
     public static PurchasingService purchasing() {
         initialise();
         return purchasingService;
+    }
+
+    public static ProductionService production() {
+        initialise();
+        return productionService;
     }
 
     public static SupplierService suppliers() {

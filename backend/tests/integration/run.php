@@ -631,6 +631,271 @@ check('the purchasing list needs a session', $response['status'] === 401, $respo
 $response = call('GET', '/api/inventory/stock?from=2026-13-01', null, $token);
 check('a malformed stock filter does not break the list', $response['status'] === 200, $response['raw']);
 
+// ------------------------------------------------------------ production (phase 5)
+$response = call('GET', '/api/products?pageSize=1', null, $token);
+$phase5ProductId = (int) ($response['json']['data'][0]['id'] ?? 0);
+check('a finished product exists for the production run', $phase5ProductId > 0, $response['raw']);
+
+$response = call('POST', '/api/formulations', [
+    'code' => 'F-PH5', 'nameFr' => 'Emulsion phase 5', 'nameAr' => 'مستحلب المرحلة 5',
+    'productId' => $phase5ProductId,
+], $token);
+$prodFormulationId = (int) ($response['json']['data']['id'] ?? 0);
+check('a formulation is created for the production run', $response['status'] === 201 && $prodFormulationId > 0,
+    $response['raw']);
+
+$response = call('POST', '/api/formulations/' . $prodFormulationId . '/versions', [
+    'instructions' => 'Phase A puis phase B, agitation 30 min.',
+    'expectedYield' => 100, 'yieldUnit' => 'L',
+], $token);
+$prodVersionId = (int) ($response['json']['data']['id'] ?? 0);
+check('its version carries the expected yield', $response['status'] === 201
+    && (float) ($response['json']['data']['expectedYield'] ?? 0) === 100.0, $response['raw']);
+$response = call('PUT', '/api/formulations/' . $prodFormulationId . '/versions/' . $prodVersionId, [
+    'items' => [
+        ['materialId' => $materialA, 'quantity' => 60, 'unit' => 'KG', 'phase' => 'A'],
+        ['materialId' => $materialB, 'quantity' => 40, 'unit' => 'KG', 'phase' => 'B'],
+    ],
+], $token);
+check('its bill of materials is written by hand', $response['status'] === 200, $response['raw']);
+$response = call('POST', '/api/formulations/' . $prodFormulationId . '/versions/' . $prodVersionId . '/approve',
+    null, $token);
+check('the version is approved before production', $response['status'] === 200, $response['raw']);
+$response = call('POST', '/api/formulations/' . $prodFormulationId . '/versions', null, $token);
+$prodDraftVersionId = (int) ($response['json']['data']['id'] ?? 0);
+check('a draft version stays available for the refusal test', $prodDraftVersionId > 0, $response['raw']);
+
+$response = call('POST', '/api/purchaseOrders', [
+    'supplierId' => $supplierId,
+    'items' => [
+        ['materialId' => $materialA, 'quantity' => 100, 'unitPrice' => 150, 'vatRate' => 19],
+        ['materialId' => $materialB, 'quantity' => 100, 'unitPrice' => 200, 'vatRate' => 19],
+    ],
+], $token);
+$prodOrderId = (int) ($response['json']['data']['id'] ?? 0);
+$prodItemOne = (int) ($response['json']['data']['items'][0]['id'] ?? 0);
+$prodItemTwo = (int) ($response['json']['data']['items'][1]['id'] ?? 0);
+call('POST', '/api/purchaseOrders/' . $prodOrderId . '/send', null, $token);
+$response = call('POST', '/api/purchaseOrders/' . $prodOrderId . '/receipts', [
+    'warehouseId' => $materialWarehouseId,
+    'release' => true,
+    'items' => [
+        ['orderItemId' => $prodItemOne, 'quantity' => 100, 'batchNumber' => 'BT-PH5-A',
+            'expiryDate' => (new DateTimeImmutable('+6 months'))->format('Y-m-d')],
+        ['orderItemId' => $prodItemTwo, 'quantity' => 100, 'batchNumber' => 'BT-PH5-B',
+            'expiryDate' => (new DateTimeImmutable('+5 months'))->format('Y-m-d')],
+    ],
+], $token);
+check('released raw material is available for the run', $response['status'] === 201, $response['raw']);
+
+$response = call('GET', '/api/production/versions', null, $token);
+$offeredVersions = array_column($response['json']['data'] ?? [], 'versionId');
+check('the shop floor is offered the approved versions only', $response['status'] === 200
+    && in_array($prodVersionId, $offeredVersions, true)
+    && !in_array($prodDraftVersionId, $offeredVersions, true), $response['raw']);
+$response = call('GET', '/api/production/versions', null, null);
+check('the version list needs a session', $response['status'] === 401, $response['raw']);
+
+$response = call('POST', '/api/production/orders', [
+    'formulationVersionId' => $prodDraftVersionId, 'warehouseId' => $materialWarehouseId,
+    'plannedQuantity' => 100,
+], $token);
+check('an unapproved version cannot be produced', $response['status'] === 409
+    && ($response['json']['error']['code'] ?? '') === 'PRODUCTION_VERSION_NOT_APPROVED', $response['raw']);
+$response = call('POST', '/api/production/orders', [
+    'formulationVersionId' => $prodVersionId, 'warehouseId' => 999999, 'plannedQuantity' => 100,
+], $token);
+check('an unknown warehouse answers 404', $response['status'] === 404, $response['raw']);
+$response = call('POST', '/api/production/orders', [
+    'formulationVersionId' => $prodVersionId, 'warehouseId' => $materialWarehouseId, 'plannedQuantity' => 0,
+], $token);
+check('an order without a quantity is refused', $response['status'] === 422, $response['raw']);
+$response = call('POST', '/api/production/orders', [
+    'formulationVersionId' => $prodVersionId, 'warehouseId' => $quarantineWarehouseId, 'plannedQuantity' => 100,
+], $token);
+check('an order cannot consume from quarantine', $response['status'] === 409
+    && ($response['json']['error']['code'] ?? '') === 'PRODUCTION_QUARANTINE', $response['raw']);
+
+$response = call('POST', '/api/production/orders', [
+    'formulationVersionId' => $prodVersionId, 'warehouseId' => $materialWarehouseId,
+    'plannedQuantity' => 100, 'notes' => 'Lot de validation phase 5',
+], $token);
+$production = $response['json']['data'] ?? [];
+$productionId = (int) ($production['id'] ?? 0);
+check('a manufacturing order is created from the approved version', $response['status'] === 201
+    && ($production['status'] ?? '') === 'DRAFT' && $productionId > 0, $response['raw']);
+check('the order number is generated', str_starts_with((string) ($production['orderNumber'] ?? ''), 'PRD-'));
+check('the bill of materials is scaled to the ordered quantity',
+    count($production['plan'] ?? []) === 2
+    && (float) ($production['plan'][0]['plannedQuantity'] ?? 0) === 60.0
+    && (float) ($production['plan'][1]['plannedQuantity'] ?? 0) === 40.0, $response['raw']);
+check('nothing is consumed and no batch exists yet',
+    ($production['materials'] ?? []) === [] && ($production['outputs'] ?? []) === [], $response['raw']);
+
+$response = call('POST', '/api/production/orders', [
+    'formulationVersionId' => $prodVersionId, 'warehouseId' => $materialWarehouseId, 'plannedQuantity' => 10000,
+], $token);
+$starvedId = (int) ($response['json']['data']['id'] ?? 0);
+check('a too large order cannot be started', $response['status'] === 201 && $starvedId > 0, $response['raw']);
+$response = call('POST', '/api/production/orders/' . $starvedId . '/start', null, $token);
+check('starting without stock reports what is missing', $response['status'] === 409
+    && ($response['json']['error']['code'] ?? '') === 'PRODUCTION_MATERIALS'
+    && count($response['json']['error']['details']['shortfalls'] ?? []) === 2, $response['raw']);
+$response = call('GET', '/api/production/orders/' . $starvedId, null, $token);
+check('the starved order waits for materials', ($response['json']['data']['status'] ?? '') === 'WAITING_MATERIALS',
+    $response['raw']);
+
+$response = call('POST', '/api/production/orders/' . $productionId . '/start', null, $token);
+$started = $response['json']['data'] ?? [];
+check('the order starts and reserves its material', $response['status'] === 200
+    && ($started['status'] ?? '') === 'IN_PROGRESS', $response['raw']);
+check('the reservation is FEFO, batch by batch', count($started['materials'] ?? []) === 2
+    && ($started['materials'][0]['batchNumber'] ?? '') === 'BT-PH5-A'
+    && (float) ($started['materials'][0]['plannedQuantity'] ?? 0) === 60.0, $response['raw']);
+$response = call('POST', '/api/production/orders/' . $productionId . '/start', null, $token);
+check('an order cannot be started twice', $response['status'] === 409, $response['raw']);
+$materialLineA = (int) ($started['materials'][0]['materialBatchId'] ?? 0);
+$materialLineB = (int) ($started['materials'][1]['materialBatchId'] ?? 0);
+$response = call('POST', '/api/production/orders/' . $productionId . '/consume', [
+    'items' => [['materialBatchId' => $materialLineA, 'quantity' => 1000]],
+], $token);
+check('consuming more than the batch holds is refused', $response['status'] === 409
+    && ($response['json']['error']['code'] ?? '') === 'PRODUCTION_STOCK', $response['raw']);
+$response = call('POST', '/api/production/orders/' . $productionId . '/complete', ['actualQuantity' => 90], $token);
+check('an order without consumption cannot be completed', $response['status'] === 409
+    && ($response['json']['error']['code'] ?? '') === 'PRODUCTION_NO_CONSUMPTION', $response['raw']);
+
+$response = call('POST', '/api/production/orders/' . $productionId . '/consume', [
+    'items' => [
+        ['materialBatchId' => $materialLineA, 'quantity' => 60],
+        ['materialBatchId' => $materialLineB, 'quantity' => 40],
+    ],
+], $token);
+$consumed = $response['json']['data'] ?? [];
+check('the operator records what was really used', $response['status'] === 200
+    && (float) ($consumed['consumedQuantity'] ?? 0) === 100.0, $response['raw']);
+check('the material cost is the real cost of the consumed batches',
+    (float) ($consumed['materialCost'] ?? 0) > 0
+    && (float) ($consumed['materials'][0]['consumedQuantity'] ?? 0) === 60.0, $response['raw']);
+$response = call('GET', '/api/inventory/stock?search=BT-PH5-A', null, $token);
+$stockA = $response['json']['data'][0] ?? [];
+check('the consumed material left the stock through the ledger',
+    (float) ($stockA['quantity'] ?? -1) === 40.0, $response['raw']);
+$response = call('GET', '/api/inventory/movements?movementType=PRODUCTION_OUT&pageSize=5', null, $token);
+check('two PRODUCTION_OUT movements were written', (int) ($response['json']['meta']['total'] ?? 0) === 2,
+    $response['raw']);
+
+$response = call('POST', '/api/production/orders/' . $productionId . '/complete', [
+    'actualQuantity' => 96, 'wasteQuantity' => 2, 'packagingCost' => 300, 'otherCost' => 120,
+    'expiryDate' => (new DateTimeImmutable('+18 months'))->format('Y-m-d'),
+], $token);
+$completed = $response['json']['data'] ?? [];
+check('completing the order puts it in quality control', $response['status'] === 200
+    && ($completed['status'] ?? '') === 'QUALITY_CONTROL', $response['raw']);
+check('a finished batch is created in quarantine', ($completed['outputs'][0]['qualityStatus'] ?? '') === 'QUARANTINE'
+    && (float) ($completed['outputs'][0]['quantity'] ?? 0) === 96.0, $response['raw']);
+check('the real cost is computed per unit', (float) ($completed['totalCost'] ?? 0)
+    === round((float) ($completed['materialCost'] ?? 0) + 420, 2)
+    && (float) ($completed['costPerUnit'] ?? 0) > 0, $response['raw']);
+check('the cost is compared with the standard', (float) ($completed['standardMaterialCost'] ?? 0) > 0
+    && isset($completed['variance'], $completed['variancePct']), $response['raw']);
+check('a quarantined batch is not sellable', ($completed['sellable'] ?? true) === false, $response['raw']);
+$response = call('POST', '/api/production/orders/' . $productionId . '/complete', ['actualQuantity' => 10], $token);
+check('an order cannot be completed twice', $response['status'] === 409, $response['raw']);
+$response = call('POST', '/api/production/orders/' . $productionId . '/quality',
+    ['checkType' => 'aspect', 'result' => 'MAYBE'], $token);
+check('an unknown quality result is refused', $response['status'] === 422, $response['raw']);
+
+// A second, smaller run whose quality check fails: the batch must never become sellable.
+$response = call('POST', '/api/production/orders', [
+    'formulationVersionId' => $prodVersionId, 'warehouseId' => $materialWarehouseId, 'plannedQuantity' => 20,
+], $token);
+$rejectedRunId = (int) ($response['json']['data']['id'] ?? 0);
+$response = call('POST', '/api/production/orders/' . $rejectedRunId . '/start', null, $token);
+$rejectedLines = $response['json']['data']['materials'] ?? [];
+call('POST', '/api/production/orders/' . $rejectedRunId . '/consume', ['items' => [
+    ['materialBatchId' => (int) ($rejectedLines[0]['materialBatchId'] ?? 0), 'quantity' => 12],
+    ['materialBatchId' => (int) ($rejectedLines[1]['materialBatchId'] ?? 0), 'quantity' => 8],
+]], $token);
+$response = call('POST', '/api/production/orders/' . $rejectedRunId . '/complete',
+    ['actualQuantity' => 18, 'wasteQuantity' => 2], $token);
+check('the second run is completed too', $response['status'] === 200
+    && ($response['json']['data']['status'] ?? '') === 'QUALITY_CONTROL', $response['raw']);
+$response = call('POST', '/api/production/orders/' . $rejectedRunId . '/quality', [
+    'checkType' => 'pH', 'result' => 'FAIL', 'remarks' => 'pH hors tolérance', 'parameters' => ['ph' => 4.2],
+], $token);
+$rejected = $response['json']['data'] ?? [];
+check('a failed check rejects the order and its batch', $response['status'] === 200
+    && ($rejected['status'] ?? '') === 'REJECTED'
+    && ($rejected['outputs'][0]['qualityStatus'] ?? '') === 'REJECTED', $response['raw']);
+
+$response = call('GET', '/api/inventory/stock?kind=PRODUCT&pageSize=10', null, $token);
+$productBatches = $response['json']['data'] ?? [];
+check('both finished batches are in stock', (int) ($response['json']['meta']['total'] ?? 0) === 2,
+    $response['raw']);
+check('one batch waits in quarantine and one is rejected',
+    array_column($productBatches, 'qualityStatus') === ['QUARANTINE', 'REJECTED']
+    || array_column($productBatches, 'qualityStatus') === ['REJECTED', 'QUARANTINE'], $response['raw']);
+$response = call('GET', '/api/inventory/stock?kind=PRODUCT&availableOnly=1', null, $token);
+check('no unreleased finished batch is offered for sale',
+    (int) ($response['json']['meta']['total'] ?? -1) === 0, $response['raw']);
+
+$response = call('POST', '/api/production/orders/' . $productionId . '/quality', [
+    'checkType' => 'aspect', 'result' => 'PASS', 'remarks' => 'Conforme',
+    'parameters' => ['ph' => 5.5, 'viscosity' => 4200],
+], $token);
+$released = $response['json']['data'] ?? [];
+check('a PASS check releases the batch and closes the order', $response['status'] === 200
+    && ($released['status'] ?? '') === 'COMPLETED'
+    && ($released['outputs'][0]['qualityStatus'] ?? '') === 'RELEASED'
+    && ($released['sellable'] ?? false) === true, $response['raw']);
+check('the quality decision is recorded with its measurements',
+    count($released['qualityChecks'] ?? []) === 1
+    && (float) ($released['qualityChecks'][0]['parameters']['ph'] ?? 0) === 5.5
+    && ($released['qualityChecks'][0]['checkedByName'] ?? '') === 'admin', $response['raw']);
+$response = call('GET', '/api/inventory/stock?kind=PRODUCT&availableOnly=1', null, $token);
+check('the released batch is now sellable', (int) ($response['json']['meta']['total'] ?? 0) === 1,
+    $response['raw']);
+
+$response = call('GET', '/api/production/orders/' . $productionId . '/genealogy', null, $token);
+$genealogy = $response['json']['data'] ?? [];
+check('the genealogy links the output to its material batches', $response['status'] === 200
+    && ($genealogy['complete'] ?? false) === true
+    && count($genealogy['inputs'] ?? []) === 2 && count($genealogy['outputs'] ?? []) === 1, $response['raw']);
+check('every input names its supplier and its receipt', ($genealogy['inputs'][0]['supplierName'] ?? '') !== ''
+    && ($genealogy['inputs'][0]['receiptNumber'] ?? '') !== ''
+    && ($genealogy['inputs'][0]['purchaseOrderNumber'] ?? '') !== '', $response['raw']);
+check('the genealogy reports the consumed quantities',
+    (float) ($genealogy['inputs'][0]['consumedQuantity'] ?? 0) > 0, $response['raw']);
+$response = call('GET', '/api/production/orders/999999/genealogy', null, $token);
+check('the genealogy of an unknown order answers 404', $response['status'] === 404, $response['raw']);
+
+$response = call('POST', '/api/production/orders/' . $starvedId . '/cancel', ['reason' => 'Stock indisponible'],
+    $token);
+check('an order waiting for materials can be cancelled', $response['status'] === 200
+    && ($response['json']['data']['status'] ?? '') === 'CANCELLED', $response['raw']);
+$response = call('POST', '/api/production/orders/' . $rejectedRunId . '/cancel', null, $token);
+check('an order that consumed material cannot be cancelled', $response['status'] === 409
+    && ($response['json']['error']['code'] ?? '') === 'PRODUCTION_CONSUMED', $response['raw']);
+$response = call('POST', '/api/production/orders/' . $productionId . '/cancel', null, $token);
+check('a completed order cannot be cancelled', $response['status'] === 409, $response['raw']);
+
+$response = call('GET', '/api/production/orders?pageSize=10', null, $token);
+check('the orders are listed with their progress', $response['status'] === 200
+    && (int) ($response['json']['meta']['total'] ?? 0) === 3
+    && isset($response['json']['data'][0]['consumedQuantity'], $response['json']['data'][0]['productName']),
+    $response['raw']);
+$response = call('GET', '/api/production/orders?status=COMPLETED', null, $token);
+check('the orders are filtered by status', (int) ($response['json']['meta']['total'] ?? -1) === 1,
+    $response['raw']);
+$response = call('GET', '/api/production/orders?search=PRD-', null, $token);
+check('the orders are searched by number', (int) ($response['json']['meta']['total'] ?? 0) === 3,
+    $response['raw']);
+$response = call('GET', '/api/production/orders/999999', null, $token);
+check('an unknown order answers 404', $response['status'] === 404, $response['raw']);
+$response = call('GET', '/api/production/orders', null, null);
+check('the production list needs a session', $response['status'] === 401, $response['raw']);
+
 // ------------------------------------------------------------ dashboard
 $response = call('GET', '/api/dashboard/summary', null, $token);
 check('the dashboard summary is served', $response['status'] === 200, $response['raw']);

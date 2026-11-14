@@ -11,6 +11,7 @@ use ChemManager\Api\Controllers\InventoryController;
 use ChemManager\Api\Controllers\MaterialController;
 use ChemManager\Api\Controllers\NotificationController;
 use ChemManager\Api\Controllers\ProductController;
+use ChemManager\Api\Controllers\ProductionController;
 use ChemManager\Api\Controllers\PurchaseController;
 use ChemManager\Api\Controllers\SettingsController;
 use ChemManager\Api\Controllers\SupplierController;
@@ -35,6 +36,7 @@ return static function (Router $router, App $app): void {
     $inventoryController = new InventoryController($app);
     $supplierController = new SupplierController($app);
     $purchaseController = new PurchaseController($app);
+    $productionController = new ProductionController($app);
     $settingsController = new SettingsController($app);
     $dashboardController = new DashboardController($app);
     $auditController = new AuditController($app);
@@ -106,6 +108,24 @@ return static function (Router $router, App $app): void {
     $router->add('POST', '/api/purchaseOrders/{id}/send', [$purchaseController, 'send'], 'PURCHASING_CREATE');
     $router->add('POST', '/api/purchaseOrders/{id}/cancel', [$purchaseController, 'cancel'], 'PURCHASING_CREATE');
     $router->add('POST', '/api/purchaseOrders/{id}/receipts', [$purchaseController, 'receive'], 'PURCHASING_APPROVE');
+
+    // ------------------------------------------------------------------ production
+    $router->add('GET', '/api/production/versions', [$productionController, 'versions'], 'PRODUCTION_VIEW');
+    $router->add('GET', '/api/production/orders', [$productionController, 'index'], 'PRODUCTION_VIEW');
+    $router->add('GET', '/api/production/orders/{id}', [$productionController, 'show'], 'PRODUCTION_VIEW');
+    $router->add('GET', '/api/production/orders/{id}/genealogy', [$productionController, 'genealogy'],
+        'PRODUCTION_VIEW');
+    $router->add('POST', '/api/production/orders', [$productionController, 'store'], 'PRODUCTION_CREATE');
+    $router->add('POST', '/api/production/orders/{id}/start', [$productionController, 'start'],
+        'PRODUCTION_CREATE');
+    $router->add('POST', '/api/production/orders/{id}/consume', [$productionController, 'consume'],
+        'PRODUCTION_CREATE');
+    $router->add('POST', '/api/production/orders/{id}/complete', [$productionController, 'complete'],
+        'PRODUCTION_APPROVE');
+    $router->add('POST', '/api/production/orders/{id}/quality', [$productionController, 'quality'],
+        'PRODUCTION_APPROVE');
+    $router->add('POST', '/api/production/orders/{id}/cancel', [$productionController, 'cancel'],
+        'PRODUCTION_CREATE');
 
     // ------------------------------------------------------------------ users and permissions
     $router->add('GET', '/api/users', [$userController, 'index'], 'USERS_VIEW');

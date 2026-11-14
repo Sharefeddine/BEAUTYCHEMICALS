@@ -30,6 +30,8 @@ public final class ApiEndpoints {
     public static final String INVENTORY_TRANSFER = "/api/inventory/transfer";
     public static final String SUPPLIERS = "/api/suppliers";
     public static final String PURCHASE_ORDERS = "/api/purchaseOrders";
+    public static final String PRODUCTION_VERSIONS = "/api/production/versions";
+    public static final String PRODUCTION_ORDERS = "/api/production/orders";
     public static final String NOTIFICATIONS = "/api/notifications";
     public static final String NOTIFICATIONS_READ = "/api/notifications/read";
     public static final String NOTIFICATIONS_READ_ALL = "/api/notifications/readAll";
