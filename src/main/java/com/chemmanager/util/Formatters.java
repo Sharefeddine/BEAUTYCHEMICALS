@@ -24,6 +24,19 @@ public final class Formatters {
     private Formatters() {
     }
 
+    /**
+     * Wraps a number, an amount or a date in a left-to-right isolate when the interface is Arabic.
+     * Without it, "24,8 M DZD" is reordered by the right-to-left paragraph and reads as
+     * "M DZD 24,8"; the isolate keeps the figure together and in Latin order, as Algerian business
+     * documents do (docs/08-ux-guidelines.md section 5). The characters are invisible.
+     */
+    static String isolate(String text) {
+        if (text == null || text.isEmpty() || !I18n.get().isRtl()) {
+            return text;
+        }
+        return '\u2066' + text + '\u2069';
+    }
+
     public static Locale locale() {
         return I18n.get().formattingLocale();
     }
@@ -43,7 +56,7 @@ public final class Formatters {
         }
         format.setMinimumFractionDigits(2);
         format.setMaximumFractionDigits(2);
-        return format.format(value);
+        return isolate(format.format(value));
     }
 
     /** Condensed amount used inside KPI cards (e.g. 12,4 M DZD). */
@@ -62,22 +75,26 @@ public final class Formatters {
             scaled = value.divide(BigDecimal.valueOf(1_000L), 1, RoundingMode.HALF_UP);
             suffix = " K";
         }
-        return decimal(scaled, scaled.stripTrailingZeros().scale() > 1 ? 1 : 1) + suffix + " "
-                + AppConfig.get().currencyCode();
+        return isolate(rawDecimal(scaled, scaled.stripTrailingZeros().scale() > 1 ? 1 : 1) + suffix + " "
+                + AppConfig.get().currencyCode());
     }
 
     public static String number(BigDecimal value) {
         NumberFormat format = NumberFormat.getNumberInstance(locale());
         format.setMinimumFractionDigits(0);
         format.setMaximumFractionDigits(2);
-        return format.format(value == null ? BigDecimal.ZERO : value);
+        return isolate(format.format(value == null ? BigDecimal.ZERO : value));
     }
 
     public static String number(long value) {
-        return NumberFormat.getNumberInstance(locale()).format(value);
+        return isolate(NumberFormat.getNumberInstance(locale()).format(value));
     }
 
     public static String decimal(BigDecimal value, int decimals) {
+        return isolate(rawDecimal(value, decimals));
+    }
+
+    private static String rawDecimal(BigDecimal value, int decimals) {
         DecimalFormatSymbols symbols = DecimalFormatSymbols.getInstance(locale());
         StringBuilder pattern = new StringBuilder("#,##0");
         if (decimals > 0) {
@@ -88,49 +105,49 @@ public final class Formatters {
     }
 
     public static String quantity(BigDecimal value, String unit) {
-        String amount = value == null ? "0" : decimal(value, value.stripTrailingZeros().scale() > 0 ? 2 : 0);
-        return unit == null || unit.isBlank() ? amount : amount + " " + unit;
+        String amount = value == null ? "0" : rawDecimal(value, value.stripTrailingZeros().scale() > 0 ? 2 : 0);
+        return isolate(unit == null || unit.isBlank() ? amount : amount + " " + unit);
     }
 
     public static String percent(BigDecimal value) {
-        return decimal(value, 1) + " %";
+        return isolate(rawDecimal(value, 1) + " %");
     }
 
     public static String date(LocalDate date) {
-        return date == null ? "—" : DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
-                .withLocale(locale()).format(date);
+        return date == null ? "—" : isolate(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+                .withLocale(locale()).format(date));
     }
 
     public static String shortDate(LocalDate date) {
-        return date == null ? "—" : date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy", locale()));
+        return date == null ? "—" : isolate(date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy", locale())));
     }
 
     public static String month(LocalDate date) {
-        return date == null ? "—" : date.format(DateTimeFormatter.ofPattern("MMM yy", locale()));
+        return date == null ? "—" : isolate(date.format(DateTimeFormatter.ofPattern("MMM yy", locale())));
     }
 
     public static String monthLong(LocalDate date) {
-        return date == null ? "—" : date.format(DateTimeFormatter.ofPattern("MMMM yyyy", locale()));
+        return date == null ? "—" : isolate(date.format(DateTimeFormatter.ofPattern("MMMM yyyy", locale())));
     }
 
     public static String dateTime(LocalDateTime value) {
-        return value == null ? "—" : value.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm", locale()));
+        return value == null ? "—" : isolate(value.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm", locale())));
     }
 
     public static String time(Instant instant) {
         if (instant == null) {
             return "—";
         }
-        return LocalDateTime.ofInstant(instant, ZoneId.systemDefault())
-                .format(DateTimeFormatter.ofPattern("HH:mm", locale()));
+        return isolate(LocalDateTime.ofInstant(instant, ZoneId.systemDefault())
+                .format(DateTimeFormatter.ofPattern("HH:mm", locale())));
     }
 
     public static String dateTime(Instant instant) {
         if (instant == null) {
             return "—";
         }
-        return LocalDateTime.ofInstant(instant, ZoneId.systemDefault())
-                .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm", locale()));
+        return isolate(LocalDateTime.ofInstant(instant, ZoneId.systemDefault())
+                .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm", locale())));
     }
 
     /** Human friendly "3 h ago" style label used by the notification center. */

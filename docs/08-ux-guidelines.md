@@ -70,7 +70,7 @@ No 3D, no dual axes, no decorative animation on data.
 | Never mirror what is not directional | Logos, product images, clocks, media controls stay as they are |
 | Arabic needs more vertical room | `I18n.applyTo(root)` sets `lang-ar`, the root becomes 15 px, the text-heavy components scale from it in `em`, table rows go to 48 px and nav items to 42 px; no letter-spacing anywhere |
 | No fake italics or uppercase for Arabic | Emphasis uses weight and colour |
-| Keep numbers, phones, e-mails, codes LTR inside Arabic text | Formatting goes through `Formatters`, which keeps `dd/MM/yyyy`, `1 250,00 DZD` and phone numbers left-to-right |
+| Keep numbers, phones, e-mails, codes LTR inside Arabic text | Formatting goes through `Formatters`, which wraps every amount, quantity, percentage and date in a U+2066 … U+2069 isolate while the locale is Arabic, so `1 250,00 DZD` and `dd/MM/yyyy` stay in one piece instead of being reordered by the paragraph direction |
 | Western digits in Algeria | `Formatters` pins Latin digits in all three languages (1 250,00 — not ١٢٥٠) |
 | Right-aligned numeric cells stay right-aligned | In RTL the table mirroring makes them read from the right, which matches the flow |
 
