@@ -1,0 +1,20 @@
+-------------------------------------------------------------------------------
+Test set: com.chemmanager.ui.EmployeesUiTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 56.10 s <<< FAILURE! -- in com.chemmanager.ui.EmployeesUiTest
+com.chemmanager.ui.EmployeesUiTest.pendingLeaveIsApproved(FxRobot) -- Time elapsed: 29.06 s <<< ERROR!
+java.util.concurrent.TimeoutException
+	at org.testfx.util.WaitForAsyncUtils.waitFor(WaitForAsyncUtils.java:325)
+	at com.chemmanager.ui.EmployeesUiTest.pendingLeaveIsApproved(EmployeesUiTest.java:131)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+com.chemmanager.ui.EmployeesUiTest.payrollOffersPayment(FxRobot) -- Time elapsed: 23.50 s <<< ERROR!
+java.util.concurrent.TimeoutException
+	at org.testfx.util.WaitForAsyncUtils.waitFor(WaitForAsyncUtils.java:325)
+	at com.chemmanager.ui.EmployeesUiTest.payrollOffersPayment(EmployeesUiTest.java:95)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
