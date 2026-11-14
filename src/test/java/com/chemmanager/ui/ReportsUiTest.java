@@ -77,7 +77,7 @@ class ReportsUiTest {
                 "the margin statement has a title: " + margin);
         assertTrue(cashflow.contains(I18n.get().t("reports.cashflow.title")),
                 "the cash-flow statement has a title: " + cashflow);
-        assertTrue(result.contains(I18n.get().t("reports.result.subtitle")),
+        assertTrue(result.contains(I18n.get().t("reports.result.title", "").trim()),
                 "the result statement has a title: " + result);
 
         assertTrue(robot.lookup("#kpiRow .kpi-card").queryAll().size() >= 4,

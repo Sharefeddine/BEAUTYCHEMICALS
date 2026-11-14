@@ -2046,6 +2046,78 @@ check('a closed month still reports its result', $response['status'] === 200, $r
 $response = call('GET', '/api/reports/result?period=octobre', null, $token);
 check('a malformed period is refused', $response['status'] === 422, $response['raw']);
 
+// ------------------------------------------------------------ phase 7, the remaining scenarios
+$response = call('GET', '/api/finance/cashbook?sourceType=EXPENSE&pageSize=50', null, $token);
+$expenseRows = $response['json']['data'] ?? [];
+$allExpenses = $expenseRows !== [];
+foreach ($expenseRows as $row) {
+    if (($row['sourceType'] ?? '') !== 'EXPENSE') {
+        $allExpenses = false;
+    }
+}
+check('the cash book filters on the source type', $response['status'] === 200 && $allExpenses,
+    $response['raw']);
+
+$response = call('GET', '/api/finance/cashbook?cashAccountId=1&pageSize=50', null, $token);
+$oneAccount = $response['json']['data'] ?? [];
+$allSameAccount = $oneAccount !== [];
+foreach ($oneAccount as $row) {
+    if ((int) ($row['cashAccountId'] ?? 0) !== 1) {
+        $allSameAccount = false;
+    }
+}
+check('the cash book filters on the account', $response['status'] === 200 && $allSameAccount,
+    $response['raw']);
+
+$response = call('GET', '/api/finance/cashbook?from=' . date('Y-m-d') . '&to=' . date('Y-m-d')
+    . '&pageSize=50', null, $token);
+$today = $response['json']['data'] ?? [];
+$allToday = $today !== [];
+foreach ($today as $row) {
+    if (substr((string) ($row['occurredAt'] ?? ''), 0, 10) !== date('Y-m-d')) {
+        $allToday = false;
+    }
+}
+check('the cash book filters on the day', $response['status'] === 200 && $allToday, $response['raw']);
+
+$response = call('GET', '/api/expenses/summary?from=' . date('Y-m-01') . '&to=' . date('Y-m-d'), null, $token);
+$summaryCodes = array_column($response['json']['data'] ?? [], 'code');
+check('the expense summary of the month carries the salary it booked', $response['status'] === 200
+    && in_array('SALARIES', $summaryCodes, true), $response['raw']);
+
+$response = call('GET', '/api/finance/periods', null, $token);
+$october = null;
+foreach ($response['json']['data'] ?? [] as $period) {
+    if (($period['code'] ?? '') === '2026-10') {
+        $october = $period;
+    }
+}
+check('a closed month keeps the name of who closed it', $response['status'] === 200
+    && $october !== null && ($october['status'] ?? '') === 'CLOSED'
+    && ($october['closedByName'] ?? null) !== null, $response['raw']);
+
+$response = call('GET', '/api/expenses?from=2026-10-01&to=2026-10-31', null, $token);
+check('a closed month is still readable', $response['status'] === 200, $response['raw']);
+
+$response = call('POST', '/api/expenses', [
+    'categoryId' => $fuelCategoryId,
+    'label' => 'Montant négatif',
+    'amount' => -500,
+    'expenseDate' => date('Y-m-d'),
+    'paymentMethod' => 'CASH',
+], $token);
+check('a negative expense is refused', $response['status'] === 422
+    && isset($response['json']['error']['details']['amount']), $response['raw']);
+
+$response = call('POST', '/api/salaryPayments/run', ['period' => date('Y-m')], $financeViewerToken);
+check('a read-only role cannot run the payroll', $response['status'] === 403, $response['raw']);
+
+$response = call('GET', '/api/salaryPayments?period=' . date('Y-m'), null, $financeViewerToken);
+check('a read-only role can read the payroll', $response['status'] === 200, $response['raw']);
+
+$response = call('DELETE', '/api/employees/999999', null, $token);
+check('an unknown employee answers 404', $response['status'] === 404, $response['raw']);
+
 // ------------------------------------------------------------ lockout
 for ($attempt = 1; $attempt <= 5; $attempt++) {
     call('POST', '/api/auth/login', ['username' => $adminUser, 'password' => 'still-wrong']);
