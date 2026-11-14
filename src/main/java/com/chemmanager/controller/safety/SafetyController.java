@@ -179,7 +179,7 @@ public final class SafetyController {
                                         : StatusBadge.neutral(I18n.get().t("safety.hazard.none"))),
                         DataTable.Column.node(I18n.get().t("safety.column.sheet"), 148,
                                 row -> {
-                                    StatusBadge badge = StatusBadge.of(
+                                    Label badge = StatusBadge.of(
                                             Labels.sheetStateShort(row.hasSheet(), row.sheetObsolete()),
                                             Labels.sheetStateStyle(row.hasSheet(), row.sheetObsolete()));
                                     Tooltip.install(badge, new Tooltip(
