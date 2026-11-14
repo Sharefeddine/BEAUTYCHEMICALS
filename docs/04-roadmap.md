@@ -102,16 +102,18 @@ switches work without restart; no KPI is hardcoded; no button is inert.
   printing produces the document in FR, EN and AR; a delivery note decrements the exact batches it
   lists, in FEFO order and in the same transaction.
 
-## Phase 7 — Finance, expenses, employees, payroll
+## Phase 7 — Finance, expenses, employees, payroll ✅ *(delivered)*
 
 * Cash accounts, receipts/payments from sales and purchasing, cash book, period closing.
 * Expenses by category with attachments and vehicle/line allocation.
 * Employees, attendance, leave, advances, monthly salary payments booked as expenses.
 * Financial statements: margin by product, cash flow, period result.
-* **Acceptance:** no posting is possible in a closed period; the cash book reconciles with
-  payments and expenses; a closed period cannot be reopened without super-admin action.
+* **Acceptance (met):** no posting is possible in a closed period (`409 PERIOD_CLOSED` on every
+  posting path); the cash book reconciles with payments and expenses because each settlement writes
+  its line in the same transaction; a month is reopened only by a super administrator — an accountant
+  closes it and is refused the reopening. See [`PHASE-7-REPORT.md`](PHASE-7-REPORT.md).
 
-## Phase 8 — Reports, chemical safety, hardening
+## Phase 8 — Reports, chemical safety, hardening *(next)*
 
 * Report centre with JasperReports templates (sales, purchases, production, stock, expiry,
   profitability, customer statements, safety registers) and Excel exports.

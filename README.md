@@ -43,12 +43,17 @@ backed by MySQL 8.
 >   tours with proof of delivery, and the printable documents in FR/EN/AR. Stock leaves through the
 >   exact batches a delivery note names, and an issued invoice is frozen — only a payment or a credit
 >   note can move it — see [`docs/PHASE-6-REPORT.md`](docs/PHASE-6-REPORT.md).
-> * **Test harness:** 79 desktop tests — 22 of them driven by **TestFX** through the real user
+> * **Phase 7 — complete:** the accounting calendar with its closing guard, the cash book fed by every
+>   settlement, the expenses with their approval and payment, the staff file with attendance and leave,
+>   the monthly payroll booked as an expense, and the three statements (margin by product, cash flow,
+>   period result) — see [`docs/PHASE-7-REPORT.md`](docs/PHASE-7-REPORT.md).
+> * **Test harness:** 99 desktop tests — 34 of them driven by **TestFX** through the real user
 >   interface (sign-in, password masking, shell, sidebar navigation, live Arabic mirroring,
->   inventory, purchasing, suppliers, production, customers, sales, distribution, focus ring,
->   accessible names) — and 25 + 347 API tests against a real MySQL 8. The rules the project is built
->   under live in [`docs/devRules.md`](docs/devRules.md) and in the Google Doc `devRules`.
-> * **Phase 7 — next:** finance, expenses, employees and payroll.
+>   inventory, purchasing, suppliers, production, customers, sales, distribution, finance, expenses,
+>   employees, reports, focus ring, accessible names) — and 25 + 439 API tests against a real MySQL 8.
+>   The rules the project is built under live in [`docs/devRules.md`](docs/devRules.md) and in the
+>   Google Doc `devRules`.
+> * **Phase 8 — next:** report centre with exports, chemical safety, hardening.
 
 ---
 
@@ -205,6 +210,7 @@ docs/                                architecture, ER diagram, design system, ro
 | [`docs/07-operations.md`](docs/07-operations.md) | Backups, restore drill, deployment, monitoring |
 | [`docs/PHASE-1-REPORT.md`](docs/PHASE-1-REPORT.md) | Phase 1 delivery report: verification, deliverables, review checklist |
 | [`docs/PHASE-2-REPORT.md`](docs/PHASE-2-REPORT.md) | Phase 2 report: 68-table database, seeds, PHP REST API, 113 end-to-end tests |
+| [`docs/PHASE-7-REPORT.md`](docs/PHASE-7-REPORT.md) | Phase 7 report: closed months, the cash book, expenses, payroll and the financial statements, 99 desktop tests and 439 API checks |
 | [`docs/PHASE-6-REPORT.md`](docs/PHASE-6-REPORT.md) | Phase 6 report: credit guard, the sales chain, frozen invoices, tours and printable documents, 79 desktop tests and 347 API checks |
 | [`docs/PHASE-5-REPORT.md`](docs/PHASE-5-REPORT.md) | Phase 5 report: production orders, quality release, batch genealogy, 71 desktop tests and 241 API checks |
 | [`docs/PHASE-3-REPORT.md`](docs/PHASE-3-REPORT.md) | Phase 3 report: formulations, versioning, approval lock, comparison |
