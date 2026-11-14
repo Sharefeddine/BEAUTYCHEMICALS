@@ -1562,6 +1562,138 @@ check('accepted quotations are listed', $response['status'] === 200
 $response = call('GET', '/api/documents/unknown/' . $invoiceId, null, $token);
 check('an unknown document type answers 404', $response['status'] === 404, $response['raw']);
 
+// ------------------------------------------------------------ finance (phase 7)
+$response = call('GET', '/api/finance/periods', null, $token);
+$periods = $response['json']['data'] ?? [];
+$openPeriods = array_values(array_filter($periods, static fn (array $p): bool => $p['status'] === 'OPEN'));
+check('the accounting calendar is served, newest first', $response['status'] === 200 && count($periods) >= 12
+    && $periods[0]['code'] >= $periods[count($periods) - 1]['code'], $response['raw']);
+check('a period knows what was posted into it', $response['status'] === 200
+    && array_key_exists('totalIn', $periods[0]) && array_key_exists('entryCount', $periods[0]),
+    $response['raw']);
+check('the demo year has an open period to work in', $openPeriods !== [], $response['raw']);
+$openPeriod = $openPeriods[0];
+
+$response = call('GET', '/api/finance/cashbook?pageSize=50', null, $token);
+$bookTotal = (int) ($response['json']['meta']['total'] ?? -1);
+$bookSummary = $response['json']['meta']['summary'] ?? [];
+check('the cash book is listed with its totals', $response['status'] === 200 && $bookTotal >= 4
+    && isset($bookSummary['totalIn'], $bookSummary['totalOut'], $bookSummary['net']), $response['raw']);
+$seededRent = array_values(array_filter($response['json']['data'] ?? [],
+    static fn (array $row): bool => $row['description'] === 'Loyer - octobre'));
+check('a movement of a closed period is still visible in the book', $seededRent !== []
+    && $seededRent[0]['periodCode'] === '2026-10', $response['raw']);
+$paymentRows = array_values(array_filter($response['json']['data'] ?? [],
+    static fn (array $row): bool => $row['sourceType'] === 'PAYMENT'));
+check('the customer settlements of the sales section reached the cash book', $paymentRows !== [],
+    $response['raw']);
+
+$response = call('POST', '/api/finance/cashTransactions', [
+    'cashAccountId' => 1,
+    'direction' => 'OUT',
+    'amount' => 1500.00,
+    'sourceType' => 'OTHER',
+    'description' => 'Petite caisse - fournitures de bureau',
+], $token);
+$manualEntryId = (int) ($response['json']['data']['id'] ?? 0);
+check('a manual disbursement is posted with its period', $response['status'] === 201 && $manualEntryId > 0
+    && ($response['json']['data']['periodCode'] ?? '') === $openPeriod['code'], $response['raw']);
+check('the manual entry is signed by the user who wrote it',
+    ($response['json']['data']['userName'] ?? '') !== '', $response['raw']);
+
+$response = call('POST', '/api/finance/cashTransactions', [
+    'cashAccountId' => 1,
+    'direction' => 'IN',
+    'amount' => 500.00,
+    'sourceType' => 'OTHER',
+    'description' => 'Encaissement dans un mois clôturé',
+    'occurredAt' => '2026-05-10 10:00:00',
+], $token);
+check('a closed period refuses a posting', $response['status'] === 409
+    && ($response['json']['error']['code'] ?? '') === 'PERIOD_CLOSED', $response['raw']);
+
+$response = call('POST', '/api/finance/cashTransactions', [
+    'cashAccountId' => 1,
+    'direction' => 'OUT',
+    'amount' => 0,
+    'sourceType' => 'OTHER',
+    'description' => 'Montant nul',
+], $token);
+check('a zero amount is refused', $response['status'] === 422, $response['raw']);
+
+$response = call('GET', '/api/finance/summary', null, $token);
+$summary = $response['json']['data'] ?? [];
+$treasury = $summary['treasury'] ?? [];
+$cashAccounts = $treasury['accounts'] ?? [];
+check('the summary states income, expense and result', $response['status'] === 200
+    && isset($summary['income'], $summary['expense'], $summary['result'])
+    && abs((float) $summary['result'] - ((float) $summary['income'] - (float) $summary['expense'])) < 0.01,
+    $response['raw']);
+check('the treasury covers every cash account', count($cashAccounts) >= 2, $response['raw']);
+$consistent = true;
+foreach ($cashAccounts as $account) {
+    $expected = round((float) $account['openingBalance'] + (float) $account['totalIn'] - (float) $account['totalOut'], 2);
+    if (abs($expected - (float) $account['balance']) > 0.01) {
+        $consistent = false;
+    }
+}
+check('each account balance is opening + in - out', $consistent, $response['raw']);
+check('the summary names where the money came from', isset($summary['bySource'])
+    && in_array('PAYMENT', array_column($summary['bySource'], 'sourceType'), true), $response['raw']);
+
+$response = call('POST', '/api/finance/periods/' . (int) $openPeriod['id'] . '/close', null, $token);
+check('an open period is closed by a finance officer', $response['status'] === 200
+    && ($response['json']['data']['status'] ?? '') === 'CLOSED'
+    && ($response['json']['data']['closedByName'] ?? null) !== null, $response['raw']);
+
+$response = call('POST', '/api/finance/cashTransactions', [
+    'cashAccountId' => 1,
+    'direction' => 'IN',
+    'amount' => 700.00,
+    'sourceType' => 'OTHER',
+    'description' => 'Après clôture',
+], $token);
+check('nothing can be posted into the month that was just closed', $response['status'] === 409
+    && ($response['json']['error']['code'] ?? '') === 'PERIOD_CLOSED', $response['raw']);
+
+$response = call('POST', '/api/finance/periods/' . (int) $openPeriod['id'] . '/close', null, $token);
+check('closing twice is refused', $response['status'] === 409
+    && ($response['json']['error']['code'] ?? '') === 'PERIOD_ALREADY_CLOSED', $response['raw']);
+
+$response = call('POST', '/api/finance/periods/' . (int) $openPeriod['id'] . '/reopen', null, $token);
+check('a closed period can be reopened by an authorised user', $response['status'] === 200
+    && ($response['json']['data']['status'] ?? '') === 'OPEN', $response['raw']);
+
+$response = call('POST', '/api/finance/cashTransactions', [
+    'cashAccountId' => 1,
+    'direction' => 'IN',
+    'amount' => 700.00,
+    'sourceType' => 'OTHER',
+    'description' => 'Après réouverture',
+], $token);
+check('posting works again once the month is open', $response['status'] === 201, $response['raw']);
+
+$response = call('GET', '/api/finance/cashbook?direction=OUT&pageSize=50', null, $token);
+$onlyOut = true;
+foreach ($response['json']['data'] ?? [] as $row) {
+    if ($row['direction'] !== 'OUT') {
+        $onlyOut = false;
+    }
+}
+check('the cash book filters on the direction', $response['status'] === 200 && $onlyOut, $response['raw']);
+
+$response = call('GET', '/api/finance/periods/999999', null, $token);
+check('an unknown period answers 404', $response['status'] === 404, $response['raw']);
+
+$response = call('GET', '/api/finance/cashbook', null, null);
+check('the cash book is not readable without a session', $response['status'] === 401, $response['raw']);
+
+$response = call('GET', '/api/finance/cashbook', null, $viewerToken);
+check('the read-only role can look at the cash book', $response['status'] === 200, $response['raw']);
+$response = call('POST', '/api/finance/periods/' . (int) $openPeriod['id'] . '/close', null, $viewerToken);
+check('a role without FINANCE_CLOSE_PERIOD cannot close a month', $response['status'] === 403
+    && ($response['json']['error']['code'] ?? '') === 'FORBIDDEN', $response['raw']);
+
 // ------------------------------------------------------------ lockout
 for ($attempt = 1; $attempt <= 5; $attempt++) {
     call('POST', '/api/auth/login', ['username' => $adminUser, 'password' => 'still-wrong']);

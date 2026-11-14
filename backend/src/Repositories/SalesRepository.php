@@ -35,7 +35,8 @@ final class SalesRepository
     public function __construct(
         private readonly Database $db,
         private readonly InventoryRepository $inventory,
-        private readonly CustomerRepository $customers
+        private readonly CustomerRepository $customers,
+        private readonly ?FinanceRepository $finance = null
     ) {
     }
 
@@ -1188,6 +1189,7 @@ final class SalesRepository
 
         $id = $this->db->transaction(function () use ($data, $amount, $method, $cashAccountId, $invoiceId, $invoice,
             $customerId, $userId): int {
+            $paidAt = $this->dateTime($data['paidAt'] ?? null) ?? date('Y-m-d H:i:s');
             $this->db->execute(
                 'INSERT INTO payments (paymentNumber, customerId, invoiceId, cashAccountId, amount, paidAt, method,
                         reference, userId, notes)
@@ -1199,7 +1201,7 @@ final class SalesRepository
                     'invoiceId' => $invoiceId > 0 ? $invoiceId : null,
                     'cashAccountId' => $cashAccountId,
                     'amount' => $amount,
-                    'paidAt' => $this->dateTime($data['paidAt'] ?? null) ?? date('Y-m-d H:i:s'),
+                    'paidAt' => $paidAt,
                     'method' => $method,
                     'reference' => mb_substr(trim((string) ($data['reference'] ?? '')), 0, 60),
                     'userId' => $userId,
@@ -1212,6 +1214,19 @@ final class SalesRepository
                 'UPDATE customers SET balance = balance - :amount, updatedBy = :userId WHERE id = :customerId',
                 ['amount' => $amount, 'userId' => $userId, 'customerId' => $customerId]
             );
+
+            // The money physically came in: the cash book records it in the same transaction, so a
+            // closed period refuses the payment instead of leaving an unreconciled treasury.
+            $this->finance?->record([
+                'cashAccountId' => $cashAccountId,
+                'direction' => 'IN',
+                'amount' => $amount,
+                'sourceType' => 'PAYMENT',
+                'sourceId' => $paymentId,
+                'description' => 'Encaissement client #' . $paymentId,
+                'occurredAt' => $paidAt,
+                'userId' => $userId,
+            ]);
 
             if ($invoice !== null) {
                 // The status is assigned before the amount on purpose: MySQL applies the

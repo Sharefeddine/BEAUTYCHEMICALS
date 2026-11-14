@@ -8,6 +8,7 @@ use ChemManager\Api\Controllers\BillingController;
 use ChemManager\Api\Controllers\CustomerController;
 use ChemManager\Api\Controllers\DashboardController;
 use ChemManager\Api\Controllers\DistributionController;
+use ChemManager\Api\Controllers\FinanceController;
 use ChemManager\Api\Controllers\DocumentController;
 use ChemManager\Api\Controllers\FormulationController;
 use ChemManager\Api\Controllers\HealthController;
@@ -51,6 +52,7 @@ return static function (Router $router, App $app): void {
     $salesController = new SalesController($app);
     $billingController = new BillingController($app);
     $distributionController = new DistributionController($app);
+    $financeController = new FinanceController($app);
     $documentController = new DocumentController($app, new DocumentRenderer());
 
     // ------------------------------------------------------------------ public
@@ -227,6 +229,18 @@ return static function (Router $router, App $app): void {
         'DISTRIBUTION_MANAGE');
     $router->add('POST', '/api/routes/{id}/cancel', [$distributionController, 'cancelRoute'],
         'DISTRIBUTION_MANAGE');
+
+    // ------------------------------------------------------------------ finance
+    $router->add('GET', '/api/finance/periods', [$financeController, 'periods'], 'FINANCE_VIEW');
+    $router->add('GET', '/api/finance/periods/{id}', [$financeController, 'period'], 'FINANCE_VIEW');
+    $router->add('POST', '/api/finance/periods/{id}/close', [$financeController, 'closePeriod'],
+        'FINANCE_CLOSE_PERIOD');
+    $router->add('POST', '/api/finance/periods/{id}/reopen', [$financeController, 'reopenPeriod'],
+        'FINANCE_CLOSE_PERIOD');
+    $router->add('GET', '/api/finance/cashbook', [$financeController, 'cashBook'], 'FINANCE_VIEW');
+    $router->add('GET', '/api/finance/summary', [$financeController, 'summary'], 'FINANCE_VIEW');
+    $router->add('POST', '/api/finance/cashTransactions', [$financeController, 'storeTransaction'],
+        'FINANCE_PAYMENT');
 
     // ------------------------------------------------------------------ documents
     $router->add('GET', '/api/documents/{type}/{id}', [$documentController, 'show'], 'SALES_VIEW');
