@@ -82,6 +82,29 @@ every chart publishes a one-sentence summary of what it plots (`chart.a11y.*`, F
   the next sign-in waited 30 s on a rejected task. The pool is now rebuilt after a shutdown
   (`FxTasksTest`); this was a real sign-out/sign-in bug, not only a test-order annoyance.
 
+## Coverage — what the pass actually touched
+
+Every scene loads its styles from the same three stylesheets, so the tokens, the type scale and the
+focus ring reach all of them without per-screen work. What did need a check is the code each screen
+brings: an inline style, a hardcoded colour or a window built outside the shell would have quietly
+opted out. The audit below is exhaustive over `src/main/java` and `src/main/resources/fxml`.
+
+| Surface | Files | State |
+| --- | --- | --- |
+| Shell — sidebar, header, notifications, profile menu, clock | `main-window.fxml`, `MainWindowController` | tokens only, focus ring, icon buttons named, `lang-ar` on the root, navigation rebuilt on language change |
+| Login | `login.fxml`, `LoginController` | tokens only (hero gradient is a token), focus ring, retranslates in place |
+| Dashboard (11 KPI cards, 5 charts, ranking, alerts) | `dashboard.fxml`, `DashboardController`, `ChartFactory`, `KpiCard` | 23 inline styles became classes, charts on chart tokens with dash + marker cues, accessible summaries, no inline size left |
+| Products, raw materials, formulations | `products.fxml`, `raw-materials.fxml`, `formulations.fxml` + controllers | shared `DataTable` / `StatusBadge` / `Filters` components carry the styling |
+| Inventory, purchasing, suppliers | `inventory.fxml`, `purchasing.fxml`, `suppliers.fxml` + controllers | as above; the six dialogs now themed (see below) |
+| Users, settings | `users.fxml`, `settings.fxml` + controllers | inline font sizes replaced by `text-tiny` / `text-small`, inline paddings by `settings-column` / `card-pad` / `side-list` |
+| Nine planned modules (production, sales, customers, distribution, finance, expenses, employees, reports, safety) | one shared `ModuleShellController` + `ModulePlaceholder` | phase badge, capabilities, no fake data; the honest placeholder is styled once and inherited nine times |
+| Dialogs — formulation editor, formulation comparison, stock adjustment, stock transfer, goods receipt, purchase order | six classes | **fixed in this pass**: they added a class but never loaded the theme, so they rendered in the default JavaFX look and stayed left-to-right in Arabic. All six now call `Dialogs.applyTheme`, which sets the stylesheets, the `dialog-pane` class and `lang-ar` |
+| Alerts and confirmations | `Dialogs` | same entry point, so warnings and confirmations follow the theme and the language |
+| Window background, application icon | `ThemeManager`, `AppIcon` | **fixed in this pass**: two hex literals moved to `ThemePalette`, which reads `-c-bg` and `-c-fill-brand-from/to` from the active theme |
+
+Result: **zero** colour literals in `src/main/java`, **zero** `-fx-font-size` and **zero** `style=`
+attributes in FXML, and exactly **one** `setStyle` in the project (the documented table alignment).
+
 ## Gates added
 
 | Gate | Where | Fails on |
@@ -89,6 +112,8 @@ every chart publishes a one-sentence summary of what it plots (`chart.a11y.*`, F
 | `tools/ui/checkDesign.py` | CI, before the build | colour literal, undeclared token, missing token in one theme, contrast below the pair's threshold, size below 11 px, size off the scale, `em` outside `.lang-ar`, doc table that no longer matches the theme files |
 | `DesignSystemTest` (5 tests) | desktop job | the same contract, plus theme parity and a documented minimum of tokens and rows |
 | `DesignSystemUiTest` (3 tests) | desktop job | a focus ring that does not paint or does not move, Arabic typography that does not apply, an icon-only control without a name |
+| `checkDesign.py` source rules + `DesignSystemTest.codeCarriesNoColourOfItsOwn` | CI and desktop job | a colour literal or a font size anywhere in `src/main/java` or FXML, an inline `style=` in FXML, a second `setStyle` |
+| `DesignSystemTest.themePaletteReadsTheThemeTokens` | desktop job | a token the theme files no longer declare, which would break the window background or the icon |
 
 ## Recorded decisions
 

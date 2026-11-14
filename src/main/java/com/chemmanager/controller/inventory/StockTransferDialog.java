@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
+import com.chemmanager.component.Dialogs;
 import com.chemmanager.component.FormFields;
 import com.chemmanager.component.Toasts;
 import com.chemmanager.localization.I18n;
@@ -41,7 +42,7 @@ public final class StockTransferDialog {
         }
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.initOwner(owner);
-        dialog.getDialogPane().getStyleClass().add("dialog-pane");
+        Dialogs.applyTheme(dialog.getDialogPane());
         dialog.setTitle(I18n.get().t("inventory.transfer.title"));
         ButtonType save = new ButtonType(I18n.get().t("common.save"), ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(save, ButtonType.CANCEL);

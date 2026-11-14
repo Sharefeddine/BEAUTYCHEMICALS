@@ -1,5 +1,7 @@
 package com.chemmanager.util;
 
+import com.chemmanager.config.ThemePalette;
+
 import javafx.scene.SnapshotParameters;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
@@ -28,10 +30,11 @@ public final class AppIcon {
         background.setArcWidth(18);
         background.setArcHeight(18);
         background.setFill(new LinearGradient(0, 0, 1, 1, true, CycleMethod.NO_CYCLE,
-                new Stop(0, Color.web("#22d3ee")), new Stop(1, Color.web("#2563eb"))));
+                new Stop(0, ThemePalette.color("-c-fill-brand-from")),
+                new Stop(1, ThemePalette.color("-c-fill-brand-to"))));
         Text monogram = new Text("C");
         monogram.setFont(Font.font("SansSerif", FontWeight.BOLD, 34));
-        monogram.setFill(Color.WHITE);
+        monogram.setFill(ThemePalette.color("-c-on-fill"));
         tile.getChildren().addAll(background, monogram);
         SnapshotParameters parameters = new SnapshotParameters();
         parameters.setFill(Color.TRANSPARENT);

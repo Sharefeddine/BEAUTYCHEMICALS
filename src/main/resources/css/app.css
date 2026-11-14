@@ -815,6 +815,11 @@
 .empty-pad { -fx-padding: 16; }
 .empty-block { -fx-padding: 18; -fx-text-fill: -c-text-muted; }
 .pad-page { -fx-padding: 24; }
+/* Layout utilities: an FXML file carries no inline style at all (devRules 4.7). */
+.nav-list { -fx-padding: 6 10 12 10; }
+.settings-column { -fx-padding: 16 4 16 4; }
+.card-pad { -fx-padding: 20; }
+.side-list { -fx-padding: 0 6 0 0; }
 .nav-phase-badge { -fx-font-size: 11px; -fx-padding: 1 5 1 5; }
 .alert-icon { -fx-padding: 8; -fx-background-radius: 9; -fx-background-color: -c-warning-soft; }
 .alert-icon.critical { -fx-background-color: -c-danger-soft; }

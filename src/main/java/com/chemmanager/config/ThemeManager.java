@@ -43,9 +43,9 @@ public final class ThemeManager {
         apply(currentTheme.toggle());
     }
 
-    /** Background colour of the splash/login window, matching the active theme. */
+    /** Background colour of the splash/login window, taken from the active theme's tokens. */
     public static Color windowBackground() {
-        return currentTheme == Theme.DARK ? Color.web("#0f172a") : Color.web("#f4f6fb");
+        return ThemePalette.color("-c-bg");
     }
 
     /** Stylesheets of the active theme, for dialogs and popovers created outside the scene graph. */

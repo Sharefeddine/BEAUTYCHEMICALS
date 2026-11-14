@@ -10,7 +10,11 @@ rot away from the code:
   4. app.css refers to no token the themes do not declare;
   5. every font size is >= 11 px and belongs to the type scale (em is allowed only inside
      the Arabic block, where it scales from the root size);
-  6. the token table of docs/03-design-system.md matches the real theme files.
+  6. the token table of docs/03-design-system.md matches the real theme files;
+  7. no Java source and no FXML file hardcodes a colour or a font size - code reaches colours
+     through ThemePalette and sizes through the classes of app.css;
+  8. no FXML file carries an inline style, and the single setStyle of the project is the
+     documented table-alignment exception in DataTable.
 
 Exit code 0 when everything holds, 1 otherwise. Run before every push (devRules section 8).
 """
@@ -28,6 +32,8 @@ LIGHT = os.path.join(CSS, "theme-light.css")
 DARK = os.path.join(CSS, "theme-dark.css")
 PAIRS = os.path.join(CSS, "contrast-pairs.txt")
 DOC = os.path.join(ROOT, "docs", "03-design-system.md")
+JAVA_ROOT = os.path.join(ROOT, "src", "main", "java")
+FXML_ROOT = os.path.join(ROOT, "src", "main", "resources", "fxml")
 
 # The nine-step type scale of the design system. Nothing smaller than 11 px ships.
 SCALE = [11.0, 11.5, 12.5, 13.5, 15.0, 17.0, 20.0, 22.0, 27.0]
@@ -38,6 +44,9 @@ HEX = re.compile(r"#[0-9a-fA-F]{3,8}\b")
 FUNC_COLOUR = re.compile(r"\b(rgba?|hsla?)\s*\(")
 NAMED = re.compile(r"(?<![\w-])(white|black|red|green|blue|yellow|orange|grey|gray|silver|maroon|navy|teal|purple|olive|lime|aqua|fuchsia)(?![\w-])")
 FONT_SIZE = re.compile(r"-fx-font-size\s*:\s*([0-9.]+)\s*(px|em)\s*;")
+INLINE_STYLE = re.compile(r"\sstyle\s*=\s*\"")
+SET_STYLE = re.compile(r"\.setStyle\s*\(")
+SET_STYLE_ALLOWANCE = ("DataTable.java",)
 
 
 def read(path: str) -> str:
@@ -144,6 +153,33 @@ def check_font_sizes(css, problems):
                 problems.append(f"{selector}: font size {size}px is outside the type scale {SCALE}")
 
 
+def check_sources(problems):
+    """Code must not carry a colour or a font size of its own."""
+    for folder, suffix in ((JAVA_ROOT, ".java"), (FXML_ROOT, ".fxml")):
+        for base, _dirs, files in os.walk(folder):
+            for name in sorted(files):
+                if not name.endswith(suffix):
+                    continue
+                path = os.path.join(base, name)
+                text = strip_comments(read(path))
+                relative = os.path.relpath(path, ROOT).replace(os.sep, "/")
+                for match in HEX.finditer(text):
+                    problems.append(f"{relative} hardcodes the colour {match.group(0)} - "
+                                    "read it from the theme tokens (ThemePalette) or a style class")
+                for match in FUNC_COLOUR.finditer(text):
+                    problems.append(f"{relative} hardcodes a colour function {match.group(0)}...) - use a token")
+                for match in FONT_SIZE.finditer(text):
+                    problems.append(f"{relative} sets a font size inline ({match.group(0).strip()}) - "
+                                    "use one of the type-scale classes of app.css")
+                for _match in INLINE_STYLE.finditer(text):
+                    problems.append(f"{relative} carries an inline style attribute - declare the rule in app.css")
+                if suffix == ".java":
+                    for _match in SET_STYLE.finditer(text):
+                        if not relative.endswith(SET_STYLE_ALLOWANCE[0]):
+                            problems.append(f"{relative} calls setStyle - use a style class "
+                                            "(the only allowed setStyle is the table alignment in DataTable)")
+
+
 def check_doc(light, dark, problems):
     doc = read(DOC)
     rows = re.findall(r"^\|\s*`(-c-[a-z0-9-]+)`\s*\|\s*`([^`]+)`\s*\|\s*`([^`]+)`\s*\|", doc, re.M)
@@ -168,6 +204,7 @@ def main() -> int:
     check_no_literals(css, problems)
     check_token_use(css, light, problems)
     check_font_sizes(css, problems)
+    check_sources(problems)
     documented = check_doc(light, dark, problems)
 
     limit = 0

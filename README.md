@@ -33,7 +33,7 @@ backed by MySQL 8.
 >   11 px), focus is always visible and Arabic switches its own typography. `tools/ui/checkDesign.py`
 >   runs in CI and `DesignSystemTest` fails the build when a token, a ratio or this document drifts
 >   — see [`docs/03-design-system.md`](docs/03-design-system.md).
-> * **Test harness:** 66 desktop tests — 11 of them driven by **TestFX** through the real user
+> * **Test harness:** 68 desktop tests — 11 of them driven by **TestFX** through the real user
 >   interface (sign-in, password masking, shell, sidebar navigation, live Arabic mirroring,
 >   inventory, purchasing, suppliers, focus ring, accessible names) — and 25 + 183 API tests against
 >   a real MySQL 8. The rules the project is built under live in [`docs/devRules.md`](docs/devRules.md)

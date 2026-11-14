@@ -32,6 +32,6 @@
         <FlowPane fx:id="alertGrid" hgap="14" vgap="14" prefWrapLength="1280"/>
         <FlowPane fx:id="bottomGrid" hgap="14" vgap="14" prefWrapLength="1280"/>
 
-        <Label fx:id="generatedLabel" text="" styleClass="text-muted" style="-fx-font-size: 11px;"/>
+        <Label fx:id="generatedLabel" text="" styleClass="text-muted, text-tiny"/>
     </VBox>
 </ScrollPane>

@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import com.chemmanager.config.Theme;
+import com.chemmanager.config.ThemePalette;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -182,6 +185,58 @@ class DesignSystemTest {
         }
         assertTrue(rows >= 20, "the token table disappeared from the design document");
         assertTrue(problems.isEmpty(), "documentation drift:\n  " + String.join("\n  ", problems));
+    }
+
+    @Test
+    @DisplayName("code and FXML carry no colour, no inline font size and no inline style")
+    void codeCarriesNoColourOfItsOwn() {
+        List<String> problems = new ArrayList<>();
+        Pattern inlineStyle = Pattern.compile("\\sstyle\\s*=\\s*\"");
+        Pattern setStyle = Pattern.compile("\\.setStyle\\s*\\(");
+
+        problems.addAll(scan(Path.of("src", "main", "java"), ".java", HEX, "hardcodes a colour"));
+        problems.addAll(scan(Path.of("src", "main", "java"), ".java", FONT_SIZE, "sets a font size inline"));
+        problems.addAll(scan(Path.of("src", "main", "resources", "fxml"), ".fxml", HEX, "hardcodes a colour"));
+        problems.addAll(scan(Path.of("src", "main", "resources", "fxml"), ".fxml", FONT_SIZE, "sets a font size inline"));
+        problems.addAll(scan(Path.of("src", "main", "resources", "fxml"), ".fxml", inlineStyle, "carries an inline style"));
+        problems.addAll(scan(Path.of("src", "main", "java"), ".java", setStyle, "calls setStyle"));
+
+        // The single tolerated setStyle is the per-column alignment of DataTable, which JavaFX
+        // cannot express with a style class; it must stay the only one.
+        List<String> allowed = problems.stream().filter(p -> p.startsWith("DataTable.java")).toList();
+        List<String> offenders = problems.stream().filter(p -> !p.startsWith("DataTable.java")).toList();
+
+        assertTrue(offenders.isEmpty(), "code must take colours and sizes from the stylesheets: " + offenders);
+        assertTrue(allowed.size() <= 1, "DataTable keeps at most one setStyle, found " + allowed);
+    }
+
+    @Test
+    @DisplayName("ThemePalette resolves the tokens of both theme files")
+    void themePaletteReadsTheThemeTokens() {
+        for (Theme theme : Theme.values()) {
+            for (String token : List.of("-c-bg", "-c-surface", "-c-text", "-c-on-fill",
+                    "-c-fill-brand-from", "-c-fill-brand-to")) {
+                assertNotNull(ThemePalette.color(theme, token),
+                        token + " must resolve in " + theme.name().toLowerCase(java.util.Locale.ROOT));
+            }
+        }
+    }
+
+    /** Every file below {@code folder} matching {@code pattern}, reported with its path. */
+    private static List<String> scan(Path folder, String suffix, Pattern pattern, String what) {
+        List<String> problems = new ArrayList<>();
+        try (var paths = Files.walk(folder)) {
+            for (Path path : paths.filter(p -> p.toString().endsWith(suffix)).sorted().toList()) {
+                String text = Files.readString(path, StandardCharsets.UTF_8);
+                Matcher matcher = pattern.matcher(text);
+                while (matcher.find()) {
+                    problems.add(path.getFileName() + " " + what + ": " + matcher.group().trim());
+                }
+            }
+        } catch (IOException ex) {
+            fail("cannot scan " + folder + ": " + ex.getMessage());
+        }
+        return problems;
     }
 
     // ------------------------------------------------------------------ helpers

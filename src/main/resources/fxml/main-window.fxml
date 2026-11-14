@@ -23,7 +23,7 @@
             </HBox>
             <ScrollPane fx:id="navScroll" styleClass="sidebar-scroll" fitToWidth="true"
                         hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
-                <VBox fx:id="navContainer" spacing="2" style="-fx-padding: 6 10 12 10;"/>
+                <VBox fx:id="navContainer" spacing="2" styleClass="nav-list"/>
             </ScrollPane>
             <VBox styleClass="sidebar-footer" spacing="4">
                 <Label fx:id="versionLabel" text="v1.0.0" styleClass="brand-subtitle"/>

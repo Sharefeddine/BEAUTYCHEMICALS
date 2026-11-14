@@ -18,9 +18,9 @@
         <VBox fx:id="tableHost" HBox.hgrow="ALWAYS"/>
         <VBox spacing="8" prefWidth="360" minWidth="320" maxWidth="380">
             <Label text="%users.roles_title" styleClass="h3"/>
-            <Label text="%users.roles_hint" styleClass="text-muted" wrapText="true" style="-fx-font-size: 11px;"/>
+            <Label text="%users.roles_hint" styleClass="text-muted, text-tiny" wrapText="true"/>
             <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="scroll-pane">
-                <VBox fx:id="rolesHost" spacing="10" style="-fx-padding: 0 6 0 0;"/>
+                <VBox fx:id="rolesHost" spacing="10" styleClass="side-list"/>
             </ScrollPane>
         </VBox>
     </HBox>

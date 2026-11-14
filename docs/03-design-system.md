@@ -288,3 +288,16 @@ from 1280×720 up to full HD without a separate mobile design.
   series; every badge keeps a text label, so colour is never the only carrier of meaning.
 * Every list has a designed empty state; every long operation shows a busy state and cannot be
   triggered twice.
+
+## Where a colour may come from
+
+Only three places hold a colour: `theme-light.css`, `theme-dark.css` and the contrast contract in
+`contrast-pairs.txt`. `app.css` refers to tokens and never to a literal, and **no Java or FXML file
+carries one either** — `tools/ui/checkDesign.py` and `DesignSystemTest` reject a hex value or a
+`-fx-font-size` anywhere under `src/main/java` and `src/main/resources/fxml`, an inline `style=`
+attribute in FXML, and any `setStyle` other than the documented table alignment.
+
+Code that has to paint outside the scene graph reads the palette through `ThemePalette`
+(`-c-bg` for the window background, `-c-fill-brand-from` / `-c-fill-brand-to` / `-c-on-fill` for the
+application icon), and every dialog calls `Dialogs.applyTheme`, because a `Dialog` opens its own
+window and inherits neither the stylesheets nor the Arabic typography of the main scene.

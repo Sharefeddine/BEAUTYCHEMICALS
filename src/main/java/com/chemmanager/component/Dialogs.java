@@ -75,8 +75,23 @@ public final class Dialogs {
         alert.showAndWait();
     }
 
-    private static void style(DialogPane pane) {
+    /**
+     * Themes a dialog pane and applies the active language to it.
+     *
+     * <p>A {@code Dialog} builds its own window, so it inherits neither the stylesheets of the main
+     * scene nor its typography: without this call the editor, comparison, stock and purchasing
+     * dialogs render in the default JavaFX look and stay left-to-right in Arabic.</p>
+     */
+    public static void applyTheme(DialogPane pane) {
         pane.getStylesheets().setAll(ThemeManager.activeStylesheets());
+        if (!pane.getStyleClass().contains("dialog-pane")) {
+            pane.getStyleClass().add("dialog-pane");
+        }
+        I18n.get().applyTo(pane);
+    }
+
+    private static void style(DialogPane pane) {
+        applyTheme(pane);
         pane.getStyleClass().add("chemmanager-dialog");
         if (pane.getScene() != null && pane.getScene().getWindow() != null) {
             pane.getScene().getWindow().setUserData("themed");

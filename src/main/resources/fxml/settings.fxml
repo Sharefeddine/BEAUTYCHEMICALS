@@ -17,8 +17,8 @@
         <!-- ======================= general ======================= -->
         <Tab text="%settings.tab.general">
             <ScrollPane fitToWidth="true" styleClass="scroll-pane">
-                <VBox spacing="16" style="-fx-padding: 18 4 18 4;">
-                    <VBox styleClass="card" spacing="14" style="-fx-padding: 20;">
+                <VBox spacing="16" styleClass="settings-column">
+                    <VBox styleClass="card, card-pad" spacing="14">
                         <Label text="%settings.general.title" styleClass="h3"/>
                         <Label text="%settings.general.hint" styleClass="text-muted" wrapText="true"/>
                         <HBox spacing="16">
@@ -55,7 +55,7 @@
                         </HBox>
                     </VBox>
 
-                    <VBox styleClass="card" spacing="10" style="-fx-padding: 20;">
+                    <VBox styleClass="card, card-pad" spacing="10">
                         <Label text="%settings.backup.title" styleClass="h3"/>
                         <VBox fx:id="backupInfo" spacing="8"/>
                     </VBox>
@@ -66,8 +66,8 @@
         <!-- ======================= company ======================= -->
         <Tab text="%settings.tab.company">
             <ScrollPane fitToWidth="true" styleClass="scroll-pane">
-                <VBox spacing="16" style="-fx-padding: 18 4 18 4;">
-                    <VBox styleClass="card" spacing="14" style="-fx-padding: 20;">
+                <VBox spacing="16" styleClass="settings-column">
+                    <VBox styleClass="card, card-pad" spacing="14">
                         <Label text="%settings.company.title" styleClass="h3"/>
                         <Label text="%settings.company.hint" styleClass="text-muted" wrapText="true"/>
                         <HBox spacing="16">
@@ -134,8 +134,7 @@
                                 <TextField fx:id="aiField"/>
                             </VBox>
                         </HBox>
-                        <Label fx:id="companyPreview" styleClass="text-muted" wrapText="true"
-                               style="-fx-font-size: 11.5px;"/>
+                        <Label fx:id="companyPreview" styleClass="text-muted, text-small" wrapText="true"/>
                         <HBox>
                             <Region HBox.hgrow="ALWAYS"/>
                             <Button fx:id="saveCompanyButton" text="%common.save" styleClass="btn, btn-primary"/>
@@ -148,8 +147,8 @@
         <!-- ======================= data source ======================= -->
         <Tab text="%settings.tab.data">
             <ScrollPane fitToWidth="true" styleClass="scroll-pane">
-                <VBox spacing="16" style="-fx-padding: 18 4 18 4;">
-                    <VBox styleClass="card" spacing="14" style="-fx-padding: 20;">
+                <VBox spacing="16" styleClass="settings-column">
+                    <VBox styleClass="card, card-pad" spacing="14">
                         <Label text="%settings.data.title" styleClass="h3"/>
                         <Label text="%settings.data.hint" styleClass="text-muted" wrapText="true"/>
                         <HBox spacing="12" alignment="CENTER_LEFT">

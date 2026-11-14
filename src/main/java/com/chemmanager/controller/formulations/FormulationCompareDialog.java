@@ -1,5 +1,6 @@
 package com.chemmanager.controller.formulations;
 
+import com.chemmanager.component.Dialogs;
 import com.chemmanager.dto.FormulationComparison;
 import com.chemmanager.localization.I18n;
 import com.chemmanager.util.Formatters;
@@ -24,7 +25,7 @@ final class FormulationCompareDialog {
     static void show(Window owner, FormulationComparison comparison) {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.initOwner(owner);
-        dialog.getDialogPane().getStyleClass().add("dialog-pane");
+        Dialogs.applyTheme(dialog.getDialogPane());
         dialog.setTitle(I18n.get().t("formulations.compare_title",
                 comparison.leftVersion(), comparison.rightVersion()));
         dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);

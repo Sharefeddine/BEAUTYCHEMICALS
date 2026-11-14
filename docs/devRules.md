@@ -111,6 +111,14 @@ and a controller never calls `setStyle` for typography, spacing or colour — it
 `tools/ui/checkDesign.py` and the `DesignSystemTest` fail the build otherwise. A new token is
 added to both themes **and** to the contrast contract before it is used.
 
+A screen never declares a colour, a font size or an inline style of its own: `src/main/java` and
+`src/main/resources/fxml` may contain no colour literal, no `-fx-font-size`, no FXML `style=`
+attribute and no `setStyle` call — the single allowed exception is the per-column alignment in
+`DataTable`, which JavaFX cannot express with a class. Code that must draw outside the scene graph
+(the window background, the application icon) reads the tokens through `ThemePalette`, and every
+`Dialog` themes its pane with `Dialogs.applyTheme`, because a dialog builds its own window and
+inherits neither the stylesheets nor the Arabic typography of the main scene.
+
 ## 5. Testing rules
 
 5.1 Every business rule has at least one test that fails when the rule breaks. A phase cannot
