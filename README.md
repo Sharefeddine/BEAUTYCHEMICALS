@@ -38,12 +38,17 @@ backed by MySQL 8.
 >   may be sold, the real cost of the run with its variance, and batch genealogy down to the supplier
 >   reception. A finished batch stays in quarantine until a `PASS` check releases it — see
 >   [`docs/PHASE-5-REPORT.md`](docs/PHASE-5-REPORT.md).
-> * **Test harness:** 71 desktop tests — 14 of them driven by **TestFX** through the real user
+> * **Phase 6 — complete:** customers and their credit guard, the commercial chain
+>   quotation → order → delivery note → invoice → payment → credit note, the fleet and its daily
+>   tours with proof of delivery, and the printable documents in FR/EN/AR. Stock leaves through the
+>   exact batches a delivery note names, and an issued invoice is frozen — only a payment or a credit
+>   note can move it — see [`docs/PHASE-6-REPORT.md`](docs/PHASE-6-REPORT.md).
+> * **Test harness:** 79 desktop tests — 22 of them driven by **TestFX** through the real user
 >   interface (sign-in, password masking, shell, sidebar navigation, live Arabic mirroring,
->   inventory, purchasing, suppliers, production, focus ring, accessible names) — and 25 + 241 API
->   tests against a real MySQL 8. The rules the project is built under live in
->   [`docs/devRules.md`](docs/devRules.md) and in the Google Doc `devRules`.
-> * **Phase 6 — next:** sales, customers, distribution and printable documents.
+>   inventory, purchasing, suppliers, production, customers, sales, distribution, focus ring,
+>   accessible names) — and 25 + 347 API tests against a real MySQL 8. The rules the project is built
+>   under live in [`docs/devRules.md`](docs/devRules.md) and in the Google Doc `devRules`.
+> * **Phase 7 — next:** finance, expenses, employees and payroll.
 
 ---
 
@@ -200,6 +205,7 @@ docs/                                architecture, ER diagram, design system, ro
 | [`docs/07-operations.md`](docs/07-operations.md) | Backups, restore drill, deployment, monitoring |
 | [`docs/PHASE-1-REPORT.md`](docs/PHASE-1-REPORT.md) | Phase 1 delivery report: verification, deliverables, review checklist |
 | [`docs/PHASE-2-REPORT.md`](docs/PHASE-2-REPORT.md) | Phase 2 report: 68-table database, seeds, PHP REST API, 113 end-to-end tests |
+| [`docs/PHASE-6-REPORT.md`](docs/PHASE-6-REPORT.md) | Phase 6 report: credit guard, the sales chain, frozen invoices, tours and printable documents, 79 desktop tests and 347 API checks |
 | [`docs/PHASE-5-REPORT.md`](docs/PHASE-5-REPORT.md) | Phase 5 report: production orders, quality release, batch genealogy, 71 desktop tests and 241 API checks |
 | [`docs/PHASE-3-REPORT.md`](docs/PHASE-3-REPORT.md) | Phase 3 report: formulations, versioning, approval lock, comparison |
 | [`docs/PHASE-4-REPORT.md`](docs/PHASE-4-REPORT.md) | Phase 4 report: batches, FEFO, ledger, purchasing and goods reception |

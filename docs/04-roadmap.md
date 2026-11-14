@@ -90,15 +90,17 @@ switches work without restart; no KPI is hardcoded; no button is inert.
 * **Acceptance:** a finished batch cannot be sold before `qualityStatus = RELEASED`; the
   genealogy of a batch is complete; stock and cost are consistent after a partial production.
 
-## Phase 6 — Sales, customers, distribution, documents
+## Phase 6 — Sales, customers, distribution, documents ✅ *(delivered)*
 
-* Quotations → orders → delivery notes (FEFO picks) → invoices → payments → credit notes.
-* Customer master data with credit limits and balances, price segments, statements.
-* Delivery routes, vehicles, drivers, proof of delivery (signature capture).
-* Printable documents (invoice, delivery note, quotation, statement) in AR and FR with the
+* ✅ Quotations → orders → delivery notes (FEFO picks) → invoices → payments → credit notes.
+* ✅ Customer master data with credit limits and balances, price segments, statements.
+* ✅ Delivery routes, vehicles, drivers, proof of delivery — the receiver's name is recorded on the
+  note at the stop and printed on it; a drawn signature is carried to Phase 8 (`signaturePath`).
+* ✅ Printable documents (invoice, delivery note, quotation, statement) in AR and FR with the
   company identity from Settings; finalized invoices become immutable.
-* **Acceptance:** an issued invoice cannot be modified; printing produces both languages;
-  a delivery note decrements the exact batches it lists.
+* **Acceptance (met):** an issued invoice cannot be modified (`INVOICE_FINALIZED`, only credit notes);
+  printing produces the document in FR, EN and AR; a delivery note decrements the exact batches it
+  lists, in FEFO order and in the same transaction.
 
 ## Phase 7 — Finance, expenses, employees, payroll
 
