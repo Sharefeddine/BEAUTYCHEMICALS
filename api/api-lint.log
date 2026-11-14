@@ -47,4 +47,8 @@ No syntax errors detected in backend/src/Core/Request.php
 No syntax errors detected in backend/src/Core/Audit.php
 No syntax errors detected in backend/src/Core/Logger.php
 No syntax errors detected in backend/src/Http/App.php
-Errors parsing backend/tests/integration/run.php
+No syntax errors detected in backend/tests/integration/run.php
+No syntax errors detected in backend/tests/unit/run.php
+No syntax errors detected in backend/public/index.php
+No syntax errors detected in backend/config/config.example.php
+No syntax errors detected in backend/tools/console.php
