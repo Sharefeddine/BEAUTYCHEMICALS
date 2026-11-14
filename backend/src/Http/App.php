@@ -16,6 +16,7 @@ use ChemManager\Api\Repositories\AuditRepository;
 use ChemManager\Api\Repositories\CustomerRepository;
 use ChemManager\Api\Repositories\DashboardRepository;
 use ChemManager\Api\Repositories\DistributionRepository;
+use ChemManager\Api\Repositories\EmployeeRepository;
 use ChemManager\Api\Repositories\ExpenseRepository;
 use ChemManager\Api\Repositories\FinanceRepository;
 use ChemManager\Api\Repositories\FormulationRepository;
@@ -62,6 +63,7 @@ final class App
     public readonly DistributionRepository $distribution;
     public readonly FinanceRepository $finance;
     public readonly ExpenseRepository $expenses;
+    public readonly EmployeeRepository $employees;
     public readonly Router $router;
 
     public function __construct(?Config $config = null)
@@ -91,6 +93,7 @@ final class App
         $this->customers = new CustomerRepository($this->db);
         $this->finance = new FinanceRepository($this->db);
         $this->expenses = new ExpenseRepository($this->db, $this->finance);
+        $this->employees = new EmployeeRepository($this->db, $this->finance, $this->expenses);
         $this->sales = new SalesRepository($this->db, $this->inventory, $this->customers, $this->finance);
         $this->distribution = new DistributionRepository($this->db, $this->sales);
 

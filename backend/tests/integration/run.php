@@ -1724,6 +1724,37 @@ $response = call('POST', '/api/finance/periods/' . (int) $openPeriod['id'] . '/c
 check('a role without FINANCE_CLOSE_PERIOD cannot close a month', $response['status'] === 403
     && ($response['json']['error']['code'] ?? '') === 'FORBIDDEN', $response['raw']);
 
+// Reopening a closed month is a super-administrator gesture: an accountant may close, not reopen.
+$accountantId = 0;
+foreach ($roles as $role) {
+    if ($role['code'] === 'ACCOUNTANT') {
+        $accountantId = (int) $role['id'];
+    }
+}
+$accountantName = 'comptable' . date('His');
+call('POST', '/api/users', [
+    'username' => $accountantName,
+    'fullName' => 'Comptable Sétif',
+    'email' => $accountantName . '@chempro.dz',
+    'password' => 'Compta123',
+    'isActive' => true,
+    'roleIds' => [$accountantId],
+], $token);
+call('POST', '/api/auth/password',
+    ['currentPassword' => 'Compta123', 'newPassword' => 'Compta456'],
+    (call('POST', '/api/auth/login', ['username' => $accountantName, 'password' => 'Compta123'])['json']['data']['token'] ?? ''));
+$response = call('POST', '/api/auth/login', ['username' => $accountantName, 'password' => 'Compta456']);
+$accountantToken = $response['json']['data']['token'] ?? '';
+check('the accounting role can close a month', $accountantToken !== ''
+    && call('POST', '/api/finance/periods/' . (int) $openPeriod['id'] . '/close', null,
+        $accountantToken)['status'] === 200, $response['raw']);
+$response = call('POST', '/api/finance/periods/' . (int) $openPeriod['id'] . '/reopen', null,
+    $accountantToken);
+check('only a super administrator may reopen a closed month', $response['status'] === 403
+    && ($response['json']['error']['code'] ?? '') === 'FORBIDDEN', $response['raw']);
+$response = call('POST', '/api/finance/periods/' . (int) $openPeriod['id'] . '/reopen', null, $token);
+check('the super administrator reopens the month', $response['status'] === 200, $response['raw']);
+
 // ------------------------------------------------------------ expenses (phase 7)
 $response = call('GET', '/api/expenseCategories', null, $token);
 $categories = $response['json']['data'] ?? [];
@@ -1838,6 +1869,140 @@ $response = call('POST', '/api/expenses', [
 check('a read-only role cannot enter an expense', $response['status'] === 403, $response['raw']);
 $response = call('GET', '/api/expenses', null, $financeViewerToken);
 check('a read-only role can read the expenses', $response['status'] === 200, $response['raw']);
+
+// ------------------------------------------------------------ employees, leave, payroll (phase 7)
+$response = call('GET', '/api/departments', null, $token);
+check('the departments are served', $response['status'] === 200
+    && count($response['json']['data'] ?? []) >= 5, $response['raw']);
+
+$response = call('POST', '/api/employees', [
+    'firstName' => 'Amine',
+    'lastName' => 'Boudjelal',
+    'position' => 'Chauffeur livreur',
+    'phone' => '0550 12 34 56',
+    'hireDate' => '2024-03-01',
+    'contractType' => 'CDI',
+    'baseSalary' => 45000.00,
+    'departmentId' => (int) ($response['json']['data'][0]['id'] ?? 0),
+], $token);
+$employee = $response['json']['data'] ?? [];
+$employeeId = (int) ($employee['id'] ?? 0);
+check('an employee is hired with a payroll number', $response['status'] === 201
+    && str_starts_with((string) ($employee['employeeNumber'] ?? ''), 'EMP-')
+    && $employee['isActive'] === true, $response['raw']);
+
+$response = call('POST', '/api/employees', ['firstName' => '', 'lastName' => ''], $token);
+check('an employee without a name is refused', $response['status'] === 422
+    && isset($response['json']['error']['details']['lastName']), $response['raw']);
+
+$response = call('GET', '/api/employees?search=Boudjelal', null, $token);
+check('the staff list is searchable', $response['status'] === 200
+    && count($response['json']['data'] ?? []) === 1
+    && (int) ($response['json']['meta']['summary']['active'] ?? 0) === 1, $response['raw']);
+
+$response = call('GET', '/api/employees/' . $employeeId, null, $token);
+check('the employee file carries his salary history', $response['status'] === 200
+    && is_array($response['json']['data']['salaryHistory'] ?? null), $response['raw']);
+
+$response = call('POST', '/api/employees/' . $employeeId . '/attendance', [
+    'workDate' => date('Y-m-d'),
+    'checkIn' => '07:45',
+    'checkOut' => '17:10',
+    'status' => 'PRESENT',
+], $token);
+check('the attendance sheet records the day', $response['status'] === 201
+    && ($response['json']['data']['status'] ?? '') === 'PRESENT', $response['raw']);
+$response = call('POST', '/api/employees/' . $employeeId . '/attendance', [
+    'workDate' => date('Y-m-d'),
+    'status' => 'ABSENT',
+], $token);
+$response = call('GET', '/api/employees/' . $employeeId . '/attendance', null, $token);
+$attendance = $response['json']['data'] ?? [];
+check('the same day is updated, not duplicated', $response['status'] === 200 && count($attendance) === 1
+    && $attendance[0]['status'] === 'ABSENT', $response['raw']);
+$response = call('POST', '/api/employees/' . $employeeId . '/attendance',
+    ['workDate' => date('Y-m-d'), 'status' => 'TELEWORK'], $token);
+check('an unknown attendance status is refused', $response['status'] === 422, $response['raw']);
+
+$response = call('POST', '/api/leaveRequests', [
+    'employeeId' => $employeeId,
+    'leaveType' => 'ANNUAL',
+    'startDate' => '2026-12-21',
+    'endDate' => '2026-12-31',
+    'reason' => 'Congés annuels',
+], $token);
+$leave = $response['json']['data'] ?? [];
+$leaveId = (int) ($leave['id'] ?? 0);
+check('a leave request starts as pending', $response['status'] === 201
+    && ($leave['status'] ?? '') === 'REQUESTED' && (int) ($leave['days'] ?? 0) === 11, $response['raw']);
+$response = call('POST', '/api/leaveRequests/' . $leaveId . '/approve', null, $token);
+check('the manager approves the leave', $response['status'] === 200
+    && ($response['json']['data']['status'] ?? '') === 'APPROVED'
+    && ($response['json']['data']['approvedByName'] ?? null) !== null, $response['raw']);
+$response = call('POST', '/api/leaveRequests/' . $leaveId . '/reject', null, $token);
+check('a decided leave cannot be decided twice', $response['status'] === 409
+    && ($response['json']['error']['code'] ?? '') === 'INVALID_STATUS', $response['raw']);
+
+$period = date('Y-m');
+$response = call('GET', '/api/finance/summary', null, $token);
+$balanceBefore = (float) ($response['json']['data']['treasury']['totals']['balance'] ?? 0);
+
+$response = call('POST', '/api/salaryPayments/run', ['period' => $period], $token);
+$payrollLines = $response['json']['data']['lines'] ?? [];
+$salaryLine = array_values(array_filter($payrollLines,
+    static fn (array $line): bool => (int) $line['employeeId'] === $employeeId));
+$salaryLineId = (int) ($salaryLine[0]['id'] ?? 0);
+check('the monthly payroll run generates the salary line', $response['status'] === 201
+    && (int) ($response['json']['data']['created'] ?? 0) === 1 && $salaryLineId > 0, $response['raw']);
+check('the salary line is unpaid and carries its net amount',
+    ($salaryLine[0]['netAmount'] ?? 0) == 45000.0 && $salaryLine[0]['isPaid'] === false, $response['raw']);
+
+$response = call('POST', '/api/salaryPayments/run', ['period' => $period], $token);
+check('running the payroll twice creates nothing new', $response['status'] === 201
+    && (int) ($response['json']['data']['created'] ?? -1) === 0, $response['raw']);
+
+$response = call('POST', '/api/salaryPayments/run', ['period' => '2026-10'], $token);
+check('a closed month refuses a payroll run', $response['status'] === 409
+    && ($response['json']['error']['code'] ?? '') === 'PERIOD_CLOSED', $response['raw']);
+
+$response = call('POST', '/api/salaryPayments/' . $salaryLineId . '/pay', ['cashAccountId' => 1], $token);
+$salaryPayment = $response['json']['data'] ?? [];
+check('paying a salary books the expense of the month', $response['status'] === 200
+    && (int) ($salaryPayment['expenseId'] ?? 0) > 0
+    && ($salaryPayment['netAmount'] ?? 0) == 45000.0, $response['raw']);
+
+$response = call('GET', '/api/expenses/' . (int) ($salaryPayment['expenseId'] ?? 0), null, $token);
+$salaryExpense = $response['json']['data'] ?? [];
+check('the salary expense is paid in the salary category', $response['status'] === 200
+    && ($salaryExpense['status'] ?? '') === 'PAID'
+    && ($salaryExpense['categoryCode'] ?? '') === 'SALARIES'
+    && (int) ($salaryExpense['employeeId'] ?? 0) === $employeeId, $response['raw']);
+
+$response = call('GET', '/api/salaryPayments?period=' . $period, null, $token);
+check('the payroll summary counts what was paid', $response['status'] === 200
+    && (float) ($response['json']['meta']['summary']['paid'] ?? 0) === 45000.0
+    && (float) ($response['json']['meta']['summary']['pending'] ?? 1) === 0.0, $response['raw']);
+
+$response = call('GET', '/api/finance/summary', null, $token);
+$balanceAfter = (float) ($response['json']['data']['treasury']['totals']['balance'] ?? 0);
+check('the treasury went down by the net salary',
+    abs(($balanceBefore - $balanceAfter) - 45000.0) < 0.01, $balanceBefore . ' -> ' . $balanceAfter);
+
+$response = call('POST', '/api/salaryPayments/' . $salaryLineId . '/pay', ['cashAccountId' => 1], $token);
+check('a salary cannot be paid twice', $response['status'] === 409
+    && ($response['json']['error']['code'] ?? '') === 'INVALID_STATUS', $response['raw']);
+
+$response = call('POST', '/api/employees', ['firstName' => 'X', 'lastName' => 'Y', 'hireDate' => '2024-01-01'],
+    $financeViewerToken);
+check('a read-only role cannot hire', $response['status'] === 403, $response['raw']);
+$response = call('GET', '/api/employees', null, $financeViewerToken);
+check('a read-only role can read the staff list', $response['status'] === 200, $response['raw']);
+
+$response = call('DELETE', '/api/employees/' . $employeeId, null, $token);
+check('a departing employee is deactivated, not erased', $response['status'] === 200
+    && $response['json']['data']['isActive'] === false, $response['raw']);
+$response = call('GET', '/api/employees/' . $employeeId, null, $token);
+check('the deactivated employee leaves the staff file', $response['status'] === 404, $response['raw']);
 
 // ------------------------------------------------------------ lockout
 for ($attempt = 1; $attempt <= 5; $attempt++) {

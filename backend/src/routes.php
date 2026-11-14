@@ -8,6 +8,7 @@ use ChemManager\Api\Controllers\BillingController;
 use ChemManager\Api\Controllers\CustomerController;
 use ChemManager\Api\Controllers\DashboardController;
 use ChemManager\Api\Controllers\DistributionController;
+use ChemManager\Api\Controllers\EmployeeController;
 use ChemManager\Api\Controllers\ExpenseController;
 use ChemManager\Api\Controllers\FinanceController;
 use ChemManager\Api\Controllers\DocumentController;
@@ -55,6 +56,7 @@ return static function (Router $router, App $app): void {
     $distributionController = new DistributionController($app);
     $financeController = new FinanceController($app);
     $expenseController = new ExpenseController($app);
+    $employeeController = new EmployeeController($app);
     $documentController = new DocumentController($app, new DocumentRenderer());
 
     // ------------------------------------------------------------------ public
@@ -253,6 +255,29 @@ return static function (Router $router, App $app): void {
     $router->add('POST', '/api/expenses/{id}/approve', [$expenseController, 'approve'], 'EXPENSES_CREATE');
     $router->add('POST', '/api/expenses/{id}/pay', [$expenseController, 'pay'], 'FINANCE_PAYMENT');
     $router->add('POST', '/api/expenses/{id}/cancel', [$expenseController, 'cancel'], 'EXPENSES_CREATE');
+
+    // ------------------------------------------------------------------ employees, leave, payroll
+    $router->add('GET', '/api/departments', [$employeeController, 'departments'], 'EMPLOYEES_VIEW');
+    $router->add('GET', '/api/employees', [$employeeController, 'index'], 'EMPLOYEES_VIEW');
+    $router->add('GET', '/api/employees/{id}', [$employeeController, 'show'], 'EMPLOYEES_VIEW');
+    $router->add('POST', '/api/employees', [$employeeController, 'store'], 'EMPLOYEES_EDIT');
+    $router->add('PUT', '/api/employees/{id}', [$employeeController, 'update'], 'EMPLOYEES_EDIT');
+    $router->add('DELETE', '/api/employees/{id}', [$employeeController, 'destroy'], 'EMPLOYEES_EDIT');
+    $router->add('GET', '/api/employees/{id}/attendance', [$employeeController, 'attendance'], 'EMPLOYEES_VIEW');
+    $router->add('POST', '/api/employees/{id}/attendance', [$employeeController, 'recordAttendance'],
+        'EMPLOYEES_EDIT');
+    $router->add('GET', '/api/leaveRequests', [$employeeController, 'leaveRequests'], 'EMPLOYEES_VIEW');
+    $router->add('POST', '/api/leaveRequests', [$employeeController, 'requestLeave'], 'EMPLOYEES_EDIT');
+    $router->add('POST', '/api/leaveRequests/{id}/approve', [$employeeController, 'approveLeave'],
+        'EMPLOYEES_EDIT');
+    $router->add('POST', '/api/leaveRequests/{id}/reject', [$employeeController, 'rejectLeave'],
+        'EMPLOYEES_EDIT');
+    $router->add('POST', '/api/leaveRequests/{id}/cancel', [$employeeController, 'cancelLeave'],
+        'EMPLOYEES_EDIT');
+    $router->add('GET', '/api/salaryPayments', [$employeeController, 'salaryPayments'], 'EMPLOYEES_VIEW');
+    $router->add('POST', '/api/salaryPayments/run', [$employeeController, 'runPayroll'], 'EMPLOYEES_EDIT');
+    $router->add('POST', '/api/salaryPayments/{id}/pay', [$employeeController, 'paySalary'],
+        'FINANCE_PAYMENT');
 
     // ------------------------------------------------------------------ documents
     $router->add('GET', '/api/documents/{type}/{id}', [$documentController, 'show'], 'SALES_VIEW');

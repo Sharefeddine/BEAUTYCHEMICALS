@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace ChemManager\Api\Controllers;
 
+use ChemManager\Api\Core\ApiException;
 use ChemManager\Api\Core\Request;
 use ChemManager\Api\Core\Response;
 use ChemManager\Api\Http\App;
+use ChemManager\Api\Security\Authorizer;
 
 /**
  * The treasury: the accounting calendar, the cash book and what the money did.
@@ -37,8 +39,16 @@ final class FinanceController
         return Response::ok($period);
     }
 
+    /**
+     * Reopening a closed month rewrites history, so the permission is not enough: only a super
+     * administrator may do it, and the attempt is audited as a warning either way.
+     */
     public function reopenPeriod(Request $request): Response
     {
+        $roles = $this->app->auth->rolesFor((int) $request->user['id']);
+        if (!in_array(Authorizer::WILDCARD_ROLE, $roles, true)) {
+            throw ApiException::forbidden('Only a super administrator can reopen a closed period.');
+        }
         $period = $this->app->finance->reopenPeriod((int) $request->params['id']);
         $this->app->audit->log($request->user, 'REOPEN', 'FINANCE', 'accountingPeriods', $period['id'],
             ['code' => $period['code']], 'WARNING', $request->ip, $period['code']);
