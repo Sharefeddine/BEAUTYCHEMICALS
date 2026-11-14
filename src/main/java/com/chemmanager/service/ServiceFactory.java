@@ -11,6 +11,7 @@ import com.chemmanager.service.api.ApiAuthService;
 import com.chemmanager.service.api.ApiCustomerService;
 import com.chemmanager.service.api.ApiSalesService;
 import com.chemmanager.service.api.ApiDashboardService;
+import com.chemmanager.service.api.ApiDistributionService;
 import com.chemmanager.service.api.ApiFormulationService;
 import com.chemmanager.service.api.ApiInventoryService;
 import com.chemmanager.service.api.ApiNotificationService;
@@ -25,6 +26,7 @@ import com.chemmanager.service.mock.MockAuthService;
 import com.chemmanager.service.mock.MockCustomerService;
 import com.chemmanager.service.mock.MockSalesService;
 import com.chemmanager.service.mock.MockDashboardService;
+import com.chemmanager.service.mock.MockDistributionService;
 import com.chemmanager.service.mock.MockFormulationService;
 import com.chemmanager.service.mock.MockInventoryService;
 import com.chemmanager.service.mock.MockNotificationService;
@@ -64,6 +66,7 @@ public final class ServiceFactory {
     private static SettingsService settingsService;
     private static CustomerService customerService;
     private static SalesService salesService;
+    private static DistributionService distributionService;
 
     private ServiceFactory() {
     }
@@ -112,6 +115,7 @@ public final class ServiceFactory {
             settingsService = new ApiSettingsService(apiClient);
             customerService = new ApiCustomerService(apiClient);
             salesService = new ApiSalesService(apiClient);
+            distributionService = new ApiDistributionService(apiClient);
         } else {
             authService = new MockAuthService();
             dashboardService = new MockDashboardService();
@@ -127,6 +131,7 @@ public final class ServiceFactory {
             settingsService = new MockSettingsService();
             customerService = new MockCustomerService();
             salesService = new MockSalesService();
+            distributionService = new MockDistributionService();
         }
     }
 
@@ -216,6 +221,11 @@ public final class ServiceFactory {
     public static SalesService sales() {
         initialise();
         return salesService;
+    }
+
+    public static DistributionService distribution() {
+        initialise();
+        return distributionService;
     }
 
     /** Short timeout used by the connectivity indicator in the status bar. */

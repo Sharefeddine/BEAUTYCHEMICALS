@@ -30,7 +30,7 @@ public enum NavigationModule {
     CUSTOMERS("customers", NavGroup.COMMERCE, Icons.Icon.CUSTOMERS, "/fxml/customers.fxml",
             Permission.CUSTOMERS_VIEW, 6, true),
     DISTRIBUTION("distribution", NavGroup.COMMERCE, Icons.Icon.DISTRIBUTION, "/fxml/distribution.fxml",
-            Permission.DISTRIBUTION_VIEW, 6, false),
+            Permission.DISTRIBUTION_VIEW, 6, true),
     FINANCE("finance", NavGroup.FINANCE, Icons.Icon.FINANCE, "/fxml/finance.fxml",
             Permission.FINANCE_VIEW, 7, false),
     EXPENSES("expenses", NavGroup.FINANCE, Icons.Icon.EXPENSES, "/fxml/expenses.fxml",
