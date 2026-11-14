@@ -1096,6 +1096,7 @@ MESSAGES = {
     'safety.search_prompt': 'Rechercher une substance, un code, une classe de danger…',
     'safety.summary': '{0} substances au registre — {1} sans fiche sur cette page',
     'safety.column.hazard': 'Classe de danger',
+    'safety.filter.risk': 'Filtrer par risque',
     'safety.column.sheet': 'Fiche de sécurité',
     'safety.column.revision': 'Révision',
     'safety.column.issue_date': 'Émise le',

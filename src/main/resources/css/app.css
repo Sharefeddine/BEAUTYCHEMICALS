@@ -190,6 +190,7 @@
 }
 .kpi-title { -fx-font-size: 11.5px; -fx-text-fill: -c-text-muted; -fx-font-weight: bold; }
 .kpi-value { -fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: -c-text; }
+.kpi-value-compact { -fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: -c-text; }
 .kpi-hint { -fx-font-size: 11px; -fx-text-fill: -c-text-muted; }
 .kpi-icon-wrap {
     -fx-min-width: 38px; -fx-min-height: 38px;

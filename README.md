@@ -163,12 +163,14 @@ build; the full set (users, settings, inventory, purchasing, production, English
   date ranges, the dashboard aggregations (computed vs. recomputed from the dataset) and a
   headless boot test that opens every screen and captures the screenshots above.
 * **Tooling** — `python3 tools/fxml_check.py` validates every FXML against its controller
-  (ids, handlers, i18n keys, style classes) without a JVM.
+  (ids — unless the Java code reaches them by `lookup("#id")` — handlers, i18n keys, style classes)
+  without a JVM, and `python3 tools/i18n/audit.py` checks the three bundles against each other.
+  Both run in CI before the build.
 
-Screens that belong to the phases still open (sales, customers, distribution, finance, expenses,
-employees, reports, chemical safety) already have their route, permission and screen; each shows the
-planned capabilities of the module plus the phase that delivers it. There are no disabled or decorative buttons: every control in
-the interface performs the action it advertises.
+All eighteen modules of the sidebar are delivered: every one of them opens on its own screen, talks to
+its service — the API when the backend answers, the demo dataset otherwise — and hides the gestures its
+role does not grant. There are no disabled or decorative buttons: every control in the interface
+performs the action it advertises.
 
 ## 5. Repository layout
 

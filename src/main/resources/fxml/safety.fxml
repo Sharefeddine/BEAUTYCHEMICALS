@@ -12,25 +12,24 @@
       fx:controller="com.chemmanager.controller.safety.SafetyController"
       styleClass="content-area" spacing="12">
     <HBox fx:id="kpiRow" spacing="12"/>
+    <Label fx:id="summaryLabel" text="" styleClass="text-muted"/>
     <HBox alignment="CENTER_LEFT" spacing="8">
-        <Label fx:id="summaryLabel" text="" styleClass="text-muted"/>
-        <Region HBox.hgrow="ALWAYS"/>
+        <Label text="%safety.filter.risk" styleClass="text-muted"/>
         <ComboBox fx:id="riskFilter" prefWidth="190"/>
+        <Region HBox.hgrow="ALWAYS"/>
         <Button fx:id="exportButton" text="%safety.action.export" styleClass="btn, btn-secondary, btn-sm"/>
         <Button fx:id="refreshButton" text="%common.refresh" styleClass="btn, btn-secondary, btn-sm"/>
     </HBox>
     <TabPane fx:id="safetyTabs" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
-        <Tab text="%safety.tab.register" fx:id="registerTab">
+        <Tab text="%safety.tab.register">
             <HBox spacing="12">
-                <VBox fx:id="materialsPane" spacing="8" HBox.hgrow="ALWAYS">
-                    <VBox fx:id="materialsTableHost" VBox.vgrow="ALWAYS"/>
-                </VBox>
+                <VBox fx:id="materialsTableHost" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS"/>
                 <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefWidth="400" minWidth="320">
                     <VBox fx:id="fileHost" spacing="8"/>
                 </ScrollPane>
             </HBox>
         </Tab>
-        <Tab text="%safety.tab.incidents" fx:id="incidentsTab">
+        <Tab text="%safety.tab.incidents">
             <VBox spacing="8">
                 <HBox alignment="CENTER_LEFT" spacing="8">
                     <Label fx:id="incidentSummaryLabel" text="" styleClass="text-muted"/>

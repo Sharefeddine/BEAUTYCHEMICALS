@@ -1073,6 +1073,7 @@ MESSAGES = {
     'safety.search_prompt': 'Search a substance, a code, a hazard class…',
     'safety.summary': '{0} substances on the register — {1} without a sheet on this page',
     'safety.column.hazard': 'Hazard class',
+    'safety.filter.risk': 'Filter by risk',
     'safety.column.sheet': 'Safety data sheet',
     'safety.column.revision': 'Revision',
     'safety.column.issue_date': 'Issued on',

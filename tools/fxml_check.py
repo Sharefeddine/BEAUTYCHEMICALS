@@ -3,7 +3,8 @@
 """Static checker for the FXML screens.
 
 Catches, without a running JVM, the mistakes that only appear at runtime:
-  * an fx:id that no @FXML field declares (or the reverse),
+  * an fx:id that no @FXML field declares (or the reverse), unless the Java code
+    reaches it by selector (lookup("#id")), which is how the UI tests drive a screen,
   * a missing or duplicated fx:controller,
   * an event handler (#method) that does not exist in the controller,
   * a %key that is missing from the bundles,
@@ -21,6 +22,7 @@ import xml.etree.ElementTree as ET
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 FXML_DIR = os.path.join(ROOT, "src", "main", "resources", "fxml")
 JAVA_DIR = os.path.join(ROOT, "src", "main", "java")
+TEST_DIR = os.path.join(ROOT, "src", "test", "java")
 CSS_DIR = os.path.join(ROOT, "src", "main", "resources", "css")
 I18N = os.path.join(ROOT, "src", "main", "resources", "i18n", "messages_fr.properties")
 
@@ -79,6 +81,18 @@ def controller_source(class_name):
     return path if os.path.isfile(path) else None
 
 
+def selected_ids():
+    """fx:id values the Java code (main and tests) looks up by CSS selector."""
+    ids = set()
+    for base_dir in (JAVA_DIR, TEST_DIR):
+        for base, _dirs, files in os.walk(base_dir):
+            for name in files:
+                if name.endswith(".java"):
+                    ids.update(re.findall(r'"#([A-Za-z_]\w*)"',
+                                          read(os.path.join(base, name))))
+    return ids
+
+
 def className_file(class_name, files):
     name = class_name + ".java"
     return name if name in files else None
@@ -87,6 +101,7 @@ def className_file(class_name, files):
 def check():
     keys = bundle_keys()
     classes = css_classes()
+    selected = selected_ids()
     for name in sorted(os.listdir(FXML_DIR)):
         if not name.endswith(".fxml"):
             continue
@@ -114,7 +129,7 @@ def check():
         annotated = annotated_fields(java)
         handlers = set(re.findall(r'#([A-Za-z_]\w*)', text))
 
-        for fx_id in sorted(ids - annotated):
+        for fx_id in sorted(ids - annotated - selected):
             problems.append("%s: fx:id '%s' has no @FXML field in %s" % (name, fx_id, controller))
         for field in sorted(a for a in annotated if a not in ids and a != "initialize"):
             problems.append("%s: @FXML field '%s' is declared but not bound in the FXML" % (name, field))

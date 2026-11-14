@@ -169,22 +169,20 @@ public final class SafetyController {
     private void buildMaterialsTable() {
         materialsTable = new DataTable<>(this::loadMaterials, I18n.get().t("safety.search_prompt"))
                 .columns(
-                        DataTable.Column.key(I18n.get().t("material.code"), 95, MaterialHazard::code),
-                        DataTable.Column.text(I18n.get().t("material.commercial_name"), 260,
+                        DataTable.Column.key(I18n.get().t("material.code"), 82, MaterialHazard::code),
+                        DataTable.Column.text(I18n.get().t("material.commercial_name"), 230,
                                 MaterialHazard::commercialName),
-                        DataTable.Column.node(I18n.get().t("safety.column.hazard"), 150,
+                        DataTable.Column.node(I18n.get().t("safety.column.hazard"), 140,
                                 row -> row.isHazardous()
                                         ? StatusBadge.warning(Labels.hazardClass(row.hazardClass()))
                                         : StatusBadge.neutral(I18n.get().t("safety.hazard.none"))),
-                        DataTable.Column.node(I18n.get().t("safety.column.sheet"), 140,
+                        DataTable.Column.node(I18n.get().t("safety.column.sheet"), 132,
                                 row -> StatusBadge.of(Labels.sheetState(row.hasSheet(), row.sheetObsolete()),
                                         Labels.sheetStateStyle(row.hasSheet(), row.sheetObsolete()))),
-                        DataTable.Column.text(I18n.get().t("safety.column.revision"), 90,
+                        DataTable.Column.text(I18n.get().t("safety.column.revision"), 78,
                                 row -> row.sheetRevision() == null ? "—" : row.sheetRevision()),
-                        DataTable.Column.date(I18n.get().t("safety.column.issue_date"), 115,
-                                MaterialHazard::sheetIssueDate),
-                        DataTable.Column.text(I18n.get().t("safety.column.storage"), 170,
-                                MaterialHazard::storageLocation))
+                        DataTable.Column.date(I18n.get().t("safety.column.issue_date"), 105,
+                                MaterialHazard::sheetIssueDate))
                 .onActivate(this::openFile)
                 .onLoaded(page -> {
                     lastMaterials = page;

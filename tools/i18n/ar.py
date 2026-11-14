@@ -1075,6 +1075,7 @@ MESSAGES = {
     'safety.search_prompt': 'ابحث عن مادة أو رمز أو صنف خطر…',
     'safety.summary': '{0} مادة في السجل — {1} بدون بطاقة في هذه الصفحة',
     'safety.column.hazard': 'صنف الخطر',
+    'safety.filter.risk': 'تصفية حسب الخطر',
     'safety.column.sheet': 'بطاقة السلامة',
     'safety.column.revision': 'المراجعة',
     'safety.column.issue_date': 'تاريخ الإصدار',
