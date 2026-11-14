@@ -140,8 +140,8 @@ two conditions that had been inverted during the conversion (`#startButton`, `#d
 
 ## 5. Verification
 
-CI run on this branch (`PHP API (lint + unit + integration on MySQL 8)` and `JavaFX client (build +
-tests)`):
+CI run **43640605958** on this branch (`PHP API (lint + unit + integration on MySQL 8)` and
+`JavaFX client (build + tests)`, both green):
 
 * PHP: lint of every file, unit suite, **470 integration checks** against MySQL 8 with seeds
   `01`…`09`; 173 routes; 68 tables; 0 schema problems.
@@ -152,6 +152,12 @@ tests)`):
   `%key` and style class resolves) and `tools/i18n/audit.py` (1459 keys, 0 missing). The FXML checker
   now accepts an id that the Java code reaches by selector (`lookup("#id")`), which is how the UI
   tests drive a screen, so `inventory.fxml`'s `tabs` no longer shows up as a false positive.
+* The screenshots caught three layout faults that no assertion would have: a five-tile KPI row wider
+  than the window, a register table whose code column collapsed to `MP-0…`, and a refresh button
+  pushed off the right edge. The tiles now shrink (`-fx-min-width: 198px`, figures past twelve
+  characters drop to 15 px and keep the full text in a tooltip), the register trades its storage
+  column for the widths its codes, hazard classes and badges need, and the sheet state reads in one
+  word (`Manquante`, `Obsolète`, `À jour`) with the full sentence on hover.
 
 ## 6. Deliverables
 
