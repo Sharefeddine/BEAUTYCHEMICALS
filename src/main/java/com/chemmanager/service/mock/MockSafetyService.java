@@ -200,11 +200,9 @@ public final class MockSafetyService implements SafetyService {
 
     @Override
     public synchronized MaterialFile material(long id) {
-        MaterialHazard material = materials.stream().filter(row -> row.id() == id).findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Matériau introuvable: " + id));
         refresh();
 
-        return file(material);
+        return file(current(id));
     }
 
     @Override
@@ -258,7 +256,7 @@ public final class MockSafetyService implements SafetyService {
         sheets.add(registered);
         refresh();
 
-        return file(material);
+        return file(current(sheet.materialId()));
     }
 
     @Override
@@ -272,7 +270,7 @@ public final class MockSafetyService implements SafetyService {
         instructions.add(saved);
         refresh();
 
-        return file(material);
+        return file(current(materialId));
     }
 
     @Override
@@ -296,7 +294,7 @@ public final class MockSafetyService implements SafetyService {
         }
         refresh();
 
-        return file(material);
+        return file(current(materialId));
     }
 
     // ------------------------------------------------------------------ incidents
@@ -413,6 +411,12 @@ public final class MockSafetyService implements SafetyService {
         }
         materials.clear();
         materials.addAll(updated);
+    }
+
+    /** The register line as it stands after a write, never the copy read before it. */
+    private MaterialHazard current(long id) {
+        return materials.stream().filter(row -> row.id() == id).findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Matériau introuvable: " + id));
     }
 
     private MaterialFile file(MaterialHazard material) {

@@ -141,6 +141,19 @@ class SafetyUiTest {
         open(robot);
         waitForRows(robot, "#materialsTableHost");
 
+        // The register is sorted with the hazardous substances first: search rather than scroll.
+        robot.clickOn("#materialsTableHost .text-field").write("MP-0002");
+        WaitForAsyncUtils.waitFor(25, TimeUnit.SECONDS, () -> {
+            for (Node node : UiWaits.all(robot, "#materialsTableHost .table-row-cell")) {
+                if (node instanceof TableRow<?> row && !row.isEmpty()
+                        && row.getItem() instanceof MaterialHazard material
+                        && "MP-0002".equals(material.code())) {
+                    return true;
+                }
+            }
+
+            return false;
+        });
         TableRow<?> target = null;
         for (Node node : robot.lookup("#materialsTableHost .table-row-cell").queryAll()) {
             if (node instanceof TableRow<?> row && !row.isEmpty()
