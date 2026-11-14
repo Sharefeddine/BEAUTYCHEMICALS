@@ -246,12 +246,22 @@ public final class ApiClient {
         }
     }
 
+    /** Fetches a response body as text (a printable HTML document, for instance). */
+    public String getText(String path) {
+        return execute(requestBuilder(path, Map.of()).GET(), path).body();
+    }
+
     public void putVoid(String path, Object payload) {
         put(path, payload, Void.class);
     }
 
     public void delete(String path) {
         send(requestBuilder(path, Map.of()).DELETE(), Void.class, path);
+    }
+
+    /** Deletes (or closes) a resource and returns what the server answers, e.g. a closed customer. */
+    public <T> T delete(String path, Class<T> type) {
+        return send(requestBuilder(path, Map.of()).DELETE(), type, path);
     }
 
     private HttpResponse<String> execute(HttpRequest.Builder builder, String path) {

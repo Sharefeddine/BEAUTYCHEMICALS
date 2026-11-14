@@ -69,6 +69,95 @@ public final class Labels {
         };
     }
 
+    /** Customer price segments (RETAIL / WHOLESALE / SPECIAL). */
+    public static String customerSegment(String segment) {
+        if (segment == null || segment.isBlank()) {
+            return "—";
+        }
+        return get("customer.segment." + segment.toLowerCase(Locale.ROOT), humanize(segment));
+    }
+
+    public static String customerSegmentStyle(String segment) {
+        if (segment == null) {
+            return "badge-neutral";
+        }
+        return switch (segment) {
+            case "SPECIAL" -> "badge-primary";
+            case "WHOLESALE" -> "badge-info";
+            default -> "badge-neutral";
+        };
+    }
+
+    /** COMPANY / INDIVIDUAL. */
+    public static String customerType(String type) {
+        if (type == null || type.isBlank()) {
+            return "—";
+        }
+        return get("customer.type." + type.toLowerCase(Locale.ROOT), humanize(type));
+    }
+
+    /** Quotation statuses. */
+    public static String quotationStatus(String status) {
+        if (status == null || status.isBlank()) {
+            return "—";
+        }
+        return get("sales.status.quotation." + status.toLowerCase(Locale.ROOT), humanize(status));
+    }
+
+    /** Sales order statuses. */
+    public static String orderStatus(String status) {
+        if (status == null || status.isBlank()) {
+            return "—";
+        }
+        return get("sales.status.order." + status.toLowerCase(Locale.ROOT), humanize(status));
+    }
+
+    /** Delivery note statuses. */
+    public static String deliveryStatus(String status) {
+        if (status == null || status.isBlank()) {
+            return "—";
+        }
+        return get("sales.status.delivery." + status.toLowerCase(Locale.ROOT), humanize(status));
+    }
+
+    /** Invoice statuses. */
+    public static String invoiceStatus(String status) {
+        if (status == null || status.isBlank()) {
+            return "—";
+        }
+        return get("sales.status.invoice." + status.toLowerCase(Locale.ROOT), humanize(status));
+    }
+
+    /** Payment methods (CASH, CHEQUE, TRANSFER, CARD, CREDIT). */
+    public static String paymentMethod(String method) {
+        if (method == null || method.isBlank()) {
+            return "—";
+        }
+        return get("sales.method." + method.toLowerCase(Locale.ROOT), humanize(method));
+    }
+
+    /** Tour statuses: PLANNED, LOADING, IN_TRANSIT, COMPLETED, CANCELLED. */
+    public static String routeStatus(String status) {
+        if (status == null || status.isBlank()) {
+            return "—";
+        }
+        return get("distribution.status." + status.toLowerCase(Locale.ROOT), humanize(status));
+    }
+
+    /** One colour for every kind of commercial status, so the lists scan the same way. */
+    public static String commercialStatusStyle(String status) {
+        if (status == null) {
+            return "badge-neutral";
+        }
+        return switch (status) {
+            case "ACCEPTED", "INVOICED", "PAID", "DELIVERED", "COMPLETED" -> "badge-success";
+            case "REJECTED", "CANCELLED", "EXPIRED", "REFUSED" -> "badge-danger";
+            case "SENT", "PARTIAL", "RESERVED", "IN_TRANSIT", "LOADING", "RETURNED" -> "badge-warning";
+            case "ISSUED", "CONFIRMED", "PREPARED", "PLANNED", "APPLIED" -> "badge-info";
+            default -> "badge-neutral";
+        };
+    }
+
     /** Translates hazard classifications, including comma separated GHS pictogram codes. */
     public static String hazardClass(String hazard) {
         if (hazard == null || hazard.isBlank() || "NONE".equalsIgnoreCase(hazard)) {

@@ -8,6 +8,7 @@ import com.chemmanager.config.DataMode;
 import com.chemmanager.security.Session;
 import com.chemmanager.security.SessionContext;
 import com.chemmanager.service.api.ApiAuthService;
+import com.chemmanager.service.api.ApiCustomerService;
 import com.chemmanager.service.api.ApiDashboardService;
 import com.chemmanager.service.api.ApiFormulationService;
 import com.chemmanager.service.api.ApiInventoryService;
@@ -20,6 +21,7 @@ import com.chemmanager.service.api.ApiSettingsService;
 import com.chemmanager.service.api.ApiSupplierService;
 import com.chemmanager.service.api.ApiUserService;
 import com.chemmanager.service.mock.MockAuthService;
+import com.chemmanager.service.mock.MockCustomerService;
 import com.chemmanager.service.mock.MockDashboardService;
 import com.chemmanager.service.mock.MockFormulationService;
 import com.chemmanager.service.mock.MockInventoryService;
@@ -58,6 +60,7 @@ public final class ServiceFactory {
     private static NotificationService notificationService;
     private static UserService userService;
     private static SettingsService settingsService;
+    private static CustomerService customerService;
 
     private ServiceFactory() {
     }
@@ -104,6 +107,7 @@ public final class ServiceFactory {
             notificationService = new ApiNotificationService(apiClient);
             userService = new ApiUserService(apiClient);
             settingsService = new ApiSettingsService(apiClient);
+            customerService = new ApiCustomerService(apiClient);
         } else {
             authService = new MockAuthService();
             dashboardService = new MockDashboardService();
@@ -117,6 +121,7 @@ public final class ServiceFactory {
             notificationService = new MockNotificationService();
             userService = new MockUserService();
             settingsService = new MockSettingsService();
+            customerService = new MockCustomerService();
         }
     }
 
@@ -196,6 +201,11 @@ public final class ServiceFactory {
     public static SettingsService settings() {
         initialise();
         return settingsService;
+    }
+
+    public static CustomerService customers() {
+        initialise();
+        return customerService;
     }
 
     /** Short timeout used by the connectivity indicator in the status bar. */

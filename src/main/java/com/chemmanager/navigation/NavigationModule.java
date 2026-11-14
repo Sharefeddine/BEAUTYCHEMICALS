@@ -28,7 +28,7 @@ public enum NavigationModule {
     SALES("sales", NavGroup.COMMERCE, Icons.Icon.SALES, "/fxml/sales.fxml",
             Permission.SALES_VIEW, 6, false),
     CUSTOMERS("customers", NavGroup.COMMERCE, Icons.Icon.CUSTOMERS, "/fxml/customers.fxml",
-            Permission.CUSTOMERS_VIEW, 6, false),
+            Permission.CUSTOMERS_VIEW, 6, true),
     DISTRIBUTION("distribution", NavGroup.COMMERCE, Icons.Icon.DISTRIBUTION, "/fxml/distribution.fxml",
             Permission.DISTRIBUTION_VIEW, 6, false),
     FINANCE("finance", NavGroup.FINANCE, Icons.Icon.FINANCE, "/fxml/finance.fxml",

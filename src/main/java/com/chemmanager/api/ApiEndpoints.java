@@ -41,6 +41,19 @@ public final class ApiEndpoints {
     public static final String SETTINGS = "/api/settings";
     public static final String COMPANY = "/api/settings/company";
     public static final String AUDIT_LOGS = "/api/auditLogs";
+    public static final String CUSTOMERS = "/api/customers";
+    public static final String CUSTOMERS_SELECTABLE = "/api/customers/selectable";
+    public static final String QUOTATIONS = "/api/quotations";
+    public static final String SALES_ORDERS = "/api/salesOrders";
+    public static final String DELIVERIES = "/api/deliveries";
+    public static final String INVOICES = "/api/invoices";
+    public static final String PAYMENTS = "/api/payments";
+    public static final String CREDIT_NOTES = "/api/creditNotes";
+    public static final String CASH_ACCOUNTS = "/api/cashAccounts";
+    public static final String VEHICLES = "/api/vehicles";
+    public static final String DRIVERS = "/api/drivers";
+    public static final String ROUTES = "/api/routes";
+    public static final String DOCUMENTS = "/api/documents";
 
     private ApiEndpoints() {
     }
