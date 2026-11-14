@@ -53,6 +53,20 @@ public final class ApiEndpoints {
     public static final String VEHICLES = "/api/vehicles";
     public static final String DRIVERS = "/api/drivers";
     public static final String ROUTES = "/api/routes";
+    public static final String FINANCE_PERIODS = "/api/finance/periods";
+    public static final String FINANCE_CASHBOOK = "/api/finance/cashbook";
+    public static final String FINANCE_SUMMARY = "/api/finance/summary";
+    public static final String FINANCE_CASH_TRANSACTIONS = "/api/finance/cashTransactions";
+    public static final String EXPENSE_CATEGORIES = "/api/expenseCategories";
+    public static final String EXPENSES = "/api/expenses";
+    public static final String EXPENSES_SUMMARY = "/api/expenses/summary";
+    public static final String DEPARTMENTS = "/api/departments";
+    public static final String EMPLOYEES = "/api/employees";
+    public static final String LEAVE_REQUESTS = "/api/leaveRequests";
+    public static final String SALARY_PAYMENTS = "/api/salaryPayments";
+    public static final String REPORTS_MARGIN = "/api/reports/margin";
+    public static final String REPORTS_CASHFLOW = "/api/reports/cashflow";
+    public static final String REPORTS_RESULT = "/api/reports/result";
     public static final String DOCUMENTS = "/api/documents/{type}/{id}";
 
     private ApiEndpoints() {

@@ -1,7 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.chemmanager.controller.employees.EmployeesController"
-      styleClass="content-area" spacing="16">
-    <VBox fx:id="placeholderHost" spacing="16"/>
+      styleClass="content-area" spacing="12">
+    <HBox fx:id="kpiRow" spacing="12"/>
+    <HBox alignment="CENTER_LEFT" spacing="8">
+        <Label fx:id="summaryLabel" text="" styleClass="text-muted"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button fx:id="newButton" text="%employees.action.new" styleClass="btn, btn-primary, btn-sm"/>
+        <Button fx:id="refreshButton" text="%common.refresh" styleClass="btn, btn-secondary, btn-sm"/>
+    </HBox>
+    <SplitPane dividerPositions="0.5" VBox.vgrow="ALWAYS">
+        <VBox>
+            <VBox fx:id="tableHost" VBox.vgrow="ALWAYS"/>
+        </VBox>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER">
+            <VBox fx:id="detailHost" spacing="10"/>
+        </ScrollPane>
+    </SplitPane>
+    <HBox alignment="CENTER_LEFT" spacing="8">
+        <Label text="%employees.payroll.title" styleClass="h3"/>
+        <ComboBox fx:id="periodSelector" prefWidth="140"/>
+        <Button fx:id="runPayrollButton" text="%employees.payroll.run" styleClass="btn, btn-secondary, btn-sm"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label fx:id="payrollLabel" text="" styleClass="text-muted"/>
+    </HBox>
+    <VBox fx:id="payrollHost" spacing="8"/>
+    <VBox fx:id="leaveHost" spacing="8"/>
 </VBox>

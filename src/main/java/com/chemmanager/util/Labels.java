@@ -144,6 +144,83 @@ public final class Labels {
         return get("distribution.status." + status.toLowerCase(Locale.ROOT), humanize(status));
     }
 
+    /** Expense statuses: DRAFT, APPROVED, PAID, CANCELLED. */
+    public static String expenseStatus(String status) {
+        if (status == null || status.isBlank()) {
+            return "—";
+        }
+        return get("finance.expense.status." + status.toLowerCase(Locale.ROOT), humanize(status));
+    }
+
+    /** Accounting period statuses: OPEN, CLOSED. */
+    public static String periodStatus(String status) {
+        if (status == null || status.isBlank()) {
+            return "—";
+        }
+        return get("finance.period.status." + status.toLowerCase(Locale.ROOT), humanize(status));
+    }
+
+    /** Leave statuses: REQUESTED, APPROVED, REJECTED, CANCELLED. */
+    public static String leaveStatus(String status) {
+        if (status == null || status.isBlank()) {
+            return "—";
+        }
+        return get("employees.leave.status." + status.toLowerCase(Locale.ROOT), humanize(status));
+    }
+
+    /** Leave types: ANNUAL, SICK, MATERNITY, UNPAID, EXCEPTIONAL. */
+    public static String leaveType(String type) {
+        if (type == null || type.isBlank()) {
+            return "—";
+        }
+        return get("employees.leave.type." + type.toLowerCase(Locale.ROOT), humanize(type));
+    }
+
+    /** Attendance codes: PRESENT, ABSENT, LEAVE, SICK, HOLIDAY, SITE. */
+    public static String attendanceStatus(String status) {
+        if (status == null || status.isBlank()) {
+            return "—";
+        }
+        return get("employees.attendance." + status.toLowerCase(Locale.ROOT), humanize(status));
+    }
+
+    /** Contract types: CDI, CDD, INTERIM, STAGE. */
+    public static String contractType(String type) {
+        if (type == null || type.isBlank()) {
+            return "—";
+        }
+        return get("employees.contract." + type.toLowerCase(Locale.ROOT), humanize(type));
+    }
+
+    /** Where a cash movement comes from: INVOICE, PAYMENT, EXPENSE, SALARY, TRANSFER, OTHER. */
+    public static String cashSource(String sourceType) {
+        if (sourceType == null || sourceType.isBlank()) {
+            return "—";
+        }
+        return get("finance.source." + sourceType.toLowerCase(Locale.ROOT), humanize(sourceType));
+    }
+
+    /** IN / OUT, as the cash book reads them. */
+    public static String cashDirection(String direction) {
+        if (direction == null || direction.isBlank()) {
+            return "—";
+        }
+        return get("finance.direction." + direction.toLowerCase(Locale.ROOT), humanize(direction));
+    }
+
+    /** One colour for the finance statuses, so the two lists scan the same way. */
+    public static String financeStatusStyle(String status) {
+        if (status == null) {
+            return "badge-neutral";
+        }
+        return switch (status.toUpperCase(Locale.ROOT)) {
+            case "PAID", "OPEN", "APPROVED" -> "badge-success";
+            case "CANCELLED", "REJECTED", "CLOSED" -> "badge-danger";
+            case "DRAFT", "REQUESTED" -> "badge-warning";
+            default -> "badge-neutral";
+        };
+    }
+
     /** One colour for every kind of commercial status, so the lists scan the same way. */
     public static String commercialStatusStyle(String status) {
         if (status == null) {

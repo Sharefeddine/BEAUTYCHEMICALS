@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.chemmanager.controller.expenses.ExpensesController"
-      styleClass="content-area" spacing="16">
-    <VBox fx:id="placeholderHost" spacing="16"/>
+      styleClass="content-area" spacing="12">
+    <HBox fx:id="kpiRow" spacing="12"/>
+    <HBox alignment="CENTER_LEFT" spacing="8">
+        <Label fx:id="summaryLabel" text="" styleClass="text-muted"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <ComboBox fx:id="categoryFilter" prefWidth="170"/>
+        <ComboBox fx:id="statusFilter" prefWidth="140"/>
+        <Button fx:id="newButton" text="%expenses.action.new" styleClass="btn, btn-primary, btn-sm"/>
+        <Button fx:id="refreshButton" text="%common.refresh" styleClass="btn, btn-secondary, btn-sm"/>
+    </HBox>
+    <SplitPane dividerPositions="0.56" VBox.vgrow="ALWAYS">
+        <VBox>
+            <VBox fx:id="tableHost" VBox.vgrow="ALWAYS"/>
+        </VBox>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER">
+            <VBox fx:id="detailHost" spacing="10"/>
+        </ScrollPane>
+    </SplitPane>
+    <VBox fx:id="summaryHost" spacing="8"/>
 </VBox>

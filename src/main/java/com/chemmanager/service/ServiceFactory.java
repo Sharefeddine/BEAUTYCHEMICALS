@@ -11,6 +11,7 @@ import com.chemmanager.service.api.ApiAuthService;
 import com.chemmanager.service.api.ApiCustomerService;
 import com.chemmanager.service.api.ApiSalesService;
 import com.chemmanager.service.api.ApiDashboardService;
+import com.chemmanager.service.api.ApiFinanceService;
 import com.chemmanager.service.api.ApiDistributionService;
 import com.chemmanager.service.api.ApiFormulationService;
 import com.chemmanager.service.api.ApiInventoryService;
@@ -26,6 +27,7 @@ import com.chemmanager.service.mock.MockAuthService;
 import com.chemmanager.service.mock.MockCustomerService;
 import com.chemmanager.service.mock.MockSalesService;
 import com.chemmanager.service.mock.MockDashboardService;
+import com.chemmanager.service.mock.MockFinanceService;
 import com.chemmanager.service.mock.MockDistributionService;
 import com.chemmanager.service.mock.MockFormulationService;
 import com.chemmanager.service.mock.MockInventoryService;
@@ -67,6 +69,7 @@ public final class ServiceFactory {
     private static CustomerService customerService;
     private static SalesService salesService;
     private static DistributionService distributionService;
+    private static FinanceService financeService;
 
     private ServiceFactory() {
     }
@@ -116,6 +119,7 @@ public final class ServiceFactory {
             customerService = new ApiCustomerService(apiClient);
             salesService = new ApiSalesService(apiClient);
             distributionService = new ApiDistributionService(apiClient);
+            financeService = new ApiFinanceService(apiClient);
         } else {
             authService = new MockAuthService();
             dashboardService = new MockDashboardService();
@@ -132,6 +136,7 @@ public final class ServiceFactory {
             customerService = new MockCustomerService();
             salesService = new MockSalesService();
             distributionService = new MockDistributionService();
+            financeService = new MockFinanceService();
         }
     }
 
@@ -226,6 +231,11 @@ public final class ServiceFactory {
     public static DistributionService distribution() {
         initialise();
         return distributionService;
+    }
+
+    public static FinanceService finance() {
+        initialise();
+        return financeService;
     }
 
     /** Short timeout used by the connectivity indicator in the status bar. */
