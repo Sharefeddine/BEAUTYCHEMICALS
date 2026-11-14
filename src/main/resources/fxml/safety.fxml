@@ -24,7 +24,7 @@
         <Tab text="%safety.tab.register">
             <HBox spacing="12">
                 <VBox fx:id="materialsTableHost" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS"/>
-                <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefWidth="400" minWidth="320">
+                <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefWidth="360" minWidth="300">
                     <VBox fx:id="fileHost" spacing="8"/>
                 </ScrollPane>
             </HBox>

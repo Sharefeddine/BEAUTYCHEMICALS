@@ -170,18 +170,18 @@ public final class SafetyController {
         materialsTable = new DataTable<>(this::loadMaterials, I18n.get().t("safety.search_prompt"))
                 .columns(
                         DataTable.Column.key(I18n.get().t("material.code"), 82, MaterialHazard::code),
-                        DataTable.Column.text(I18n.get().t("material.commercial_name"), 230,
+                        DataTable.Column.text(I18n.get().t("material.commercial_name"), 215,
                                 MaterialHazard::commercialName),
-                        DataTable.Column.node(I18n.get().t("safety.column.hazard"), 140,
+                        DataTable.Column.node(I18n.get().t("safety.column.hazard"), 138,
                                 row -> row.isHazardous()
                                         ? StatusBadge.warning(Labels.hazardClass(row.hazardClass()))
                                         : StatusBadge.neutral(I18n.get().t("safety.hazard.none"))),
-                        DataTable.Column.node(I18n.get().t("safety.column.sheet"), 132,
+                        DataTable.Column.node(I18n.get().t("safety.column.sheet"), 148,
                                 row -> StatusBadge.of(Labels.sheetState(row.hasSheet(), row.sheetObsolete()),
                                         Labels.sheetStateStyle(row.hasSheet(), row.sheetObsolete()))),
-                        DataTable.Column.text(I18n.get().t("safety.column.revision"), 78,
+                        DataTable.Column.text(I18n.get().t("safety.column.revision"), 76,
                                 row -> row.sheetRevision() == null ? "—" : row.sheetRevision()),
-                        DataTable.Column.date(I18n.get().t("safety.column.issue_date"), 105,
+                        DataTable.Column.date(I18n.get().t("safety.column.issue_date"), 104,
                                 MaterialHazard::sheetIssueDate))
                 .onActivate(this::openFile)
                 .onLoaded(page -> {
