@@ -3,6 +3,7 @@ package com.chemmanager.component;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.chemmanager.localization.I18n;
 import com.chemmanager.model.analytics.CategoryShare;
 import com.chemmanager.model.analytics.MonthPoint;
 import com.chemmanager.model.analytics.TopProduct;
@@ -46,7 +47,7 @@ public final class ChartFactory {
             purchases.getData().add(new XYChart.Data<>(Formatters.month(point.month()), point.purchases()));
         }
         chart.getData().addAll(sales, purchases);
-        return chart;
+        return describe(chart, "chart.a11y.sales_purchases");
     }
 
     public static LineChart<String, Number> revenueVersusExpenses(List<MonthPoint> points, String revenueLabel,
@@ -69,7 +70,7 @@ public final class ChartFactory {
                     point.expenses().add(point.purchases())));
         }
         chart.getData().addAll(revenue, expenses);
-        return chart;
+        return describe(chart, "chart.a11y.revenue_expenses");
     }
 
     public static BarChart<String, Number> productionByMonth(List<MonthPoint> points, String label) {
@@ -86,7 +87,7 @@ public final class ChartFactory {
             series.getData().add(new XYChart.Data<>(Formatters.month(point.month()), point.productionQuantity()));
         }
         chart.getData().add(series);
-        return chart;
+        return describe(chart, "chart.a11y.production");
     }
 
     public static PieChart categoryPie(List<CategoryShare> shares) {
@@ -104,7 +105,7 @@ public final class ChartFactory {
                     share.value().doubleValue());
             chart.getData().add(data);
         }
-        return chart;
+        return describe(chart, "chart.a11y.categories");
     }
 
     public static BarChart<Number, String> horizontalRanking(List<TopProduct> products, String seriesName) {
@@ -124,6 +125,26 @@ public final class ChartFactory {
             series.getData().add(new XYChart.Data<>(product.revenue(), product.displayName()));
         }
         chart.getData().add(series);
+        return describe(chart, "chart.a11y.ranking");
+    }
+
+    /**
+     * A chart is invisible to a screen reader: it publishes one sentence saying what it plots, so
+     * the information is not lost when the picture is (design system section 7). One overload per
+     * chart type keeps the concrete type at the call site without a raw {@code Chart}.
+     */
+    private static <X, Y> BarChart<X, Y> describe(BarChart<X, Y> chart, String key) {
+        chart.setAccessibleText(I18n.get().t(key));
+        return chart;
+    }
+
+    private static <X, Y> LineChart<X, Y> describe(LineChart<X, Y> chart, String key) {
+        chart.setAccessibleText(I18n.get().t(key));
+        return chart;
+    }
+
+    private static PieChart describe(PieChart chart, String key) {
+        chart.setAccessibleText(I18n.get().t(key));
         return chart;
     }
 

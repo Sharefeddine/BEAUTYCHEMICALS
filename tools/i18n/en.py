@@ -478,4 +478,12 @@ MESSAGES = {
     "suppliers.terms": "Payment terms",
     "suppliers.unit_price": "Purchase price",
     "suppliers.wilaya": "Wilaya",
+    # ------------------------------------------------------------- design system (accessibility)
+    "table.previous": "Previous page",
+    "table.next": "Next page",
+    "chart.a11y.sales_purchases": "Bar chart: sales and purchases per month",
+    "chart.a11y.revenue_expenses": "Line chart: revenue and expenses per month",
+    "chart.a11y.production": "Bar chart: production per month",
+    "chart.a11y.categories": "Pie chart: revenue share per category",
+    "chart.a11y.ranking": "Horizontal bars: product ranking",
 }

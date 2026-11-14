@@ -28,11 +28,16 @@ backed by MySQL 8.
 >   that always name a reason, suppliers, purchase orders and atomic goods receptions. The schema
 >   key of a batch now includes its warehouse, so one physical batch can be split between stores —
 >   see [`docs/PHASE-4-REPORT.md`](docs/PHASE-4-REPORT.md).
-> * **Test harness:** 55 desktop tests — 8 of them driven by **TestFX** through the real user
+> * **Design system — enforced:** every colour is a token declared by both themes and validated
+>   against a 62-pair contrast contract, font sizes stay on a nine-step scale (nothing below
+>   11 px), focus is always visible and Arabic switches its own typography. `tools/ui/checkDesign.py`
+>   runs in CI and `DesignSystemTest` fails the build when a token, a ratio or this document drifts
+>   — see [`docs/03-design-system.md`](docs/03-design-system.md).
+> * **Test harness:** 64 desktop tests — 11 of them driven by **TestFX** through the real user
 >   interface (sign-in, password masking, shell, sidebar navigation, live Arabic mirroring,
->   inventory, purchasing, suppliers) — and 25 + 183 API tests against a real MySQL 8. The rules
->   the project is built under live in [`docs/devRules.md`](docs/devRules.md) and in the Google
->   Doc `devRules`.
+>   inventory, purchasing, suppliers, focus ring, accessible names) — and 25 + 183 API tests against
+>   a real MySQL 8. The rules the project is built under live in [`docs/devRules.md`](docs/devRules.md)
+>   and in the Google Doc `devRules`.
 > * **Phase 5 — next:** production orders, material consumption and batch genealogy.
 
 ---
@@ -213,8 +218,8 @@ must be translated in `tools/i18n/ar.py` and `tools/i18n/en.py`, otherwise the b
 `.github/workflows/ci.yml` runs two jobs on every push:
 
 1. **database + client** — validates the schema (identifiers, foreign keys, seed consistency,
-   generated ER document), then compiles the JavaFX client under Xvfb and runs its unit and
-   TestFX user-interface tests;
+   generated ER document) and the design system (tokens, contrast, type scale, document drift),
+   then compiles the JavaFX client under Xvfb and runs its unit and TestFX user-interface tests;
 2. **API** — starts a **MySQL 8 service container**, executes `database/schema/*.sql` and
    `database/seed/*.sql` for real, lints every PHP file, then runs the 25 unit tests and the
    183 end-to-end HTTP tests against the running API.

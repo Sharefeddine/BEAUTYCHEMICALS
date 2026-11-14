@@ -501,4 +501,12 @@ MESSAGES = {
     "suppliers.terms": "Conditions",
     "suppliers.unit_price": "Prix d'achat",
     "suppliers.wilaya": "Wilaya",
+    # ------------------------------------------------------------- design system (accessibility)
+    "table.previous": "Page précédente",
+    "table.next": "Page suivante",
+    "chart.a11y.sales_purchases": "Graphique en barres : ventes et achats par mois",
+    "chart.a11y.revenue_expenses": "Graphique en courbes : chiffre d'affaires et charges par mois",
+    "chart.a11y.production": "Graphique en barres : production par mois",
+    "chart.a11y.categories": "Diagramme circulaire : répartition du chiffre d'affaires par catégorie",
+    "chart.a11y.ranking": "Barres horizontales : classement des produits",
 }

@@ -105,6 +105,12 @@ always returns `meta {page,pageSize,total,totalPages}`; sorting falls back to a 
 4.6 UI: follow `docs/08-ux-guidelines.md` — designed empty states, visible filters, keyboard
 support (`Ctrl+F`, `Esc`), colour never the only status cue, figures right-aligned and tabular.
 
+4.7 Styling: every colour is a token declared by **both** theme files, every font size belongs to
+the nine-step scale and none is below 11 px, every interactive control paints a 2 px focus ring,
+and a controller never calls `setStyle` for typography, spacing or colour — it adds a style class.
+`tools/ui/checkDesign.py` and the `DesignSystemTest` fail the build otherwise. A new token is
+added to both themes **and** to the contrast contract before it is used.
+
 ## 5. Testing rules
 
 5.1 Every business rule has at least one test that fails when the rule breaks. A phase cannot
@@ -158,6 +164,7 @@ python3 tools/db/checkSchema.py             # 0 problems
 python3 tools/db/generateErDoc.py --check   # up to date
 python3 tools/i18n/build.py                 # bundles regenerated
 python3 tools/i18n/audit.py                 # 0 missing keys
+python3 tools/ui/checkDesign.py             # tokens, contrast, type scale, doc drift: 0 problems
 # PHP syntax lint over backend/ (php -l, or the php-wasm token_get_all check used in the sandbox)
 git status                                  # no build output, no credentials, no database dumps
 ```

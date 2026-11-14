@@ -1,91 +1,254 @@
 # ChemManager ERP — Design System
 
 The interface is built from one stylesheet foundation (`app.css`) plus two theme files
-(`theme-light.css`, `theme-dark.css`). Every colour is a CSS variable declared on `.root`, so a
-theme is a variable swap, not a second stylesheet with duplicated rules.
+(`theme-light.css`, `theme-dark.css`). **Every colour is a token declared in the theme files**;
+`app.css` only ever refers to a token name, so a theme is a variable swap and no screen can
+smuggle in a literal colour.
 
 ```
-app.css          structure, spacing, typography, component rules  (uses -c-* variables)
-theme-light.css  declares the light palette on .root
-theme-dark.css   overrides the same variables on .root
+app.css          structure, spacing, typography, component rules  (uses -c-* tokens only)
+theme-light.css  the light palette, declared on .root
+theme-dark.css   the same token names with the dark values
+contrast-pairs.txt  the contrast contract the two gates below enforce
 ```
 
 `ThemeManager.apply(scene)` sets `scene.getStylesheets()` to `[app.css, theme-active.css]` and
 the popups created in code (notification panel, toasts) reuse `ThemeManager.activeStylesheets()`
 so they inherit the active palette.
 
----
+Two gates keep this document honest, and both run before a push:
+
+* `tools/ui/checkDesign.py` — token parity between the themes, the contrast contract, no colour
+  literal in `app.css`, no dangling token, the 11 px type floor and this table's values;
+* `DesignSystemTest` (JUnit, desktop job) — reads the same files from the classpath and fails the
+  build when a pair drops below its threshold.
 
 ## 1. Colour tokens
-
-| Token | Light | Dark | Usage |
-| --- | --- | --- | --- |
-| `-c-bg` | `#f5f7fa` | `#12151a` | application background |
-| `-c-surface` | `#ffffff` | `#1b2027` | cards, tables, dialogs |
-| `-c-surface-alt` | `#eef1f6` | `#222932` | table headers, hovers, inactive tabs |
-| `-c-border` | `#dde3ec` | `#2c333d` | separators, card outline |
-| `-c-text` | `#1c2430` | `#e8ecf2` | primary text |
-| `-c-text-muted` | `#66748a` | `#93a1b5` | hints, subtitles, meta |
-| `-c-primary` | `#0f6fd1` | `#3d94e8` | primary buttons, links, selection |
-| `-c-primary-soft` | rgba | rgba | selected nav item, chips |
-| `-c-sidebar` | `#10243c` | `#0b1218` | sidebar background (always dark) |
-| `-c-sidebar-text` | `#c7d5e6` | `#a9b8c9` | sidebar labels |
-| `-c-success` | `#1f9d55` | `#2ecc71` | paid, approved, released |
-| `-c-warning` | `#d98b12` | `#f0a92b` | expiring, pending, low stock |
-| `-c-danger` | `#d64545` | `#ef5b5b` | overdue, rejected, expired, DELETE |
-| `-c-info` | `#2f7fd1` | `#59a5e8` | informational badges, DRAFT |
-| `-c-chart-1…6` | blue, teal, amber, violet, red, grey | lighter variants | chart series, always in this order |
 
 Semantic colours are only ever used through `StatusBadge` and the chart factory, so a status
 looks identical in every screen: `PAID`/`APPROVED`/`RELEASED` → success, `PARTIAL`/`PENDING`/
 `QUARANTINE` → warning, `REJECTED`/`EXPIRED`/`CANCELLED` → danger, `DRAFT` → info, `CLOSED` →
-neutral.
+neutral. A colour that has to carry white text is a **fill** token (`-c-fill-*`), never the
+text token of the same name: on the dark theme the text tokens are light, and light text on a
+light fill is unreadable.
+
+### Surfaces and text
+
+| Token | Light | Dark |
+| --- | --- | --- |
+| `-c-bg` | `#f4f6fb` | `#0a111f` |
+| `-c-surface` | `#ffffff` | `#111a2b` |
+| `-c-surface-alt` | `#f1f4fa` | `#1a2438` |
+| `-c-border` | `#e3e8f2` | `#23304a` |
+| `-c-border-subtle` | `#eef1f7` | `#1b2740` |
+| `-c-border-strong` | `#cfd7e6` | `#33425e` |
+| `-c-text` | `#0f172a` | `#e7edf7` |
+| `-c-text-muted` | `#57647a` | `#a3b2c7` |
+| `-c-text-faint` | `#5b6b80` | `#8296ad` |
+| `-c-hover` | `#eef2f9` | `#17233a` |
+| `-c-row-alt` | `#fbfcfe` | `#131d2f` |
+
+### Brand, primary and focus
+
+| Token | Light | Dark |
+| --- | --- | --- |
+| `-c-primary` | `#1d4ed8` | `#7db3ff` |
+| `-c-primary-dark` | `#1e40af` | `#5b9bf7` |
+| `-c-primary-soft` | `#e8effd` | `#1c2f52` |
+| `-c-primary-soft-faint` | `#f4f8ff` | `#16233c` |
+| `-c-primary-border` | `#b9cdf7` | `#2f4a78` |
+| `-c-accent` | `#0f766e` | `#2dd4bf` |
+| `-c-focus-ring` | `#1d4ed8` | `#a8ccff` |
+| `-c-focus-ring-inverse` | `#ffffff` | `#ffffff` |
+
+### Fills that carry white text
+
+| Token | Light | Dark |
+| --- | --- | --- |
+| `-c-fill-primary` | `#2563eb` | `#2563eb` |
+| `-c-fill-primary-dark` | `#1d4ed8` | `#1d4ed8` |
+| `-c-fill-success` | `#15803d` | `#15803d` |
+| `-c-fill-danger` | `#b91c1c` | `#b91c1c` |
+| `-c-fill-warning` | `#b45309` | `#b45309` |
+| `-c-fill-info` | `#0369a1` | `#0369a1` |
+| `-c-fill-accent` | `#6d28d9` | `#6d28d9` |
+| `-c-fill-brand-from` | `#0e7490` | `#0e7490` |
+| `-c-fill-brand-to` | `#1d4ed8` | `#1d4ed8` |
+| `-c-on-fill` | `#ffffff` | `#ffffff` |
+
+### Semantic status
+
+| Token | Light | Dark |
+| --- | --- | --- |
+| `-c-success` | `#15803d` | `#4ade80` |
+| `-c-success-soft` | `#e6f7ec` | `#14351f` |
+| `-c-success-strong` | `#166534` | `#86efac` |
+| `-c-warning` | `#d97706` | `#fbbf24` |
+| `-c-warning-soft` | `#fef3c7` | `#3a2a12` |
+| `-c-warning-strong` | `#b45309` | `#fcd34d` |
+| `-c-danger` | `#dc2626` | `#f87171` |
+| `-c-danger-soft` | `#fdeaea` | `#3a1a1c` |
+| `-c-danger-strong` | `#b91c1c` | `#fca5a5` |
+| `-c-info` | `#0284c7` | `#7dd3fc` |
+| `-c-info-soft` | `#e3f3fd` | `#122e40` |
+| `-c-info-strong` | `#0369a1` | `#a5e3ff` |
+
+### Sidebar
+
+| Token | Light | Dark |
+| --- | --- | --- |
+| `-c-sidebar` | `linear-gradient(to bottom, -c-sidebar-top 0%, -c-sidebar-base 60%, -c-sidebar-deep 100%)` | `linear-gradient(to bottom, -c-sidebar-top 0%, -c-sidebar-base 60%, -c-sidebar-deep 100%)` |
+| `-c-sidebar-top` | `#0e1a2f` | `#070d18` |
+| `-c-sidebar-base` | `#101f38` | `#0b1424` |
+| `-c-sidebar-deep` | `#0c1729` | `#070d18` |
+| `-c-sidebar-border` | `rgba(255, 255, 255, 0.07)` | `rgba(255, 255, 255, 0.06)` |
+| `-c-sidebar-hover` | `rgba(255, 255, 255, 0.07)` | `rgba(255, 255, 255, 0.06)` |
+| `-c-sidebar-active` | `#1d4ed8` | `#1d4ed8` |
+| `-c-sidebar-text` | `#c3cfe0` | `#c3cfe0` |
+| `-c-sidebar-text-strong` | `#ffffff` | `#ffffff` |
+| `-c-sidebar-muted` | `#9fb0c6` | `#9fb0c6` |
+| `-c-sidebar-group` | `#8fa3bd` | `#93a5bc` |
+| `-c-scroll-thumb-inverse` | `rgba(255, 255, 255, 0.22)` | `rgba(255, 255, 255, 0.22)` |
+
+### Charts (series order is fixed)
+
+| Token | Light | Dark |
+| --- | --- | --- |
+| `-c-chart-1` | `#2563eb` | `#60a5fa` |
+| `-c-chart-2` | `#0d9488` | `#2dd4bf` |
+| `-c-chart-3` | `#b45309` | `#fbbf24` |
+| `-c-chart-4` | `#7c3aed` | `#a78bfa` |
+| `-c-chart-5` | `#dc2626` | `#f87171` |
+| `-c-chart-6` | `#64748b` | `#94a3b8` |
+| `-c-chart-1-fill` | `rgba(37, 99, 235, 0.16)` | `rgba(96, 165, 250, 0.18)` |
+| `-c-chart-2-fill` | `rgba(13, 148, 136, 0.16)` | `rgba(45, 212, 191, 0.18)` |
+| `-c-chart-3-fill` | `rgba(180, 83, 9, 0.16)` | `rgba(251, 191, 36, 0.18)` |
+| `-c-chart-4-fill` | `rgba(124, 58, 237, 0.16)` | `rgba(167, 139, 250, 0.18)` |
+| `-c-chart-5-fill` | `rgba(220, 38, 38, 0.16)` | `rgba(248, 113, 113, 0.18)` |
+| `-c-chart-6-fill` | `rgba(100, 116, 139, 0.16)` | `rgba(148, 163, 184, 0.18)` |
+
+### KPI icon gradients
+
+| Token | Light | Dark |
+| --- | --- | --- |
+| `-c-kpi-primary-from` | `#2563eb` | `#2563eb` |
+| `-c-kpi-primary-to` | `#1d4ed8` | `#1d4ed8` |
+| `-c-kpi-success-from` | `#15803d` | `#15803d` |
+| `-c-kpi-success-to` | `#166534` | `#166534` |
+| `-c-kpi-warning-from` | `#b45309` | `#b45309` |
+| `-c-kpi-warning-to` | `#92400e` | `#92400e` |
+| `-c-kpi-danger-from` | `#b91c1c` | `#b91c1c` |
+| `-c-kpi-danger-to` | `#991b1b` | `#991b1b` |
+| `-c-kpi-info-from` | `#0369a1` | `#0369a1` |
+| `-c-kpi-info-to` | `#075985` | `#075985` |
+| `-c-kpi-accent-from` | `#7c3aed` | `#7c3aed` |
+| `-c-kpi-accent-to` | `#6d28d9` | `#6d28d9` |
+| `-c-kpi-teal-from` | `#0f766e` | `#0f766e` |
+| `-c-kpi-teal-to` | `#115e59` | `#115e59` |
+
+### Toasts
+
+| Token | Light | Dark |
+| --- | --- | --- |
+| `-c-toast-success` | `#065f46` | `#065f46` |
+| `-c-toast-info` | `#1e3a8a` | `#1e3a8a` |
+| `-c-toast-warning` | `#92400e` | `#92400e` |
+| `-c-toast-danger` | `#7f1d1d` | `#7f1d1d` |
+
+### Progress bars and avatars
+
+| Token | Light | Dark |
+| --- | --- | --- |
+| `-c-progress-ok-from` | `#15803d` | `#15803d` |
+| `-c-progress-ok-to` | `#166534` | `#166534` |
+| `-c-progress-warn-from` | `#b45309` | `#b45309` |
+| `-c-progress-warn-to` | `#92400e` | `#92400e` |
+| `-c-progress-danger-from` | `#b91c1c` | `#b91c1c` |
+| `-c-progress-danger-to` | `#991b1b` | `#991b1b` |
+| `-c-avatar-from` | `#2563eb` | `#2563eb` |
+| `-c-avatar-to` | `#0f766e` | `#0f766e` |
+
+### Login hero
+
+| Token | Light | Dark |
+| --- | --- | --- |
+| `-c-hero-from` | `#0b1b33` | `#0b1b33` |
+| `-c-hero-mid` | `#123a6b` | `#123a6b` |
+| `-c-hero-to` | `#0f766e` | `#0f766e` |
+| `-c-hero-text` | `#ffffff` | `#ffffff` |
+| `-c-hero-text-muted` | `#d7e3f4` | `#cfdcef` |
+| `-c-hero-badge-bg` | `rgba(255, 255, 255, 0.16)` | `rgba(255, 255, 255, 0.14)` |
+
+### Elevation, scrollbars and tooltips
+
+| Token | Light | Dark |
+| --- | --- | --- |
+| `-c-shadow` | `rgba(15, 23, 42, 0.06)` | `rgba(0, 0, 0, 0.35)` |
+| `-c-shadow-strong` | `rgba(15, 23, 42, 0.14)` | `rgba(0, 0, 0, 0.55)` |
+| `-c-shadow-toast` | `rgba(15, 23, 42, 0.28)` | `rgba(0, 0, 0, 0.65)` |
+| `-c-scroll-thumb` | `rgba(100, 116, 139, 0.34)` | `rgba(148, 163, 184, 0.28)` |
+| `-c-scroll-thumb-hover` | `rgba(100, 116, 139, 0.55)` | `rgba(148, 163, 184, 0.5)` |
+| `-c-tooltip-bg` | `#0f172a` | `#020617` |
+| `-c-tooltip-text` | `#f8fafc` | `#e2e8f0` |
+
+### Contrast contract
+
+`src/main/resources/css/contrast-pairs.txt` lists 62 foreground/background pairs with
+their minimum ratio: 52 at 4.50 (WCAG 2.2 AA 1.4.3, text) and 10 at 3.00
+(1.4.11 non-text and 2.4.13 focus appearance). Both gates evaluate every pair in **both**
+themes, so a dark-mode regression cannot hide behind a passing light theme.
 
 ## 2. Typography
 
-| Role | Size / weight | Style class |
-| --- | --- | --- |
-| Page title | 20 px / 600 | `.page-title` |
-| Page subtitle | 12.5 px / 400, muted | `.page-subtitle` |
-| Card title | 14 px / 600 | `.card-title` |
-| Card subtitle | 11.5 px / 400, muted | `.card-subtitle` |
-| KPI value | 22 px / 700, tabular figures | `.kpi-value` |
-| KPI label | 11.5 px / 500, uppercase, muted, letter-spacing .04em | `.kpi-label` |
-| Body / table cell | 12.5 px / 400 | default |
-| Meta / hint | 11 px / 400, muted | `.text-muted`, `.field-hint` |
-| Sidebar group | 10.5 px / 600, uppercase, letter-spacing .08em | `.nav-group-title` |
+One nine-step scale, nothing below 11 px:
 
-Fonts: `Segoe UI` on Windows, `Noto Sans Arabic`/`Dubai` fallback for Arabic; the CSS font
-stack lets JavaFX pick the platform default so no font file ships with the application.
+| Step | Size | Used by |
+| --- | --- | --- |
+| 1 | 11 px | meta, hints, chart axes, badges, sidebar group labels |
+| 2 | 11.5 px | field labels, toolbar buttons, KPI titles |
+| 3 | 12.5 px | body text, table cells, menu items, tab labels |
+| 4 | 13.5 px | card titles, root size, dialog titles |
+| 5 | 15 px | section titles (`h2`), toast icons |
+| 6 | 17 px | header title, card headings on landing screens |
+| 7 | 20 px | KPI value, login title |
+| 8 | 22 px | page title (`h1`) |
+| 9 | 27 px | login hero title |
+
+Sizes live in `app.css` only. A controller never calls `setStyle` for typography, padding or
+colour — it adds a style class (`text-meta`, `list-row`, `empty-pad`, …). Fonts: the CSS stack
+lets JavaFX pick the platform font (`Segoe UI` on Windows, `Noto Sans Arabic`/`Cairo` for Arabic).
 Numerals stay Western in Arabic (Algerian business convention) via `ar-DZ-u-nu-latn`.
+
+**Arabic** runs one step larger: `I18n` puts `lang-ar` on the scene root, the root becomes 15 px
+and the text-heavy components scale from it in `em`, with 48 px table rows and 42 px nav items.
+No letter-spacing, no italics and no uppercase are used for Arabic anywhere.
 
 ## 3. Spacing, radius, elevation
 
-* Spacing scale: `4 · 8 · 12 · 16 · 20 · 24 · 32` (`-sp-1 … -sp-7`).
-* Card padding 16 px, gap between cards 16 px, screen gutter 20 px.
-* Radius: 10 px cards, 8 px inputs/buttons, 999 px pills/badges.
-* Elevation: `-shadow-card` (`0 1px 3px rgba(16,36,60,.08)`) on cards, `-shadow-popup`
-  (`0 12px 32px rgba(11,18,24,.18)`) on the notification panel and dialogs.
-* Sidebar width 236 px (expanded) / 64 px (collapsed, icons only, tooltips kept).
+* Spacing scale: `4 · 8 · 12 · 16 · 20 · 24 · 32`.
+* Card padding 14–18 px, gap between cards 16 px, screen gutter 20–22 px.
+* Radius: 14 px cards, 9 px inputs/buttons, 999 px pills/badges.
+* Elevation: `-c-shadow` on cards, `-c-shadow-strong` on popovers and dialogs, `-c-shadow-toast`
+  on toasts (all three tokens are themed, so dark mode does not glow).
+* Sidebar width 268 px expanded / 76 px collapsed (icons only, tooltips kept).
 
 ## 4. Components
 
 | Component | Class | Behaviour |
 | --- | --- | --- |
-| `KpiCard` | `KpiCard(icon, accentStyle)` | title, value, hint, optional trend chip, tooltip; values are set by the controller from `KpiSet` |
-| `Card` | `Card(titleKey, subtitleKey)` | white surface, optional header action, `body`, `bodyBox`, `flush` mode for tables |
-| `DataTable<T>` | `new DataTable<>(PageSource, prompt)` | sortable columns, paging footer (`table.range`), empty placeholder, row activation (double click), `Column.text/amount/quantity/date/node` renderers |
-| `ChartFactory` | `salesVersusPurchases`, `revenueVersusExpenses`, `productionByMonth`, `categoryPie`, `horizontalRanking` | creates a themed chart from `DashboardData` series; identical configuration in every screen |
-| `StatusBadge` | `success/warning/danger/info/neutral`, `severity/alert/production/hazard/active(...)` | pill with translated label for a domain code |
+| `KpiCard` | `KpiCard(icon, accentStyle)` | title, value, hint, optional trend chip, tooltip; values come from `KpiSet`, never literals |
+| `Card` | `Card(titleKey, subtitleKey)` | surface, optional header action, `body`, `bodyBox`, `flush` mode for tables |
+| `DataTable<T>` | `new DataTable<>(PageSource, prompt)` | sortable columns, paging footer (`.range-label`), designed empty state, row activation |
+| `ChartFactory` | `salesVersusPurchases`, `revenueVersusExpenses`, `productionByMonth`, `categoryPie`, `horizontalRanking` | themed series from `-c-chart-*`, a text summary for screen readers, a second cue (dash pattern + marker shape) on line series |
+| `StatusBadge` | `success/warning/danger/info/neutral`, `severity/alert/production/hazard/active(...)` | pill with translated label, accessible text and a text label so colour is never the only cue |
 | `FormFields` | `field`, `fieldKey`, `row`, `sectionTitle`, `description`, `error` | label + input + hint + inline error |
-| `Dialogs` | `info`, `warning`, `error`, `confirm`, `chooseSaveFile`, `chooseOpenFile` | themed dialogs with owner stage |
-| `Toasts` | `install(StackPane)`, `success/info/warning/error` | stacked, auto-dismissing notifications inside the content host |
-| `ModulePlaceholder` | `create(module, navigate)` | planned capabilities + phase badge for modules not delivered yet |
-| `Icons` | `glyph(Icon, size)`, `node(Icon, styleClass)` | single mapping between our `Icon` enum and FontAwesome glyphs |
+| `Dialogs` | `info`, `warning`, `error`, `confirm`, `chooseSaveFile`, `chooseOpenFile` | themed dialogs with owner stage, `Esc` closes |
+| `Toasts` | `install(StackPane)`, `success/info/warning/error` | stacked, auto-dismissing, `-c-toast-*` backgrounds |
+| `ModulePlaceholder` | `create(module, navigate)` | planned capabilities + the phase that delivers them |
+| `Icons` | `glyph(Icon, size)`, `badge(Icon, styleClass, size)`, `node(Icon, styleClass)` | one mapping between the `Icon` enum and FontAwesome glyphs |
 
-Rules: an interactive control always has a tooltip when it is icon-only; destructive actions
-always go through `Dialogs.confirm`; a screen never renders an empty region — it shows the
-translated empty state of `DataTable` or of `Card`.
+Rules: an icon-only control always has a tooltip **and** an accessible name; destructive actions
+go through `Dialogs.confirm`; a screen never renders an empty region.
 
 ## 5. Layout
 
@@ -98,31 +261,30 @@ BorderPane(main-window)
 └── bottom status bar      : data source, API state, last refresh, clock
 ```
 
-Dashboard composition: range toolbar → KPI `FlowPane` (5 cards) → charts `FlowPane`
-(2–3 cards) → rankings `FlowPane` (3 cards) → alerts `FlowPane` (2 cards) → operations row.
-Every grid is a `FlowPane` with wrapping, so the layout reflows on narrow windows and the
-application works from 1280×720 up to full HD without a separate mobile design.
+Every grid is a `FlowPane` with wrapping, so the layout reflows on narrow windows and works
+from 1280×720 up to full HD without a separate mobile design.
 
 ## 6. RTL and localisation rules
 
-1. `I18n.setLocale(ar)` sets `NodeOrientation.RIGHT_TO_LEFT` on the scene root; JavaFX then
+1. `I18n.applyTo(root)` sets `NodeOrientation.RIGHT_TO_LEFT` and the `lang-ar` class; JavaFX then
    mirrors HBox/VBox order, table column order and text alignment automatically.
 2. Icons that imply direction (chevrons, arrows, back/forward) are wrapped in
    `NodeOrientation.LEFT_TO_RIGHT` so they keep their semantic direction.
-3. No text is baked into FXML/CSS: every label comes from the bundle (`i18n.*`), every number,
-   date and amount from `Formatters` (locale aware, `DZD` currency, `dd/MM/yyyy`).
-4. Layouts use logical padding (`-fx-padding`, gaps) and never absolute `LayoutX/Y`, so the
-   mirroring is safe.
+3. No text is baked into FXML/CSS: every label comes from the bundle, every number, date and
+   amount from `Formatters` (locale aware, `DZD`, `dd/MM/yyyy`).
+4. Layouts use logical padding and gaps, never absolute `LayoutX/Y`, so mirroring is safe.
 5. Tables keep numbers right-aligned in both orientations (`.numeric-column`).
 6. The language switch rebuilds the shell and the current screen in place — no restart.
 
 ## 7. Accessibility & quality bar
 
-* Contrast ≥ 4.5:1 for body text in both themes (checked against the surface tokens).
+* Contrast: the contract of section 1 is enforced by both gates, in both themes.
+* **Focus is always visible**: a 2 px `-c-focus-ring` ring drawn outside the control on buttons,
+  icon buttons, nav items, fields, combo boxes, tabs, table rows, pagination and links; the ring
+  uses `-c-focus-ring-inverse` on the dark sidebar and on coloured fills.
 * Minimum hit target 28 px; icon buttons 32×32.
-* Keyboard: `Tab` order follows the visual order, `Enter` submits the login form, `Esc`
-  closes dialogs, tables support arrow navigation.
-* Focus is always visible (`.button:focused` outline in `-c-primary`).
-* Every list has a translated empty state; every long operation shows a busy state and cannot
-  be triggered twice.
-* No colour-only meaning: status pills carry a text label, alerts carry an icon.
+* Keyboard: `Tab` follows the visual order, `Enter` submits, `Esc` closes, `Ctrl+F` focuses the
+* Every icon-only control sets `accessibleText`; every chart publishes a text summary of its
+  series; every badge keeps a text label, so colour is never the only carrier of meaning.
+* Every list has a designed empty state; every long operation shows a busy state and cannot be
+  triggered twice.

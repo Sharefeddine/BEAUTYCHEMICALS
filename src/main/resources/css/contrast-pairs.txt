@@ -1,0 +1,74 @@
+# Contrast contract for the ChemManager design system.
+# One pair per line: <foreground token> <background token> <minimum ratio>.
+# 4.50 = WCAG 2.2 AA text (1.4.3); 3.00 = non-text and graphics (1.4.11) or focus (2.4.13).
+# The desktop test DesignSystemTest and the gate tools/ui/checkDesign.py both read this file,
+# so the promise is enforced, not documented.
+
+-c-text                 -c-surface              4.50
+-c-text                 -c-surface-alt          4.50
+-c-text-muted           -c-surface              4.50
+-c-text-muted           -c-surface-alt          4.50
+-c-text-faint           -c-surface              4.50
+-c-text-faint           -c-surface-alt          4.50
+-c-primary              -c-surface              4.50
+-c-primary              -c-primary-soft         4.50
+-c-danger               -c-surface              4.50
+-c-success              -c-success-soft         4.50
+-c-success-strong       -c-success-soft         4.50
+-c-warning-strong       -c-warning-soft         4.50
+-c-danger-strong        -c-danger-soft          4.50
+-c-info-strong          -c-info-soft            4.50
+
+-c-on-fill              -c-fill-primary         4.50
+-c-on-fill              -c-fill-primary-dark    4.50
+-c-on-fill              -c-fill-success         4.50
+-c-on-fill              -c-fill-danger          4.50
+-c-on-fill              -c-fill-warning         4.50
+-c-on-fill              -c-fill-info            4.50
+-c-on-fill              -c-fill-accent          4.50
+-c-on-fill              -c-fill-brand-from      4.50
+-c-on-fill              -c-fill-brand-to        4.50
+-c-on-fill              -c-toast-success        4.50
+-c-on-fill              -c-toast-info           4.50
+-c-on-fill              -c-toast-warning        4.50
+
+-c-on-fill              -c-toast-danger         4.50
+-c-on-fill              -c-kpi-primary-from     4.50
+-c-on-fill              -c-kpi-primary-to       4.50
+-c-on-fill              -c-kpi-success-from     4.50
+-c-on-fill              -c-kpi-success-to       4.50
+-c-on-fill              -c-kpi-warning-from     4.50
+-c-on-fill              -c-kpi-warning-to       4.50
+-c-on-fill              -c-kpi-danger-from      4.50
+-c-on-fill              -c-kpi-danger-to        4.50
+-c-on-fill              -c-kpi-info-from        4.50
+-c-on-fill              -c-kpi-info-to          4.50
+-c-on-fill              -c-kpi-accent-from      4.50
+-c-on-fill              -c-kpi-accent-to        4.50
+-c-on-fill              -c-kpi-teal-from        4.50
+-c-on-fill              -c-kpi-teal-to          4.50
+-c-on-fill              -c-avatar-from          4.50
+-c-on-fill              -c-avatar-to            4.50
+-c-on-fill              -c-sidebar-active       4.50
+
+-c-sidebar-text         -c-sidebar-base         4.50
+-c-sidebar-muted        -c-sidebar-base         4.50
+-c-sidebar-group        -c-sidebar-base         4.50
+-c-tooltip-text         -c-tooltip-bg           4.50
+
+-c-hero-text            -c-hero-from            4.50
+-c-hero-text            -c-hero-mid             4.50
+-c-hero-text            -c-hero-to              4.50
+-c-hero-text-muted      -c-hero-mid             4.50
+
+-c-chart-1              -c-surface              3.00
+-c-chart-2              -c-surface              3.00
+-c-chart-3              -c-surface              3.00
+-c-chart-4              -c-surface              3.00
+-c-chart-5              -c-surface              3.00
+-c-chart-6              -c-surface              3.00
+
+-c-focus-ring           -c-surface              3.00
+-c-focus-ring           -c-surface-alt          3.00
+-c-focus-ring-inverse   -c-sidebar-base         3.00
+-c-focus-ring-inverse   -c-fill-primary         3.00

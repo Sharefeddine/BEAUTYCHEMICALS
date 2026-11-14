@@ -344,21 +344,19 @@ public final class DashboardController {
             name.setMaxWidth(210);
             Label meta = new Label(Labels.category(product.category()) + " · "
                     + Formatters.quantity(product.quantity(), "PCE"));
-            meta.getStyleClass().add("text-muted");
-            meta.setStyle("-fx-font-size: 10.8px;");
+            meta.getStyleClass().add("text-meta");
             VBox text = new VBox(1, name, meta);
             HBox.setHgrow(text, Priority.ALWAYS);
 
             Label amount = new Label(Money.compact(value));
-            amount.getStyleClass().add("text-bold");
-            amount.setStyle("-fx-font-size: 11.8px;");
+            amount.getStyleClass().add("text-amount");
 
             Region spacer = new Region();
             HBox.setHgrow(spacer, Priority.ALWAYS);
 
             HBox row = new HBox(9, rankLabel, text, spacer, amount);
             row.setAlignment(Pos.CENTER_LEFT);
-            row.setStyle("-fx-padding: 8 6 8 6;");
+            row.getStyleClass().add("list-row");
             row.setOnMouseClicked(event -> AppContext.get().navigate(NavigationModule.PRODUCTS));
             Tooltip.install(row, new Tooltip(product.name() + "\n" + Money.format(value)));
             list.getChildren().add(row);
@@ -382,18 +380,16 @@ public final class DashboardController {
             Label meta = new Label(customer.wilaya() + " · " + I18n.get().t("dashboard.orders",
                     customer.orders()) + " · " + I18n.get().t("dashboard.balance_short",
                     Money.compact(customer.balance())));
-            meta.getStyleClass().add("text-muted");
-            meta.setStyle("-fx-font-size: 10.8px;");
+            meta.getStyleClass().add("text-meta");
             VBox text = new VBox(1, name, meta);
             HBox.setHgrow(text, Priority.ALWAYS);
             Label amount = new Label(Money.compact(customer.revenue()));
-            amount.getStyleClass().add("text-bold");
-            amount.setStyle("-fx-font-size: 11.8px;");
+            amount.getStyleClass().add("text-amount");
             Region spacer = new Region();
             HBox.setHgrow(spacer, Priority.ALWAYS);
             HBox row = new HBox(9, text, spacer, amount);
             row.setAlignment(Pos.CENTER_LEFT);
-            row.setStyle("-fx-padding: 8 6 8 6;");
+            row.getStyleClass().add("list-row");
             row.setOnMouseClicked(event -> AppContext.get().navigate(NavigationModule.CUSTOMERS));
             list.getChildren().add(row);
             double ratio = max.signum() == 0 ? 0 : customer.revenue().doubleValue() / max.doubleValue();
@@ -425,8 +421,10 @@ public final class DashboardController {
         for (StockAlert alert : alerts) {
             Label icon = new Label();
             icon.setGraphic(Icons.glyph(stock ? Icons.Icon.CUBE : Icons.Icon.CLOCK, 12));
-            icon.setStyle("-fx-padding: 8; -fx-background-radius: 9; -fx-background-color: "
-                    + (alert.severity() == Severity.CRITICAL ? "-c-danger-soft;" : "-c-warning-soft;"));
+            icon.getStyleClass().add("alert-icon");
+            if (alert.severity() == Severity.CRITICAL) {
+                icon.getStyleClass().add("critical");
+            }
 
             Label title = new Label(alert.itemName());
             title.getStyleClass().add("notification-title");
@@ -438,8 +436,7 @@ public final class DashboardController {
                     Formatters.decimal(alert.threshold(), 0))
                     : I18n.get().t("dashboard.alert.expiry_meta",
                     Formatters.shortDate(alert.expiryDate()))));
-            meta.getStyleClass().add("text-muted");
-            meta.setStyle("-fx-font-size: 10.8px;");
+            meta.getStyleClass().add("text-meta");
             VBox text = new VBox(1, title, meta);
             HBox.setHgrow(text, Priority.ALWAYS);
 
@@ -502,7 +499,7 @@ public final class DashboardController {
 
     private void severityTint(HBox row, Severity severity) {
         if (severity == Severity.CRITICAL) {
-            row.setStyle("-fx-border-color: transparent transparent -c-border-subtle -c-danger; -fx-border-width: 0 0 1 2;");
+            row.getStyleClass().add("severity-critical");
         }
     }
 
@@ -526,7 +523,7 @@ public final class DashboardController {
                     Money.compact(lastMonth.sales()), Money.compact(lastMonth.expenses())));
             trend.getStyleClass().add("text-muted");
             trend.setWrapText(true);
-            trend.setStyle("-fx-font-size: 10.9px; -fx-padding: 6 2 0 2;");
+            trend.getStyleClass().addAll("text-meta", "trend-note");
             list.getChildren().add(trend);
         }
         return list;
@@ -536,8 +533,7 @@ public final class DashboardController {
         HBox row = new HBox(11, Icons.badge(icon, accent, 12));
         row.setAlignment(Pos.CENTER_LEFT);
         Label label = new Label(I18n.get().t(labelKey));
-        label.getStyleClass().add("text-muted");
-        label.setStyle("-fx-font-size: 12px;");
+        label.getStyleClass().addAll("text-muted", "text-small");
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
         Label amount = new Label(value);
@@ -550,15 +546,13 @@ public final class DashboardController {
         ProgressBar bar = new ProgressBar(Math.max(0, Math.min(1, ratio)));
         bar.setMaxWidth(Double.MAX_VALUE);
         bar.setPrefHeight(5);
-        bar.setStyle("-fx-padding: 0 0 8 0;");
         bar.getStyleClass().add("mini-bar");
         return bar;
     }
 
     private Label emptyLabel() {
         Label label = new Label(I18n.get().t("table.empty"));
-        label.getStyleClass().add("text-muted");
-        label.setStyle("-fx-padding: 18;");
+        label.getStyleClass().addAll("text-muted", "empty-block");
         return label;
     }
 

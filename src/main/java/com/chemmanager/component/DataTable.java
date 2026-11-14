@@ -151,6 +151,7 @@ public final class DataTable<T> extends VBox {
 
         previousButton.getStyleClass().addAll("page-button");
         previousButton.setGraphic(Icons.glyph(Icons.Icon.CHEVRON_LEFT, 11));
+        A11y.describe(previousButton, I18n.get().t("table.previous"));
         previousButton.setOnAction(event -> {
             if (page > 0) {
                 page--;
@@ -159,6 +160,7 @@ public final class DataTable<T> extends VBox {
         });
         nextButton.getStyleClass().addAll("page-button");
         nextButton.setGraphic(Icons.glyph(Icons.Icon.CHEVRON_RIGHT, 11));
+        A11y.describe(nextButton, I18n.get().t("table.next"));
         nextButton.setOnAction(event -> {
             page++;
             reload();
@@ -175,8 +177,7 @@ public final class DataTable<T> extends VBox {
             }
         });
 
-        rangeLabel.getStyleClass().add("text-muted");
-        rangeLabel.setStyle("-fx-font-size: 11.5px;");
+        rangeLabel.getStyleClass().addAll("text-muted", "range-label");
         pageSizeBox.setPrefWidth(78);
 
         Region spacer = new Region();
@@ -332,6 +333,8 @@ public final class DataTable<T> extends VBox {
             column.setCellValueFactory(data -> new javafx.beans.property.ReadOnlyStringWrapper(
                     spec.text.apply(data.getValue())));
             if (spec.rightAligned) {
+                // A column style reaches its cells, a style class does not; alignment is the one
+                // property JavaFX forces through here (design system section 2 keeps it explicit).
                 column.setStyle("-fx-alignment: center-right;");
             }
         }

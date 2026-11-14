@@ -9,6 +9,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.chemmanager.app.AppContext;
 import com.chemmanager.component.Dialogs;
+import com.chemmanager.component.A11y;
 import com.chemmanager.component.Icons;
 import com.chemmanager.component.Toasts;
 import com.chemmanager.config.AppConfig;
@@ -27,9 +28,9 @@ import com.chemmanager.util.Formatters;
 import com.chemmanager.util.FxTasks;
 import com.chemmanager.util.Labels;
 
-import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
@@ -88,15 +89,15 @@ public final class MainWindowController {
     private void initialize() {
         menuButton.setGraphic(Icons.glyph(Icons.Icon.MENU, 15));
         menuButton.setOnAction(event -> toggleSidebar());
-        menuButton.setTooltip(new Tooltip(I18n.get().t("header.toggle_sidebar")));
+        A11y.describe(menuButton, I18n.get().t("header.toggle_sidebar"));
 
         themeButton.setGraphic(Icons.glyph(ThemeManager.current() == Theme.DARK ? Icons.Icon.SUN : Icons.Icon.MOON, 15));
         themeButton.setOnAction(event -> toggleTheme());
-        themeButton.setTooltip(new Tooltip(I18n.get().t("header.theme")));
+        A11y.describe(themeButton, I18n.get().t("header.theme"));
 
         notificationButton.setGraphic(Icons.glyph(Icons.Icon.BELL, 15));
         notificationButton.setOnAction(event -> showNotifications());
-        notificationButton.setTooltip(new Tooltip(I18n.get().t("header.notifications")));
+        A11y.describe(notificationButton, I18n.get().t("header.notifications"));
 
         languageButton.setGraphic(Icons.glyph(Icons.Icon.GLOBE, 15));
         buildLanguageMenu();
@@ -174,8 +175,8 @@ public final class MainWindowController {
         item.setUserData(module);
         if (!module.implemented()) {
             Label phase = new Label("P" + module.phase());
-            phase.getStyleClass().addAll("badge", "badge-neutral");
-            phase.setStyle("-fx-font-size: 9px; -fx-padding: 1 5 1 5;");
+            phase.getStyleClass().addAll("badge", "badge-neutral", "nav-phase-badge");
+            phase.setAccessibleText(I18n.get().t("phase.expected", module.phase()));
             item.getChildren().add(item.getChildren().size() - 1, phase);
         }
         Tooltip.install(item, new Tooltip(Labels.nav(module.id())));
@@ -250,10 +251,8 @@ public final class MainWindowController {
     }
 
     private void onLocaleChanged() {
-        Node root = sidebar.getScene() == null ? null : sidebar.getScene().getRoot();
-        if (root != null) {
-            root.setNodeOrientation(I18n.get().isRtl() ? NodeOrientation.RIGHT_TO_LEFT : NodeOrientation.LEFT_TO_RIGHT);
-        }
+        Parent root = sidebar.getScene() == null ? null : sidebar.getScene().getRoot();
+        I18n.get().applyTo(root);
         buildLanguageMenu();
         buildUserChip();
         retranslateChrome();
@@ -273,9 +272,10 @@ public final class MainWindowController {
         dataSourceLabel.setText(I18n.get().t("status.data_source",
                 ServiceFactory.isApiMode() ? I18n.get().t("status.source_api") : I18n.get().t("status.source_demo")));
         clockLabel.setText(Formatters.dateTime(java.time.LocalDateTime.now()));
-        languageButton.setTooltip(new Tooltip(I18n.get().t("header.language")));
-        themeButton.setTooltip(new Tooltip(I18n.get().t("header.theme")));
-        notificationButton.setTooltip(new Tooltip(I18n.get().t("header.notifications")));
+        A11y.describe(languageButton, I18n.get().t("header.language"));
+        A11y.describe(themeButton, I18n.get().t("header.theme"));
+        A11y.describe(notificationButton, I18n.get().t("header.notifications"));
+        A11y.name(menuButton, I18n.get().t("header.toggle_sidebar"));
         if (!backendChecked.get()) {
             connectionLabel.setText(I18n.get().t("status.checking"));
         }
@@ -360,8 +360,7 @@ public final class MainWindowController {
         results.getStyleClass().add("popover");
         results.setPrefWidth(330);
         Label caption = new Label(I18n.get().t("search.modules"));
-        caption.getStyleClass().add("text-muted");
-        caption.setStyle("-fx-padding: 12 14 6 14; -fx-font-size: 10.8px;");
+        caption.getStyleClass().add("popover-caption");
         results.getChildren().add(caption);
         for (NavigationModule module : matches) {
             Label icon = new Label();
@@ -434,8 +433,7 @@ public final class MainWindowController {
 
         VBox list = new VBox();
         Label loading = new Label(I18n.get().t("common.loading"));
-        loading.getStyleClass().add("text-muted");
-        loading.setStyle("-fx-padding: 16;");
+        loading.getStyleClass().addAll("text-muted", "empty-pad");
         list.getChildren().add(loading);
 
         ScrollPane scroll = new ScrollPane(list);
@@ -450,8 +448,7 @@ public final class MainWindowController {
             list.getChildren().clear();
             if (items.isEmpty()) {
                 Label empty = new Label(I18n.get().t("notifications.empty"));
-                empty.getStyleClass().add("text-muted");
-                empty.setStyle("-fx-padding: 16;");
+                empty.getStyleClass().addAll("text-muted", "empty-pad");
                 list.getChildren().add(empty);
                 return;
             }
@@ -467,8 +464,7 @@ public final class MainWindowController {
         Label icon = new Label();
         icon.setGraphic(Icons.glyph(iconFor(item), 13));
         StackPane iconBox = new StackPane(icon);
-        iconBox.getStyleClass().add("activity-dot");
-        iconBox.setStyle("-fx-min-width: 26; -fx-min-height: 26; -fx-max-width: 26; -fx-max-height: 26; -fx-background-radius: 8;");
+        iconBox.getStyleClass().addAll("activity-dot", "activity-icon");
 
         Label title = new Label(item.title());
         title.getStyleClass().add("notification-title");

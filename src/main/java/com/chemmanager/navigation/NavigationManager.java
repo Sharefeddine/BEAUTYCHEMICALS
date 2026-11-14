@@ -114,7 +114,7 @@ public final class NavigationManager {
         detail.setWrapText(true);
         VBox box = new VBox(10, Icons.glyph(Icons.Icon.DANGER, 22), title, detail);
         box.getStyleClass().add("card");
-        box.setStyle("-fx-padding: 24;");
+        box.getStyleClass().add("pad-page");
         error.printStackTrace();
         return box;
     }

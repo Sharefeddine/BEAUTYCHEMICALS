@@ -480,4 +480,12 @@ MESSAGES = {
     "suppliers.terms": "شروط الدفع",
     "suppliers.unit_price": "سعر الشراء",
     "suppliers.wilaya": "الولاية",
+    # ------------------------------------------------------------- design system (accessibility)
+    "table.previous": "الصفحة السابقة",
+    "table.next": "الصفحة التالية",
+    "chart.a11y.sales_purchases": "مخطط أعمدة: المبيعات والمشتريات شهريًا",
+    "chart.a11y.revenue_expenses": "مخطط خطي: رقم الأعمال والمصاريف شهريًا",
+    "chart.a11y.production": "مخطط أعمدة: الإنتاج شهريًا",
+    "chart.a11y.categories": "مخطط دائري: توزيع رقم الأعمال حسب الفئة",
+    "chart.a11y.ranking": "أعمدة أفقية: ترتيب المنتجات",
 }

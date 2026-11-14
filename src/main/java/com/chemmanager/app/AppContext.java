@@ -14,7 +14,6 @@ import com.chemmanager.util.AppIcon;
 import com.chemmanager.util.FxTasks;
 
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.NodeOrientation;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -102,7 +101,7 @@ public final class AppContext {
     }
 
     public void applyLocaleDirection(Parent root) {
-        root.setNodeOrientation(I18n.get().isRtl() ? NodeOrientation.RIGHT_TO_LEFT : NodeOrientation.LEFT_TO_RIGHT);
+        I18n.get().applyTo(root);
     }
 
     public void navigate(NavigationModule module) {

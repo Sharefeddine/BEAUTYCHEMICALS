@@ -16,6 +16,8 @@ public final class StatusBadge {
     public static Label of(String text, String styleClass) {
         Label label = new Label(text);
         label.getStyleClass().addAll("badge", styleClass);
+        // The colour is decoration; the label text is what a screen reader announces.
+        label.setAccessibleText(text);
         return label;
     }
 

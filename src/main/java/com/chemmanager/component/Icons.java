@@ -119,12 +119,10 @@ public final class Icons {
     public static FontAwesomeIconView glyph(Icon icon, double sizePx) {
         FontAwesomeIconView view = new FontAwesomeIconView(icon.glyph());
         view.getStyleClass().add("glyph-icon");
+        // The glyph size is an API argument, not a design decision, so it is set on the font
+        // rather than through an inline style: Icons is the only place allowed to size a glyph.
         String family = fontFamily();
-        if (family.isEmpty()) {
-            view.setStyle("-fx-font-size: " + sizePx + "px;");
-        } else {
-            view.setFont(Font.font(family, sizePx));
-        }
+        view.setFont(family.isEmpty() ? Font.font(sizePx) : Font.font(family, sizePx));
         view.setMouseTransparent(true);
         return view;
     }

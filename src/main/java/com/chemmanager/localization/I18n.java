@@ -12,6 +12,8 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.ReadOnlyBooleanWrapper;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.geometry.NodeOrientation;
+import javafx.scene.Parent;
 
 /**
  * Central localisation service. Supports French, Arabic (RTL) and English at runtime:
@@ -21,6 +23,8 @@ import javafx.beans.property.SimpleObjectProperty;
 public final class I18n {
 
     private static final String BUNDLE = "i18n.messages";
+    /** Style class that turns on the larger Arabic typography of {@code app.css}. */
+    public static final String ARABIC_STYLE_CLASS = "lang-ar";
     private static final I18n INSTANCE = new I18n();
 
     private final List<Locale> supported = List.of(
@@ -74,6 +78,26 @@ public final class I18n {
         applyLocale(newLocale);
         UserPreferences.get().setLocale(newLocale);
         locale.set(newLocale); // notified last so listeners already see the new bundle
+    }
+
+    /**
+     * Applies the active locale to a scene root: Arabic mirrors the layout (right to left) and
+     * switches on the larger Arabic typography of {@code app.css}; the other languages reset both.
+     * Called on the login root and on the shell root, and again whenever the user switches language.
+     */
+    public void applyTo(Parent root) {
+        if (root == null) {
+            return;
+        }
+        boolean arabic = isRtl();
+        root.setNodeOrientation(arabic ? NodeOrientation.RIGHT_TO_LEFT : NodeOrientation.LEFT_TO_RIGHT);
+        if (arabic) {
+            if (!root.getStyleClass().contains(ARABIC_STYLE_CLASS)) {
+                root.getStyleClass().add(ARABIC_STYLE_CLASS);
+            }
+        } else {
+            root.getStyleClass().remove(ARABIC_STYLE_CLASS);
+        }
     }
 
     private void applyLocale(Locale newLocale) {

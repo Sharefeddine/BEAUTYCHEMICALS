@@ -63,7 +63,7 @@ public final class ModulePlaceholder {
 
         Label notice = new Label(i18n.t("module.not_implemented_notice"));
         notice.getStyleClass().add("text-muted");
-        notice.setStyle("-fx-font-size: 11.5px;");
+        notice.getStyleClass().addAll("text-small", "text-muted");
         notice.setWrapText(true);
 
         Button dashboardButton = new Button(i18n.t("module.back_to_dashboard"));
