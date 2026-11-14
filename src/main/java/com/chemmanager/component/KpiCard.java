@@ -54,7 +54,7 @@ public final class KpiCard extends HBox {
         valueLabel.setText(text);
         // A long figure (an amount in dinars, say) is shrunk rather than clipped: the tiles sit in
         // an equal-width row, so the whole number has to fit inside one of them.
-        boolean longValue = text != null && text.length() > 13;
+        boolean longValue = text != null && text.length() > 12;
         valueLabel.getStyleClass().remove("kpi-value-compact");
         if (longValue) {
             valueLabel.getStyleClass().add("kpi-value-compact");
