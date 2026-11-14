@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.chemmanager.ui.DistributionUiTest
 -------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.320 s -- in com.chemmanager.ui.DistributionUiTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.201 s -- in com.chemmanager.ui.DistributionUiTest
