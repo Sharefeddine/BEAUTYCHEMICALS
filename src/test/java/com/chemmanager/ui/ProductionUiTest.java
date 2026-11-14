@@ -10,9 +10,10 @@ import java.util.concurrent.TimeUnit;
 
 import com.chemmanager.app.AppContext;
 import com.chemmanager.config.Theme;
-import com.chemmanager.dto.ProductionQuery;
 import com.chemmanager.config.ThemeManager;
+import com.chemmanager.dto.ProductionQuery;
 import com.chemmanager.localization.I18n;
+import com.chemmanager.model.production.ProductionOrder;
 import com.chemmanager.navigation.NavigationModule;
 import com.chemmanager.security.SessionContext;
 import com.chemmanager.service.ServiceFactory;
@@ -30,9 +31,9 @@ import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableRow;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
@@ -159,9 +160,26 @@ class ProductionUiTest {
             filter.fireEvent(new ActionEvent());
         });
         WaitForAsyncUtils.waitForFxEvents();
-        WaitForAsyncUtils.waitFor(25, TimeUnit.SECONDS,
-                () -> status.equals(statusFilter(robot).getValue()) && rowCount(robot) == expected);
+        // Waiting on the row count alone would pass on the previous list when both pages are the same
+        // size: the rows themselves have to show the status that was asked for.
+        WaitForAsyncUtils.waitFor(25, TimeUnit.SECONDS, () -> status.equals(statusFilter(robot).getValue())
+                && showsOnly(robot, status) && rowCount(robot) == expected);
         WaitForAsyncUtils.waitForFxEvents();
+    }
+
+    /** True when every filled row of the list carries the given production status. */
+    private static boolean showsOnly(FxRobot robot, String status) {
+        boolean any = false;
+        for (Node node : robot.lookup("#tableHost .table-row-cell").queryAll()) {
+            if (node instanceof TableRow<?> row && !row.isEmpty() && row.getItem() instanceof ProductionOrder order) {
+                any = true;
+                if (!status.equals(order.status())) {
+                    return false;
+                }
+            }
+        }
+
+        return any;
     }
 
     /** The translated label up to its {0} placeholder, e.g. "Vendable :" or "Sellable:". */

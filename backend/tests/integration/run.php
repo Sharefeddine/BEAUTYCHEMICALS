@@ -881,7 +881,7 @@ check('both finished batches are in stock', (int) ($response['json']['meta']['to
 check('one batch waits in quarantine and one is rejected',
     array_column($productBatches, 'qualityStatus') === ['QUARANTINE', 'REJECTED']
     || array_column($productBatches, 'qualityStatus') === ['REJECTED', 'QUARANTINE'], $response['raw']);
-$response = call('GET', '/api/inventory/stock?kind=PRODUCT&availableOnly=1', null, $token);
+$response = call('GET', '/api/inventory/stock?kind=PRODUCT&quality=RELEASED', null, $token);
 check('no unreleased finished batch is offered for sale',
     (int) ($response['json']['meta']['total'] ?? -1) === 0, $response['raw']);
 
@@ -898,9 +898,11 @@ check('the quality decision is recorded with its measurements',
     count($released['qualityChecks'] ?? []) === 1
     && (float) ($released['qualityChecks'][0]['parameters']['ph'] ?? 0) === 5.5
     && ($released['qualityChecks'][0]['checkedByName'] ?? '') === 'admin', $response['raw']);
-$response = call('GET', '/api/inventory/stock?kind=PRODUCT&availableOnly=1', null, $token);
+$response = call('GET', '/api/inventory/stock?kind=PRODUCT&quality=RELEASED', null, $token);
 check('the released batch is now sellable', (int) ($response['json']['meta']['total'] ?? 0) === 1,
     $response['raw']);
+check('the sellable batch names the moment it was released',
+    ($response['json']['data'][0]['batchNumber'] ?? '') === 'PF-PRD-00001', $response['raw']);
 
 $response = call('GET', '/api/production/orders/' . $productionId . '/genealogy', null, $token);
 $genealogy = $response['json']['data'] ?? [];
