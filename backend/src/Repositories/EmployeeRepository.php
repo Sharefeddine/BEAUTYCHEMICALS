@@ -141,7 +141,7 @@ final class EmployeeRepository
             $number = sprintf('EMP-%04d', ++$next);
         }
 
-        $id = $this->db->insert(
+        $this->db->execute(
             'INSERT INTO employees (employeeNumber, firstName, lastName, departmentId, position, phone, email,
                                    address, hireDate, contractType, baseSalary, userId, isActive, createdBy)
              VALUES (:number, :firstName, :lastName, :departmentId, :position, :phone, :email, :address,
@@ -163,7 +163,7 @@ final class EmployeeRepository
             ]
         );
 
-        return $this->employee($id);
+        return $this->employee($this->db->lastId());
     }
 
     /** @param array<string,mixed> $data @return array<string,mixed> */
@@ -311,7 +311,7 @@ final class EmployeeRepository
             throw ApiException::validation(['endDate' => 'validation.after_or_equal']);
         }
 
-        $id = $this->db->insert(
+        $this->db->execute(
             'INSERT INTO leaveRequests (employeeId, leaveType, startDate, endDate, status, reason)
              VALUES (:employeeId, :leaveType, :startDate, :endDate, \'REQUESTED\', :reason)',
             [
@@ -323,7 +323,7 @@ final class EmployeeRepository
             ]
         );
 
-        return $this->leaveRequest($id);
+        return $this->leaveRequest($this->db->lastId());
     }
 
     /** @param array<string,mixed> $data @return array<string,mixed> */
@@ -331,7 +331,7 @@ final class EmployeeRepository
     {
         $current = $this->leaveRequest($id);
         if ($current['status'] !== 'REQUESTED') {
-            throw ApiException::conflict('INVALID_STATUS', 'Only a pending request can be decided.');
+            throw ApiException::conflict('Only a pending request can be decided.', 'INVALID_STATUS');
         }
         $status = $decision === 'approve' ? 'APPROVED' : ($decision === 'reject' ? 'REJECTED' : 'CANCELLED');
 
@@ -396,7 +396,7 @@ final class EmployeeRepository
             'SELECT COALESCE(SUM(s.netAmount), 0) AS net,
                     COALESCE(SUM(CASE WHEN s.paidAt IS NOT NULL THEN s.netAmount ELSE 0 END), 0) AS paid,
                     COALESCE(SUM(CASE WHEN s.paidAt IS NULL THEN s.netAmount ELSE 0 END), 0) AS pending,
-                    COUNT(*) AS lines
+                    COUNT(*) AS lineCount
              FROM salaryPayments s ' . $clause,
             $params
         ) ?? [];
@@ -415,7 +415,7 @@ final class EmployeeRepository
                 'net' => round((float) ($summaryRow['net'] ?? 0), 2),
                 'paid' => round((float) ($summaryRow['paid'] ?? 0), 2),
                 'pending' => round((float) ($summaryRow['pending'] ?? 0), 2),
-                'lines' => (int) ($summaryRow['lines'] ?? 0),
+                'lines' => (int) ($summaryRow['lineCount'] ?? 0),
             ],
         ];
     }
@@ -440,7 +440,7 @@ final class EmployeeRepository
             throw ApiException::validation(['period' => 'validation.exists']);
         }
         if ($calendar['status'] !== 'OPEN') {
-            throw ApiException::conflict('PERIOD_CLOSED', 'The period ' . $period . ' is closed.');
+            throw ApiException::conflict('The period ' . $period . ' is closed.', 'PERIOD_CLOSED');
         }
 
         $bonus = $this->money($data['bonus'] ?? 0, 'bonus', false);
@@ -492,18 +492,18 @@ final class EmployeeRepository
             throw ApiException::notFound('Salary payment');
         }
         if ($row['paidAt'] !== null) {
-            throw ApiException::conflict('INVALID_STATUS', 'This salary has already been paid.');
+            throw ApiException::conflict('This salary has already been paid.', 'INVALID_STATUS');
         }
         $net = round((float) $row['netAmount'], 2);
         if ($net <= 0) {
-            throw ApiException::conflict('INVALID_STATUS', 'A salary with no net amount cannot be paid.');
+            throw ApiException::conflict('A salary with no net amount cannot be paid.', 'INVALID_STATUS');
         }
 
         $categoryId = (int) $this->db->scalar(
             'SELECT id FROM expenseCategories WHERE isSalary = 1 AND isActive = 1 ORDER BY id LIMIT 1'
         );
         if ($categoryId === 0) {
-            throw ApiException::conflict('INVALID_STATUS', 'No salary expense category is configured.');
+            throw ApiException::conflict('No salary expense category is configured.', 'INVALID_STATUS');
         }
 
         $expenseId = $this->db->transaction(function () use ($row, $net, $cashAccountId, $userId, $categoryId): int {
