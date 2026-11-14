@@ -1,15 +1,15 @@
 -------------------------------------------------------------------------------
 Test set: com.chemmanager.ui.ProductionUiTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 11.02 s <<< FAILURE! -- in com.chemmanager.ui.ProductionUiTest
-com.chemmanager.ui.ProductionUiTest.releasedBatchIsSellable(FxRobot) -- Time elapsed: 3.780 s <<< FAILURE!
-org.opentest4j.AssertionFailedError: the finished batch must say whether it is sellable ==> expected: <true> but was: <false>
+Tests run: 3, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 11.07 s <<< FAILURE! -- in com.chemmanager.ui.ProductionUiTest
+com.chemmanager.ui.ProductionUiTest.releasedBatchIsSellable(FxRobot) -- Time elapsed: 3.923 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: one completed order is the demo history ==> expected: <1> but was: <14>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
-	at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:63)
-	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:36)
-	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:214)
-	at com.chemmanager.ui.ProductionUiTest.releasedBatchIsSellable(ProductionUiTest.java:134)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:150)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:563)
+	at com.chemmanager.ui.ProductionUiTest.releasedBatchIsSellable(ProductionUiTest.java:126)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
