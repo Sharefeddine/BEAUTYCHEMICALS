@@ -8,6 +8,7 @@ use ChemManager\Api\Controllers\BillingController;
 use ChemManager\Api\Controllers\CustomerController;
 use ChemManager\Api\Controllers\DashboardController;
 use ChemManager\Api\Controllers\DistributionController;
+use ChemManager\Api\Controllers\ExpenseController;
 use ChemManager\Api\Controllers\FinanceController;
 use ChemManager\Api\Controllers\DocumentController;
 use ChemManager\Api\Controllers\FormulationController;
@@ -53,6 +54,7 @@ return static function (Router $router, App $app): void {
     $billingController = new BillingController($app);
     $distributionController = new DistributionController($app);
     $financeController = new FinanceController($app);
+    $expenseController = new ExpenseController($app);
     $documentController = new DocumentController($app, new DocumentRenderer());
 
     // ------------------------------------------------------------------ public
@@ -241,6 +243,16 @@ return static function (Router $router, App $app): void {
     $router->add('GET', '/api/finance/summary', [$financeController, 'summary'], 'FINANCE_VIEW');
     $router->add('POST', '/api/finance/cashTransactions', [$financeController, 'storeTransaction'],
         'FINANCE_PAYMENT');
+
+    // ------------------------------------------------------------------ expenses
+    $router->add('GET', '/api/expenseCategories', [$expenseController, 'categories'], 'EXPENSES_VIEW');
+    $router->add('GET', '/api/expenses', [$expenseController, 'expenses'], 'EXPENSES_VIEW');
+    $router->add('GET', '/api/expenses/summary', [$expenseController, 'summary'], 'EXPENSES_VIEW');
+    $router->add('GET', '/api/expenses/{id}', [$expenseController, 'expense'], 'EXPENSES_VIEW');
+    $router->add('POST', '/api/expenses', [$expenseController, 'store'], 'EXPENSES_CREATE');
+    $router->add('POST', '/api/expenses/{id}/approve', [$expenseController, 'approve'], 'EXPENSES_CREATE');
+    $router->add('POST', '/api/expenses/{id}/pay', [$expenseController, 'pay'], 'FINANCE_PAYMENT');
+    $router->add('POST', '/api/expenses/{id}/cancel', [$expenseController, 'cancel'], 'EXPENSES_CREATE');
 
     // ------------------------------------------------------------------ documents
     $router->add('GET', '/api/documents/{type}/{id}', [$documentController, 'show'], 'SALES_VIEW');

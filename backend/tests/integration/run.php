@@ -1724,6 +1724,121 @@ $response = call('POST', '/api/finance/periods/' . (int) $openPeriod['id'] . '/c
 check('a role without FINANCE_CLOSE_PERIOD cannot close a month', $response['status'] === 403
     && ($response['json']['error']['code'] ?? '') === 'FORBIDDEN', $response['raw']);
 
+// ------------------------------------------------------------ expenses (phase 7)
+$response = call('GET', '/api/expenseCategories', null, $token);
+$categories = $response['json']['data'] ?? [];
+$salaryCategory = array_values(array_filter($categories, static fn (array $c): bool => $c['code'] === 'SALARIES'));
+check('the expense categories are served', $response['status'] === 200 && count($categories) === 10,
+    $response['raw']);
+check('the salary category is marked as such', $salaryCategory !== [] && $salaryCategory[0]['isSalary'] === true,
+    $response['raw']);
+$fuelCategory = array_values(array_filter($categories, static fn (array $c): bool => $c['code'] === 'FUEL'));
+$fuelCategoryId = (int) ($fuelCategory[0]['id'] ?? 0);
+
+$response = call('POST', '/api/expenses', [
+    'categoryId' => $fuelCategoryId,
+    'label' => 'Carburant camion 19-2145-116',
+    'amount' => 12000.00,
+    'vatAmount' => 2280.00,
+    'expenseDate' => date('Y-m-d'),
+    'paymentMethod' => 'CASH',
+], $token);
+$expenseId = (int) ($response['json']['data']['id'] ?? 0);
+check('an expense is entered as a draft with a number', $response['status'] === 201 && $expenseId > 0
+    && str_starts_with((string) ($response['json']['data']['expenseNumber'] ?? ''), 'DP-'), $response['raw']);
+check('the expense states its total including tax',
+    abs((float) ($response['json']['data']['totalAmount'] ?? 0) - 14280.0) < 0.01, $response['raw']);
+
+$response = call('POST', '/api/expenses', [
+    'categoryId' => $fuelCategoryId,
+    'label' => 'Montant nul',
+    'amount' => 0,
+], $token);
+check('a zero expense is refused', $response['status'] === 422, $response['raw']);
+$response = call('POST', '/api/expenses', [
+    'categoryId' => 999999,
+    'label' => 'Catégorie inconnue',
+    'amount' => 100,
+], $token);
+check('an unknown category is refused', $response['status'] === 422, $response['raw']);
+
+$response = call('GET', '/api/finance/summary', null, $token);
+$treasuryBefore = (float) ($response['json']['data']['treasury']['totals']['balance'] ?? 0);
+
+$response = call('POST', '/api/expenses/' . $expenseId . '/approve', null, $token);
+check('an expense is approved by a manager', $response['status'] === 200
+    && ($response['json']['data']['status'] ?? '') === 'APPROVED', $response['raw']);
+
+$response = call('POST', '/api/expenses/' . $expenseId . '/pay', ['cashAccountId' => 1], $token);
+check('paying an approved expense marks it paid', $response['status'] === 200
+    && ($response['json']['data']['status'] ?? '') === 'PAID', $response['raw']);
+
+$response = call('GET', '/api/finance/cashbook?sourceType=EXPENSE&pageSize=50', null, $token);
+$expenseRows = array_values(array_filter($response['json']['data'] ?? [],
+    static fn (array $row): bool => (int) ($row['sourceId'] ?? 0) === $expenseId));
+check('paying the expense wrote a disbursement in the cash book', $expenseRows !== []
+    && abs((float) $expenseRows[0]['amount'] - 14280.0) < 0.01, $response['raw']);
+
+$response = call('GET', '/api/finance/summary', null, $token);
+$treasuryAfter = (float) ($response['json']['data']['treasury']['totals']['balance'] ?? 0);
+check('the treasury fell by the expense', abs(($treasuryBefore - $treasuryAfter) - 14280.0) < 0.01,
+    'before ' . $treasuryBefore . ' after ' . $treasuryAfter);
+
+$response = call('POST', '/api/expenses/' . $expenseId . '/cancel', null, $token);
+check('a paid expense cannot be cancelled', $response['status'] === 409
+    && ($response['json']['error']['code'] ?? '') === 'INVALID_STATUS', $response['raw']);
+
+$response = call('POST', '/api/expenses', [
+    'categoryId' => $fuelCategoryId,
+    'label' => 'Loyer de mai - payé hors délai',
+    'amount' => 45000.00,
+    'expenseDate' => '2026-05-10',
+    'paymentMethod' => 'TRANSFER',
+], $token);
+$closedExpenseId = (int) ($response['json']['data']['id'] ?? 0);
+call('POST', '/api/expenses/' . $closedExpenseId . '/approve', null, $token);
+$response = call('POST', '/api/expenses/' . $closedExpenseId . '/pay', ['cashAccountId' => 1], $token);
+check('an expense of a closed month cannot be paid', $response['status'] === 409
+    && ($response['json']['error']['code'] ?? '') === 'PERIOD_CLOSED', $response['raw']);
+$response = call('GET', '/api/expenses/' . $closedExpenseId, null, $token);
+check('the refused payment left the expense approved, untouched', $response['status'] === 200
+    && ($response['json']['data']['status'] ?? '') === 'APPROVED', $response['raw']);
+
+$response = call('POST', '/api/expenses', [
+    'categoryId' => $fuelCategoryId,
+    'label' => 'Avance annulée',
+    'amount' => 3000.00,
+    'expenseDate' => date('Y-m-d'),
+], $token);
+$cancelledId = (int) ($response['json']['data']['id'] ?? 0);
+$response = call('POST', '/api/expenses/' . $cancelledId . '/cancel', null, $token);
+check('a draft expense is cancelled', $response['status'] === 200
+    && ($response['json']['data']['status'] ?? '') === 'CANCELLED', $response['raw']);
+
+$response = call('GET', '/api/expenses?status=PAID&pageSize=50', null, $token);
+$onlyPaid = true;
+foreach ($response['json']['data'] ?? [] as $row) {
+    if ($row['status'] !== 'PAID') {
+        $onlyPaid = false;
+    }
+}
+check('the expense list filters on its state', $response['status'] === 200 && $onlyPaid
+    && is_array($response['json']['meta']['summary'] ?? null), $response['raw']);
+
+$response = call('GET', '/api/expenses/summary', null, $token);
+$byCategory = array_column($response['json']['data'] ?? [], 'code');
+check('the expense summary groups by category', $response['status'] === 200 && $byCategory !== []
+    && in_array('FUEL', $byCategory, true), $response['raw']);
+
+$response = call('POST', '/api/expenses', [
+    'categoryId' => $fuelCategoryId,
+    'label' => 'Saisie par un lecteur',
+    'amount' => 500,
+], $financeViewerToken);
+check('a read-only role cannot enter an expense', $response['status'] === 403, $response['raw']);
+$response = call('GET', '/api/expenses', null, $financeViewerToken);
+check('a read-only role can read the expenses', $response['status'] === 200, $response['raw']);
+
 // ------------------------------------------------------------ lockout
 for ($attempt = 1; $attempt <= 5; $attempt++) {
     call('POST', '/api/auth/login', ['username' => $adminUser, 'password' => 'still-wrong']);
