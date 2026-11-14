@@ -2004,6 +2004,48 @@ check('a departing employee is deactivated, not erased', $response['status'] ===
 $response = call('GET', '/api/employees/' . $employeeId, null, $token);
 check('the deactivated employee leaves the staff file', $response['status'] === 404, $response['raw']);
 
+// ------------------------------------------------------------ financial statements (phase 7)
+$response = call('GET', '/api/reports/margin?from=' . date('Y-01-01') . '&to=' . date('Y-m-d'), null, $token);
+$margin = $response['json']['data'] ?? [];
+check('the margin statement ranks the products', $response['status'] === 200
+    && isset($margin['totals']['margin']) && count($margin['lines'] ?? []) >= 1
+    && isset($margin['byCategory'][0]['categoryName']), $response['raw']);
+$consistentMargin = true;
+foreach ($margin['lines'] ?? [] as $line) {
+    if (abs(($line['revenue'] - $line['cost']) - $line['margin']) > 0.01) {
+        $consistentMargin = false;
+    }
+}
+check('each line margin is revenue minus cost', $consistentMargin, $response['raw']);
+
+$response = call('GET', '/api/reports/margin?from=2026-13-01&to=2026-02-01', null, $token);
+check('an impossible window is refused', $response['status'] === 422, $response['raw']);
+
+$response = call('GET', '/api/reports/cashflow?from=' . date('Y-01-01') . '&to=' . date('Y-m-d'), null, $token);
+$cashflow = $response['json']['data'] ?? [];
+$net = (float) ($cashflow['totals']['net'] ?? 1);
+check('the cash flow nets the inflow and the outflow', $response['status'] === 200
+    && abs(($cashflow['totals']['totalIn'] - $cashflow['totals']['totalOut']) - $net) < 0.01
+    && count($cashflow['timeline'] ?? []) >= 1, $response['raw']);
+$sources = array_column($cashflow['bySource'] ?? [], 'sourceType');
+check('the cash flow says where the money came from', in_array('PAYMENT', $sources, true)
+    && in_array('EXPENSE', $sources, true), implode(',', $sources));
+
+$response = call('GET', '/api/reports/result?period=' . date('Y-m'), null, $token);
+$statement = $response['json']['data'] ?? [];
+check('the monthly result chains revenue, goods and expenses', $response['status'] === 200
+    && abs(($statement['income']['revenue'] - $statement['costOfGoods']) - $statement['grossMargin']) < 0.01
+    && abs(($statement['grossMargin'] - $statement['expenses']['total']) - $statement['result']) < 0.01,
+    $response['raw']);
+check('the result details the expenses per category',
+    count($statement['expenses']['byCategory'] ?? []) >= 1, $response['raw']);
+
+$response = call('GET', '/api/reports/result?period=2026-10', null, $token);
+check('a closed month still reports its result', $response['status'] === 200, $response['raw']);
+
+$response = call('GET', '/api/reports/result?period=octobre', null, $token);
+check('a malformed period is refused', $response['status'] === 422, $response['raw']);
+
 // ------------------------------------------------------------ lockout
 for ($attempt = 1; $attempt <= 5; $attempt++) {
     call('POST', '/api/auth/login', ['username' => $adminUser, 'password' => 'still-wrong']);

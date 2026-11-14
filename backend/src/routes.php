@@ -20,6 +20,7 @@ use ChemManager\Api\Controllers\NotificationController;
 use ChemManager\Api\Controllers\ProductController;
 use ChemManager\Api\Controllers\ProductionController;
 use ChemManager\Api\Controllers\PurchaseController;
+use ChemManager\Api\Controllers\ReportController;
 use ChemManager\Api\Controllers\SalesController;
 use ChemManager\Api\Controllers\SettingsController;
 use ChemManager\Api\Controllers\SupplierController;
@@ -57,6 +58,7 @@ return static function (Router $router, App $app): void {
     $financeController = new FinanceController($app);
     $expenseController = new ExpenseController($app);
     $employeeController = new EmployeeController($app);
+    $reportController = new ReportController($app);
     $documentController = new DocumentController($app, new DocumentRenderer());
 
     // ------------------------------------------------------------------ public
@@ -278,6 +280,11 @@ return static function (Router $router, App $app): void {
     $router->add('POST', '/api/salaryPayments/run', [$employeeController, 'runPayroll'], 'EMPLOYEES_EDIT');
     $router->add('POST', '/api/salaryPayments/{id}/pay', [$employeeController, 'paySalary'],
         'FINANCE_PAYMENT');
+
+    // ------------------------------------------------------------------ financial statements
+    $router->add('GET', '/api/reports/margin', [$reportController, 'margin'], 'REPORTS_VIEW');
+    $router->add('GET', '/api/reports/cashflow', [$reportController, 'cashflow'], 'REPORTS_VIEW');
+    $router->add('GET', '/api/reports/result', [$reportController, 'result'], 'REPORTS_VIEW');
 
     // ------------------------------------------------------------------ documents
     $router->add('GET', '/api/documents/{type}/{id}', [$documentController, 'show'], 'SALES_VIEW');
