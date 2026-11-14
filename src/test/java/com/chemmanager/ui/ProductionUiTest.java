@@ -123,24 +123,32 @@ class ProductionUiTest {
         open(robot, NavigationModule.PRODUCTION);
 
         waitForRows(robot, "#tableHost");
+        String sellable = labelPrefix("production.output.sellable");
+
         // Filter down to the completed order: its finished batch must be described as sellable, and
         // the detail panel must follow the filter instead of keeping the order it showed before.
+        String completed = onlyOrderNumber("COMPLETED");
         filterTo(robot, "COMPLETED");
         assertEquals(1, rowCount(robot), "one completed order is the demo history");
-
-        String sellable = labelPrefix("production.output.sellable");
-        String released = detailText(robot, I18n.get().t("production.outputs"));
+        String released = detailText(robot, completed);
         assertTrue(released.contains(sellable), released);
         assertTrue(released.contains(I18n.get().t("common.yes")),
                 "a released finished batch is sellable: " + released);
 
         // A batch still waiting for quality is the opposite case: nothing unreleased may be sold.
+        String waiting = onlyOrderNumber("QUALITY_CONTROL");
         filterTo(robot, "QUALITY_CONTROL");
         assertEquals(1, rowCount(robot), "one order is still waiting for quality control");
-        String quarantined = detailText(robot, I18n.get().t("production.outputs"));
+        String quarantined = detailText(robot, waiting);
         assertTrue(quarantined.contains(sellable), quarantined);
         assertTrue(quarantined.contains(I18n.get().t("common.no")),
                 "a batch in quarantine must not be sellable: " + quarantined);
+    }
+
+    /** The single order the demo history holds for a status, as its number. */
+    private static String onlyOrderNumber(String status) {
+        return ServiceFactory.production().search(ProductionQuery.initial(25).withStatus(status))
+                .items().get(0).orderNumber();
     }
 
     // ------------------------------------------------------------------ helpers
@@ -197,11 +205,11 @@ class ProductionUiTest {
                 .count();
     }
 
-    /** Waits for the detail panel to reach a section and returns all of its label texts. */
-    private static String detailText(FxRobot robot, String section) throws Exception {
+    /** Waits until the detail panel describes the given order and returns all of its label texts. */
+    private static String detailText(FxRobot robot, String orderNumber) throws Exception {
         WaitForAsyncUtils.waitFor(25, TimeUnit.SECONDS, () -> robot.lookup("#detailHost .label")
                 .queryAll().stream().anyMatch(node -> node instanceof Label label
-                        && label.getText() != null && label.getText().contains(section)));
+                        && label.getText() != null && label.getText().contains(orderNumber)));
 
         return robot.lookup("#detailHost .label").queryAll().stream()
                 .filter(node -> node instanceof Label)
