@@ -138,3 +138,13 @@ implementing the same rules on the demo dataset.
 - [x] An order with received stock cannot be cancelled.
 - [x] FR / AR / EN strings added (708 keys, parity audited), RTL layout unchanged.
 - [x] `mvn verify` and the API integration suite run in CI on the same commit.
+
+## 7. CI evidence
+
+| Run | Commit | Result |
+| --- | --- | --- |
+| 43581161014 | `e6beb3b` | both jobs green — desktop **55 tests** (`BUILD SUCCESS`), API **25 unit + 183 integration** on MySQL 8 |
+| 43581422256 | `affb6e9` | green after the documentation update |
+
+The three new screens are in the published screenshots (`ci-reports` branch):
+`desktop/screenshots/07-inventory.png`, `07b-purchasing.png`, `07c-suppliers.png`.
