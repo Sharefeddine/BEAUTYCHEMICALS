@@ -126,7 +126,7 @@ all of them against `routes.php`.
 | Integration suite (470 checks) | 26 new checks: pictograms, overview, the three risk filters, the material file, sheet registration and demotion, the missing-file refusal, the sheet library, instructions, the pictogram set and its refusal, the incident register and summary, reporting, the three lifecycle refusals, the read-only role, the eight reports, the sales and stock reconciliations, the production yield, the safety report, the impossible window |
 
 Desktop total: **135 tests**, 43 of them TestFX-driven through the real interface (up from 34 before
-this phase). Bundle parity: 3 bundles × **1456 keys**.
+this phase). Bundle parity: 3 bundles × **1459 keys**.
 
 ### A flaky test, fixed at the root
 
@@ -146,10 +146,10 @@ tests)`):
 * PHP: lint of every file, unit suite, **470 integration checks** against MySQL 8 with seeds
   `01`…`09`; 173 routes; 68 tables; 0 schema problems.
 * Desktop: build of the client, **135 tests**, 0 failures; translation parity across FR / EN / AR
-  (1456 keys each); RTL preserved. The boot test now photographs the two new screens as well
+  (1459 keys each); RTL preserved. The boot test now photographs the two new screens as well
   (`11-reports-centre.png`, `12-safety-register.png`, published with the run).
 * Two more gates run before the build: `tools/fxml_check.py` (0 problems — every `fx:id`, handler,
-  `%key` and style class resolves) and `tools/i18n/audit.py` (1456 keys, 0 missing). The FXML checker
+  `%key` and style class resolves) and `tools/i18n/audit.py` (1459 keys, 0 missing). The FXML checker
   now accepts an id that the Java code reaches by selector (`lookup("#id")`), which is how the UI
   tests drive a screen, so `inventory.fxml`'s `tabs` no longer shows up as a false positive.
 

@@ -395,6 +395,15 @@ public final class Labels {
                 : get("safety.sheet.current", "Fiche à jour");
     }
 
+    /** The same state in one word, for a table badge where the full sentence does not fit. */
+    public static String sheetStateShort(boolean hasSheet, boolean obsolete) {
+        if (!hasSheet) {
+            return get("safety.sheet.missing_short", "Manquante");
+        }
+        return obsolete ? get("safety.sheet.obsolete_short", "Obsolète")
+                : get("safety.sheet.current_short", "À jour");
+    }
+
     public static String sheetStateStyle(boolean hasSheet, boolean obsolete) {
         if (!hasSheet) {
             return "badge-danger";

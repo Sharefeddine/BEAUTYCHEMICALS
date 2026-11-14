@@ -46,6 +46,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
@@ -177,8 +178,14 @@ public final class SafetyController {
                                         ? StatusBadge.warning(Labels.hazardClass(row.hazardClass()))
                                         : StatusBadge.neutral(I18n.get().t("safety.hazard.none"))),
                         DataTable.Column.node(I18n.get().t("safety.column.sheet"), 148,
-                                row -> StatusBadge.of(Labels.sheetState(row.hasSheet(), row.sheetObsolete()),
-                                        Labels.sheetStateStyle(row.hasSheet(), row.sheetObsolete()))),
+                                row -> {
+                                    StatusBadge badge = StatusBadge.of(
+                                            Labels.sheetStateShort(row.hasSheet(), row.sheetObsolete()),
+                                            Labels.sheetStateStyle(row.hasSheet(), row.sheetObsolete()));
+                                    Tooltip.install(badge, new Tooltip(
+                                            Labels.sheetState(row.hasSheet(), row.sheetObsolete())));
+                                    return badge;
+                                }),
                         DataTable.Column.text(I18n.get().t("safety.column.revision"), 76,
                                 row -> row.sheetRevision() == null ? "—" : row.sheetRevision()),
                         DataTable.Column.date(I18n.get().t("safety.column.issue_date"), 104,
