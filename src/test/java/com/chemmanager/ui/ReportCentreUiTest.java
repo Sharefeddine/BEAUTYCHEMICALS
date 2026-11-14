@@ -74,8 +74,7 @@ class ReportCentreUiTest {
                 "the catalogue publishes every report of the server");
 
         WaitForAsyncUtils.waitFor(25, TimeUnit.SECONDS,
-                () -> UiWaits.showsLabel(robot, "#centreHost .card-title",
-                        I18n.get().t("reports.centre.sales")));
+                () -> UiWaits.showsLabel(robot, "#centreHost .h2", I18n.get().t("reports.centre.sales")));
         WaitForAsyncUtils.waitFor(25, TimeUnit.SECONDS,
                 () -> UiWaits.hasNode(robot, "#centreHost .table-row-cell"));
         assertTrue(robot.lookup("#centreHost .table-row-cell").queryAll().size() >= 2,
@@ -100,7 +99,7 @@ class ReportCentreUiTest {
         robot.clickOn(stock);
 
         WaitForAsyncUtils.waitFor(25, TimeUnit.SECONDS,
-                () -> UiWaits.showsLabel(robot, "#centreHost .card-title", I18n.get().t("reports.centre.stock")));
+                () -> UiWaits.showsLabel(robot, "#centreHost .h2", I18n.get().t("reports.centre.stock")));
         WaitForAsyncUtils.waitFor(25, TimeUnit.SECONDS,
                 () -> UiWaits.hasNode(robot, "#centreHost .table-row-cell"));
         assertTrue(robot.lookup("#centreHost .h3").queryAll().size() >= 4,

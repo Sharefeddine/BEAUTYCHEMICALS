@@ -27,6 +27,10 @@ import com.chemmanager.service.SafetyService;
  * <p>The rules are replayed in memory exactly as the server enforces them: a sheet older than three
  * years is obsolete, registering a current sheet retires the previous one, and an incident walks
  * OPEN → INVESTIGATING → CLOSED without ever going back.</p>
+ *
+ * <p>The screen reads the register from background threads while it writes from the FX thread, so every
+ * read and write is serialised: a register that rebuilds itself under a reader is a register that
+ * forgets a row.</p>
  */
 public final class MockSafetyService implements SafetyService {
 
@@ -142,7 +146,7 @@ public final class MockSafetyService implements SafetyService {
     // ------------------------------------------------------------------ register
 
     @Override
-    public SafetyOverview overview() {
+    public synchronized SafetyOverview overview() {
         refresh();
         int hazardous = (int) materials.stream().filter(MaterialHazard::isHazardous).count();
         int withSheet = (int) materials.stream().filter(MaterialHazard::hasSheet).count();
@@ -157,7 +161,7 @@ public final class MockSafetyService implements SafetyService {
     }
 
     @Override
-    public List<HazardPictogram> pictograms() {
+    public synchronized List<HazardPictogram> pictograms() {
         List<HazardPictogram> copy = new ArrayList<>();
         for (HazardPictogram pictogram : pictograms) {
             int count = (int) materialPictograms.stream()
@@ -172,7 +176,7 @@ public final class MockSafetyService implements SafetyService {
     }
 
     @Override
-    public PagedResult<MaterialHazard> materials(int page, int pageSize, String search, String risk) {
+    public synchronized PagedResult<MaterialHazard> materials(int page, int pageSize, String search, String risk) {
         refresh();
         String needle = search == null ? "" : search.trim().toLowerCase(Locale.ROOT);
         List<MaterialHazard> rows = materials.stream()
@@ -195,7 +199,7 @@ public final class MockSafetyService implements SafetyService {
     }
 
     @Override
-    public MaterialFile material(long id) {
+    public synchronized MaterialFile material(long id) {
         MaterialHazard material = materials.stream().filter(row -> row.id() == id).findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Matériau introuvable: " + id));
         refresh();
@@ -204,7 +208,7 @@ public final class MockSafetyService implements SafetyService {
     }
 
     @Override
-    public PagedResult<SafetySheet> sheets(int page, int pageSize, String search, String documentType,
+    public synchronized PagedResult<SafetySheet> sheets(int page, int pageSize, String search, String documentType,
                                            boolean currentOnly) {
         refresh();
         String needle = search == null ? "" : search.trim().toLowerCase(Locale.ROOT);
@@ -225,7 +229,7 @@ public final class MockSafetyService implements SafetyService {
     }
 
     @Override
-    public MaterialFile registerSheet(NewSheet sheet) {
+    public synchronized MaterialFile registerSheet(NewSheet sheet) {
         if (sheet.filePath() == null || sheet.filePath().isBlank()) {
             throw new IllegalArgumentException("Le fichier du document est obligatoire.");
         }
@@ -258,7 +262,7 @@ public final class MockSafetyService implements SafetyService {
     }
 
     @Override
-    public MaterialFile saveInstructions(long materialId, InstructionUpdate update) {
+    public synchronized MaterialFile saveInstructions(long materialId, InstructionUpdate update) {
         MaterialHazard material = materials.stream().filter(row -> row.id() == materialId).findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Matériau introuvable: " + materialId));
         SafetyInstructions saved = new SafetyInstructions((long) instructions.size() + 1, materialId,
@@ -272,7 +276,7 @@ public final class MockSafetyService implements SafetyService {
     }
 
     @Override
-    public MaterialFile setPictograms(long materialId, List<String> codes) {
+    public synchronized MaterialFile setPictograms(long materialId, List<String> codes) {
         MaterialHazard material = materials.stream().filter(row -> row.id() == materialId).findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Matériau introuvable: " + materialId));
         List<String> wanted = codes == null ? List.of() : codes.stream().distinct().toList();
@@ -298,21 +302,21 @@ public final class MockSafetyService implements SafetyService {
     // ------------------------------------------------------------------ incidents
 
     @Override
-    public PagedResult<SafetyIncident> incidents(int page, int pageSize, String status, String severity,
+    public synchronized PagedResult<SafetyIncident> incidents(int page, int pageSize, String status, String severity,
                                                  String search) {
         List<SafetyIncident> rows = filteredIncidents(status, severity, search);
         return page(rows, page, pageSize);
     }
 
     @Override
-    public IncidentSummary incidentSummary(String status, String severity, String search) {
+    public synchronized IncidentSummary incidentSummary(String status, String severity, String search) {
         List<SafetyIncident> rows = filteredIncidents(status, severity, search);
         return new IncidentSummary(rows.size(), (int) rows.stream().filter(SafetyIncident::isOpen).count(),
                 (int) rows.stream().filter(SafetyIncident::isSevere).count());
     }
 
     @Override
-    public SafetyIncident reportIncident(NewIncident incident) {
+    public synchronized SafetyIncident reportIncident(NewIncident incident) {
         if (incident.description() == null || incident.description().isBlank()) {
             throw new IllegalArgumentException("La description de l'incident est obligatoire.");
         }
@@ -341,7 +345,7 @@ public final class MockSafetyService implements SafetyService {
     }
 
     @Override
-    public SafetyIncident changeIncidentStatus(long id, String status) {
+    public synchronized SafetyIncident changeIncidentStatus(long id, String status) {
         SafetyIncident current = incidents.stream().filter(row -> row.id() == id).findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Incident introuvable: " + id));
         String target = status == null ? "" : status.toUpperCase(Locale.ROOT);

@@ -47,13 +47,19 @@ backed by MySQL 8.
 >   settlement, the expenses with their approval and payment, the staff file with attendance and leave,
 >   the monthly payroll booked as an expense, and the three statements (margin by product, cash flow,
 >   period result) — see [`docs/PHASE-7-REPORT.md`](docs/PHASE-7-REPORT.md).
-> * **Test harness:** 99 desktop tests — 34 of them driven by **TestFX** through the real user
+> * **Phase 8 — complete:** the chemical register — safety data sheets with their three-year validity
+>   window, handling instructions, GHS pictograms and the incident book with its
+>   investigation-before-closure rule — and the report centre: eight reports (result, margin, cash
+>   flow, sales, purchases, stock valuation, production, chemical safety) with an Excel export, on
+>   top of the three statements of Phase 7 — see [`docs/PHASE-8-REPORT.md`](docs/PHASE-8-REPORT.md).
+> * **Test harness:** 134 desktop tests — 39 of them driven by **TestFX** through the real user
 >   interface (sign-in, password masking, shell, sidebar navigation, live Arabic mirroring,
 >   inventory, purchasing, suppliers, production, customers, sales, distribution, finance, expenses,
->   employees, reports, focus ring, accessible names) — and 25 + 439 API tests against a real MySQL 8.
->   The rules the project is built under live in [`docs/devRules.md`](docs/devRules.md) and in the
->   Google Doc `devRules`.
-> * **Phase 8 — next:** report centre with exports, chemical safety, hardening.
+>   employees, reports, safety, the report centre, focus ring, accessible names) — and 25 + 470 API
+>   tests against a real MySQL 8. The rules the project is built under live in
+>   [`docs/devRules.md`](docs/devRules.md) and in the Google Doc `devRules`.
+> * **Phase 9 — next:** hardening — uploads for the sheet library, HSE reminders, broader coverage of
+>   the earlier phases.
 
 ---
 
@@ -192,7 +198,7 @@ database/seed/                       6 seeders: permissions, roles, reference da
 backend/public/index.php             front controller of the PHP REST API
 backend/src/                         Core (router, PDO, envelope), Security (auth, RBAC),
                                      Repositories (all SQL), Controllers, routes.php
-backend/tests/                       unit (25) + integration (241) suites, run in CI on MySQL 8
+backend/tests/                       unit (25) + integration (470) suites, run in CI on MySQL 8
 docs/                                architecture, ER diagram, design system, roadmap, RBAC
 .github/workflows/ci.yml             build + tests, publishes logs to the ci-reports branch
 ```
@@ -210,6 +216,7 @@ docs/                                architecture, ER diagram, design system, ro
 | [`docs/07-operations.md`](docs/07-operations.md) | Backups, restore drill, deployment, monitoring |
 | [`docs/PHASE-1-REPORT.md`](docs/PHASE-1-REPORT.md) | Phase 1 delivery report: verification, deliverables, review checklist |
 | [`docs/PHASE-2-REPORT.md`](docs/PHASE-2-REPORT.md) | Phase 2 report: 68-table database, seeds, PHP REST API, 113 end-to-end tests |
+| [`docs/PHASE-8-REPORT.md`](docs/PHASE-8-REPORT.md) | Phase 8 report: the chemical register, its validity window, the incident book and the report centre, 134 desktop tests and 470 API checks |
 | [`docs/PHASE-7-REPORT.md`](docs/PHASE-7-REPORT.md) | Phase 7 report: closed months, the cash book, expenses, payroll and the financial statements, 99 desktop tests and 439 API checks |
 | [`docs/PHASE-6-REPORT.md`](docs/PHASE-6-REPORT.md) | Phase 6 report: credit guard, the sales chain, frozen invoices, tours and printable documents, 79 desktop tests and 347 API checks |
 | [`docs/PHASE-5-REPORT.md`](docs/PHASE-5-REPORT.md) | Phase 5 report: production orders, quality release, batch genealogy, 71 desktop tests and 241 API checks |

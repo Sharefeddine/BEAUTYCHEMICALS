@@ -113,14 +113,26 @@ switches work without restart; no KPI is hardcoded; no button is inert.
   its line in the same transaction; a month is reopened only by a super administrator — an accountant
   closes it and is refused the reopening. See [`PHASE-7-REPORT.md`](PHASE-7-REPORT.md).
 
-## Phase 8 — Reports, chemical safety, hardening *(next)*
+## Phase 8 — Reports and chemical safety ✅ *(delivered)*
 
-* Report centre with JasperReports templates (sales, purchases, production, stock, expiry,
-  profitability, customer statements, safety registers) and Excel exports.
-* Chemical safety: SDS library with expiry tracking, pictograms, storage conditions, PPE,
-  incident register and missing-document alerts.
-* Hardening: full RBAC audit, backup/restore drill, performance pass on the largest tables,
-  user guide (AR/FR), installer and first-run configuration.
+* Report centre: eight reports (period result, margin by product, cash flow, sales, purchases, stock
+  valuation, production, chemical safety) with their Excel export, above the three statements.
+* Chemical safety: the SDS library with its three-year validity window, the GHS pictograms, the
+  handling instructions (PPE, storage, first aid, spillage), the incident register with the
+  investigation-before-closure rule, and the "missing sheet" / "obsolete sheet" filters the HSE
+  inspection asks for.
+* **Acceptance (met):** a sheet older than three years is reported obsolete whatever its revision;
+  registering a current sheet retires the previous one of the same type; an incident is investigated
+  before it is closed and a closed incident is never reopened (`409 INVALID_STATUS`); every report
+  total equals the sum of the lines it heads. See [`PHASE-8-REPORT.md`](PHASE-8-REPORT.md).
+
+## Phase 9 — Hardening *(next)*
+
+* Uploads for the sheet library (the server stores the file, not only its path) and the HSE reminder
+  before a sheet's third birthday.
+* JasperReports templates for the printable documents, on top of the Phase-6 HTML/PDF pipeline.
+* Full RBAC audit, backup/restore drill, performance pass on the largest tables, user guide (AR/FR),
+  installer and first-run configuration.
 
 ---
 
