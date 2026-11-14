@@ -23,7 +23,6 @@ import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 import org.testfx.util.WaitForAsyncUtils;
 
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -120,12 +119,12 @@ class ReportsUiTest {
         WaitForAsyncUtils.waitForFxEvents();
     }
 
+    /**
+     * The reports entry sits at the bottom of the sidebar, below the fold of the test window, so the
+     * navigation is triggered directly: the screen is what this test is about, not the sidebar.
+     */
     private void open(FxRobot robot) throws Exception {
-        Node item = robot.lookup(".nav-item").queryAll().stream()
-                .filter(node -> node.getUserData() == NavigationModule.REPORTS)
-                .findFirst()
-                .orElseThrow(() -> new AssertionError("No sidebar entry for REPORTS"));
-        robot.clickOn(item);
+        robot.interact(() -> AppContext.get().navigate(NavigationModule.REPORTS));
         WaitForAsyncUtils.waitFor(20, TimeUnit.SECONDS,
                 () -> AppContext.get().navigation().current() == NavigationModule.REPORTS);
         WaitForAsyncUtils.waitForFxEvents();

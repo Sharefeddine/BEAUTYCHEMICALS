@@ -92,8 +92,6 @@ class EmployeesUiTest {
         signIn(robot);
         open(robot);
         waitForRows(robot);
-        WaitForAsyncUtils.waitFor(20, TimeUnit.SECONDS,
-                () -> !robot.lookup("#payrollHost .button").queryAll().isEmpty());
 
         @SuppressWarnings("unchecked")
         javafx.scene.control.ComboBox<String> selector =
@@ -101,6 +99,16 @@ class EmployeesUiTest {
                         .queryAs(javafx.scene.control.ComboBox.class);
         String period = selector.getValue();
         assertTrue(period != null && !period.isBlank(), "a month is selected for the payroll");
+
+        if (ServiceFactory.finance().salaryPayments(period).items().isEmpty()) {
+            Button run = robot.lookup("#runPayrollButton").queryAs(Button.class);
+            assertFalse(run.isDisabled(), "an employee officer may run the payroll");
+            robot.clickOn(run);
+        }
+        WaitForAsyncUtils.waitFor(25, TimeUnit.SECONDS,
+                () -> !ServiceFactory.finance().salaryPayments(period).items().isEmpty());
+        WaitForAsyncUtils.waitFor(20, TimeUnit.SECONDS,
+                () -> !robot.lookup("#payrollHost .button").queryAll().isEmpty());
 
         Button pay = robot.lookup("#payrollHost .button").queryAll().stream()
                 .filter(node -> node instanceof Button)
@@ -122,10 +130,11 @@ class EmployeesUiTest {
 
         String approveText = I18n.get().t("employees.leave.approve");
         Button approve = robot.lookup("#leaveHost .button").queryAll().stream()
-                .filter(node -> node instanceof Button button && approveText.equals(button.getText()))
+                .filter(node -> node instanceof Button button && approveText.equals(button.getText())
+                        && !button.isDisabled())
                 .map(node -> (Button) node)
                 .findFirst()
-                .orElseThrow(() -> new AssertionError("No approve button on the leave desk"));
+                .orElseThrow(() -> new AssertionError("No pending approve button on the leave desk"));
         robot.clickOn(approve);
 
         WaitForAsyncUtils.waitFor(25, TimeUnit.SECONDS, () -> ServiceFactory.finance()
