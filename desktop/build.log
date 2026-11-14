@@ -13,39 +13,351 @@
 [INFO] Compiling 224 source files with javac [debug parameters release 21] to target/classes
 [INFO] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/component/ChartFactory.java: Some input files use unchecked or unsafe operations.
 [INFO] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/component/ChartFactory.java: Recompile with -Xlint:unchecked for details.
-[INFO] Some messages have been simplified; recompile with -Xdiags:verbose to get full output
-[INFO] -------------------------------------------------------------
-[ERROR] COMPILATION ERROR : 
-[INFO] -------------------------------------------------------------
-[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/controller/reports/ReportCentrePane.java:[14,31] package com.chemmanager.context does not exist
-[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/controller/safety/SafetyController.java:[19,31] package com.chemmanager.context does not exist
-[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/controller/reports/ReportCentrePane.java:[448,56] cannot find symbol
-  symbol:   variable AppContext
-  location: class com.chemmanager.controller.reports.ReportCentrePane
-[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/controller/safety/SafetyController.java:[678,56] cannot find symbol
-  symbol:   variable AppContext
-  location: class com.chemmanager.controller.safety.SafetyController
-[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/service/mock/MockSafetyService.java:[110,49] incompatible types: int cannot be converted to java.lang.Long
-[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/service/mock/MockSafetyService.java:[112,49] incompatible types: int cannot be converted to java.lang.Long
-[INFO] 6 errors 
-[INFO] -------------------------------------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ chemmanager-erp ---
+[INFO] skip non existing resourceDirectory /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ chemmanager-erp ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 30 source files with javac [debug parameters release 21] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.2.5:test (default-test) @ chemmanager-erp ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[WARNING] The system property prism.order is configured twice! The property appears in <argLine/> and any of <systemPropertyVariables/>, <systemProperties/> or user property.
+[WARNING] The system property prism.lcdtext is configured twice! The property appears in <argLine/> and any of <systemPropertyVariables/>, <systemProperties/> or user property.
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.chemmanager.ui.EmployeesUiTest
+Nov 14, 2026 8:03:23 PM com.sun.javafx.application.PlatformImpl startup
+WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @687080dc'
+
+(java:2441): dbind-WARNING **: 20:03:26.415: AT-SPI: Error retrieving accessibility bus address: org.freedesktop.DBus.Error.ServiceUnknown: The name org.a11y.Bus was not provided by any .service files
+Nov 14, 2026 8:03:27 PM java.util.prefs.FileSystemPreferences$1 run
+INFO: Created user preferences directory.
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 18.39 s -- in com.chemmanager.ui.EmployeesUiTest
+[INFO] Running com.chemmanager.ui.ExpensesUiTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 12.27 s -- in com.chemmanager.ui.ExpensesUiTest
+[INFO] Running com.chemmanager.ui.CustomersUiTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.40 s -- in com.chemmanager.ui.CustomersUiTest
+[INFO] Running com.chemmanager.ui.ReportCentreUiTest
+[ERROR] Tests run: 3, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 8.691 s <<< FAILURE! -- in com.chemmanager.ui.ReportCentreUiTest
+[ERROR] com.chemmanager.ui.ReportCentreUiTest.catalogueCardOpensAnotherReport(FxRobot) -- Time elapsed: 2.890 s <<< ERROR!
+java.lang.RuntimeException: org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
+	at org.testfx.service.query.impl.CallableBoundsPointQuery.fetchCallableBounds(CallableBoundsPointQuery.java:52)
+	at org.testfx.service.query.impl.CallableBoundsPointQuery.query(CallableBoundsPointQuery.java:40)
+	at org.testfx.robot.impl.MoveRobotImpl.moveTo(MoveRobotImpl.java:72)
+	at org.testfx.robot.impl.ClickRobotImpl.clickOn(ClickRobotImpl.java:54)
+	at org.testfx.api.FxRobot.clickOn(FxRobot.java:582)
+	at org.testfx.api.FxRobot.clickOn(FxRobot.java:615)
+	at org.testfx.api.FxRobot.clickOn(FxRobot.java:59)
+	at org.testfx.api.FxRobotInterface.clickOn(FxRobotInterface.java:597)
+	at com.chemmanager.ui.ReportCentreUiTest.open(ReportCentreUiTest.java:145)
+	at com.chemmanager.ui.ReportCentreUiTest.catalogueCardOpensAnotherReport(ReportCentreUiTest.java:89)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+Caused by: org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
+	at org.testfx.service.locator.impl.BoundsLocatorImpl.limitToVisibleBounds(BoundsLocatorImpl.java:80)
+	at org.testfx.service.locator.impl.BoundsLocatorImpl.boundsInSceneFor(BoundsLocatorImpl.java:33)
+	at org.testfx.service.locator.impl.BoundsLocatorImpl.boundsOnScreenFor(BoundsLocatorImpl.java:50)
+	at org.testfx.service.locator.impl.PointLocatorImpl.lambda$point$0(PointLocatorImpl.java:52)
+	at org.testfx.service.query.impl.CallableBoundsPointQuery.fetchCallableBounds(CallableBoundsPointQuery.java:49)
+	... 12 more
+
+[ERROR] com.chemmanager.ui.ReportCentreUiTest.catalogueListsTheEightReports(FxRobot) -- Time elapsed: 2.918 s <<< ERROR!
+java.lang.RuntimeException: org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
+	at org.testfx.service.query.impl.CallableBoundsPointQuery.fetchCallableBounds(CallableBoundsPointQuery.java:52)
+	at org.testfx.service.query.impl.CallableBoundsPointQuery.query(CallableBoundsPointQuery.java:40)
+	at org.testfx.robot.impl.MoveRobotImpl.moveTo(MoveRobotImpl.java:72)
+	at org.testfx.robot.impl.ClickRobotImpl.clickOn(ClickRobotImpl.java:54)
+	at org.testfx.api.FxRobot.clickOn(FxRobot.java:582)
+	at org.testfx.api.FxRobot.clickOn(FxRobot.java:615)
+	at org.testfx.api.FxRobot.clickOn(FxRobot.java:59)
+	at org.testfx.api.FxRobotInterface.clickOn(FxRobotInterface.java:597)
+	at com.chemmanager.ui.ReportCentreUiTest.open(ReportCentreUiTest.java:145)
+	at com.chemmanager.ui.ReportCentreUiTest.catalogueListsTheEightReports(ReportCentreUiTest.java:69)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+Caused by: org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
+	at org.testfx.service.locator.impl.BoundsLocatorImpl.limitToVisibleBounds(BoundsLocatorImpl.java:80)
+	at org.testfx.service.locator.impl.BoundsLocatorImpl.boundsInSceneFor(BoundsLocatorImpl.java:33)
+	at org.testfx.service.locator.impl.BoundsLocatorImpl.boundsOnScreenFor(BoundsLocatorImpl.java:50)
+	at org.testfx.service.locator.impl.PointLocatorImpl.lambda$point$0(PointLocatorImpl.java:52)
+	at org.testfx.service.query.impl.CallableBoundsPointQuery.fetchCallableBounds(CallableBoundsPointQuery.java:49)
+	... 12 more
+
+[ERROR] com.chemmanager.ui.ReportCentreUiTest.statementsStayOnTheScreen(FxRobot) -- Time elapsed: 2.880 s <<< ERROR!
+java.lang.RuntimeException: org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
+	at org.testfx.service.query.impl.CallableBoundsPointQuery.fetchCallableBounds(CallableBoundsPointQuery.java:52)
+	at org.testfx.service.query.impl.CallableBoundsPointQuery.query(CallableBoundsPointQuery.java:40)
+	at org.testfx.robot.impl.MoveRobotImpl.moveTo(MoveRobotImpl.java:72)
+	at org.testfx.robot.impl.ClickRobotImpl.clickOn(ClickRobotImpl.java:54)
+	at org.testfx.api.FxRobot.clickOn(FxRobot.java:582)
+	at org.testfx.api.FxRobot.clickOn(FxRobot.java:615)
+	at org.testfx.api.FxRobot.clickOn(FxRobot.java:59)
+	at org.testfx.api.FxRobotInterface.clickOn(FxRobotInterface.java:597)
+	at com.chemmanager.ui.ReportCentreUiTest.open(ReportCentreUiTest.java:145)
+	at com.chemmanager.ui.ReportCentreUiTest.statementsStayOnTheScreen(ReportCentreUiTest.java:114)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+Caused by: org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
+	at org.testfx.service.locator.impl.BoundsLocatorImpl.limitToVisibleBounds(BoundsLocatorImpl.java:80)
+	at org.testfx.service.locator.impl.BoundsLocatorImpl.boundsInSceneFor(BoundsLocatorImpl.java:33)
+	at org.testfx.service.locator.impl.BoundsLocatorImpl.boundsOnScreenFor(BoundsLocatorImpl.java:50)
+	at org.testfx.service.locator.impl.PointLocatorImpl.lambda$point$0(PointLocatorImpl.java:52)
+	at org.testfx.service.query.impl.CallableBoundsPointQuery.fetchCallableBounds(CallableBoundsPointQuery.java:49)
+	... 12 more
+
+[INFO] Running com.chemmanager.ui.LoginScreenUiTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.97 s -- in com.chemmanager.ui.LoginScreenUiTest
+[INFO] Running com.chemmanager.ui.ProductionUiTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.93 s -- in com.chemmanager.ui.ProductionUiTest
+[INFO] Running com.chemmanager.ui.FinanceUiTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.93 s -- in com.chemmanager.ui.FinanceUiTest
+[INFO] Running com.chemmanager.ui.DesignSystemUiTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.803 s -- in com.chemmanager.ui.DesignSystemUiTest
+[INFO] Running com.chemmanager.ui.SafetyUiTest
+[ERROR] Tests run: 6, Failures: 0, Errors: 5, Skipped: 0, Time elapsed: 17.70 s <<< FAILURE! -- in com.chemmanager.ui.SafetyUiTest
+[ERROR] com.chemmanager.ui.SafetyUiTest.openingASubstanceShowsItsFile(FxRobot) -- Time elapsed: 2.877 s <<< ERROR!
+java.lang.RuntimeException: org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
+	at org.testfx.service.query.impl.CallableBoundsPointQuery.fetchCallableBounds(CallableBoundsPointQuery.java:52)
+	at org.testfx.service.query.impl.CallableBoundsPointQuery.query(CallableBoundsPointQuery.java:40)
+	at org.testfx.robot.impl.MoveRobotImpl.moveTo(MoveRobotImpl.java:72)
+	at org.testfx.robot.impl.ClickRobotImpl.clickOn(ClickRobotImpl.java:54)
+	at org.testfx.api.FxRobot.clickOn(FxRobot.java:582)
+	at org.testfx.api.FxRobot.clickOn(FxRobot.java:615)
+	at org.testfx.api.FxRobot.clickOn(FxRobot.java:59)
+	at org.testfx.api.FxRobotInterface.clickOn(FxRobotInterface.java:597)
+	at com.chemmanager.ui.SafetyUiTest.open(SafetyUiTest.java:277)
+	at com.chemmanager.ui.SafetyUiTest.openingASubstanceShowsItsFile(SafetyUiTest.java:141)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+Caused by: org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
+	at org.testfx.service.locator.impl.BoundsLocatorImpl.limitToVisibleBounds(BoundsLocatorImpl.java:80)
+	at org.testfx.service.locator.impl.BoundsLocatorImpl.boundsInSceneFor(BoundsLocatorImpl.java:33)
+	at org.testfx.service.locator.impl.BoundsLocatorImpl.boundsOnScreenFor(BoundsLocatorImpl.java:50)
+	at org.testfx.service.locator.impl.PointLocatorImpl.lambda$point$0(PointLocatorImpl.java:52)
+	at org.testfx.service.query.impl.CallableBoundsPointQuery.fetchCallableBounds(CallableBoundsPointQuery.java:49)
+	... 12 more
+
+[ERROR] com.chemmanager.ui.SafetyUiTest.incidentBookFollowsTheSelection(FxRobot) -- Time elapsed: 2.834 s <<< ERROR!
+java.lang.RuntimeException: org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
+	at org.testfx.service.query.impl.CallableBoundsPointQuery.fetchCallableBounds(CallableBoundsPointQuery.java:52)
+	at org.testfx.service.query.impl.CallableBoundsPointQuery.query(CallableBoundsPointQuery.java:40)
+	at org.testfx.robot.impl.MoveRobotImpl.moveTo(MoveRobotImpl.java:72)
+	at org.testfx.robot.impl.ClickRobotImpl.clickOn(ClickRobotImpl.java:54)
+	at org.testfx.api.FxRobot.clickOn(FxRobot.java:582)
+	at org.testfx.api.FxRobot.clickOn(FxRobot.java:615)
+	at org.testfx.api.FxRobot.clickOn(FxRobot.java:59)
+	at org.testfx.api.FxRobotInterface.clickOn(FxRobotInterface.java:597)
+	at com.chemmanager.ui.SafetyUiTest.open(SafetyUiTest.java:277)
+	at com.chemmanager.ui.SafetyUiTest.incidentBookFollowsTheSelection(SafetyUiTest.java:171)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+Caused by: org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
+	at org.testfx.service.locator.impl.BoundsLocatorImpl.limitToVisibleBounds(BoundsLocatorImpl.java:80)
+	at org.testfx.service.locator.impl.BoundsLocatorImpl.boundsInSceneFor(BoundsLocatorImpl.java:33)
+	at org.testfx.service.locator.impl.BoundsLocatorImpl.boundsOnScreenFor(BoundsLocatorImpl.java:50)
+	at org.testfx.service.locator.impl.PointLocatorImpl.lambda$point$0(PointLocatorImpl.java:52)
+	at org.testfx.service.query.impl.CallableBoundsPointQuery.fetchCallableBounds(CallableBoundsPointQuery.java:49)
+	... 12 more
+
+[ERROR] com.chemmanager.ui.SafetyUiTest.registerShowsTheChemicalFile(FxRobot) -- Time elapsed: 2.842 s <<< ERROR!
+java.lang.RuntimeException: org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
+	at org.testfx.service.query.impl.CallableBoundsPointQuery.fetchCallableBounds(CallableBoundsPointQuery.java:52)
+	at org.testfx.service.query.impl.CallableBoundsPointQuery.query(CallableBoundsPointQuery.java:40)
+	at org.testfx.robot.impl.MoveRobotImpl.moveTo(MoveRobotImpl.java:72)
+	at org.testfx.robot.impl.ClickRobotImpl.clickOn(ClickRobotImpl.java:54)
+	at org.testfx.api.FxRobot.clickOn(FxRobot.java:582)
+	at org.testfx.api.FxRobot.clickOn(FxRobot.java:615)
+	at org.testfx.api.FxRobot.clickOn(FxRobot.java:59)
+	at org.testfx.api.FxRobotInterface.clickOn(FxRobotInterface.java:597)
+	at com.chemmanager.ui.SafetyUiTest.open(SafetyUiTest.java:277)
+	at com.chemmanager.ui.SafetyUiTest.registerShowsTheChemicalFile(SafetyUiTest.java:75)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+Caused by: org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
+	at org.testfx.service.locator.impl.BoundsLocatorImpl.limitToVisibleBounds(BoundsLocatorImpl.java:80)
+	at org.testfx.service.locator.impl.BoundsLocatorImpl.boundsInSceneFor(BoundsLocatorImpl.java:33)
+	at org.testfx.service.locator.impl.BoundsLocatorImpl.boundsOnScreenFor(BoundsLocatorImpl.java:50)
+	at org.testfx.service.locator.impl.PointLocatorImpl.lambda$point$0(PointLocatorImpl.java:52)
+	at org.testfx.service.query.impl.CallableBoundsPointQuery.fetchCallableBounds(CallableBoundsPointQuery.java:49)
+	... 12 more
+
+[ERROR] com.chemmanager.ui.SafetyUiTest.riskFilterNarrowsTheRegister(FxRobot) -- Time elapsed: 2.900 s <<< ERROR!
+java.lang.RuntimeException: org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
+	at org.testfx.service.query.impl.CallableBoundsPointQuery.fetchCallableBounds(CallableBoundsPointQuery.java:52)
+	at org.testfx.service.query.impl.CallableBoundsPointQuery.query(CallableBoundsPointQuery.java:40)
+	at org.testfx.robot.impl.MoveRobotImpl.moveTo(MoveRobotImpl.java:72)
+	at org.testfx.robot.impl.ClickRobotImpl.clickOn(ClickRobotImpl.java:54)
+	at org.testfx.api.FxRobot.clickOn(FxRobot.java:582)
+	at org.testfx.api.FxRobot.clickOn(FxRobot.java:615)
+	at org.testfx.api.FxRobot.clickOn(FxRobot.java:59)
+	at org.testfx.api.FxRobotInterface.clickOn(FxRobotInterface.java:597)
+	at com.chemmanager.ui.SafetyUiTest.open(SafetyUiTest.java:277)
+	at com.chemmanager.ui.SafetyUiTest.riskFilterNarrowsTheRegister(SafetyUiTest.java:107)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+Caused by: org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
+	at org.testfx.service.locator.impl.BoundsLocatorImpl.limitToVisibleBounds(BoundsLocatorImpl.java:80)
+	at org.testfx.service.locator.impl.BoundsLocatorImpl.boundsInSceneFor(BoundsLocatorImpl.java:33)
+	at org.testfx.service.locator.impl.BoundsLocatorImpl.boundsOnScreenFor(BoundsLocatorImpl.java:50)
+	at org.testfx.service.locator.impl.PointLocatorImpl.lambda$point$0(PointLocatorImpl.java:52)
+	at org.testfx.service.query.impl.CallableBoundsPointQuery.fetchCallableBounds(CallableBoundsPointQuery.java:49)
+	... 12 more
+
+[ERROR] com.chemmanager.ui.SafetyUiTest.registerSurvivesTheArabicLayout(FxRobot) -- Time elapsed: 2.832 s <<< ERROR!
+java.lang.RuntimeException: org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
+	at org.testfx.service.query.impl.CallableBoundsPointQuery.fetchCallableBounds(CallableBoundsPointQuery.java:52)
+	at org.testfx.service.query.impl.CallableBoundsPointQuery.query(CallableBoundsPointQuery.java:40)
+	at org.testfx.robot.impl.MoveRobotImpl.moveTo(MoveRobotImpl.java:72)
+	at org.testfx.robot.impl.ClickRobotImpl.clickOn(ClickRobotImpl.java:54)
+	at org.testfx.api.FxRobot.clickOn(FxRobot.java:582)
+	at org.testfx.api.FxRobot.clickOn(FxRobot.java:615)
+	at org.testfx.api.FxRobot.clickOn(FxRobot.java:59)
+	at org.testfx.api.FxRobotInterface.clickOn(FxRobotInterface.java:597)
+	at com.chemmanager.ui.SafetyUiTest.open(SafetyUiTest.java:277)
+	at com.chemmanager.ui.SafetyUiTest.registerSurvivesTheArabicLayout(SafetyUiTest.java:220)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+Caused by: org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
+	at org.testfx.service.locator.impl.BoundsLocatorImpl.limitToVisibleBounds(BoundsLocatorImpl.java:80)
+	at org.testfx.service.locator.impl.BoundsLocatorImpl.boundsInSceneFor(BoundsLocatorImpl.java:33)
+	at org.testfx.service.locator.impl.BoundsLocatorImpl.boundsOnScreenFor(BoundsLocatorImpl.java:50)
+	at org.testfx.service.locator.impl.PointLocatorImpl.lambda$point$0(PointLocatorImpl.java:52)
+	at org.testfx.service.query.impl.CallableBoundsPointQuery.fetchCallableBounds(CallableBoundsPointQuery.java:49)
+	... 12 more
+
+[INFO] Running com.chemmanager.ui.ReportsUiTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.246 s -- in com.chemmanager.ui.ReportsUiTest
+[INFO] Running com.chemmanager.ui.DistributionUiTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.275 s -- in com.chemmanager.ui.DistributionUiTest
+[INFO] Running com.chemmanager.ui.InventoryPurchasingUiTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.06 s -- in com.chemmanager.ui.InventoryPurchasingUiTest
+[INFO] Running com.chemmanager.ui.SalesUiTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.87 s -- in com.chemmanager.ui.SalesUiTest
+[INFO] Running com.chemmanager.security.RolesTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 s -- in com.chemmanager.security.RolesTest
+[INFO] Running com.chemmanager.security.PasswordHasherTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.211 s -- in com.chemmanager.security.PasswordHasherTest
+[INFO] Running com.chemmanager.design.DesignSystemTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.083 s -- in com.chemmanager.design.DesignSystemTest
+[INFO] Running com.chemmanager.service.FormulationRulesTest
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.019 s -- in com.chemmanager.service.FormulationRulesTest
+[INFO] Running com.chemmanager.service.MockDashboardServiceTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.058 s -- in com.chemmanager.service.MockDashboardServiceTest
+[INFO] Running com.chemmanager.service.MockAuthServiceTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.113 s -- in com.chemmanager.service.MockAuthServiceTest
+[INFO] Running com.chemmanager.service.FinanceServiceMockTest
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.013 s -- in com.chemmanager.service.FinanceServiceMockTest
+[INFO] Running com.chemmanager.service.ReportCentreServiceMockTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.010 s -- in com.chemmanager.service.ReportCentreServiceMockTest
+[INFO] Running com.chemmanager.service.SafetyServiceMockTest
+[ERROR] Tests run: 20, Failures: 4, Errors: 0, Skipped: 0, Time elapsed: 0.026 s <<< FAILURE! -- in com.chemmanager.service.SafetyServiceMockTest
+[ERROR] com.chemmanager.service.SafetyServiceMockTest.registeringASheetRetiresThePrevious -- Time elapsed: 0.005 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <REV-5> but was: <REV-4>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1145)
+	at com.chemmanager.service.SafetyServiceMockTest.registeringASheetRetiresThePrevious(SafetyServiceMockTest.java:160)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+[ERROR] com.chemmanager.service.SafetyServiceMockTest.oldSheetIsObsoleteOnArrival -- Time elapsed: 0.001 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: the substance is documented now ==> expected: <true> but was: <false>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:63)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:36)
+	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:214)
+	at com.chemmanager.service.SafetyServiceMockTest.oldSheetIsObsoleteOnArrival(SafetyServiceMockTest.java:176)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+[ERROR] com.chemmanager.service.SafetyServiceMockTest.materialFileIsComplete -- Time elapsed: 0 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:63)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:36)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:31)
+	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:183)
+	at com.chemmanager.service.SafetyServiceMockTest.materialFileIsComplete(SafetyServiceMockTest.java:125)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+[ERROR] com.chemmanager.service.SafetyServiceMockTest.pictogramsAreASet -- Time elapsed: 0.002 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <GHS05,GHS07> but was: <GHS05>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1145)
+	at com.chemmanager.service.SafetyServiceMockTest.pictogramsAreASet(SafetyServiceMockTest.java:226)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+[INFO] Running com.chemmanager.localization.RtlFormattingTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.827 s -- in com.chemmanager.localization.RtlFormattingTest
+[INFO] Running com.chemmanager.localization.BundleParityTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.793 s -- in com.chemmanager.localization.BundleParityTest
+[INFO] Running com.chemmanager.api.ApiContractTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 s -- in com.chemmanager.api.ApiContractTest
+[INFO] Running com.chemmanager.util.DateRangesTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 s -- in com.chemmanager.util.DateRangesTest
+[INFO] Running com.chemmanager.util.FxTasksTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 s -- in com.chemmanager.util.FxTasksTest
+[INFO] Running com.chemmanager.util.MoneyTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 s -- in com.chemmanager.util.MoneyTest
+[INFO] Running com.chemmanager.app.ApplicationSmokeTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 39.48 s -- in com.chemmanager.app.ApplicationSmokeTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   SafetyServiceMockTest.materialFileIsComplete:125 expected: <true> but was: <false>
+[ERROR]   SafetyServiceMockTest.oldSheetIsObsoleteOnArrival:176 the substance is documented now ==> expected: <true> but was: <false>
+[ERROR]   SafetyServiceMockTest.pictogramsAreASet:226 expected: <GHS05,GHS07> but was: <GHS05>
+[ERROR]   SafetyServiceMockTest.registeringASheetRetiresThePrevious:160 expected: <REV-5> but was: <REV-4>
+[ERROR] Errors: 
+[ERROR]   ReportCentreUiTest.catalogueCardOpensAnotherReport:89->open:145 » Runtime org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
+[ERROR]   ReportCentreUiTest.catalogueListsTheEightReports:69->open:145 » Runtime org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
+[ERROR]   ReportCentreUiTest.statementsStayOnTheScreen:114->open:145 » Runtime org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
+[ERROR]   SafetyUiTest.incidentBookFollowsTheSelection:171->open:277 » Runtime org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
+[ERROR]   SafetyUiTest.openingASubstanceShowsItsFile:141->open:277 » Runtime org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
+[ERROR]   SafetyUiTest.registerShowsTheChemicalFile:75->open:277 » Runtime org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
+[ERROR]   SafetyUiTest.registerSurvivesTheArabicLayout:220->open:277 » Runtime org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
+[ERROR]   SafetyUiTest.riskFilterNarrowsTheRegister:107->open:277 » Runtime org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
+[INFO] 
+[ERROR] Tests run: 135, Failures: 4, Errors: 8, Skipped: 0
+[INFO] 
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD FAILURE
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  3.406 s
-[INFO] Finished at: 2026-11-14T19:59:35Z
+[INFO] Total time:  03:21 min
+[INFO] Finished at: 2026-11-14T20:06:38Z
 [INFO] ------------------------------------------------------------------------
-[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.13.0:compile (default-compile) on project chemmanager-erp: Compilation failure: Compilation failure: 
-[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/controller/reports/ReportCentrePane.java:[14,31] package com.chemmanager.context does not exist
-[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/controller/safety/SafetyController.java:[19,31] package com.chemmanager.context does not exist
-[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/controller/reports/ReportCentrePane.java:[448,56] cannot find symbol
-[ERROR]   symbol:   variable AppContext
-[ERROR]   location: class com.chemmanager.controller.reports.ReportCentrePane
-[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/controller/safety/SafetyController.java:[678,56] cannot find symbol
-[ERROR]   symbol:   variable AppContext
-[ERROR]   location: class com.chemmanager.controller.safety.SafetyController
-[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/service/mock/MockSafetyService.java:[110,49] incompatible types: int cannot be converted to java.lang.Long
-[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/service/mock/MockSafetyService.java:[112,49] incompatible types: int cannot be converted to java.lang.Long
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.2.5:test (default-test) on project chemmanager-erp: There are test failures.
+[ERROR] 
+[ERROR] Please refer to /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/target/surefire-reports for the individual test results.
+[ERROR] Please refer to dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
 [ERROR] -> [Help 1]
 [ERROR] 
 [ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
