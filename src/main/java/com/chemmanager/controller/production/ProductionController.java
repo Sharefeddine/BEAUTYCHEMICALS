@@ -119,8 +119,19 @@ public final class ProductionController {
                 .onActivate(this::select)
                 .onLoaded(page -> {
                     summaryLabel.setText(I18n.get().t("production.summary", page.total()));
-                    if (selected == null && !page.items().isEmpty()) {
-                        select(page.items().get(0));
+                    // The filter or the search may have taken the selected order out of the list:
+                    // keeping its detail on screen would show an order the user can no longer see.
+                    ProductionOrder current = selected;
+                    boolean stillListed = current != null
+                            && page.items().stream().anyMatch(item -> item.id() == current.id());
+                    if (!stillListed) {
+                        if (page.items().isEmpty()) {
+                            selected = null;
+                            showHint();
+                            updateActions(null);
+                        } else {
+                            select(page.items().get(0));
+                        }
                     }
                 });
         VBox.setVgrow(table, Priority.ALWAYS);

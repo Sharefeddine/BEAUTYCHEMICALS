@@ -61,6 +61,20 @@ public final class MockProductionService implements ProductionService {
                         true)),
                 List.of(new ProductionOrder.QualityCheck(7001, "aspect", "PASS",
                         LocalDate.now().minusDays(3).toString(), "Conforme", "admin"))));
+
+        // A run that finished but has not been released yet: its batch exists in quarantine and is
+        // not sellable until quality says so.
+        orders.add(build(4, "PRD-00004", 4, "F-0001", productId, productCode, productName, warehouseId,
+                warehouseName, "QUALITY_CONTROL", LocalDate.now().minusDays(1), bd("500"), bd("498"), bd("2"),
+                List.of(line(7, 107, "BT-2026-018", "MP-0001", "Tensioactif anionique LABSA 96%", bd("300"),
+                        bd("302"), "KG", bd("245.00")),
+                        line(8, 108, "BT-2026-019", "MP-0002", "Tensioactif non ionique Alcacare 7EO", bd("200"),
+                                bd("199"), "KG", bd("310.00"))),
+                List.of(new ProductionOrder.Output(9002, "PF-PRD-00004", bd("498"), "L", "QUARANTINE",
+                        warehouseName, LocalDate.now().minusDays(1), LocalDate.now().plusMonths(18), bd("271.65"),
+                        false)),
+                List.of(new ProductionOrder.QualityCheck(7002, "aspect", "PENDING",
+                        LocalDate.now().minusDays(1).toString(), "En attente", null))));
     }
 
     @Override

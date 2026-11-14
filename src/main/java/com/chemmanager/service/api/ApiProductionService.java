@@ -195,8 +195,7 @@ public final class ApiProductionService implements ProductionService {
     }
 
     private static BigDecimal decimal(JsonNode node, String field) {
-        JsonNode value = node.path(field);
-        return value.isMissingNode() || value.isNull() ? BigDecimal.ZERO : value.decimalValue();
+        return ApiMapper.decimalOrZero(node, field);
     }
 
     private static LocalDate date(JsonNode node, String field) {

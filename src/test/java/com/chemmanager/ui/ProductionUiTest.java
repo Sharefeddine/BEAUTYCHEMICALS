@@ -25,6 +25,7 @@ import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 import org.testfx.util.WaitForAsyncUtils;
 
+import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -119,19 +120,24 @@ class ProductionUiTest {
         open(robot, NavigationModule.PRODUCTION);
 
         waitForRows(robot, "#tableHost");
-        // Show only the completed order: its finished batch must be released and described as sellable.
-        robot.interact(() -> statusFilter(robot).getSelectionModel().select("COMPLETED"));
-        WaitForAsyncUtils.waitForFxEvents();
-        waitForRows(robot, "#tableHost");
+        // Filter down to the completed order: its finished batch must be described as sellable, and
+        // the detail panel must follow the filter instead of keeping the order it showed before.
+        filterTo(robot, "COMPLETED");
+        assertEquals(1, rowCount(robot), "one completed order is the demo history");
 
-        WaitForAsyncUtils.waitFor(20, TimeUnit.SECONDS, () -> robot.lookup("#detailHost .label")
-                .queryAll().stream().anyMatch(node -> ((Label) node).getText()
-                        .contains(I18n.get().t("production.outputs"))));
-        boolean sellableMentioned = robot.lookup("#detailHost .label").queryAll().stream()
-                .map(node -> ((Label) node).getText())
-                .anyMatch(text -> text.contains(I18n.get().t("common.yes"))
-                        || text.contains(I18n.get().t("common.no")));
-        assertTrue(sellableMentioned, "the finished batch must say whether it is sellable");
+        String sellable = labelPrefix("production.output.sellable");
+        String released = detailText(robot, I18n.get().t("production.outputs"));
+        assertTrue(released.contains(sellable), released);
+        assertTrue(released.contains(I18n.get().t("common.yes")),
+                "a released finished batch is sellable: " + released);
+
+        // A batch still waiting for quality is the opposite case: nothing unreleased may be sold.
+        filterTo(robot, "QUALITY_CONTROL");
+        assertEquals(1, rowCount(robot), "one order is still waiting for quality control");
+        String quarantined = detailText(robot, I18n.get().t("production.outputs"));
+        assertTrue(quarantined.contains(sellable), quarantined);
+        assertTrue(quarantined.contains(I18n.get().t("common.no")),
+                "a batch in quarantine must not be sellable: " + quarantined);
     }
 
     // ------------------------------------------------------------------ helpers
@@ -139,6 +145,46 @@ class ProductionUiTest {
     @SuppressWarnings("unchecked")
     private static ComboBox<String> statusFilter(FxRobot robot) {
         return (ComboBox<String>) robot.lookup("#statusFilter").queryAs(ComboBox.class);
+    }
+
+    /** Selects a status in the toolbar filter and fires its action, as a user pick would. */
+    private static void filterTo(FxRobot robot, String status) throws Exception {
+        robot.interact(() -> {
+            ComboBox<String> filter = statusFilter(robot);
+            filter.getSelectionModel().select(status);
+            // Programmatic selection is silent: the action is what makes the toolbar reload.
+            filter.fireEvent(new ActionEvent());
+        });
+        WaitForAsyncUtils.waitForFxEvents();
+        WaitForAsyncUtils.waitFor(25, TimeUnit.SECONDS, () -> {
+            Object current = statusFilter(robot).getValue();
+            return status.equals(current) && !robot.lookup("#tableHost .table-row-cell").queryAll().isEmpty();
+        });
+        WaitForAsyncUtils.waitForFxEvents();
+    }
+
+    /** The translated label up to its {0} placeholder, e.g. "Vendable :" or "Sellable:". */
+    private static String labelPrefix(String key) {
+        String pattern = I18n.get().t(key);
+        int placeholder = pattern.indexOf("{0}");
+
+        return (placeholder < 0 ? pattern : pattern.substring(0, placeholder)).trim();
+    }
+
+    private static int rowCount(FxRobot robot) {
+        return robot.lookup("#tableHost .table-row-cell").queryAll().size();
+    }
+
+    /** Waits for the detail panel to reach a section and returns all of its label texts. */
+    private static String detailText(FxRobot robot, String section) throws Exception {
+        WaitForAsyncUtils.waitFor(25, TimeUnit.SECONDS, () -> robot.lookup("#detailHost .label")
+                .queryAll().stream().anyMatch(node -> node instanceof Label label
+                        && label.getText() != null && label.getText().contains(section)));
+
+        return robot.lookup("#detailHost .label").queryAll().stream()
+                .filter(node -> node instanceof Label)
+                .map(node -> ((Label) node).getText() == null ? "" : ((Label) node).getText())
+                .reduce("", (left, right) -> left + " | " + right);
     }
 
     private void signIn(FxRobot robot) throws Exception {

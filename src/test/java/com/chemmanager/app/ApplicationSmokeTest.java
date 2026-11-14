@@ -94,7 +94,7 @@ class ApplicationSmokeTest {
         addScreen(steps, stage, NavigationModule.INVENTORY, "07-inventory");
         addScreen(steps, stage, NavigationModule.PURCHASING, "07b-purchasing");
         addScreen(steps, stage, NavigationModule.SUPPLIERS, "07c-suppliers");
-        addScreen(steps, stage, NavigationModule.PRODUCTION, "07-planned-module");
+        addScreen(steps, stage, NavigationModule.PRODUCTION, "07d-production");
         steps.add(() -> ThemeManager.apply(Theme.DARK));
         steps.add(() -> { });
         addScreen(steps, stage, NavigationModule.DASHBOARD, "08-dashboard-dark");

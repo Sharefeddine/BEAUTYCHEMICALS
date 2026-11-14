@@ -234,9 +234,9 @@ erDiagram
 #### `productBatches`
 *Finished goods batches, traceable to a production order; a batch may be split across warehouses*
 
-- `id` `BIGINT UNSIGNED` **PK**, `productId` `BIGINT UNSIGNED`, `batchNumber` `VARCHAR(40)`, `warehouseId` `BIGINT UNSIGNED`, `productionOrderId` `BIGINT UNSIGNED` NULL, `quantity` `DECIMAL(15,3)`, `unit` `VARCHAR(12)`, `productionDate` `DATE` NULL, `expiryDate` `DATE` NULL, `qualityStatus` `ENUM('QUARANTINE','RELEASED','REJECTED')`, `unitCost` `DECIMAL(15,4)`, `createdAt` `DATETIME`, `updatedAt` `DATETIME`
+- `id` `BIGINT UNSIGNED` **PK**, `productId` `BIGINT UNSIGNED`, `batchNumber` `VARCHAR(40)`, `warehouseId` `BIGINT UNSIGNED`, `productionOrderId` `BIGINT UNSIGNED` NULL, `quantity` `DECIMAL(15,3)`, `unit` `VARCHAR(12)`, `productionDate` `DATE` NULL, `expiryDate` `DATE` NULL, `qualityStatus` `ENUM('QUARANTINE','RELEASED','REJECTED')`, `unitCost` `DECIMAL(15,4)`, `releasedAt` `DATETIME` NULL, `releasedBy` `BIGINT UNSIGNED` NULL, `createdAt` `DATETIME`, `updatedAt` `DATETIME`
 - Keys: `uqProductBatchesNumber`, `idxProductBatchesFefo`, `idxProductBatchesWarehouse`, `idxProductBatchesOrder`
-- References: `productId` → `products.id`, `warehouseId` → `warehouses.id`
+- References: `productId` → `products.id`, `warehouseId` → `warehouses.id`, `releasedBy` → `users.id`
 
 #### `stockMovements`
 *Append-only stock ledger - balances are views over it*

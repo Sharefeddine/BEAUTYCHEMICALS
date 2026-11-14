@@ -218,6 +218,8 @@ CREATE TABLE productBatches (
     expiryDate        DATE            NULL,
     qualityStatus     ENUM('QUARANTINE','RELEASED','REJECTED') NOT NULL DEFAULT 'QUARANTINE',
     unitCost          DECIMAL(15,4)   NOT NULL DEFAULT 0.0000,
+    releasedAt        DATETIME        NULL COMMENT 'set by the quality decision that made the batch sellable',
+    releasedBy        BIGINT UNSIGNED NULL,
     createdAt         DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updatedAt         DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (id),
@@ -229,6 +231,8 @@ CREATE TABLE productBatches (
         ON UPDATE CASCADE ON DELETE RESTRICT,
     CONSTRAINT fkProductBatchesWarehouse FOREIGN KEY (warehouseId) REFERENCES warehouses (id)
         ON UPDATE CASCADE ON DELETE RESTRICT,
+    CONSTRAINT fkProductBatchesReleasedBy FOREIGN KEY (releasedBy) REFERENCES users (id)
+        ON UPDATE CASCADE ON DELETE SET NULL,
     CONSTRAINT ckProductBatchesQuantity CHECK (quantity >= 0)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = 'Finished goods batches, traceable to a production order; a batch may be split across warehouses';
 

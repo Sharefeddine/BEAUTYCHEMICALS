@@ -39,7 +39,7 @@ final class ProductionRepository
         $rows = $this->db->select(
             'SELECT v.id, v.version, v.expectedYield, v.yieldUnit, v.instructions,
                     f.id AS formulationId, f.code AS formulationCode, f.nameFr, f.nameAr, f.productId,
-                    p.code AS productCode, p.name AS productName, p.type AS productType,
+                    p.sku AS productCode, p.nameFr AS productName, p.type AS productType,
                     (SELECT COUNT(*) FROM formulationItems i WHERE i.versionId = v.id) AS itemCount
              FROM formulationVersions v
              JOIN formulations f ON f.id = v.formulationId
@@ -74,9 +74,15 @@ final class ProductionRepository
         $params = [];
 
         if ($search !== '') {
-            $where[] = '(po.orderNumber LIKE :search OR p.code LIKE :search OR p.name LIKE :search
-                         OR f.code LIKE :search)';
-            $params['search'] = '%' . $search . '%';
+            // PDO runs with server-side prepares: a named placeholder may appear only once, so the
+            // same term is bound under four names.
+            $where[] = '(po.orderNumber LIKE :searchNumber OR p.sku LIKE :searchProduct
+                         OR p.nameFr LIKE :searchName OR f.code LIKE :searchFormulation)';
+            $term = '%' . $search . '%';
+            $params['searchNumber'] = $term;
+            $params['searchProduct'] = $term;
+            $params['searchName'] = $term;
+            $params['searchFormulation'] = $term;
         }
         if ($status !== null && $status !== '' && in_array(strtoupper($status), self::STATUSES, true)) {
             $where[] = 'po.status = :status';
@@ -101,7 +107,7 @@ final class ProductionRepository
         );
 
         $rows = $this->db->select(
-            'SELECT po.*, p.code AS productCode, p.name AS productName, w.code AS warehouseCode,
+            'SELECT po.*, p.sku AS productCode, p.nameFr AS productName, w.code AS warehouseCode,
                     w.name AS warehouseName, f.code AS formulationCode, v.version AS formulationVersion,
                     (SELECT COUNT(*) FROM productionMaterials m WHERE m.orderId = po.id) AS materialLines,
                     (SELECT COALESCE(SUM(m.consumedQuantity), 0) FROM productionMaterials m
@@ -222,7 +228,7 @@ final class ProductionRepository
                 'INSERT INTO productionOrders (orderNumber, formulationVersionId, productId, warehouseId,
                         plannedQuantity, unit, status, plannedDate, notes, createdBy, updatedBy)
                  VALUES (:orderNumber, :versionId, :productId, :warehouseId, :plannedQuantity, :unit,
-                        :status, :plannedDate, :notes, :userId, :userId)',
+                        :status, :plannedDate, :notes, :createdBy, :updatedBy)',
                 [
                     'orderNumber' => $this->nextNumber(),
                     'versionId' => $versionId,
@@ -233,7 +239,8 @@ final class ProductionRepository
                     'status' => 'DRAFT',
                     'plannedDate' => $plannedDate,
                     'notes' => mb_substr(trim((string) ($data['notes'] ?? '')), 0, 255),
-                    'userId' => $userId,
+                    'createdBy' => $userId,
+                    'updatedBy' => $userId,
                 ]
             );
 
@@ -616,9 +623,8 @@ final class ProductionRepository
     public function cancel(int $id, string $reason, int $userId): array
     {
         $order = $this->order($id);
-        if (in_array($order['status'], ['COMPLETED', 'REJECTED', 'CANCELLED'], true)) {
-            throw ApiException::conflict('A closed order cannot be cancelled.', 'PRODUCTION_INVALID_STATE');
-        }
+        // The reason matters more than the status: a run that consumed material has already changed
+        // stock and can never be cancelled, whatever state it is in.
         $consumed = (float) $this->db->scalar(
             'SELECT COALESCE(SUM(consumedQuantity), 0) FROM productionMaterials WHERE orderId = :id',
             ['id' => $id]
@@ -626,6 +632,9 @@ final class ProductionRepository
         if ($consumed > 0.0001) {
             throw ApiException::conflict('Material has already been consumed: the order cannot be cancelled.',
                 'PRODUCTION_CONSUMED');
+        }
+        if (in_array($order['status'], ['COMPLETED', 'REJECTED', 'CANCELLED'], true)) {
+            throw ApiException::conflict('A closed order cannot be cancelled.', 'PRODUCTION_INVALID_STATE');
         }
 
         $this->db->transaction(function () use ($id, $reason, $userId): void {
@@ -711,7 +720,7 @@ final class ProductionRepository
     private function order(int $id): array
     {
         $row = $this->db->first(
-            'SELECT po.*, p.code AS productCode, p.name AS productName, w.code AS warehouseCode,
+            'SELECT po.*, p.sku AS productCode, p.nameFr AS productName, w.code AS warehouseCode,
                     w.name AS warehouseName, f.code AS formulationCode, v.version AS formulationVersion,
                     v.expectedYield, v.yieldUnit
              FROM productionOrders po
