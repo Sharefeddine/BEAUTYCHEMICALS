@@ -259,7 +259,7 @@ public final class PurchasingController {
         FxTasks.run(this::draftChoices, choices -> {
             Optional<PurchaseOrderDraft> draft = PurchaseOrderDialog.open(window(), choices.suppliers(),
                     choices.materials());
-            draft.ifPresent(value -> FxTasks.runVoid(() -> ServiceFactory.purchasing().create(value),
+            draft.ifPresent(value -> FxTasks.run(() -> ServiceFactory.purchasing().create(value),
                     created -> {
                         Toasts.success(I18n.get().t("purchasing.created", created.orderNumber()));
                         table.resetToFirstPage();
@@ -282,7 +282,7 @@ public final class PurchasingController {
                 I18n.get().t("purchasing.send_confirm", order.orderNumber(), order.supplierName()))) {
             return;
         }
-        FxTasks.runVoid(() -> ServiceFactory.purchasing().send(order.id()),
+        FxTasks.run(() -> ServiceFactory.purchasing().send(order.id()),
                 updated -> {
                     Toasts.success(I18n.get().t("purchasing.sent", updated.orderNumber()));
                     apply(updated);
@@ -295,7 +295,7 @@ public final class PurchasingController {
                 I18n.get().t("purchasing.cancel_confirm", order.orderNumber()))) {
             return;
         }
-        FxTasks.runVoid(() -> ServiceFactory.purchasing().cancel(order.id()),
+        FxTasks.run(() -> ServiceFactory.purchasing().cancel(order.id()),
                 updated -> {
                     Toasts.success(I18n.get().t("purchasing.cancelled", updated.orderNumber()));
                     apply(updated);
@@ -306,7 +306,7 @@ public final class PurchasingController {
     private void receiveOrder(PurchaseOrder order) {
         FxTasks.run(() -> ServiceFactory.inventory().warehouses(), warehouses -> {
             Optional<ReceptionDraft> draft = GoodsReceiptDialog.open(window(), order, warehouses);
-            draft.ifPresent(value -> FxTasks.runVoid(() -> ServiceFactory.purchasing().receive(order.id(), value),
+            draft.ifPresent(value -> FxTasks.run(() -> ServiceFactory.purchasing().receive(order.id(), value),
                     receipt -> {
                         Toasts.success(I18n.get().t("purchasing.received", receipt.receiptNumber(),
                                 Labels.purchaseStatus(receipt.orderStatus())));

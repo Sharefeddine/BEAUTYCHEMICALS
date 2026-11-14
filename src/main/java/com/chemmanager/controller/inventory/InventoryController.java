@@ -69,7 +69,7 @@ public final class InventoryController {
     private void initialize() {
         adjustButton.setGraphic(Icons.glyph(Icons.Icon.EDIT, 12));
         adjustButton.setOnAction(event -> adjust());
-        transferButton.setGraphic(Icons.glyph(Icons.Icon.TRUCK, 12));
+        transferButton.setGraphic(Icons.glyph(Icons.Icon.DISTRIBUTION, 12));
         transferButton.setOnAction(event -> transfer());
         refreshButton.setGraphic(Icons.glyph(Icons.Icon.REFRESH, 12));
         refreshButton.setOnAction(event -> refreshAll());
