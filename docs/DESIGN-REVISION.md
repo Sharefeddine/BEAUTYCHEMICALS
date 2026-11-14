@@ -1,8 +1,8 @@
 # Design revision — styles and UX brought back in line with `devRules`
 
 Pass carried out between Phase 4 and Phase 5, before any new screen was written, because every later
-screen inherits whatever the shell decides here. Commit `6861de8`, CI run **43583380839** (desktop
-66 tests, API 25 unit + 183 integration).
+screen inherits whatever the shell decides here. Commits `6861de8` and `cac9ba3`, CI runs
+**43583380839** and **43584558831** (desktop 68 tests, API 25 unit + 183 integration).
 
 The audit of the existing interface found six real gaps. The foundation (tokens, theme swap, status
 badges, designed empty states, RTL mirroring) was sound and was kept; what follows is what had to
