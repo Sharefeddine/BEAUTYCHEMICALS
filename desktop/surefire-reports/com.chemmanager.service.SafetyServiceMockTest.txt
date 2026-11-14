@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: com.chemmanager.service.SafetyServiceMockTest
 -------------------------------------------------------------------------------
-Tests run: 20, Failures: 4, Errors: 0, Skipped: 0, Time elapsed: 0.026 s <<< FAILURE! -- in com.chemmanager.service.SafetyServiceMockTest
-com.chemmanager.service.SafetyServiceMockTest.registeringASheetRetiresThePrevious -- Time elapsed: 0.005 s <<< FAILURE!
+Tests run: 20, Failures: 4, Errors: 0, Skipped: 0, Time elapsed: 0.019 s <<< FAILURE! -- in com.chemmanager.service.SafetyServiceMockTest
+com.chemmanager.service.SafetyServiceMockTest.registeringASheetRetiresThePrevious -- Time elapsed: 0.004 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: expected: <REV-5> but was: <REV-4>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
@@ -27,7 +27,7 @@ org.opentest4j.AssertionFailedError: the substance is documented now ==> expecte
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
 
-com.chemmanager.service.SafetyServiceMockTest.materialFileIsComplete -- Time elapsed: 0 s <<< FAILURE!
+com.chemmanager.service.SafetyServiceMockTest.materialFileIsComplete -- Time elapsed: 0.001 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
@@ -40,7 +40,7 @@ org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
 
-com.chemmanager.service.SafetyServiceMockTest.pictogramsAreASet -- Time elapsed: 0.002 s <<< FAILURE!
+com.chemmanager.service.SafetyServiceMockTest.pictogramsAreASet -- Time elapsed: 0.001 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: expected: <GHS05,GHS07> but was: <GHS05>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)

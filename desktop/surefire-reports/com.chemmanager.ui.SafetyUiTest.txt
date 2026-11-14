@@ -1,119 +1,31 @@
 -------------------------------------------------------------------------------
 Test set: com.chemmanager.ui.SafetyUiTest
 -------------------------------------------------------------------------------
-Tests run: 6, Failures: 0, Errors: 5, Skipped: 0, Time elapsed: 17.70 s <<< FAILURE! -- in com.chemmanager.ui.SafetyUiTest
-com.chemmanager.ui.SafetyUiTest.openingASubstanceShowsItsFile(FxRobot) -- Time elapsed: 2.877 s <<< ERROR!
-java.lang.RuntimeException: org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
-	at org.testfx.service.query.impl.CallableBoundsPointQuery.fetchCallableBounds(CallableBoundsPointQuery.java:52)
-	at org.testfx.service.query.impl.CallableBoundsPointQuery.query(CallableBoundsPointQuery.java:40)
-	at org.testfx.robot.impl.MoveRobotImpl.moveTo(MoveRobotImpl.java:72)
-	at org.testfx.robot.impl.ClickRobotImpl.clickOn(ClickRobotImpl.java:54)
-	at org.testfx.api.FxRobot.clickOn(FxRobot.java:582)
-	at org.testfx.api.FxRobot.clickOn(FxRobot.java:615)
-	at org.testfx.api.FxRobot.clickOn(FxRobot.java:59)
-	at org.testfx.api.FxRobotInterface.clickOn(FxRobotInterface.java:597)
-	at com.chemmanager.ui.SafetyUiTest.open(SafetyUiTest.java:277)
-	at com.chemmanager.ui.SafetyUiTest.openingASubstanceShowsItsFile(SafetyUiTest.java:141)
+Tests run: 6, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 93.08 s <<< FAILURE! -- in com.chemmanager.ui.SafetyUiTest
+com.chemmanager.ui.SafetyUiTest.openingASubstanceShowsItsFile(FxRobot) -- Time elapsed: 28.00 s <<< ERROR!
+java.util.concurrent.TimeoutException
+	at org.testfx.util.WaitForAsyncUtils.waitFor(WaitForAsyncUtils.java:325)
+	at com.chemmanager.ui.SafetyUiTest.waitForRows(SafetyUiTest.java:250)
+	at com.chemmanager.ui.SafetyUiTest.openingASubstanceShowsItsFile(SafetyUiTest.java:142)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-Caused by: org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
-	at org.testfx.service.locator.impl.BoundsLocatorImpl.limitToVisibleBounds(BoundsLocatorImpl.java:80)
-	at org.testfx.service.locator.impl.BoundsLocatorImpl.boundsInSceneFor(BoundsLocatorImpl.java:33)
-	at org.testfx.service.locator.impl.BoundsLocatorImpl.boundsOnScreenFor(BoundsLocatorImpl.java:50)
-	at org.testfx.service.locator.impl.PointLocatorImpl.lambda$point$0(PointLocatorImpl.java:52)
-	at org.testfx.service.query.impl.CallableBoundsPointQuery.fetchCallableBounds(CallableBoundsPointQuery.java:49)
-	... 12 more
 
-com.chemmanager.ui.SafetyUiTest.incidentBookFollowsTheSelection(FxRobot) -- Time elapsed: 2.834 s <<< ERROR!
-java.lang.RuntimeException: org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
-	at org.testfx.service.query.impl.CallableBoundsPointQuery.fetchCallableBounds(CallableBoundsPointQuery.java:52)
-	at org.testfx.service.query.impl.CallableBoundsPointQuery.query(CallableBoundsPointQuery.java:40)
-	at org.testfx.robot.impl.MoveRobotImpl.moveTo(MoveRobotImpl.java:72)
-	at org.testfx.robot.impl.ClickRobotImpl.clickOn(ClickRobotImpl.java:54)
-	at org.testfx.api.FxRobot.clickOn(FxRobot.java:582)
-	at org.testfx.api.FxRobot.clickOn(FxRobot.java:615)
-	at org.testfx.api.FxRobot.clickOn(FxRobot.java:59)
-	at org.testfx.api.FxRobotInterface.clickOn(FxRobotInterface.java:597)
-	at com.chemmanager.ui.SafetyUiTest.open(SafetyUiTest.java:277)
-	at com.chemmanager.ui.SafetyUiTest.incidentBookFollowsTheSelection(SafetyUiTest.java:171)
+com.chemmanager.ui.SafetyUiTest.riskFilterNarrowsTheRegister(FxRobot) -- Time elapsed: 27.99 s <<< ERROR!
+java.util.concurrent.TimeoutException
+	at org.testfx.util.WaitForAsyncUtils.waitFor(WaitForAsyncUtils.java:325)
+	at com.chemmanager.ui.SafetyUiTest.waitForRows(SafetyUiTest.java:250)
+	at com.chemmanager.ui.SafetyUiTest.riskFilterNarrowsTheRegister(SafetyUiTest.java:108)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-Caused by: org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
-	at org.testfx.service.locator.impl.BoundsLocatorImpl.limitToVisibleBounds(BoundsLocatorImpl.java:80)
-	at org.testfx.service.locator.impl.BoundsLocatorImpl.boundsInSceneFor(BoundsLocatorImpl.java:33)
-	at org.testfx.service.locator.impl.BoundsLocatorImpl.boundsOnScreenFor(BoundsLocatorImpl.java:50)
-	at org.testfx.service.locator.impl.PointLocatorImpl.lambda$point$0(PointLocatorImpl.java:52)
-	at org.testfx.service.query.impl.CallableBoundsPointQuery.fetchCallableBounds(CallableBoundsPointQuery.java:49)
-	... 12 more
 
-com.chemmanager.ui.SafetyUiTest.registerShowsTheChemicalFile(FxRobot) -- Time elapsed: 2.842 s <<< ERROR!
-java.lang.RuntimeException: org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
-	at org.testfx.service.query.impl.CallableBoundsPointQuery.fetchCallableBounds(CallableBoundsPointQuery.java:52)
-	at org.testfx.service.query.impl.CallableBoundsPointQuery.query(CallableBoundsPointQuery.java:40)
-	at org.testfx.robot.impl.MoveRobotImpl.moveTo(MoveRobotImpl.java:72)
-	at org.testfx.robot.impl.ClickRobotImpl.clickOn(ClickRobotImpl.java:54)
-	at org.testfx.api.FxRobot.clickOn(FxRobot.java:582)
-	at org.testfx.api.FxRobot.clickOn(FxRobot.java:615)
-	at org.testfx.api.FxRobot.clickOn(FxRobot.java:59)
-	at org.testfx.api.FxRobotInterface.clickOn(FxRobotInterface.java:597)
-	at com.chemmanager.ui.SafetyUiTest.open(SafetyUiTest.java:277)
-	at com.chemmanager.ui.SafetyUiTest.registerShowsTheChemicalFile(SafetyUiTest.java:75)
+com.chemmanager.ui.SafetyUiTest.registerSurvivesTheArabicLayout(FxRobot) -- Time elapsed: 27.96 s <<< ERROR!
+java.util.concurrent.TimeoutException
+	at org.testfx.util.WaitForAsyncUtils.waitFor(WaitForAsyncUtils.java:325)
+	at com.chemmanager.ui.SafetyUiTest.waitForRows(SafetyUiTest.java:250)
+	at com.chemmanager.ui.SafetyUiTest.registerSurvivesTheArabicLayout(SafetyUiTest.java:221)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-Caused by: org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
-	at org.testfx.service.locator.impl.BoundsLocatorImpl.limitToVisibleBounds(BoundsLocatorImpl.java:80)
-	at org.testfx.service.locator.impl.BoundsLocatorImpl.boundsInSceneFor(BoundsLocatorImpl.java:33)
-	at org.testfx.service.locator.impl.BoundsLocatorImpl.boundsOnScreenFor(BoundsLocatorImpl.java:50)
-	at org.testfx.service.locator.impl.PointLocatorImpl.lambda$point$0(PointLocatorImpl.java:52)
-	at org.testfx.service.query.impl.CallableBoundsPointQuery.fetchCallableBounds(CallableBoundsPointQuery.java:49)
-	... 12 more
-
-com.chemmanager.ui.SafetyUiTest.riskFilterNarrowsTheRegister(FxRobot) -- Time elapsed: 2.900 s <<< ERROR!
-java.lang.RuntimeException: org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
-	at org.testfx.service.query.impl.CallableBoundsPointQuery.fetchCallableBounds(CallableBoundsPointQuery.java:52)
-	at org.testfx.service.query.impl.CallableBoundsPointQuery.query(CallableBoundsPointQuery.java:40)
-	at org.testfx.robot.impl.MoveRobotImpl.moveTo(MoveRobotImpl.java:72)
-	at org.testfx.robot.impl.ClickRobotImpl.clickOn(ClickRobotImpl.java:54)
-	at org.testfx.api.FxRobot.clickOn(FxRobot.java:582)
-	at org.testfx.api.FxRobot.clickOn(FxRobot.java:615)
-	at org.testfx.api.FxRobot.clickOn(FxRobot.java:59)
-	at org.testfx.api.FxRobotInterface.clickOn(FxRobotInterface.java:597)
-	at com.chemmanager.ui.SafetyUiTest.open(SafetyUiTest.java:277)
-	at com.chemmanager.ui.SafetyUiTest.riskFilterNarrowsTheRegister(SafetyUiTest.java:107)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-Caused by: org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
-	at org.testfx.service.locator.impl.BoundsLocatorImpl.limitToVisibleBounds(BoundsLocatorImpl.java:80)
-	at org.testfx.service.locator.impl.BoundsLocatorImpl.boundsInSceneFor(BoundsLocatorImpl.java:33)
-	at org.testfx.service.locator.impl.BoundsLocatorImpl.boundsOnScreenFor(BoundsLocatorImpl.java:50)
-	at org.testfx.service.locator.impl.PointLocatorImpl.lambda$point$0(PointLocatorImpl.java:52)
-	at org.testfx.service.query.impl.CallableBoundsPointQuery.fetchCallableBounds(CallableBoundsPointQuery.java:49)
-	... 12 more
-
-com.chemmanager.ui.SafetyUiTest.registerSurvivesTheArabicLayout(FxRobot) -- Time elapsed: 2.832 s <<< ERROR!
-java.lang.RuntimeException: org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
-	at org.testfx.service.query.impl.CallableBoundsPointQuery.fetchCallableBounds(CallableBoundsPointQuery.java:52)
-	at org.testfx.service.query.impl.CallableBoundsPointQuery.query(CallableBoundsPointQuery.java:40)
-	at org.testfx.robot.impl.MoveRobotImpl.moveTo(MoveRobotImpl.java:72)
-	at org.testfx.robot.impl.ClickRobotImpl.clickOn(ClickRobotImpl.java:54)
-	at org.testfx.api.FxRobot.clickOn(FxRobot.java:582)
-	at org.testfx.api.FxRobot.clickOn(FxRobot.java:615)
-	at org.testfx.api.FxRobot.clickOn(FxRobot.java:59)
-	at org.testfx.api.FxRobotInterface.clickOn(FxRobotInterface.java:597)
-	at com.chemmanager.ui.SafetyUiTest.open(SafetyUiTest.java:277)
-	at com.chemmanager.ui.SafetyUiTest.registerSurvivesTheArabicLayout(SafetyUiTest.java:220)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-Caused by: org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
-	at org.testfx.service.locator.impl.BoundsLocatorImpl.limitToVisibleBounds(BoundsLocatorImpl.java:80)
-	at org.testfx.service.locator.impl.BoundsLocatorImpl.boundsInSceneFor(BoundsLocatorImpl.java:33)
-	at org.testfx.service.locator.impl.BoundsLocatorImpl.boundsOnScreenFor(BoundsLocatorImpl.java:50)
-	at org.testfx.service.locator.impl.PointLocatorImpl.lambda$point$0(PointLocatorImpl.java:52)
-	at org.testfx.service.query.impl.CallableBoundsPointQuery.fetchCallableBounds(CallableBoundsPointQuery.java:49)
-	... 12 more
 
