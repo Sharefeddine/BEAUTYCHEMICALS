@@ -269,12 +269,12 @@ class SafetyUiTest {
         WaitForAsyncUtils.waitForFxEvents();
     }
 
+    /**
+     * The safety entry sits at the bottom of the sidebar, below the fold of the test window, so the
+     * navigation is triggered directly: the screen is what this test is about, not the sidebar.
+     */
     private void open(FxRobot robot) throws Exception {
-        Node item = robot.lookup(".nav-item").queryAll().stream()
-                .filter(node -> node.getUserData() == NavigationModule.SAFETY)
-                .findFirst()
-                .orElseThrow(() -> new AssertionError("No sidebar entry for SAFETY"));
-        robot.clickOn(item);
+        robot.interact(() -> AppContext.get().navigate(NavigationModule.SAFETY));
         WaitForAsyncUtils.waitFor(20, TimeUnit.SECONDS,
                 () -> AppContext.get().navigation().current() == NavigationModule.SAFETY);
         WaitForAsyncUtils.waitForFxEvents();
