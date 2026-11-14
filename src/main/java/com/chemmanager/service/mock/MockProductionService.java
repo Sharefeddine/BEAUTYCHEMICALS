@@ -74,7 +74,7 @@ public final class MockProductionService implements ProductionService {
                         warehouseName, LocalDate.now().minusDays(1), LocalDate.now().plusMonths(18), bd("271.65"),
                         false)),
                 List.of(new ProductionOrder.QualityCheck(7002, "aspect", "PENDING",
-                        LocalDate.now().minusDays(1).toString(), "En attente", null))));
+                        LocalDate.now().minusDays(1).toString(), "En attente de contrôle", ""))));
     }
 
     @Override

@@ -76,12 +76,17 @@ switches work without restart; no KPI is hardcoded; no button is inert.
 * **Acceptance:** a reception creates a batch visible in the stock list; issuing consumes the
   oldest released batch first; balances equal the sum of the batches and of the movements.
 
-## Phase 5 — Production
+## Phase 5 — Production ✅ *(delivered)*
 
-* Manufacturing orders from an approved formulation version, material reservation and actual
+* ✅ Manufacturing orders from an approved formulation version, material reservation and actual
   consumption per batch, waste capture, quality checks, batch release, finished-goods entry.
-* Batch genealogy view: finished batch → consumed material batches → supplier receptions.
-* Real production cost per batch (materials + packaging + other) and variance vs. standard.
+  See `docs/PHASE-5-REPORT.md`.
+* ✅ Batch genealogy view: finished batch → consumed material batches → supplier receptions.
+* ✅ Real production cost per batch (materials + packaging + other) and variance vs. standard.
+* ✅ A shortfall leaves the order in `WAITING_MATERIALS` with the missing quantities instead of an
+  order that cannot run; consumption the operator over-reports is kept and shown as a variance.
+* ⏭ Labour and energy costing — `otherCost` is entered and audited; a cost model built on payroll
+  belongs with Phase 7.
 * **Acceptance:** a finished batch cannot be sold before `qualityStatus = RELEASED`; the
   genealogy of a batch is complete; stock and cost are consistent after a partial production.
 

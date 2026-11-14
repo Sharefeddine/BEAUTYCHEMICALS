@@ -33,12 +33,17 @@ backed by MySQL 8.
 >   11 px), focus is always visible and Arabic switches its own typography. `tools/ui/checkDesign.py`
 >   runs in CI and `DesignSystemTest` fails the build when a token, a ratio or this document drifts
 >   — see [`docs/03-design-system.md`](docs/03-design-system.md).
-> * **Test harness:** 68 desktop tests — 11 of them driven by **TestFX** through the real user
+> * **Phase 5 — complete:** production — manufacturing orders from an approved formulation version,
+>   FEFO material reservation, consumption through the stock ledger, quality checks that decide what
+>   may be sold, the real cost of the run with its variance, and batch genealogy down to the supplier
+>   reception. A finished batch stays in quarantine until a `PASS` check releases it — see
+>   [`docs/PHASE-5-REPORT.md`](docs/PHASE-5-REPORT.md).
+> * **Test harness:** 71 desktop tests — 14 of them driven by **TestFX** through the real user
 >   interface (sign-in, password masking, shell, sidebar navigation, live Arabic mirroring,
->   inventory, purchasing, suppliers, focus ring, accessible names) — and 25 + 183 API tests against
->   a real MySQL 8. The rules the project is built under live in [`docs/devRules.md`](docs/devRules.md)
->   and in the Google Doc `devRules`.
-> * **Phase 5 — next:** production orders, material consumption and batch genealogy.
+>   inventory, purchasing, suppliers, production, focus ring, accessible names) — and 25 + 241 API
+>   tests against a real MySQL 8. The rules the project is built under live in
+>   [`docs/devRules.md`](docs/devRules.md) and in the Google Doc `devRules`.
+> * **Phase 6 — next:** sales, customers, distribution and printable documents.
 
 ---
 
@@ -106,7 +111,7 @@ PHP `password_hash()` (bcrypt) and the client never receives a hash.
 | Dark theme | Arabic, full RTL layout |
 
 The images are produced by the headless boot test on every push, so they always show the current
-build; the full set (users, settings, planned module, English) is in
+build; the full set (users, settings, inventory, purchasing, production, English) is in
 [`docs/screenshots/`](docs/screenshots).
 
 ## 4. What Phase 1 delivers
@@ -142,10 +147,9 @@ build; the full set (users, settings, planned module, English) is in
 * **Tooling** — `python3 tools/fxml_check.py` validates every FXML against its controller
   (ids, handlers, i18n keys, style classes) without a JVM.
 
-Screens that belong to phases 2–8 (formulations, production, inventory, purchasing,
-suppliers, sales, customers, distribution, finance, expenses, employees, reports, chemical
-safety) already have their route, permission and screen; each shows the planned capabilities
-of the module plus its phase. There are no disabled or decorative buttons: every control in
+Screens that belong to the phases still open (sales, customers, distribution, finance, expenses,
+employees, reports, chemical safety) already have their route, permission and screen; each shows the
+planned capabilities of the module plus the phase that delivers it. There are no disabled or decorative buttons: every control in
 the interface performs the action it advertises.
 
 ## 5. Repository layout
@@ -178,7 +182,7 @@ database/seed/                       6 seeders: permissions, roles, reference da
 backend/public/index.php             front controller of the PHP REST API
 backend/src/                         Core (router, PDO, envelope), Security (auth, RBAC),
                                      Repositories (all SQL), Controllers, routes.php
-backend/tests/                       unit (25) + integration (183) suites, run in CI on MySQL 8
+backend/tests/                       unit (25) + integration (241) suites, run in CI on MySQL 8
 docs/                                architecture, ER diagram, design system, roadmap, RBAC
 .github/workflows/ci.yml             build + tests, publishes logs to the ci-reports branch
 ```
@@ -196,6 +200,7 @@ docs/                                architecture, ER diagram, design system, ro
 | [`docs/07-operations.md`](docs/07-operations.md) | Backups, restore drill, deployment, monitoring |
 | [`docs/PHASE-1-REPORT.md`](docs/PHASE-1-REPORT.md) | Phase 1 delivery report: verification, deliverables, review checklist |
 | [`docs/PHASE-2-REPORT.md`](docs/PHASE-2-REPORT.md) | Phase 2 report: 68-table database, seeds, PHP REST API, 113 end-to-end tests |
+| [`docs/PHASE-5-REPORT.md`](docs/PHASE-5-REPORT.md) | Phase 5 report: production orders, quality release, batch genealogy, 71 desktop tests and 241 API checks |
 | [`docs/PHASE-3-REPORT.md`](docs/PHASE-3-REPORT.md) | Phase 3 report: formulations, versioning, approval lock, comparison |
 | [`docs/PHASE-4-REPORT.md`](docs/PHASE-4-REPORT.md) | Phase 4 report: batches, FEFO, ledger, purchasing and goods reception |
 | [`docs/devRules.md`](docs/devRules.md) | The project's binding development rules, mirrored from the Google Doc `devRules` |
@@ -223,7 +228,7 @@ must be translated in `tools/i18n/ar.py` and `tools/i18n/en.py`, otherwise the b
    then compiles the JavaFX client under Xvfb and runs its unit and TestFX user-interface tests;
 2. **API** — starts a **MySQL 8 service container**, executes `database/schema/*.sql` and
    `database/seed/*.sql` for real, lints every PHP file, then runs the 25 unit tests and the
-   183 end-to-end HTTP tests against the running API.
+   241 end-to-end HTTP tests against the running API.
 
 The
 full Maven log, the surefire reports and a glyph inventory are published to the `ci-reports`

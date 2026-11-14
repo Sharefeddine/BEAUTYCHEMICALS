@@ -238,9 +238,12 @@ public final class ProductionController {
             box.getChildren().add(FormFields.description("production.quality.empty"));
         } else {
             for (ProductionOrder.QualityCheck check : order.qualityChecks()) {
-                Label line = new Label(check.checkType() + " · " + check.result() + " · "
-                        + (check.checkedByName().isBlank() ? "—" : check.checkedByName())
-                        + (check.remarks().isBlank() ? "" : " · " + check.remarks()));
+                // A check that is still pending has no examiner yet, so both texts may be absent.
+                String examiner = check.checkedByName() == null || check.checkedByName().isBlank()
+                        ? "—" : check.checkedByName();
+                String remarks = check.remarks() == null || check.remarks().isBlank()
+                        ? "" : " · " + check.remarks();
+                Label line = new Label(check.checkType() + " · " + check.result() + " · " + examiner + remarks);
                 line.getStyleClass().add("text-muted");
                 line.setWrapText(true);
                 box.getChildren().add(line);
