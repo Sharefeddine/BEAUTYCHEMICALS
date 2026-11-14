@@ -82,6 +82,11 @@ mysql: [Warning] Using a password on the command line interface can be insecure.
 seeding database/seed/07_sales.sql
 + mysql -h 127.0.0.1 -uroot -proot chemmanager
 mysql: [Warning] Using a password on the command line interface can be insecure.
++ for file in database/seed/*.sql
++ echo 'seeding database/seed/08_finance.sql'
+seeding database/seed/08_finance.sql
++ mysql -h 127.0.0.1 -uroot -proot chemmanager
+mysql: [Warning] Using a password on the command line interface can be insecure.
 + mysql -h 127.0.0.1 -uroot -proot chemmanager -e $'\n  SELECT COUNT(*) AS tablesCount FROM information_schema.tables WHERE table_schema=\'chemmanager\';\n  SELECT COUNT(*) AS permissions FROM permissions;\n  SELECT COUNT(*) AS roles FROM roles;\n  SELECT COUNT(*) AS users FROM users;'
 mysql: [Warning] Using a password on the command line interface can be insecure.
 tablesCount

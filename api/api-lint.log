@@ -1,6 +1,7 @@
 No syntax errors detected in backend/src/Repositories/UserRepository.php
 No syntax errors detected in backend/src/Repositories/NotificationRepository.php
 No syntax errors detected in backend/src/Repositories/SalesRepository.php
+No syntax errors detected in backend/src/Repositories/FinanceRepository.php
 No syntax errors detected in backend/src/Repositories/ProductRepository.php
 No syntax errors detected in backend/src/Repositories/SupplierRepository.php
 No syntax errors detected in backend/src/Repositories/FormulationRepository.php
@@ -26,6 +27,7 @@ No syntax errors detected in backend/src/Controllers/CustomerController.php
 No syntax errors detected in backend/src/Controllers/AuditController.php
 No syntax errors detected in backend/src/Controllers/DistributionController.php
 No syntax errors detected in backend/src/Controllers/NotificationController.php
+No syntax errors detected in backend/src/Controllers/FinanceController.php
 No syntax errors detected in backend/src/Controllers/FormulationController.php
 No syntax errors detected in backend/src/Controllers/PurchaseController.php
 No syntax errors detected in backend/src/Controllers/HealthController.php
