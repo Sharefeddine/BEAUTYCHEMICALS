@@ -30,7 +30,7 @@ backed by MySQL 8.
 >   see [`docs/PHASE-4-REPORT.md`](docs/PHASE-4-REPORT.md).
 > * **Test harness:** 55 desktop tests — 8 of them driven by **TestFX** through the real user
 >   interface (sign-in, password masking, shell, sidebar navigation, live Arabic mirroring,
->   inventory, purchasing, suppliers) — and 25 + 181 API tests against a real MySQL 8. The rules
+>   inventory, purchasing, suppliers) — and 25 + 183 API tests against a real MySQL 8. The rules
 >   the project is built under live in [`docs/devRules.md`](docs/devRules.md) and in the Google
 >   Doc `devRules`.
 > * **Phase 5 — next:** production orders, material consumption and batch genealogy.
@@ -173,7 +173,7 @@ database/seed/                       6 seeders: permissions, roles, reference da
 backend/public/index.php             front controller of the PHP REST API
 backend/src/                         Core (router, PDO, envelope), Security (auth, RBAC),
                                      Repositories (all SQL), Controllers, routes.php
-backend/tests/                       unit (25) + integration (181) suites, run in CI on MySQL 8
+backend/tests/                       unit (25) + integration (183) suites, run in CI on MySQL 8
 docs/                                architecture, ER diagram, design system, roadmap, RBAC
 .github/workflows/ci.yml             build + tests, publishes logs to the ci-reports branch
 ```
@@ -217,7 +217,7 @@ must be translated in `tools/i18n/ar.py` and `tools/i18n/en.py`, otherwise the b
    TestFX user-interface tests;
 2. **API** — starts a **MySQL 8 service container**, executes `database/schema/*.sql` and
    `database/seed/*.sql` for real, lints every PHP file, then runs the 25 unit tests and the
-   181 end-to-end HTTP tests against the running API.
+   183 end-to-end HTTP tests against the running API.
 
 The
 full Maven log, the surefire reports and a glyph inventory are published to the `ci-reports`

@@ -111,7 +111,7 @@ implementing the same rules on the demo dataset.
 
 | Suite | Count | What this phase adds |
 | --- | --- | --- |
-| API integration (real MySQL 8) | 113 → 181 | warehouses and summary, supplier list/detail, order creation with server totals, draft cannot be received, over-reception, quarantine reception, partial reception → `PARTIAL`, batch in stock, FEFO refusal then allocation in expiry order, no-op adjustment, adjustment delta, quarantine transfer refusals, insufficient transfer, transfer to a selling store, ledger filters, cancel rules, 401 on the new endpoints |
+| API integration (real MySQL 8) | 113 → 183 | warehouses and summary, supplier list/detail, order creation with server totals, draft cannot be received, over-reception, quarantine reception, partial reception → `PARTIAL`, batch in stock, FEFO refusal then allocation in expiry order, no-op adjustment, adjustment delta, quarantine transfer refusals, insufficient transfer, transfer to a selling store, ledger filters, cancel rules, 401 on the new endpoints |
 | Desktop (JUnit 5 + TestFX) | 52 → 55 | `InventoryPurchasingUiTest`: three TestFX scenarios (inventory batches + KPIs + ledger tab, purchasing list and actions, supplier detail and language switch) |
 | TestFX total | 5 → 8 | the three screens are driven through the real interface, headless via Xvfb |
 | Schema / docs | — | `checkSchema.py` 68 tables / 0 problems, ER document regenerated, 708 i18n keys at parity |
