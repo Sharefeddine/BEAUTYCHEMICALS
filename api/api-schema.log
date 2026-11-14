@@ -1,5 +1,5 @@
 + mysql --version
-mysql  Ver 8.4.11-0ubuntu0.26.04.1 for Linux on x86_64 ((Ubuntu))
+mysql  Ver 8.4.13-0ubuntu0.26.04.2 for Linux on x86_64 ((Ubuntu))
 ++ seq 1 60
 + for i in $(seq 1 60)
 + mysql -h 127.0.0.1 -P 3306 -uroot -proot -e 'SELECT 1'
