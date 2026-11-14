@@ -13,33 +13,27 @@
 [INFO] Compiling 151 source files with javac [debug parameters release 21] to target/classes
 [INFO] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/component/ChartFactory.java: Some input files use unchecked or unsafe operations.
 [INFO] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/component/ChartFactory.java: Recompile with -Xlint:unchecked for details.
-[INFO] Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ chemmanager-erp ---
+[INFO] skip non existing resourceDirectory /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ chemmanager-erp ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 12 source files with javac [debug parameters release 21] to target/test-classes
 [INFO] -------------------------------------------------------------
 [ERROR] COMPILATION ERROR : 
 [INFO] -------------------------------------------------------------
-[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/controller/inventory/InventoryController.java:[72,57] cannot find symbol
-  symbol:   variable TRUCK
-  location: class com.chemmanager.component.Icons.Icon
-[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/controller/purchasing/PurchasingController.java:[263,21] incompatible types: incompatible parameter types in lambda expression
-[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/controller/purchasing/PurchasingController.java:[286,17] incompatible types: incompatible parameter types in lambda expression
-[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/controller/purchasing/PurchasingController.java:[299,17] incompatible types: incompatible parameter types in lambda expression
-[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/controller/purchasing/PurchasingController.java:[310,21] incompatible types: incompatible parameter types in lambda expression
-[INFO] 5 errors 
+[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/test/java/com/chemmanager/ui/InventoryPurchasingUiTest.java:[163,34] unreported exception java.util.concurrent.TimeoutException; must be caught or declared to be thrown
+[INFO] 1 error
 [INFO] -------------------------------------------------------------
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD FAILURE
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  3.429 s
-[INFO] Finished at: 2026-11-14T09:28:11Z
+[INFO] Total time:  4.949 s
+[INFO] Finished at: 2026-11-14T09:31:20Z
 [INFO] ------------------------------------------------------------------------
-[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.13.0:compile (default-compile) on project chemmanager-erp: Compilation failure: Compilation failure: 
-[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/controller/inventory/InventoryController.java:[72,57] cannot find symbol
-[ERROR]   symbol:   variable TRUCK
-[ERROR]   location: class com.chemmanager.component.Icons.Icon
-[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/controller/purchasing/PurchasingController.java:[263,21] incompatible types: incompatible parameter types in lambda expression
-[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/controller/purchasing/PurchasingController.java:[286,17] incompatible types: incompatible parameter types in lambda expression
-[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/controller/purchasing/PurchasingController.java:[299,17] incompatible types: incompatible parameter types in lambda expression
-[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/controller/purchasing/PurchasingController.java:[310,21] incompatible types: incompatible parameter types in lambda expression
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.13.0:testCompile (default-testCompile) on project chemmanager-erp: Compilation failure
+[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/test/java/com/chemmanager/ui/InventoryPurchasingUiTest.java:[163,34] unreported exception java.util.concurrent.TimeoutException; must be caught or declared to be thrown
 [ERROR] -> [Help 1]
 [ERROR] 
 [ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
