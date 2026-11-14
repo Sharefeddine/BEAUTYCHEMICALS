@@ -159,7 +159,7 @@ class InventoryPurchasingUiTest {
         WaitForAsyncUtils.waitForFxEvents();
     }
 
-    private static void waitForRows(FxRobot robot, String hostSelector) {
+    private static void waitForRows(FxRobot robot, String hostSelector) throws Exception {
         WaitForAsyncUtils.waitFor(25, TimeUnit.SECONDS,
                 () -> !robot.lookup(hostSelector + " .table-row-cell").queryAll().isEmpty());
         assertTrue(!robot.lookup(hostSelector + " .table-row-cell").queryAll().isEmpty(),
