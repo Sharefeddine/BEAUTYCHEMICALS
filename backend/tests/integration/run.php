@@ -2128,6 +2128,205 @@ check('a read-only role can read the payroll', $response['status'] === 200, $res
 $response = call('DELETE', '/api/employees/999999', null, $token);
 check('an unknown employee answers 404', $response['status'] === 404, $response['raw']);
 
+// ------------------------------------------------------------ chemical safety (phase 8)
+$response = call('GET', '/api/safety/pictograms', null, $token);
+check('the nine GHS pictograms are served', $response['status'] === 200
+    && count($response['json']['data'] ?? []) === 9, $response['raw']);
+
+$response = call('GET', '/api/safety/overview', null, $token);
+$safetyOverview = $response['json']['data'] ?? [];
+check('the safety overview counts the chemical register', $response['status'] === 200
+    && (int) ($safetyOverview['materials'] ?? 0) >= 10
+    && (int) ($safetyOverview['hazardousMaterials'] ?? 0) > 0
+    && (int) ($safetyOverview['sheetValidityYears'] ?? 0) === 3, $response['raw']);
+check('the seeded register already has incidents', (int) ($safetyOverview['incidents'] ?? 0) >= 2
+    && (int) ($safetyOverview['openIncidents'] ?? 0) >= 1, $response['raw']);
+
+$response = call('GET', '/api/safety/materials?search=MP-0001', null, $token);
+$labsa = $response['json']['data'][0] ?? [];
+check('a material carries its current sheet', $response['status'] === 200
+    && ($labsa['hasSheet'] ?? false) === true
+    && ($labsa['sheetRevision'] ?? '') === 'REV-4'
+    && ($labsa['sheetObsolete'] ?? true) === false, $response['raw']);
+$labsaId = (int) ($labsa['id'] ?? 0);
+
+$response = call('GET', '/api/safety/materials?risk=obsolete', null, $token);
+$obsoleteCodes = array_column($response['json']['data'] ?? [], 'code');
+check('the obsolete sheet of the caustic soda is flagged', $response['status'] === 200
+    && in_array('MP-0003', $obsoleteCodes, true) && !in_array('MP-0001', $obsoleteCodes, true),
+    $response['raw']);
+
+$response = call('GET', '/api/safety/materials?risk=missing', null, $token);
+$missingRows = $response['json']['data'] ?? [];
+$missingClean = true;
+foreach ($missingRows as $row) {
+    if (($row['hasSheet'] ?? true) === true) {
+        $missingClean = false;
+    }
+}
+check('the “missing sheet” filter only returns undocumented hazards', $response['status'] === 200
+    && $missingClean, $response['raw']);
+
+$response = call('GET', '/api/safety/materials/' . $labsaId, null, $token);
+$labsaFile = $response['json']['data'] ?? [];
+check('the material file lists its sheets, instructions and pictograms', $response['status'] === 200
+    && count($labsaFile['sheets'] ?? []) >= 1
+    && ($labsaFile['instructions']['ppe'] ?? '') !== ''
+    && count($labsaFile['pictograms'] ?? []) >= 1, $response['raw']);
+
+$response = call('POST', '/api/safety/sheets', [
+    'materialId' => $labsaId,
+    'documentType' => 'SDS',
+    'filePath' => 'sds/MP-0001-2026.pdf',
+    'issueDate' => date('Y-m-d'),
+    'revision' => 'REV-5',
+    'source' => 'Fournisseur - Chimie Sétif',
+], $token);
+check('a new sheet becomes the current one', $response['status'] === 201
+    && ($response['json']['data']['sheetRevision'] ?? '') === 'REV-5'
+    && ($response['json']['data']['sheetObsolete'] ?? true) === false, $response['raw']);
+$currentSheets = array_values(array_filter($response['json']['data']['sheets'] ?? [],
+    static fn (array $sheet): bool => (int) $sheet['isCurrent'] === 1 && $sheet['documentType'] === 'SDS'));
+check('the previous revision is kept but no longer current', count($currentSheets) === 1
+    && count($response['json']['data']['sheets'] ?? []) >= 2, $response['raw']);
+
+$response = call('POST', '/api/safety/sheets', ['materialId' => $labsaId, 'filePath' => ''], $token);
+check('a sheet without a file is refused', $response['status'] === 422
+    && isset($response['json']['error']['details']['filePath']), $response['raw']);
+
+$response = call('GET', '/api/safety/sheets?currentOnly=1&pageSize=50', null, $token);
+$currentOnlyRows = $response['json']['data'] ?? [];
+$allCurrent = $currentOnlyRows !== [];
+foreach ($currentOnlyRows as $row) {
+    if ((int) $row['isCurrent'] !== 1) {
+        $allCurrent = false;
+    }
+}
+check('the sheet library filters on the current revision', $response['status'] === 200 && $allCurrent,
+    $response['raw']);
+
+$response = call('POST', '/api/safety/materials/' . $labsaId . '/instructions', [
+    'ppe' => 'Gants nitrile, lunettes, tablier, bottes',
+    'storage' => 'Fût fermé, local ventilé',
+    'handling' => 'Verser lentement dans l\'eau',
+    'firstAid' => 'Rincer 15 minutes',
+    'fireMeasures' => 'Poudre ABC',
+    'spillage' => 'Absorber avec de la vermiculite',
+], $token);
+check('the handling instructions are saved', $response['status'] === 200
+    && str_contains((string) ($response['json']['data']['instructions']['ppe'] ?? ''), 'bottes'),
+    $response['raw']);
+
+$response = call('POST', '/api/safety/materials/' . $labsaId . '/pictograms',
+    ['pictograms' => ['GHS05', 'GHS07']], $token);
+$pictogramCodes = array_column($response['json']['data']['pictograms'] ?? [], 'code');
+check('the pictograms of a material are replaced as a set', $response['status'] === 200
+    && count($pictogramCodes) === 2 && in_array('GHS05', $pictogramCodes, true)
+    && in_array('GHS07', $pictogramCodes, true)
+    && ($response['json']['data']['hazardPictograms'] ?? '') === 'GHS05,GHS07', $response['raw']);
+
+$response = call('POST', '/api/safety/materials/' . $labsaId . '/pictograms',
+    ['pictograms' => ['GHS99']], $token);
+check('an unknown pictogram is refused', $response['status'] === 422, $response['raw']);
+
+$response = call('GET', '/api/safety/incidents', null, $token);
+$incidentSummary = $response['json']['meta']['summary'] ?? [];
+check('the incident register is served with its summary', $response['status'] === 200
+    && (int) ($incidentSummary['total'] ?? 0) >= 2
+    && (int) ($incidentSummary['open'] ?? 0) >= 1, $response['raw']);
+
+$response = call('POST', '/api/safety/incidents', [
+    'materialId' => $labsaId,
+    'incidentType' => 'SPILL',
+    'severity' => 'MAJOR',
+    'description' => 'Débordement de cuve lors du mélange',
+    'actionsTaken' => 'Zone évacuée, produit récupéré',
+], $token);
+$incident = $response['json']['data'] ?? [];
+$incidentId = (int) ($incident['id'] ?? 0);
+check('an incident is reported with its number', $response['status'] === 201
+    && str_starts_with((string) ($incident['incidentNumber'] ?? ''), 'INC-')
+    && ($incident['status'] ?? '') === 'OPEN', $response['raw']);
+
+$response = call('POST', '/api/safety/incidents/' . $incidentId . '/status', ['status' => 'CLOSED'], $token);
+check('an incident is investigated before it is closed', $response['status'] === 409
+    && ($response['json']['error']['code'] ?? '') === 'INVALID_STATUS', $response['raw']);
+$response = call('POST', '/api/safety/incidents/' . $incidentId . '/status', ['status' => 'INVESTIGATING'],
+    $token);
+check('the incident moves to investigation', $response['status'] === 200
+    && ($response['json']['data']['status'] ?? '') === 'INVESTIGATING', $response['raw']);
+$response = call('POST', '/api/safety/incidents/' . $incidentId . '/status', ['status' => 'CLOSED'], $token);
+check('an investigated incident is closed', $response['status'] === 200
+    && ($response['json']['data']['status'] ?? '') === 'CLOSED'
+    && ($response['json']['data']['closedAt'] ?? null) !== null, $response['raw']);
+$response = call('POST', '/api/safety/incidents/' . $incidentId . '/status', ['status' => 'OPEN'], $token);
+check('a closed incident is not reopened', $response['status'] === 409, $response['raw']);
+
+$response = call('POST', '/api/safety/incidents', ['incidentType' => 'OTHER', 'description' => ''],
+    $token);
+check('an incident without a description is refused', $response['status'] === 422, $response['raw']);
+
+$response = call('GET', '/api/safety/overview', null, $financeViewerToken);
+check('a read-only role can read the safety register', $response['status'] === 200, $response['raw']);
+$response = call('POST', '/api/safety/incidents', [
+    'incidentType' => 'OTHER',
+    'description' => 'Tentative sans droit',
+], $financeViewerToken);
+check('a read-only role cannot report an incident', $response['status'] === 403, $response['raw']);
+
+// ------------------------------------------------------------ report centre (phase 8)
+$response = call('GET', '/api/reports/catalogue', null, $token);
+check('the report centre lists its reports', $response['status'] === 200
+    && count($response['json']['data'] ?? []) === 8, $response['raw']);
+
+$window = 'from=' . date('Y-01-01') . '&to=' . date('Y-m-d');
+$response = call('GET', '/api/reports/sales?' . $window, null, $token);
+$salesReport = $response['json']['data'] ?? [];
+$monthTotal = 0.0;
+foreach ($salesReport['byMonth'] ?? [] as $row) {
+    $monthTotal += (float) $row['amountHt'];
+}
+check('the sales report totals its months', $response['status'] === 200
+    && abs($monthTotal - (float) ($salesReport['totals']['amountHt'] ?? -1)) < 0.01, $response['raw']);
+check('the sales report ranks customers and products', count($salesReport['byCustomer'] ?? []) >= 1
+    && count($salesReport['byProduct'] ?? []) >= 1, $response['raw']);
+
+$response = call('GET', '/api/reports/purchases?' . $window, null, $token);
+$purchaseReport = $response['json']['data'] ?? [];
+$statusTotal = 0;
+foreach ($purchaseReport['byStatus'] ?? [] as $row) {
+    $statusTotal += (int) $row['orderCount'];
+}
+check('the purchases report counts its orders once', $response['status'] === 200
+    && count($purchaseReport['byStatus'] ?? []) >= 1
+    && $statusTotal >= (int) ($purchaseReport['totals']['orderCount'] ?? 0), $response['raw']);
+
+$response = call('GET', '/api/reports/stock', null, $token);
+$stockReport = $response['json']['data'] ?? [];
+$warehouseTotal = 0.0;
+foreach ($stockReport['warehouses'] ?? [] as $row) {
+    $warehouseTotal += (float) $row['totalValue'];
+}
+check('the stock report values every warehouse', $response['status'] === 200
+    && count($stockReport['warehouses'] ?? []) >= 1
+    && abs($warehouseTotal - (float) ($stockReport['totals']['totalValue'] ?? -1)) < 0.05,
+    $response['raw']);
+
+$response = call('GET', '/api/reports/production?' . $window, null, $token);
+$productionReport = $response['json']['data'] ?? [];
+check('the production report computes its yield', $response['status'] === 200
+    && isset($productionReport['totals']['yieldPct'])
+    && (int) ($productionReport['totals']['orderCount'] ?? 0) >= 1, $response['raw']);
+
+$response = call('GET', '/api/reports/safety', null, $token);
+$safetyReport = $response['json']['data'] ?? [];
+check('the safety report joins the register and the incidents', $response['status'] === 200
+    && (int) ($safetyReport['materials']['hazardous'] ?? 0) > 0
+    && (int) ($safetyReport['incidents']['total'] ?? 0) >= 2, $response['raw']);
+
+$response = call('GET', '/api/reports/sales?from=2026-13-01&to=2026-02-01', null, $token);
+check('the report centre refuses an impossible window', $response['status'] === 422, $response['raw']);
+
 // ------------------------------------------------------------ lockout
 for ($attempt = 1; $attempt <= 5; $attempt++) {
     call('POST', '/api/auth/login', ['username' => $adminUser, 'password' => 'still-wrong']);

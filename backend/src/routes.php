@@ -21,6 +21,7 @@ use ChemManager\Api\Controllers\ProductController;
 use ChemManager\Api\Controllers\ProductionController;
 use ChemManager\Api\Controllers\PurchaseController;
 use ChemManager\Api\Controllers\ReportController;
+use ChemManager\Api\Controllers\SafetyController;
 use ChemManager\Api\Controllers\SalesController;
 use ChemManager\Api\Controllers\SettingsController;
 use ChemManager\Api\Controllers\SupplierController;
@@ -59,6 +60,7 @@ return static function (Router $router, App $app): void {
     $expenseController = new ExpenseController($app);
     $employeeController = new EmployeeController($app);
     $reportController = new ReportController($app);
+    $safetyController = new SafetyController($app);
     $documentController = new DocumentController($app, new DocumentRenderer());
 
     // ------------------------------------------------------------------ public
@@ -285,6 +287,28 @@ return static function (Router $router, App $app): void {
     $router->add('GET', '/api/reports/margin', [$reportController, 'margin'], 'REPORTS_VIEW');
     $router->add('GET', '/api/reports/cashflow', [$reportController, 'cashflow'], 'REPORTS_VIEW');
     $router->add('GET', '/api/reports/result', [$reportController, 'result'], 'REPORTS_VIEW');
+    $router->add('GET', '/api/reports/catalogue', [$reportController, 'catalogue'], 'REPORTS_VIEW');
+    $router->add('GET', '/api/reports/sales', [$reportController, 'sales'], 'REPORTS_VIEW');
+    $router->add('GET', '/api/reports/purchases', [$reportController, 'purchases'], 'REPORTS_VIEW');
+    $router->add('GET', '/api/reports/stock', [$reportController, 'stock'], 'REPORTS_VIEW');
+    $router->add('GET', '/api/reports/production', [$reportController, 'production'], 'REPORTS_VIEW');
+    $router->add('GET', '/api/reports/safety', [$reportController, 'safety'], 'REPORTS_VIEW');
+
+    // ------------------------------------------------------------------ chemical safety
+    $router->add('GET', '/api/safety/overview', [$safetyController, 'overview'], 'SAFETY_VIEW');
+    $router->add('GET', '/api/safety/pictograms', [$safetyController, 'pictograms'], 'SAFETY_VIEW');
+    $router->add('GET', '/api/safety/materials', [$safetyController, 'materials'], 'SAFETY_VIEW');
+    $router->add('GET', '/api/safety/materials/{id}', [$safetyController, 'material'], 'SAFETY_VIEW');
+    $router->add('POST', '/api/safety/materials/{id}/instructions', [$safetyController, 'saveInstructions'],
+        'SAFETY_EDIT');
+    $router->add('POST', '/api/safety/materials/{id}/pictograms', [$safetyController, 'setPictograms'],
+        'SAFETY_EDIT');
+    $router->add('GET', '/api/safety/sheets', [$safetyController, 'sheets'], 'SAFETY_VIEW');
+    $router->add('POST', '/api/safety/sheets', [$safetyController, 'registerSheet'], 'SAFETY_EDIT');
+    $router->add('GET', '/api/safety/incidents', [$safetyController, 'incidents'], 'SAFETY_VIEW');
+    $router->add('POST', '/api/safety/incidents', [$safetyController, 'reportIncident'], 'SAFETY_EDIT');
+    $router->add('POST', '/api/safety/incidents/{id}/status', [$safetyController, 'changeIncidentStatus'],
+        'SAFETY_EDIT');
 
     // ------------------------------------------------------------------ documents
     $router->add('GET', '/api/documents/{type}/{id}', [$documentController, 'show'], 'SALES_VIEW');
