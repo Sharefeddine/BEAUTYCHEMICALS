@@ -13,99 +13,59 @@
 [INFO] Compiling 224 source files with javac [debug parameters release 21] to target/classes
 [INFO] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/component/ChartFactory.java: Some input files use unchecked or unsafe operations.
 [INFO] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/component/ChartFactory.java: Recompile with -Xlint:unchecked for details.
-[INFO] 
-[INFO] --- resources:3.3.1:testResources (default-testResources) @ chemmanager-erp ---
-[INFO] skip non existing resourceDirectory /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/test/resources
-[INFO] 
-[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ chemmanager-erp ---
-[INFO] Recompiling the module because of changed dependency.
-[INFO] Compiling 30 source files with javac [debug parameters release 21] to target/test-classes
-[INFO] 
-[INFO] --- surefire:3.2.5:test (default-test) @ chemmanager-erp ---
-[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
-[WARNING] The system property prism.order is configured twice! The property appears in <argLine/> and any of <systemPropertyVariables/>, <systemProperties/> or user property.
-[WARNING] The system property prism.lcdtext is configured twice! The property appears in <argLine/> and any of <systemPropertyVariables/>, <systemProperties/> or user property.
-[INFO] 
-[INFO] -------------------------------------------------------
-[INFO]  T E S T S
-[INFO] -------------------------------------------------------
-[INFO] Running com.chemmanager.ui.EmployeesUiTest
-Nov 14, 2026 8:39:38 PM com.sun.javafx.application.PlatformImpl startup
-WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @687080dc'
+[INFO] Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/controller/safety/SafetyController.java:[182,71] incompatible types: javafx.scene.control.Label cannot be converted to com.chemmanager.component.StatusBadge
+[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/controller/safety/SafetyController.java:[185,53] incompatible types: com.chemmanager.component.StatusBadge cannot be converted to javafx.scene.Node
+[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/controller/safety/SafetyController.java:[180,46] incompatible types: cannot infer type-variable(s) T
+    (argument mismatch; bad return type in lambda expression
+      com.chemmanager.component.StatusBadge cannot be converted to javafx.scene.Node)
+[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/controller/safety/SafetyController.java:[190,43] cannot find symbol
+  symbol:   method sheetRevision()
+  location: variable row of type java.lang.Object
+[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/controller/safety/SafetyController.java:[190,79] cannot find symbol
+  symbol:   method sheetRevision()
+  location: variable row of type java.lang.Object
+[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/controller/safety/SafetyController.java:[172,25] method columns in class com.chemmanager.component.DataTable<T> cannot be applied to given types;
+  required: com.chemmanager.component.DataTable.Column<com.chemmanager.model.safety.MaterialHazard>[]
+  found:    com.chemmanager.component.DataTable.Column<com.chemmanager.model.safety.MaterialHazard>,com.chemmanager.component.DataTable.Column<com.chemmanager.model.safety.MaterialHazard>,com.chemmanager.component.DataTable.Column<com.chemmanager.model.safety.MaterialHazard>,<any>,com.chemmanager.component.DataTable.Column<java.lang.Object>,com.chemmanager.component.DataTable.Column<com.chemmanager.model.safety.MaterialHazard>
+  reason: varargs mismatch; cannot infer type-variable(s) T
+      (argument mismatch; bad return type in lambda expression
+        com.chemmanager.component.StatusBadge cannot be converted to javafx.scene.Node)
+[INFO] 6 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  3.799 s
+[INFO] Finished at: 2026-11-14T20:45:14Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.13.0:compile (default-compile) on project chemmanager-erp: Compilation failure: Compilation failure: 
+[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/controller/safety/SafetyController.java:[182,71] incompatible types: javafx.scene.control.Label cannot be converted to com.chemmanager.component.StatusBadge
+[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/controller/safety/SafetyController.java:[185,53] incompatible types: com.chemmanager.component.StatusBadge cannot be converted to javafx.scene.Node
+[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/controller/safety/SafetyController.java:[180,46] incompatible types: cannot infer type-variable(s) T
+[ERROR]     (argument mismatch; bad return type in lambda expression
+[ERROR]       com.chemmanager.component.StatusBadge cannot be converted to javafx.scene.Node)
+[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/controller/safety/SafetyController.java:[190,43] cannot find symbol
+[ERROR]   symbol:   method sheetRevision()
+[ERROR]   location: variable row of type java.lang.Object
+[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/controller/safety/SafetyController.java:[190,79] cannot find symbol
+[ERROR]   symbol:   method sheetRevision()
+[ERROR]   location: variable row of type java.lang.Object
+[ERROR] /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/src/main/java/com/chemmanager/controller/safety/SafetyController.java:[172,25] method columns in class com.chemmanager.component.DataTable<T> cannot be applied to given types;
+[ERROR]   required: com.chemmanager.component.DataTable.Column<com.chemmanager.model.safety.MaterialHazard>[]
+[ERROR]   found:    com.chemmanager.component.DataTable.Column<com.chemmanager.model.safety.MaterialHazard>,com.chemmanager.component.DataTable.Column<com.chemmanager.model.safety.MaterialHazard>,com.chemmanager.component.DataTable.Column<com.chemmanager.model.safety.MaterialHazard>,<any>,com.chemmanager.component.DataTable.Column<java.lang.Object>,com.chemmanager.component.DataTable.Column<com.chemmanager.model.safety.MaterialHazard>
+[ERROR]   reason: varargs mismatch; cannot infer type-variable(s) T
+[ERROR]       (argument mismatch; bad return type in lambda expression
+[ERROR]         com.chemmanager.component.StatusBadge cannot be converted to javafx.scene.Node)
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
 
-(java:2447): dbind-WARNING **: 20:39:38.959: AT-SPI: Error retrieving accessibility bus address: org.freedesktop.DBus.Error.ServiceUnknown: The name org.a11y.Bus was not provided by any .service files
-Nov 14, 2026 8:39:39 PM java.util.prefs.FileSystemPreferences$1 run
-INFO: Created user preferences directory.
-[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 15.52 s -- in com.chemmanager.ui.EmployeesUiTest
-[INFO] Running com.chemmanager.ui.ExpensesUiTest
-[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 12.34 s -- in com.chemmanager.ui.ExpensesUiTest
-[INFO] Running com.chemmanager.ui.CustomersUiTest
-[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.36 s -- in com.chemmanager.ui.CustomersUiTest
-[INFO] Running com.chemmanager.ui.ReportCentreUiTest
-[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.18 s -- in com.chemmanager.ui.ReportCentreUiTest
-[INFO] Running com.chemmanager.ui.LoginScreenUiTest
-[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.64 s -- in com.chemmanager.ui.LoginScreenUiTest
-[INFO] Running com.chemmanager.ui.ProductionUiTest
-[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.12 s -- in com.chemmanager.ui.ProductionUiTest
-[INFO] Running com.chemmanager.ui.FinanceUiTest
-[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.88 s -- in com.chemmanager.ui.FinanceUiTest
-[INFO] Running com.chemmanager.ui.DesignSystemUiTest
-[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.069 s -- in com.chemmanager.ui.DesignSystemUiTest
-[INFO] Running com.chemmanager.ui.SafetyUiTest
-[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 23.23 s -- in com.chemmanager.ui.SafetyUiTest
-[INFO] Running com.chemmanager.ui.ReportsUiTest
-[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.277 s -- in com.chemmanager.ui.ReportsUiTest
-[INFO] Running com.chemmanager.ui.DistributionUiTest
-[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.268 s -- in com.chemmanager.ui.DistributionUiTest
-[INFO] Running com.chemmanager.ui.InventoryPurchasingUiTest
-[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 12.76 s -- in com.chemmanager.ui.InventoryPurchasingUiTest
-[INFO] Running com.chemmanager.ui.SalesUiTest
-[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.91 s -- in com.chemmanager.ui.SalesUiTest
-[INFO] Running com.chemmanager.security.RolesTest
-[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 s -- in com.chemmanager.security.RolesTest
-[INFO] Running com.chemmanager.security.PasswordHasherTest
-[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.223 s -- in com.chemmanager.security.PasswordHasherTest
-[INFO] Running com.chemmanager.design.DesignSystemTest
-[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.093 s -- in com.chemmanager.design.DesignSystemTest
-[INFO] Running com.chemmanager.service.FormulationRulesTest
-[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.014 s -- in com.chemmanager.service.FormulationRulesTest
-[INFO] Running com.chemmanager.service.MockDashboardServiceTest
-[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.026 s -- in com.chemmanager.service.MockDashboardServiceTest
-[INFO] Running com.chemmanager.service.MockAuthServiceTest
-[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.118 s -- in com.chemmanager.service.MockAuthServiceTest
-[INFO] Running com.chemmanager.service.FinanceServiceMockTest
-[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.013 s -- in com.chemmanager.service.FinanceServiceMockTest
-[INFO] Running com.chemmanager.service.ReportCentreServiceMockTest
-[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.014 s -- in com.chemmanager.service.ReportCentreServiceMockTest
-[INFO] Running com.chemmanager.service.SafetyServiceMockTest
-[INFO] Tests run: 20, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.020 s -- in com.chemmanager.service.SafetyServiceMockTest
-[INFO] Running com.chemmanager.localization.RtlFormattingTest
-[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.618 s -- in com.chemmanager.localization.RtlFormattingTest
-[INFO] Running com.chemmanager.localization.BundleParityTest
-[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.573 s -- in com.chemmanager.localization.BundleParityTest
-[INFO] Running com.chemmanager.api.ApiContractTest
-[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.006 s -- in com.chemmanager.api.ApiContractTest
-[INFO] Running com.chemmanager.util.DateRangesTest
-[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 s -- in com.chemmanager.util.DateRangesTest
-[INFO] Running com.chemmanager.util.FxTasksTest
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 s -- in com.chemmanager.util.FxTasksTest
-[INFO] Running com.chemmanager.util.MoneyTest
-[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 s -- in com.chemmanager.util.MoneyTest
-[INFO] Running com.chemmanager.app.ApplicationSmokeTest
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 45.21 s -- in com.chemmanager.app.ApplicationSmokeTest
-[INFO] 
-[INFO] Results:
-[INFO] 
-[INFO] Tests run: 135, Failures: 0, Errors: 0, Skipped: 0
-[INFO] 
-[INFO] 
-[INFO] --- jar:3.4.1:jar (default-jar) @ chemmanager-erp ---
-[INFO] Building jar: /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/target/chemmanager-erp.jar
-[INFO] ------------------------------------------------------------------------
-[INFO] BUILD SUCCESS
-[INFO] ------------------------------------------------------------------------
-[INFO] Total time:  03:30 min
-[INFO] Finished at: 2026-11-14T20:43:02Z
-[INFO] ------------------------------------------------------------------------
-
-EXIT_CODE=0
+EXIT_CODE=1
