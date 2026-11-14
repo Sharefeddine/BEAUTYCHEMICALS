@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.chemmanager.app.ApplicationSmokeTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 30.83 s -- in com.chemmanager.app.ApplicationSmokeTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 30.62 s -- in com.chemmanager.app.ApplicationSmokeTest

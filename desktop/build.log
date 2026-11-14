@@ -30,33 +30,33 @@
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running com.chemmanager.ui.LoginScreenUiTest
-Nov 14, 2026 9:10:44 AM com.sun.javafx.application.PlatformImpl startup
+Nov 14, 2026 9:13:30 AM com.sun.javafx.application.PlatformImpl startup
 WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @587d1d39'
 
-(java:2383): dbind-WARNING **: 09:10:44.528: AT-SPI: Error retrieving accessibility bus address: org.freedesktop.DBus.Error.ServiceUnknown: The name org.a11y.Bus was not provided by any .service files
-Nov 14, 2026 9:10:45 AM java.util.prefs.FileSystemPreferences$1 run
+(java:2405): dbind-WARNING **: 09:13:30.594: AT-SPI: Error retrieving accessibility bus address: org.freedesktop.DBus.Error.ServiceUnknown: The name org.a11y.Bus was not provided by any .service files
+Nov 14, 2026 9:13:32 AM java.util.prefs.FileSystemPreferences$1 run
 INFO: Created user preferences directory.
-[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 20.41 s -- in com.chemmanager.ui.LoginScreenUiTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 20.55 s -- in com.chemmanager.ui.LoginScreenUiTest
 [INFO] Running com.chemmanager.security.RolesTest
 [INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.017 s -- in com.chemmanager.security.RolesTest
 [INFO] Running com.chemmanager.security.PasswordHasherTest
-[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.298 s -- in com.chemmanager.security.PasswordHasherTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.283 s -- in com.chemmanager.security.PasswordHasherTest
 [INFO] Running com.chemmanager.service.FormulationRulesTest
-[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.026 s -- in com.chemmanager.service.FormulationRulesTest
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.027 s -- in com.chemmanager.service.FormulationRulesTest
 [INFO] Running com.chemmanager.service.MockDashboardServiceTest
-[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.071 s -- in com.chemmanager.service.MockDashboardServiceTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.060 s -- in com.chemmanager.service.MockDashboardServiceTest
 [INFO] Running com.chemmanager.service.MockAuthServiceTest
-[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.154 s -- in com.chemmanager.service.MockAuthServiceTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.131 s -- in com.chemmanager.service.MockAuthServiceTest
 [INFO] Running com.chemmanager.localization.BundleParityTest
-[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.672 s -- in com.chemmanager.localization.BundleParityTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.698 s -- in com.chemmanager.localization.BundleParityTest
 [INFO] Running com.chemmanager.api.ApiContractTest
-[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.015 s -- in com.chemmanager.api.ApiContractTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 s -- in com.chemmanager.api.ApiContractTest
 [INFO] Running com.chemmanager.util.DateRangesTest
-[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.010 s -- in com.chemmanager.util.DateRangesTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 s -- in com.chemmanager.util.DateRangesTest
 [INFO] Running com.chemmanager.util.MoneyTest
-[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.012 s -- in com.chemmanager.util.MoneyTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 s -- in com.chemmanager.util.MoneyTest
 [INFO] Running com.chemmanager.app.ApplicationSmokeTest
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 30.83 s -- in com.chemmanager.app.ApplicationSmokeTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 30.62 s -- in com.chemmanager.app.ApplicationSmokeTest
 [INFO] 
 [INFO] Results:
 [INFO] 
@@ -68,8 +68,8 @@ INFO: Created user preferences directory.
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  01:01 min
-[INFO] Finished at: 2026-11-14T09:11:37Z
+[INFO] Total time:  01:00 min
+[INFO] Finished at: 2026-11-14T09:14:23Z
 [INFO] ------------------------------------------------------------------------
 
 EXIT_CODE=0
