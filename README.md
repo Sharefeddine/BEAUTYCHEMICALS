@@ -23,6 +23,10 @@ backed by MySQL 8.
 >   current purchase prices, approval that locks the version, version comparison, on both halves.
 >   The application never generates a formula — see
 >   [`docs/PHASE-3-REPORT.md`](docs/PHASE-3-REPORT.md).
+> * **Test harness:** 52 desktop tests — 5 of them driven by **TestFX** through the real user
+>   interface (sign-in, password masking, shell, sidebar navigation, live Arabic mirroring) — and
+>   25 + 113 API tests against a real MySQL 8. The rules the project is built under live in
+>   [`docs/devRules.md`](docs/devRules.md) and in the Google Doc `devRules`.
 > * **Phase 4 — next:** inventory, warehouses, FEFO allocation and purchasing.
 
 ---
