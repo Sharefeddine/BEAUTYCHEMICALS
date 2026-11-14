@@ -190,6 +190,7 @@ docs/                                architecture, ER diagram, design system, ro
 | [`docs/01-architecture.md`](docs/01-architecture.md) | Layers, module map, request flow, Maven structure, configuration |
 | [`docs/02-er-diagram.md`](docs/02-er-diagram.md) | Entity/relationship diagram and the full relational model |
 | [`docs/03-design-system.md`](docs/03-design-system.md) | Colours, typography, spacing, components, RTL, theming |
+| [`docs/DESIGN-REVISION.md`](docs/DESIGN-REVISION.md) | Why the styles changed before Phase 5: focus, contrast, tokens, type scale, Arabic |
 | [`docs/04-roadmap.md`](docs/04-roadmap.md) | Eight delivery phases and their acceptance criteria |
 | [`docs/05-security-rbac.md`](docs/05-security-rbac.md) | 12 roles × permissions matrix, auth flow, audit rules |
 | [`docs/07-operations.md`](docs/07-operations.md) | Backups, restore drill, deployment, monitoring |
