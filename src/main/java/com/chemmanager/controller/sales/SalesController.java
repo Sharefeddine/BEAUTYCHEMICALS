@@ -230,7 +230,7 @@ public final class SalesController {
         actions.put(ORDER, new ArrayList<>(List.of(
                 action(ORDER, "confirmButton", "sales.action.confirm", this::confirmOrder),
                 action(ORDER, "deliverButton", "sales.action.deliver", this::deliver),
-                action(ORDER, "invoiceButton", "sales.action.invoice", this::invoice),
+                action(ORDER, "invoiceButton", "sales.action.invoice", this::invoiceOrder),
                 action(ORDER, "cancelOrderButton", "sales.action.cancel", this::cancelOrder),
                 action(ORDER, "printButton", "sales.action.print", () -> print(ORDER)))));
         actions.put(DELIVERY, new ArrayList<>(List.of(
@@ -690,7 +690,7 @@ public final class SalesController {
         }, error -> Toasts.error(message(error)));
     }
 
-    private void invoice() {
+    private void invoiceOrder() {
         SalesOrder current = order();
         if (current == null) {
             return;

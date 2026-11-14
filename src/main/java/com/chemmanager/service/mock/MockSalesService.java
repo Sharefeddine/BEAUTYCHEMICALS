@@ -96,7 +96,7 @@ public final class MockSalesService implements SalesService {
                 List.of(), List.of(new Invoice.CreditNote(1, "AV-00001", 1, "FA-00001", 4,
                         "Grossiste Oued Smar", LocalDate.now().minusDays(3), "Retour de 5 bidons", bd("5000.00"),
                         bd("950.00"), bd("5950.00"), "ISSUED"))));
-        INVOICES.add(new Invoice(2, "FA-00002", 2, "Hôtel Atlas", null, null, "PAID",
+        INVOICES.add(new Invoice(2, "FA-00002", 2, "Hôtel Atlas", 0, null, "PAID",
                 LocalDate.now().minusDays(40), LocalDate.now().minusDays(10), bd("20000.00"), bd("3800.00"),
                 bd("23800.00"), bd("23800.00"), bd("0.00"), true, false, 2, "",
                 List.of(new Invoice.Line(2, 2, "PF-0002", "Liquide vaisselle citron 5 L", "PCE", "PF2-2026-002",
