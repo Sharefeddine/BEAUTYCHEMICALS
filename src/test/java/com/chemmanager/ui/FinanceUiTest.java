@@ -18,6 +18,7 @@ import com.chemmanager.model.finance.CashTransaction;
 import com.chemmanager.navigation.NavigationModule;
 import com.chemmanager.security.SessionContext;
 import com.chemmanager.service.ServiceFactory;
+import com.chemmanager.support.UiWaits;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
@@ -72,12 +73,12 @@ class FinanceUiTest {
         open(robot);
 
         WaitForAsyncUtils.waitFor(25, TimeUnit.SECONDS,
-                () -> robot.lookup("#kpiRow .kpi-card").queryAll().size() >= 5);
+                () -> UiWaits.count(robot, "#kpiRow .kpi-card") >= 5);
         assertTrue(robot.lookup("#kpiRow .kpi-card").queryAll().size() >= 5,
                 "the five treasury indicators must be rendered");
 
         WaitForAsyncUtils.waitFor(25, TimeUnit.SECONDS,
-                () -> !robot.lookup("#periodStrip .button").queryAll().isEmpty());
+                () -> UiWaits.hasNode(robot, "#periodStrip .button"));
         int periods = ServiceFactory.finance().periods().size();
         assertTrue(robot.lookup("#periodStrip .button").queryAll().size() >= periods - 1,
                 "every period of the calendar is offered");
@@ -128,7 +129,7 @@ class FinanceUiTest {
         signIn(robot);
         open(robot);
         WaitForAsyncUtils.waitFor(25, TimeUnit.SECONDS,
-                () -> !robot.lookup("#periodStrip .button").queryAll().isEmpty());
+                () -> UiWaits.hasNode(robot, "#periodStrip .button"));
 
         String openCode = ServiceFactory.finance().periods().stream().filter(AccountingPeriod::isOpen)
                 .map(AccountingPeriod::code).findFirst().orElseThrow();
@@ -171,7 +172,7 @@ class FinanceUiTest {
 
     private static void waitForRows(FxRobot robot) throws Exception {
         WaitForAsyncUtils.waitFor(25, TimeUnit.SECONDS,
-                () -> !robot.lookup("#tableHost .table-row-cell").queryAll().isEmpty());
+                () -> UiWaits.hasNode(robot, "#tableHost .table-row-cell"));
         assertTrue(!robot.lookup("#tableHost .table-row-cell").queryAll().isEmpty(),
                 "the table must be filled by the service layer");
     }
@@ -186,7 +187,7 @@ class FinanceUiTest {
 
         WaitForAsyncUtils.waitFor(30, TimeUnit.SECONDS, () -> AppContext.get().navigation() != null
                 && AppContext.get().navigation().current() != null);
-        WaitForAsyncUtils.waitFor(15, TimeUnit.SECONDS, () -> !robot.lookup(".nav-item").queryAll().isEmpty());
+        WaitForAsyncUtils.waitFor(15, TimeUnit.SECONDS, () -> UiWaits.hasNode(robot, ".nav-item"));
         WaitForAsyncUtils.waitForFxEvents();
     }
 

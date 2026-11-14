@@ -17,6 +17,7 @@ import com.chemmanager.navigation.NavigationModule;
 import com.chemmanager.security.SessionContext;
 import com.chemmanager.service.ServiceFactory;
 import com.chemmanager.util.Labels;
+import com.chemmanager.support.UiWaits;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
@@ -79,9 +80,9 @@ class EmployeesUiTest {
                 "headcount, active staff and payroll mass are shown");
 
         WaitForAsyncUtils.waitFor(20, TimeUnit.SECONDS,
-                () -> !robot.lookup("#leaveHost .label").queryAll().isEmpty());
+                () -> UiWaits.hasNode(robot, "#leaveHost .label"));
         WaitForAsyncUtils.waitFor(20, TimeUnit.SECONDS,
-                () -> !robot.lookup("#payrollHost .label").queryAll().isEmpty());
+                () -> UiWaits.hasNode(robot, "#payrollHost .label"));
         assertFalse(robot.lookup("#detailHost .label").queryAll().isEmpty(),
                 "the first employee is shown as soon as the list arrives");
     }
@@ -108,7 +109,7 @@ class EmployeesUiTest {
         WaitForAsyncUtils.waitFor(25, TimeUnit.SECONDS,
                 () -> !ServiceFactory.finance().salaryPayments(period).items().isEmpty());
         WaitForAsyncUtils.waitFor(20, TimeUnit.SECONDS,
-                () -> !robot.lookup("#payrollHost .button").queryAll().isEmpty());
+                () -> UiWaits.hasNode(robot, "#payrollHost .button"));
 
         Button pay = robot.lookup("#payrollHost .button").queryAll().stream()
                 .filter(node -> node instanceof Button)
@@ -126,7 +127,7 @@ class EmployeesUiTest {
                 () -> ServiceFactory.finance().leaveRequests("REQUESTED").items().size() > 0);
         LeaveRecord pending = ServiceFactory.finance().leaveRequests("REQUESTED").items().get(0);
         WaitForAsyncUtils.waitFor(20, TimeUnit.SECONDS,
-                () -> !robot.lookup("#leaveHost .button").queryAll().isEmpty());
+                () -> UiWaits.hasNode(robot, "#leaveHost .button"));
 
         String approveText = I18n.get().t("employees.leave.approve");
         Button approve = robot.lookup("#leaveHost .button").queryAll().stream()
@@ -155,7 +156,7 @@ class EmployeesUiTest {
 
     private static void waitForRows(FxRobot robot) throws Exception {
         WaitForAsyncUtils.waitFor(25, TimeUnit.SECONDS,
-                () -> !robot.lookup("#tableHost .table-row-cell").queryAll().isEmpty());
+                () -> UiWaits.hasNode(robot, "#tableHost .table-row-cell"));
         boolean any = false;
         for (Node node : robot.lookup("#tableHost .table-row-cell").queryAll()) {
             if (node instanceof TableRow<?> row && !row.isEmpty()
@@ -176,7 +177,7 @@ class EmployeesUiTest {
 
         WaitForAsyncUtils.waitFor(30, TimeUnit.SECONDS, () -> AppContext.get().navigation() != null
                 && AppContext.get().navigation().current() != null);
-        WaitForAsyncUtils.waitFor(15, TimeUnit.SECONDS, () -> !robot.lookup(".nav-item").queryAll().isEmpty());
+        WaitForAsyncUtils.waitFor(15, TimeUnit.SECONDS, () -> UiWaits.hasNode(robot, ".nav-item"));
         WaitForAsyncUtils.waitForFxEvents();
     }
 

@@ -14,6 +14,7 @@ import com.chemmanager.config.ThemeManager;
 import com.chemmanager.localization.I18n;
 import com.chemmanager.security.SessionContext;
 import com.chemmanager.service.ServiceFactory;
+import com.chemmanager.support.UiWaits;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
@@ -143,7 +144,7 @@ class DesignSystemUiTest {
 
         WaitForAsyncUtils.waitFor(30, TimeUnit.SECONDS, () -> AppContext.get().navigation() != null
                 && AppContext.get().navigation().current() != null);
-        WaitForAsyncUtils.waitFor(15, TimeUnit.SECONDS, () -> !robot.lookup(".nav-item").queryAll().isEmpty());
+        WaitForAsyncUtils.waitFor(15, TimeUnit.SECONDS, () -> UiWaits.hasNode(robot, ".nav-item"));
         WaitForAsyncUtils.waitForFxEvents();
     }
 

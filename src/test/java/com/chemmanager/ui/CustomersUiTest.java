@@ -18,6 +18,7 @@ import com.chemmanager.model.sales.Customer;
 import com.chemmanager.navigation.NavigationModule;
 import com.chemmanager.security.SessionContext;
 import com.chemmanager.service.ServiceFactory;
+import com.chemmanager.support.UiWaits;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
@@ -162,9 +163,7 @@ class CustomersUiTest {
 
     private static String detailText(FxRobot robot, String customerName) throws Exception {
         try {
-            WaitForAsyncUtils.waitFor(25, TimeUnit.SECONDS, () -> robot.lookup("#detailHost .label")
-                    .queryAll().stream().anyMatch(node -> node instanceof Label label
-                            && label.getText() != null && label.getText().contains(customerName)));
+            WaitForAsyncUtils.waitFor(25, TimeUnit.SECONDS, () -> UiWaits.showsLabel(robot, "#detailHost .label", customerName));
         } catch (TimeoutException timeout) {
             // the assertion below prints what the panel actually shows
         }
@@ -185,7 +184,7 @@ class CustomersUiTest {
 
         WaitForAsyncUtils.waitFor(30, TimeUnit.SECONDS, () -> AppContext.get().navigation() != null
                 && AppContext.get().navigation().current() != null);
-        WaitForAsyncUtils.waitFor(15, TimeUnit.SECONDS, () -> !robot.lookup(".nav-item").queryAll().isEmpty());
+        WaitForAsyncUtils.waitFor(15, TimeUnit.SECONDS, () -> UiWaits.hasNode(robot, ".nav-item"));
         WaitForAsyncUtils.waitForFxEvents();
     }
 
@@ -202,7 +201,7 @@ class CustomersUiTest {
 
     private static void waitForRows(FxRobot robot, String hostSelector) throws Exception {
         WaitForAsyncUtils.waitFor(25, TimeUnit.SECONDS,
-                () -> !robot.lookup(hostSelector + " .table-row-cell").queryAll().isEmpty());
+                () -> UiWaits.hasNode(robot, hostSelector + " .table-row-cell"));
         assertTrue(!robot.lookup(hostSelector + " .table-row-cell").queryAll().isEmpty(),
                 "the table under " + hostSelector + " must be filled by the service layer");
     }

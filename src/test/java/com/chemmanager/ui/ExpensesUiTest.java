@@ -16,6 +16,7 @@ import com.chemmanager.navigation.NavigationModule;
 import com.chemmanager.security.SessionContext;
 import com.chemmanager.service.ServiceFactory;
 import com.chemmanager.util.Labels;
+import com.chemmanager.support.UiWaits;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
@@ -75,8 +76,7 @@ class ExpensesUiTest {
         assertTrue(summary.getText().contains(Long.toString(total)),
                 "the header counts the expenses: " + summary.getText());
 
-        WaitForAsyncUtils.waitFor(20, TimeUnit.SECONDS, () -> !robot.lookup("#summaryHost .label").queryAll()
-                .isEmpty());
+        WaitForAsyncUtils.waitFor(20, TimeUnit.SECONDS, () -> UiWaits.hasNode(robot, "#summaryHost .label"));
         assertTrue(robot.lookup("#summaryHost .label").queryAll().size() >= 3,
                 "the summary lists the categories that were used");
         assertFalse(robot.lookup("#detailHost .label").queryAll().isEmpty(),
@@ -94,7 +94,7 @@ class ExpensesUiTest {
                 .filter(row -> "PAID".equals(row.status())).findFirst().orElseThrow();
         selectRow(robot, paid.id());
         WaitForAsyncUtils.waitFor(20, TimeUnit.SECONDS,
-                () -> !robot.lookup("#detailHost .label").queryAll().isEmpty());
+                () -> UiWaits.hasNode(robot, "#detailHost .label"));
 
         Button pay = button(robot, "expenses.action.pay");
         Button cancel = button(robot, "expenses.action.cancel");
@@ -114,7 +114,7 @@ class ExpensesUiTest {
         long draftId = draft.id();
         selectRow(robot, draftId);
         WaitForAsyncUtils.waitFor(20, TimeUnit.SECONDS,
-                () -> !robot.lookup("#detailHost .label").queryAll().isEmpty());
+                () -> UiWaits.hasNode(robot, "#detailHost .label"));
 
         Button approve = button(robot, "expenses.action.approve");
         assertFalse(approve.isDisabled(), "a draft can be approved by an expense officer");
@@ -156,7 +156,7 @@ class ExpensesUiTest {
 
     private static void waitForRows(FxRobot robot) throws Exception {
         WaitForAsyncUtils.waitFor(25, TimeUnit.SECONDS,
-                () -> !robot.lookup("#tableHost .table-row-cell").queryAll().isEmpty());
+                () -> UiWaits.hasNode(robot, "#tableHost .table-row-cell"));
         assertTrue(!robot.lookup("#tableHost .table-row-cell").queryAll().isEmpty(),
                 "the table must be filled by the service layer");
     }
@@ -171,7 +171,7 @@ class ExpensesUiTest {
 
         WaitForAsyncUtils.waitFor(30, TimeUnit.SECONDS, () -> AppContext.get().navigation() != null
                 && AppContext.get().navigation().current() != null);
-        WaitForAsyncUtils.waitFor(15, TimeUnit.SECONDS, () -> !robot.lookup(".nav-item").queryAll().isEmpty());
+        WaitForAsyncUtils.waitFor(15, TimeUnit.SECONDS, () -> UiWaits.hasNode(robot, ".nav-item"));
         WaitForAsyncUtils.waitForFxEvents();
     }
 

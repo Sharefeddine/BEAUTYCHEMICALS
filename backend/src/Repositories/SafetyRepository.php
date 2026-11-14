@@ -478,10 +478,10 @@ final class SafetyRepository
             throw ApiException::conflict('An incident is investigated before it is closed.', 'INVALID_STATUS');
         }
         $this->db->execute(
-            'UPDATE safetyIncidents SET status = :status, closedAt = CASE WHEN :status = \'CLOSED\' THEN NOW()
-                                                                        ELSE NULL END
+            'UPDATE safetyIncidents SET status = :status,
+                    closedAt = CASE WHEN :terminal = \'CLOSED\' THEN NOW() ELSE NULL END
              WHERE id = :id',
-            ['status' => $target, 'id' => $id]
+            ['status' => $target, 'terminal' => $target, 'id' => $id]
         );
 
         return $this->incident($id);

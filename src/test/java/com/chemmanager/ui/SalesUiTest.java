@@ -18,6 +18,7 @@ import com.chemmanager.model.sales.SalesOrder;
 import com.chemmanager.navigation.NavigationModule;
 import com.chemmanager.security.SessionContext;
 import com.chemmanager.service.ServiceFactory;
+import com.chemmanager.support.UiWaits;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
@@ -113,9 +114,7 @@ class SalesUiTest {
         waitForRows(robot);
 
         selectDocument(robot, "invoice");
-        WaitForAsyncUtils.waitFor(25, TimeUnit.SECONDS, () -> robot.lookup("#statusFilter").queryAll()
-                .stream().anyMatch(node -> node instanceof ComboBox<?> box
-                        && box.getItems().contains("ISSUED")));
+        WaitForAsyncUtils.waitFor(25, TimeUnit.SECONDS, () -> UiWaits.listsItem(robot, "#statusFilter", "ISSUED"));
         selectStatus(robot, "ISSUED");
         WaitForAsyncUtils.waitFor(25, TimeUnit.SECONDS, () -> showsOnly(robot, Invoice.class, "ISSUED"));
 
@@ -191,8 +190,7 @@ class SalesUiTest {
 
     private static String detailText(FxRobot robot) {
         try {
-            WaitForAsyncUtils.waitFor(20, TimeUnit.SECONDS, () -> !robot.lookup("#detailHost .label")
-                    .queryAll().isEmpty());
+            WaitForAsyncUtils.waitFor(20, TimeUnit.SECONDS, () -> UiWaits.hasNoNode(robot, "#detailHost .label"));
         } catch (TimeoutException timeout) {
             // the assertion in the calling test prints what is actually shown
         }
@@ -213,7 +211,7 @@ class SalesUiTest {
 
         WaitForAsyncUtils.waitFor(30, TimeUnit.SECONDS, () -> AppContext.get().navigation() != null
                 && AppContext.get().navigation().current() != null);
-        WaitForAsyncUtils.waitFor(15, TimeUnit.SECONDS, () -> !robot.lookup(".nav-item").queryAll().isEmpty());
+        WaitForAsyncUtils.waitFor(15, TimeUnit.SECONDS, () -> UiWaits.hasNode(robot, ".nav-item"));
         WaitForAsyncUtils.waitForFxEvents();
     }
 
@@ -230,7 +228,7 @@ class SalesUiTest {
 
     private static void waitForRows(FxRobot robot) throws Exception {
         WaitForAsyncUtils.waitFor(25, TimeUnit.SECONDS,
-                () -> !robot.lookup("#tableHost .table-row-cell").queryAll().isEmpty());
+                () -> UiWaits.hasNode(robot, "#tableHost .table-row-cell"));
         assertTrue(!robot.lookup("#tableHost .table-row-cell").queryAll().isEmpty(),
                 "the table must be filled by the service layer");
     }

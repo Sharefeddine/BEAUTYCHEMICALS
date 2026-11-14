@@ -13,6 +13,7 @@ import com.chemmanager.navigation.NavigationModule;
 import com.chemmanager.security.SessionContext;
 import com.chemmanager.service.ServiceFactory;
 import com.chemmanager.util.Formatters;
+import com.chemmanager.support.UiWaits;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
@@ -63,11 +64,11 @@ class ReportsUiTest {
         open(robot);
 
         WaitForAsyncUtils.waitFor(25, TimeUnit.SECONDS,
-                () -> !robot.lookup("#marginHost .label").queryAll().isEmpty());
+                () -> UiWaits.hasNode(robot, "#marginHost .label"));
         WaitForAsyncUtils.waitFor(25, TimeUnit.SECONDS,
-                () -> !robot.lookup("#cashflowHost .label").queryAll().isEmpty());
+                () -> UiWaits.hasNode(robot, "#cashflowHost .label"));
         WaitForAsyncUtils.waitFor(25, TimeUnit.SECONDS,
-                () -> !robot.lookup("#resultHost .label").queryAll().isEmpty());
+                () -> UiWaits.hasNode(robot, "#resultHost .label"));
 
         String margin = labels(robot, "#marginHost");
         String cashflow = labels(robot, "#cashflowHost");
@@ -90,7 +91,7 @@ class ReportsUiTest {
         signIn(robot);
         open(robot);
         WaitForAsyncUtils.waitFor(25, TimeUnit.SECONDS,
-                () -> !robot.lookup("#resultHost .label").queryAll().isEmpty());
+                () -> UiWaits.hasNode(robot, "#resultHost .label"));
 
         var statement = ServiceFactory.finance().result(java.time.YearMonth.now().toString());
         String expected = Formatters.currency(statement.result());
@@ -115,7 +116,7 @@ class ReportsUiTest {
 
         WaitForAsyncUtils.waitFor(30, TimeUnit.SECONDS, () -> AppContext.get().navigation() != null
                 && AppContext.get().navigation().current() != null);
-        WaitForAsyncUtils.waitFor(15, TimeUnit.SECONDS, () -> !robot.lookup(".nav-item").queryAll().isEmpty());
+        WaitForAsyncUtils.waitFor(15, TimeUnit.SECONDS, () -> UiWaits.hasNode(robot, ".nav-item"));
         WaitForAsyncUtils.waitForFxEvents();
     }
 

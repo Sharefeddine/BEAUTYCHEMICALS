@@ -18,6 +18,7 @@ import com.chemmanager.model.production.ProductionOrder;
 import com.chemmanager.navigation.NavigationModule;
 import com.chemmanager.security.SessionContext;
 import com.chemmanager.service.ServiceFactory;
+import com.chemmanager.support.UiWaits;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
@@ -89,8 +90,7 @@ class ProductionUiTest {
         assertFalse(newOrder.isDisabled(), "the administrator may create an order");
 
         // The first order of the demo set waits for material: it can be started, not consumed.
-        WaitForAsyncUtils.waitFor(15, TimeUnit.SECONDS, () -> !robot.lookup("#startButton")
-                .queryAs(Button.class).isDisabled());
+        WaitForAsyncUtils.waitFor(15, TimeUnit.SECONDS, () -> UiWaits.isDisabled(robot, "#startButton"));
         assertTrue(robot.lookup("#consumeButton").queryAs(Button.class).isDisabled(),
                 "an order that never started cannot consume material");
 
@@ -106,8 +106,7 @@ class ProductionUiTest {
         open(robot, NavigationModule.PRODUCTION);
 
         waitForRows(robot, "#tableHost");
-        WaitForAsyncUtils.waitFor(20, TimeUnit.SECONDS, () -> robot.lookup("#detailHost .label")
-                .queryAll().size() > 2);
+        WaitForAsyncUtils.waitFor(20, TimeUnit.SECONDS, () -> UiWaits.count(robot, "#detailHost .label") > 2);
         String detail = robot.lookup("#detailHost .label").queryAll().toString();
         assertTrue(detail.contains(I18n.get().t("production.cost.total"))
                         || detail.contains(I18n.get().t("production.materials")),
@@ -209,9 +208,7 @@ class ProductionUiTest {
     /** Waits until the detail panel describes the given order and returns all of its label texts. */
     private static String detailText(FxRobot robot, String orderNumber) throws Exception {
         try {
-            WaitForAsyncUtils.waitFor(25, TimeUnit.SECONDS, () -> robot.lookup("#detailHost .label")
-                    .queryAll().stream().anyMatch(node -> node instanceof Label label
-                            && label.getText() != null && label.getText().contains(orderNumber)));
+            WaitForAsyncUtils.waitFor(25, TimeUnit.SECONDS, () -> UiWaits.showsLabel(robot, "#detailHost .label", orderNumber));
         } catch (TimeoutException timeout) {
             // The assertion below reports what the panel actually shows, which says more than "Timeout".
         }
@@ -232,7 +229,7 @@ class ProductionUiTest {
 
         WaitForAsyncUtils.waitFor(30, TimeUnit.SECONDS, () -> AppContext.get().navigation() != null
                 && AppContext.get().navigation().current() != null);
-        WaitForAsyncUtils.waitFor(15, TimeUnit.SECONDS, () -> !robot.lookup(".nav-item").queryAll().isEmpty());
+        WaitForAsyncUtils.waitFor(15, TimeUnit.SECONDS, () -> UiWaits.hasNode(robot, ".nav-item"));
         WaitForAsyncUtils.waitForFxEvents();
     }
 
@@ -249,7 +246,7 @@ class ProductionUiTest {
 
     private static void waitForRows(FxRobot robot, String hostSelector) throws Exception {
         WaitForAsyncUtils.waitFor(25, TimeUnit.SECONDS,
-                () -> !robot.lookup(hostSelector + " .table-row-cell").queryAll().isEmpty());
+                () -> UiWaits.hasNode(robot, hostSelector + " .table-row-cell"));
         assertTrue(!robot.lookup(hostSelector + " .table-row-cell").queryAll().isEmpty(),
                 "the table under " + hostSelector + " must be filled by the service layer");
     }

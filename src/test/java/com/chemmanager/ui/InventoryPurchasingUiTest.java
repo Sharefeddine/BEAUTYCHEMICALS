@@ -16,6 +16,7 @@ import com.chemmanager.localization.I18n;
 import com.chemmanager.navigation.NavigationModule;
 import com.chemmanager.security.SessionContext;
 import com.chemmanager.service.ServiceFactory;
+import com.chemmanager.support.UiWaits;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
@@ -102,7 +103,7 @@ class InventoryPurchasingUiTest {
 
         waitForRows(robot, "#tableHost");
         WaitForAsyncUtils.waitFor(15, TimeUnit.SECONDS,
-                () -> !robot.lookup("#detailHost .label").queryAll().isEmpty());
+                () -> UiWaits.hasNode(robot, "#detailHost .label"));
 
         Button newOrder = robot.lookup("#newButton").queryAs(Button.class);
         assertNotNull(newOrder, "the screen must offer a new order");
@@ -119,7 +120,7 @@ class InventoryPurchasingUiTest {
 
         waitForRows(robot, "#tableHost");
         WaitForAsyncUtils.waitFor(15, TimeUnit.SECONDS,
-                () -> !robot.lookup("#detailHost").queryAll().isEmpty());
+                () -> UiWaits.hasNode(robot, "#detailHost"));
         assertNotNull(robot.lookup("#summaryLabel").query(), "the header must state how many suppliers exist");
 
         robot.interact(() -> I18n.get().setLocale(Locale.forLanguageTag("ar")));
@@ -144,7 +145,7 @@ class InventoryPurchasingUiTest {
 
         WaitForAsyncUtils.waitFor(30, TimeUnit.SECONDS, () -> AppContext.get().navigation() != null
                 && AppContext.get().navigation().current() != null);
-        WaitForAsyncUtils.waitFor(15, TimeUnit.SECONDS, () -> !robot.lookup(".nav-item").queryAll().isEmpty());
+        WaitForAsyncUtils.waitFor(15, TimeUnit.SECONDS, () -> UiWaits.hasNode(robot, ".nav-item"));
         WaitForAsyncUtils.waitForFxEvents();
     }
 
@@ -161,7 +162,7 @@ class InventoryPurchasingUiTest {
 
     private static void waitForRows(FxRobot robot, String hostSelector) throws Exception {
         WaitForAsyncUtils.waitFor(25, TimeUnit.SECONDS,
-                () -> !robot.lookup(hostSelector + " .table-row-cell").queryAll().isEmpty());
+                () -> UiWaits.hasNode(robot, hostSelector + " .table-row-cell"));
         assertTrue(!robot.lookup(hostSelector + " .table-row-cell").queryAll().isEmpty(),
                 "the table under " + hostSelector + " must be filled by the service layer");
     }
