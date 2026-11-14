@@ -30,141 +30,88 @@
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running com.chemmanager.app.ApplicationSmokeTest
-Nov 14, 2026 5:39:09 PM com.sun.javafx.application.PlatformImpl startup
+Nov 14, 2026 5:46:39 PM com.sun.javafx.application.PlatformImpl startup
 WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @1a8a8f7c'
 
-(java:2710): dbind-WARNING **: 17:39:16.143: AT-SPI: Error retrieving accessibility bus address: org.freedesktop.DBus.Error.ServiceUnknown: The name org.a11y.Bus was not provided by any .service files
-Nov 14, 2026 5:39:17 PM java.util.prefs.FileSystemPreferences$1 run
+(java:2624): dbind-WARNING **: 17:46:44.003: AT-SPI: Error retrieving accessibility bus address: org.freedesktop.DBus.Error.ServiceUnknown: The name org.a11y.Bus was not provided by any .service files
+Nov 14, 2026 5:46:44 PM java.util.prefs.FileSystemPreferences$1 run
 INFO: Created user preferences directory.
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 45.12 s -- in com.chemmanager.app.ApplicationSmokeTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 42.97 s -- in com.chemmanager.app.ApplicationSmokeTest
 [INFO] Running com.chemmanager.localization.RtlFormattingTest
-[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.199 s -- in com.chemmanager.localization.RtlFormattingTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.174 s -- in com.chemmanager.localization.RtlFormattingTest
 [INFO] Running com.chemmanager.localization.BundleParityTest
-[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.191 s -- in com.chemmanager.localization.BundleParityTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.157 s -- in com.chemmanager.localization.BundleParityTest
 [INFO] Running com.chemmanager.util.MoneyTest
-[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.010 s -- in com.chemmanager.util.MoneyTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 s -- in com.chemmanager.util.MoneyTest
 [INFO] Running com.chemmanager.util.FxTasksTest
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 s -- in com.chemmanager.util.FxTasksTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 s -- in com.chemmanager.util.FxTasksTest
 [INFO] Running com.chemmanager.util.DateRangesTest
 [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 s -- in com.chemmanager.util.DateRangesTest
 [INFO] Running com.chemmanager.ui.DesignSystemUiTest
-[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.687 s -- in com.chemmanager.ui.DesignSystemUiTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.426 s -- in com.chemmanager.ui.DesignSystemUiTest
 [INFO] Running com.chemmanager.ui.EmployeesUiTest
-[ERROR] Tests run: 3, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 56.10 s <<< FAILURE! -- in com.chemmanager.ui.EmployeesUiTest
-[ERROR] com.chemmanager.ui.EmployeesUiTest.pendingLeaveIsApproved(FxRobot) -- Time elapsed: 29.06 s <<< ERROR!
-java.util.concurrent.TimeoutException
-	at org.testfx.util.WaitForAsyncUtils.waitFor(WaitForAsyncUtils.java:325)
-	at com.chemmanager.ui.EmployeesUiTest.pendingLeaveIsApproved(EmployeesUiTest.java:131)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-
-[ERROR] com.chemmanager.ui.EmployeesUiTest.payrollOffersPayment(FxRobot) -- Time elapsed: 23.50 s <<< ERROR!
-java.util.concurrent.TimeoutException
-	at org.testfx.util.WaitForAsyncUtils.waitFor(WaitForAsyncUtils.java:325)
-	at com.chemmanager.ui.EmployeesUiTest.payrollOffersPayment(EmployeesUiTest.java:95)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.45 s -- in com.chemmanager.ui.EmployeesUiTest
 [INFO] Running com.chemmanager.ui.CustomersUiTest
-[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.12 s -- in com.chemmanager.ui.CustomersUiTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.95 s -- in com.chemmanager.ui.CustomersUiTest
 [INFO] Running com.chemmanager.ui.ReportsUiTest
-[ERROR] Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 5.763 s <<< FAILURE! -- in com.chemmanager.ui.ReportsUiTest
-[ERROR] com.chemmanager.ui.ReportsUiTest.statementsAreRendered(FxRobot) -- Time elapsed: 2.889 s <<< ERROR!
-java.lang.RuntimeException: org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
-	at org.testfx.service.query.impl.CallableBoundsPointQuery.fetchCallableBounds(CallableBoundsPointQuery.java:52)
-	at org.testfx.service.query.impl.CallableBoundsPointQuery.query(CallableBoundsPointQuery.java:40)
-	at org.testfx.robot.impl.MoveRobotImpl.moveTo(MoveRobotImpl.java:72)
-	at org.testfx.robot.impl.ClickRobotImpl.clickOn(ClickRobotImpl.java:54)
-	at org.testfx.api.FxRobot.clickOn(FxRobot.java:582)
-	at org.testfx.api.FxRobot.clickOn(FxRobot.java:615)
-	at org.testfx.api.FxRobot.clickOn(FxRobot.java:59)
-	at org.testfx.api.FxRobotInterface.clickOn(FxRobotInterface.java:597)
-	at com.chemmanager.ui.ReportsUiTest.open(ReportsUiTest.java:128)
-	at com.chemmanager.ui.ReportsUiTest.statementsAreRendered(ReportsUiTest.java:64)
+[ERROR] Tests run: 2, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 6.102 s <<< FAILURE! -- in com.chemmanager.ui.ReportsUiTest
+[ERROR] com.chemmanager.ui.ReportsUiTest.statementsAreRendered(FxRobot) -- Time elapsed: 3.076 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: the result statement has a title:  | Résultat de 2026-11 |  | Facturé HT : 500 000,00 DZD | Avoirs : 20 800,00 DZD | Chiffre d’affaires net : 479 200,00 DZD | Coût des marchandises : 317 840,00 DZD | Marge brute : 161 360,00 DZD | Charges d’exploitation : 66 900,00 DZD | Résultat : 94 460,00 DZD | Charges par catégorie | Loyers · 45 000,00 DZD | Énergie · 12 400,00 DZD | Carburant · 9 500,00 DZD ==> expected: <true> but was: <false>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:63)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:36)
+	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:214)
+	at com.chemmanager.ui.ReportsUiTest.statementsAreRendered(ReportsUiTest.java:80)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-Caused by: org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
-	at org.testfx.service.locator.impl.BoundsLocatorImpl.limitToVisibleBounds(BoundsLocatorImpl.java:80)
-	at org.testfx.service.locator.impl.BoundsLocatorImpl.boundsInSceneFor(BoundsLocatorImpl.java:33)
-	at org.testfx.service.locator.impl.BoundsLocatorImpl.boundsOnScreenFor(BoundsLocatorImpl.java:50)
-	at org.testfx.service.locator.impl.PointLocatorImpl.lambda$point$0(PointLocatorImpl.java:52)
-	at org.testfx.service.query.impl.CallableBoundsPointQuery.fetchCallableBounds(CallableBoundsPointQuery.java:49)
-	... 12 more
-
-[ERROR] com.chemmanager.ui.ReportsUiTest.resultChainsTheNumbers(FxRobot) -- Time elapsed: 2.872 s <<< ERROR!
-java.lang.RuntimeException: org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
-	at org.testfx.service.query.impl.CallableBoundsPointQuery.fetchCallableBounds(CallableBoundsPointQuery.java:52)
-	at org.testfx.service.query.impl.CallableBoundsPointQuery.query(CallableBoundsPointQuery.java:40)
-	at org.testfx.robot.impl.MoveRobotImpl.moveTo(MoveRobotImpl.java:72)
-	at org.testfx.robot.impl.ClickRobotImpl.clickOn(ClickRobotImpl.java:54)
-	at org.testfx.api.FxRobot.clickOn(FxRobot.java:582)
-	at org.testfx.api.FxRobot.clickOn(FxRobot.java:615)
-	at org.testfx.api.FxRobot.clickOn(FxRobot.java:59)
-	at org.testfx.api.FxRobotInterface.clickOn(FxRobotInterface.java:597)
-	at com.chemmanager.ui.ReportsUiTest.open(ReportsUiTest.java:128)
-	at com.chemmanager.ui.ReportsUiTest.resultChainsTheNumbers(ReportsUiTest.java:92)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-Caused by: org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
-	at org.testfx.service.locator.impl.BoundsLocatorImpl.limitToVisibleBounds(BoundsLocatorImpl.java:80)
-	at org.testfx.service.locator.impl.BoundsLocatorImpl.boundsInSceneFor(BoundsLocatorImpl.java:33)
-	at org.testfx.service.locator.impl.BoundsLocatorImpl.boundsOnScreenFor(BoundsLocatorImpl.java:50)
-	at org.testfx.service.locator.impl.PointLocatorImpl.lambda$point$0(PointLocatorImpl.java:52)
-	at org.testfx.service.query.impl.CallableBoundsPointQuery.fetchCallableBounds(CallableBoundsPointQuery.java:49)
-	... 12 more
 
 [INFO] Running com.chemmanager.ui.InventoryPurchasingUiTest
-[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.65 s -- in com.chemmanager.ui.InventoryPurchasingUiTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.53 s -- in com.chemmanager.ui.InventoryPurchasingUiTest
 [INFO] Running com.chemmanager.ui.SalesUiTest
-[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.95 s -- in com.chemmanager.ui.SalesUiTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.77 s -- in com.chemmanager.ui.SalesUiTest
 [INFO] Running com.chemmanager.ui.FinanceUiTest
-[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.75 s -- in com.chemmanager.ui.FinanceUiTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.73 s -- in com.chemmanager.ui.FinanceUiTest
 [INFO] Running com.chemmanager.ui.ExpensesUiTest
-[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.74 s -- in com.chemmanager.ui.ExpensesUiTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.70 s -- in com.chemmanager.ui.ExpensesUiTest
 [INFO] Running com.chemmanager.ui.LoginScreenUiTest
-[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.33 s -- in com.chemmanager.ui.LoginScreenUiTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.09 s -- in com.chemmanager.ui.LoginScreenUiTest
 [INFO] Running com.chemmanager.ui.ProductionUiTest
-[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.69 s -- in com.chemmanager.ui.ProductionUiTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.67 s -- in com.chemmanager.ui.ProductionUiTest
 [INFO] Running com.chemmanager.ui.DistributionUiTest
-[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.280 s -- in com.chemmanager.ui.DistributionUiTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.141 s -- in com.chemmanager.ui.DistributionUiTest
 [INFO] Running com.chemmanager.service.MockAuthServiceTest
-[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.100 s -- in com.chemmanager.service.MockAuthServiceTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.104 s -- in com.chemmanager.service.MockAuthServiceTest
 [INFO] Running com.chemmanager.service.FinanceServiceMockTest
-[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.016 s -- in com.chemmanager.service.FinanceServiceMockTest
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.013 s -- in com.chemmanager.service.FinanceServiceMockTest
 [INFO] Running com.chemmanager.service.FormulationRulesTest
 [INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.010 s -- in com.chemmanager.service.FormulationRulesTest
 [INFO] Running com.chemmanager.service.MockDashboardServiceTest
-[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.011 s -- in com.chemmanager.service.MockDashboardServiceTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.016 s -- in com.chemmanager.service.MockDashboardServiceTest
 [INFO] Running com.chemmanager.design.DesignSystemTest
-[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.063 s -- in com.chemmanager.design.DesignSystemTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.091 s -- in com.chemmanager.design.DesignSystemTest
 [INFO] Running com.chemmanager.api.ApiContractTest
-[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 s -- in com.chemmanager.api.ApiContractTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 s -- in com.chemmanager.api.ApiContractTest
 [INFO] Running com.chemmanager.security.PasswordHasherTest
-[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.201 s -- in com.chemmanager.security.PasswordHasherTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.205 s -- in com.chemmanager.security.PasswordHasherTest
 [INFO] Running com.chemmanager.security.RolesTest
-[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 s -- in com.chemmanager.security.RolesTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 s -- in com.chemmanager.security.RolesTest
 [INFO] 
 [INFO] Results:
 [INFO] 
-[ERROR] Errors: 
-[ERROR]   EmployeesUiTest.payrollOffersPayment:95 » Timeout
-[ERROR]   EmployeesUiTest.pendingLeaveIsApproved:131 » Timeout
-[ERROR]   ReportsUiTest.resultChainsTheNumbers:92->open:128 » Runtime org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
-[ERROR]   ReportsUiTest.statementsAreRendered:64->open:128 » Runtime org.testfx.service.locator.BoundsLocatorException: bounds are not visible in Scene
+[ERROR] Failures: 
+[ERROR]   ReportsUiTest.statementsAreRendered:80 the result statement has a title:  | Résultat de 2026-11 |  | Facturé HT : 500 000,00 DZD | Avoirs : 20 800,00 DZD | Chiffre d’affaires net : 479 200,00 DZD | Coût des marchandises : 317 840,00 DZD | Marge brute : 161 360,00 DZD | Charges d’exploitation : 66 900,00 DZD | Résultat : 94 460,00 DZD | Charges par catégorie | Loyers · 45 000,00 DZD | Énergie · 12 400,00 DZD | Carburant · 9 500,00 DZD ==> expected: <true> but was: <false>
 [INFO] 
-[ERROR] Tests run: 99, Failures: 0, Errors: 4, Skipped: 0
+[ERROR] Tests run: 99, Failures: 1, Errors: 0, Skipped: 0
 [INFO] 
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD FAILURE
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  03:29 min
-[INFO] Finished at: 2026-11-14T17:42:33Z
+[INFO] Total time:  02:40 min
+[INFO] Finished at: 2026-11-14T17:49:15Z
 [INFO] ------------------------------------------------------------------------
-[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.2.5:test (default-test) on project chemmanager-erp: 
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.2.5:test (default-test) on project chemmanager-erp: There are test failures.
 [ERROR] 
 [ERROR] Please refer to /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/target/surefire-reports for the individual test results.
 [ERROR] Please refer to dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
