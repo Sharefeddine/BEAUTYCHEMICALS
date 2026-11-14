@@ -1183,7 +1183,7 @@ check('the order is confirmed within the credit limit', $response['status'] === 
     && ($response['json']['data']['status'] ?? '') === 'CONFIRMED', $response['raw']);
 
 $response = call('POST', '/api/salesOrders/' . $orderId . '/deliveries',
-    ['items' => [['orderItemId' => (int) ($accepted['order']['items'][0]['id'] ?? 0), 'quantity' => 999]], $token);
+    ['items' => [['orderItemId' => (int) ($accepted['order']['items'][0]['id'] ?? 0), 'quantity' => 999]]], $token);
 check('a delivery cannot ship more than the line ordered', $response['status'] === 409
     && ($response['json']['error']['code'] ?? '') === 'DELIVERY_EXCEEDS_ORDER'
     && isset($response['json']['error']['details']['remaining']), $response['raw']);
@@ -1495,8 +1495,8 @@ check('a tour is planned with its stop', $response['status'] === 201 && $routeId
     && ($route['status'] ?? '') === 'PLANNED' && ($route['stopCount'] ?? 0) === 1 && $stopId > 0,
     $response['raw']);
 check('the tour shows which customer it serves',
-    ($route['stops'][0]['customerName'] ?? '') !== '' && ($route['stops'][0]['totalQuantity'] ?? 0) === 1.0,
-    $response['raw']);
+    ($route['stops'][0]['customerName'] ?? '') !== ''
+    && (float) ($route['stops'][0]['totalQuantity'] ?? 0) === 1.0, $response['raw']);
 
 $response = call('POST', '/api/routes', [
     'vehicleId' => $newVehicleId, 'routeDate' => date('Y-m-d'), 'deliveryNoteIds' => [$routeNoteId],

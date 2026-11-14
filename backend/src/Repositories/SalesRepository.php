@@ -899,14 +899,14 @@ final class SalesRepository
                 if ($billable <= 0) {
                     continue;
                 }
-                $lines[] = [
-                    'productId' => (int) $item['productId'],
-                    'quantity' => $billable,
-                    'unitPrice' => (float) $item['unitPrice'],
-                    'discountPct' => (float) $item['discountPct'],
-                    'vatRate' => (float) $item['vatRate'],
-                    'productBatchId' => $this->deliveredBatch($orderId, (int) $item['productId']),
-                ];
+                $lines[] = $this->line(
+                    (int) $item['productId'],
+                    $billable,
+                    (float) $item['unitPrice'],
+                    (float) $item['discountPct'],
+                    (float) $item['vatRate'],
+                    $this->deliveredBatch($orderId, (int) $item['productId'])
+                );
             }
             if ($lines === []) {
                 throw ApiException::conflict('Nothing is delivered yet on this order: prepare a delivery note first.',
@@ -1206,10 +1206,13 @@ final class SalesRepository
             );
 
             if ($invoice !== null) {
+                // The status is assigned before the amount on purpose: MySQL applies the
+                // assignments left to right, so the CASE must still see the previous paidAmount.
                 $this->db->execute(
-                    'UPDATE invoices SET paidAmount = paidAmount + :amount,
-                            status = CASE WHEN paidAmount + :amount2 >= totalTtc THEN \'PAID\' ELSE \'PARTIAL\' END,
-                            updatedBy = :userId
+                    'UPDATE invoices
+                     SET status = CASE WHEN paidAmount + :amount >= totalTtc THEN \'PAID\' ELSE \'PARTIAL\' END,
+                         paidAmount = paidAmount + :amount2,
+                         updatedBy = :userId
                      WHERE id = :id',
                     [
                         'amount' => $amount,
@@ -1414,9 +1417,10 @@ final class SalesRepository
                     'customerId' => (int) $note['customerId']]
             );
             $this->db->execute(
-                'UPDATE invoices SET paidAmount = paidAmount + :amount,
-                        status = CASE WHEN paidAmount + :amount2 >= totalTtc THEN \'PAID\' ELSE \'PARTIAL\' END,
-                        updatedBy = :userId
+                'UPDATE invoices
+                 SET status = CASE WHEN paidAmount + :amount >= totalTtc THEN \'PAID\' ELSE \'PARTIAL\' END,
+                     paidAmount = paidAmount + :amount2,
+                     updatedBy = :userId
                  WHERE id = :id AND status IN (\'ISSUED\', \'PARTIAL\')',
                 [
                     'amount' => (float) $note['totalTtc'],
@@ -1710,20 +1714,40 @@ final class SalesRepository
             $vatRate = array_key_exists('vatRate', $raw) && $raw['vatRate'] !== null
                 ? round((float) $raw['vatRate'], 4) : (float) $product['vatRate'];
 
-            $lineTotal = round($quantity * $unitPrice * (1 - $discountPct / 100), 2);
-            $lines[] = [
-                'productId' => (int) $product['id'],
-                'quantity' => $quantity,
-                'unitPrice' => $unitPrice,
-                'discountPct' => $discountPct,
-                'vatRate' => $vatRate,
-                'lineTotal' => $lineTotal,
-                'lineVat' => round($lineTotal * $vatRate / 100, 2),
-                'productBatchId' => isset($raw['productBatchId']) ? (int) $raw['productBatchId'] : null,
-            ];
+            $lines[] = $this->line(
+                (int) $product['id'],
+                $quantity,
+                $unitPrice,
+                $discountPct,
+                $vatRate,
+                isset($raw['productBatchId']) ? (int) $raw['productBatchId'] : null
+            );
         }
 
         return $lines;
+    }
+
+    /**
+     * One priced line: the net amount and the VAT are always derived here, so a line built from an
+     * order and a line built from a payload cannot disagree on their arithmetic.
+     *
+     * @return array{productId:int,quantity:float,unitPrice:float,discountPct:float,vatRate:float,lineTotal:float,lineVat:float,productBatchId:?int}
+     */
+    private function line(int $productId, float $quantity, float $unitPrice, float $discountPct, float $vatRate,
+                          ?int $productBatchId): array
+    {
+        $lineTotal = round($quantity * $unitPrice * (1 - $discountPct / 100), 2);
+
+        return [
+            'productId' => $productId,
+            'quantity' => $quantity,
+            'unitPrice' => $unitPrice,
+            'discountPct' => $discountPct,
+            'vatRate' => $vatRate,
+            'lineTotal' => $lineTotal,
+            'lineVat' => round($lineTotal * $vatRate / 100, 2),
+            'productBatchId' => $productBatchId,
+        ];
     }
 
     /** @param array<string,mixed> $product */
