@@ -1697,11 +1697,25 @@ check('an unknown period answers 404', $response['status'] === 404, $response['r
 $response = call('GET', '/api/finance/cashbook', null, null);
 check('the cash book is not readable without a session', $response['status'] === 401, $response['raw']);
 
-// A long suite outlives the viewer's first token: sign the reader in again before checking RBAC.
-$response = call('POST', '/api/auth/login', ['username' => $viewerName, 'password' => 'Viewer456']);
+// The RBAC viewer of the users section was deleted there, so the finance checks bring their own
+// read-only account: created, its temporary password changed, then used.
+$financeReaderName = 'finance' . date('His');
+call('POST', '/api/users', [
+    'username' => $financeReaderName,
+    'fullName' => 'Lecteur Finance',
+    'email' => $financeReaderName . '@chempro.dz',
+    'password' => 'Finance123',
+    'isActive' => true,
+    'roleIds' => [$viewerId],
+], $token);
+$response = call('POST', '/api/auth/login', ['username' => $financeReaderName, 'password' => 'Finance123']);
 $financeViewerToken = $response['json']['data']['token'] ?? '';
-check('the read-only user can sign in again', $response['status'] === 200 && $financeViewerToken !== '',
-    $response['raw']);
+call('POST', '/api/auth/password',
+    ['currentPassword' => 'Finance123', 'newPassword' => 'Finance456'], $financeViewerToken);
+$response = call('POST', '/api/auth/login', ['username' => $financeReaderName, 'password' => 'Finance456']);
+$financeViewerToken = $response['json']['data']['token'] ?? '';
+check('the read-only finance account can sign in', $response['status'] === 200
+    && $financeViewerToken !== '', $response['raw']);
 
 $response = call('GET', '/api/finance/cashbook', null, $financeViewerToken);
 check('the read-only role can look at the cash book', $response['status'] === 200, $response['raw']);
