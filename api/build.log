@@ -92,836 +92,836 @@ roles
 12
 users
 1
-[Sat Nov 14 12:05:24 2026] PHP 8.2.35 Development Server (http://127.0.0.1:8080) started
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:37888 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:37888 [200]: GET /api/health
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:37888 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:37900 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:37900 [200]: GET /api/health
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:37900 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:37902 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:37902 [200]: GET /api/health
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:37902 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:37908 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:37908 [401]: POST /api/auth/login
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:37908 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:37924 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:37924 [200]: POST /api/auth/login
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:37924 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:37940 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:37940 [403]: GET /api/products
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:37940 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:37946 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:37946 [422]: POST /api/auth/password
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:37946 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:37962 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:37962 [200]: POST /api/auth/password
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:37962 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:37970 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:37970 [401]: GET /api/auth/me
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:37970 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:37976 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:37976 [200]: POST /api/auth/login
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:37976 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:37982 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:37982 [200]: GET /api/auth/me
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:37982 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:37990 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:37990 [401]: GET /api/products
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:37990 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:37992 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:37992 [401]: GET /api/products
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:37992 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38000 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38000 [404]: GET /api/nope
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38000 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38014 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38014 [405]: DELETE /api/products
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38014 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38028 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38028 [422]: POST /api/products
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38028 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38030 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38030 [200]: GET /api/products/categories
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38030 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38042 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38042 [201]: POST /api/products
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38042 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38046 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38046 [422]: POST /api/products
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38046 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38054 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38054 [200]: GET /api/products?search=IT-120525
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38054 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38064 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38064 [200]: PUT /api/products/8
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38064 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38070 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38070 [200]: GET /api/products/8
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38070 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38074 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38074 [404]: GET /api/products/999999
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38074 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38076 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38076 [200]: DELETE /api/products/8
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38076 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38090 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38090 [404]: GET /api/products/8
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38090 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38092 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38092 [200]: GET /api/rawMaterials?pageSize=5
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38092 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38106 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38106 [200]: GET /api/rawMaterials?hazardous=1&lowStock=1&pageSize=5
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38106 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38114 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38114 [200]: GET /api/rawMaterials/categories
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38114 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38118 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38118 [200]: GET /api/rawMaterials?pageSize=10
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38118 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38128 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38128 [422]: POST /api/formulations
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38128 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38136 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38136 [201]: POST /api/formulations
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38136 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38142 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38142 [200]: GET /api/formulations?search=FML-0001
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38142 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38154 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38154 [201]: POST /api/formulations/1/versions
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38154 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38170 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38170 [422]: POST /api/formulations/1/versions/1/approve
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38170 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38182 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38182 [200]: PUT /api/formulations/1/versions/1
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38182 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38196 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38196 [422]: PUT /api/formulations/1/versions/1
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38196 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38212 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38212 [200]: POST /api/formulations/1/versions/1/approve
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38212 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38218 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38218 [200]: GET /api/formulations/1
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38218 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38220 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38220 [409]: PUT /api/formulations/1/versions/1
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38220 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38226 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38226 [409]: POST /api/formulations/1/versions/1/approve
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38226 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38242 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38242 [201]: POST /api/formulations/1/versions
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38242 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38258 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38258 [200]: PUT /api/formulations/1/versions/2
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38258 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38268 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38268 [200]: GET /api/formulations/1/compare?left=1&right=2
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38268 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38278 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38278 [200]: GET /api/formulations/1/versions
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38278 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38282 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38282 [200]: POST /api/formulations/1/archive
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38282 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38290 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38290 [404]: GET /api/formulations/999999
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38290 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38294 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38294 [200]: GET /api/inventory/warehouses
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38294 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38302 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38302 [200]: GET /api/inventory/summary
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38302 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38314 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38314 [200]: GET /api/inventory/movements?pageSize=5
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38314 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38316 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38316 [200]: GET /api/suppliers?pageSize=10
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38316 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38322 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38322 [200]: GET /api/suppliers/2
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38322 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38328 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38328 [404]: GET /api/suppliers/999999
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38328 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38344 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38344 [422]: POST /api/purchaseOrders
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38344 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38356 Accepted
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38356 [404]: POST /api/purchaseOrders
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38356 Closing
-[Sat Nov 14 12:05:25 2026] 127.0.0.1:38364 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:38364 [201]: POST /api/purchaseOrders
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:38364 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:38368 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:38368 [409]: POST /api/purchaseOrders/1/receipts
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:38368 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:38384 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:38384 [200]: POST /api/purchaseOrders/1/send
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:38384 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:38396 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:38396 [422]: POST /api/purchaseOrders/1/receipts
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:38396 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:38400 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:38400 [409]: POST /api/purchaseOrders/1/receipts
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:38400 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:38416 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:38416 [404]: POST /api/purchaseOrders/1/receipts
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:38416 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:38430 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:38430 [201]: POST /api/purchaseOrders/1/receipts
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:38430 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:38444 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:38444 [200]: GET /api/inventory/stock?search=BT-TEST-1
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:38444 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:38446 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:38446 [200]: GET /api/inventory/stock?kind=PRODUCT
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:38446 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43184 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43184 [200]: GET /api/inventory/stock?warehouseId=3
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43184 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43198 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43198 [200]: GET /api/inventory/fefo?kind=MATERIAL&itemId=10&quantity=10
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43198 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43202 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43202 [409]: POST /api/inventory/adjust
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43202 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43204 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43204 [422]: POST /api/inventory/adjust
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43204 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43208 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43208 [200]: POST /api/inventory/adjust
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43208 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43218 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43218 [404]: POST /api/inventory/transfer
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43218 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43226 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43226 [422]: POST /api/inventory/transfer
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43226 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43232 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43232 [409]: POST /api/inventory/transfer
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43232 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43234 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43234 [409]: POST /api/inventory/transfer
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43234 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43250 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43250 [201]: POST /api/purchaseOrders/1/receipts
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43250 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43252 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43252 [200]: GET /api/purchaseOrders/1
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43252 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43260 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43260 [200]: GET /api/inventory/fefo?kind=MATERIAL&itemId=10&quantity=100
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43260 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43262 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43262 [200]: GET /api/inventory/stock?search=BT-TEST-2
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43262 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43264 Accepted
-[Sat Nov 14 12:05:26 2026] PHP Warning:  Undefined array key "reason" in /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/backend/src/Controllers/InventoryController.php on line 136
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43264 [200]: POST /api/inventory/transfer
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43264 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43268 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43268 [409]: POST /api/inventory/transfer
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43268 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43276 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43276 [200]: GET /api/inventory/stock?search=BT-TEST-2&warehouseId=2
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43276 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43286 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43286 [200]: GET /api/inventory/movements?movementType=ADJUSTMENT&pageSize=5
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43286 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43294 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43294 [200]: GET /api/inventory/movements?movementType=TRANSFER&pageSize=5
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43294 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43306 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43306 [200]: GET /api/inventory/movements?movementType=IN&pageSize=10
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43306 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43310 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43310 [200]: GET /api/inventory/movements?kind=MATERIAL&batchId=2&pageSize=5
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43310 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43320 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43320 [200]: GET /api/inventory/summary
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43320 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43336 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43336 [201]: POST /api/purchaseOrders
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43336 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43346 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43346 [200]: POST /api/purchaseOrders/2/cancel
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43346 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43352 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43352 [409]: POST /api/purchaseOrders/2/send
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43352 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43360 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43360 [409]: POST /api/purchaseOrders/2/receipts
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43360 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43374 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43374 [409]: POST /api/purchaseOrders/1/cancel
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43374 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43384 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43384 [200]: GET /api/purchaseOrders?pageSize=10
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43384 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43394 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43394 [200]: GET /api/purchaseOrders?status=RECEIVED
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43394 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43410 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43410 [200]: GET /api/purchaseOrders?supplierId=2&search=BC-
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43410 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43420 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43420 [404]: GET /api/purchaseOrders/999999
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43420 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43424 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43424 [200]: GET /api/inventory/stock?kind=MATERIAL&availableOnly=1&pageSize=5
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43424 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43430 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43430 [200]: GET /api/inventory/stock?expiringDays=30&pageSize=5
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43430 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43446 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43446 [200]: GET /api/inventory/stock?expiringDays=120&pageSize=5
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43446 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43462 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43462 [401]: POST /api/inventory/adjust
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43462 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43472 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43472 [401]: GET /api/purchaseOrders
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43472 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43488 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43488 [200]: GET /api/inventory/stock?from=2026-13-01
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43488 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43494 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43494 [200]: GET /api/products?pageSize=1
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43494 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43510 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43510 [201]: POST /api/formulations
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43510 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43514 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43514 [201]: POST /api/formulations/2/versions
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43514 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43516 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43516 [200]: PUT /api/formulations/2/versions/3
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43516 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43524 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43524 [200]: POST /api/formulations/2/versions/3/approve
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43524 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43534 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43534 [201]: POST /api/formulations/2/versions
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43534 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43550 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43550 [201]: POST /api/purchaseOrders
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43550 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43560 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43560 [200]: POST /api/purchaseOrders/3/send
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43560 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43562 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43562 [201]: POST /api/purchaseOrders/3/receipts
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43562 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43578 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43578 [200]: GET /api/production/versions
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43578 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43586 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43586 [401]: GET /api/production/versions
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43586 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43598 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43598 [409]: POST /api/production/orders
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43598 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43612 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43612 [404]: POST /api/production/orders
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43612 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43620 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43620 [422]: POST /api/production/orders
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43620 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43636 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43636 [409]: POST /api/production/orders
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43636 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43638 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43638 [201]: POST /api/production/orders
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43638 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43642 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43642 [201]: POST /api/production/orders
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43642 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43658 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43658 [409]: POST /api/production/orders/2/start
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43658 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43666 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43666 [200]: GET /api/production/orders/2
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43666 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43674 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43674 [200]: POST /api/production/orders/1/start
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43674 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43676 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43676 [409]: POST /api/production/orders/1/start
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43676 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43684 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43684 [409]: POST /api/production/orders/1/consume
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43684 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43688 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43688 [409]: POST /api/production/orders/1/complete
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43688 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43698 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43698 [200]: POST /api/production/orders/1/consume
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43698 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43704 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43704 [200]: GET /api/inventory/stock?search=BT-PH5-A
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43704 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43708 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43708 [200]: GET /api/inventory/movements?movementType=PRODUCTION_OUT&pageSize=20
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43708 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43720 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43720 [200]: POST /api/production/orders/1/complete
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43720 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43730 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43730 [409]: POST /api/production/orders/1/complete
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43730 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43738 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43738 [422]: POST /api/production/orders/1/quality
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43738 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43740 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43740 [201]: POST /api/production/orders
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43740 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43742 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43742 [200]: POST /api/production/orders/3/start
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43742 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43744 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43744 [200]: POST /api/production/orders/3/consume
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43744 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43754 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43754 [200]: POST /api/production/orders/3/complete
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43754 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43768 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43768 [200]: POST /api/production/orders/3/quality
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43768 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43774 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43774 [200]: GET /api/inventory/stock?kind=PRODUCT&pageSize=10
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43774 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43782 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43782 [200]: GET /api/inventory/stock?kind=PRODUCT&qualityStatus=RELEASED
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43782 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43788 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43788 [200]: POST /api/production/orders/1/quality
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43788 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43802 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43802 [200]: GET /api/inventory/stock?kind=PRODUCT&qualityStatus=RELEASED
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43802 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43804 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43804 [200]: GET /api/production/orders/1/genealogy
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43804 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43820 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43820 [404]: GET /api/production/orders/999999/genealogy
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43820 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43832 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43832 [200]: POST /api/production/orders/2/cancel
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43832 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43842 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43842 [409]: POST /api/production/orders/3/cancel
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43842 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43844 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43844 [409]: POST /api/production/orders/1/cancel
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43844 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43854 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43854 [200]: GET /api/production/orders?pageSize=10
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43854 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43862 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43862 [200]: GET /api/production/orders?status=COMPLETED
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43862 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43864 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43864 [200]: GET /api/production/orders?search=PRD-
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43864 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43872 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43872 [404]: GET /api/production/orders/999999
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43872 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43886 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43886 [401]: GET /api/production/orders
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43886 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43900 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43900 [200]: GET /api/dashboard/summary
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43900 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43914 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43914 [422]: GET /api/dashboard/summary?from=2026-13-99&to=2026-01-01
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43914 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43918 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43918 [200]: GET /api/notifications?limit=5
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43918 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43928 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43928 [422]: POST /api/notifications/read
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43928 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43932 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43932 [200]: POST /api/notifications/readAll
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43932 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43938 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43938 [200]: GET /api/settings
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43938 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43952 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43952 [200]: PUT /api/settings
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43952 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43968 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43968 [200]: GET /api/settings
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43968 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43970 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43970 [200]: GET /api/auditLogs?pageSize=10
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43970 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43974 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43974 [200]: GET /api/auditLogs?action=LOGIN&pageSize=10
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43974 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43982 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43982 [200]: GET /api/auditLogs?action=CREATE&pageSize=10
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43982 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43984 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43984 [200]: GET /api/auditLogs?action=APPROVE&pageSize=10
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43984 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43986 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43986 [200]: GET /api/users?pageSize=5
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43986 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43994 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43994 [200]: GET /api/roles
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:43994 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44008 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44008 [200]: GET /api/permissions
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44008 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44018 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44018 [201]: POST /api/users
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44018 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44034 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44034 [200]: POST /api/auth/login
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44034 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44042 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44042 [200]: POST /api/auth/password
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44042 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44044 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44044 [200]: POST /api/auth/login
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44044 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44054 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44054 [200]: GET /api/products
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44054 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44066 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44066 [403]: POST /api/products
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44066 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44072 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44072 [403]: GET /api/users
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44072 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44074 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44074 [404]: GET /api/finance
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44074 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44076 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44076 [200]: POST /api/users/2/password
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44076 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44088 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44088 [401]: GET /api/products
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44088 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44104 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44104 [200]: DELETE /api/users/2
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44104 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44108 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44108 [200]: GET /api/inventory/stock?kind=PRODUCT&qualityStatus=RELEASED&availableOnly=1&pageSize=10
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44108 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44120 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44120 [200]: GET /api/customers
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44120 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44134 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44134 [201]: POST /api/customers
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44134 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44140 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44140 [422]: POST /api/customers
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44140 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44144 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44144 [200]: PUT /api/customers/6
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44144 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44148 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44148 [201]: POST /api/customers
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44148 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44152 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44152 [201]: POST /api/customers
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44152 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44164 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44164 [201]: POST /api/quotations
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44164 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44168 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44168 [200]: POST /api/quotations/1/send
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44168 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44174 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44174 [409]: POST /api/quotations/1/send
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44174 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44190 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44190 [200]: GET /api/documents/quotation/1?lang=fr
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44190 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44198 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44198 [200]: POST /api/quotations/1/accept
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44198 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44208 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44208 [409]: POST /api/quotations/1/accept
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44208 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44212 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44212 [201]: POST /api/salesOrders
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44212 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44220 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44220 [409]: POST /api/salesOrders/2/confirm
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44220 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44226 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44226 [200]: POST /api/salesOrders/1/confirm
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44226 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44232 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44232 [409]: POST /api/salesOrders/1/deliveries
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44232 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44244 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44244 [200]: GET /api/salesOrders/1
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44244 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44254 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44254 [200]: GET /api/products?pageSize=50
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44254 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44268 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44268 [201]: POST /api/salesOrders
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44268 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44280 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44280 [200]: POST /api/salesOrders/3/confirm
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44280 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44284 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44284 [409]: POST /api/salesOrders/3/deliveries
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44284 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44288 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44288 [200]: POST /api/salesOrders/3/cancel
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44288 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44290 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44290 [409]: POST /api/salesOrders/3/confirm
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44290 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44294 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44294 [201]: POST /api/salesOrders/1/deliveries
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44294 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44298 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44298 [200]: GET /api/salesOrders/1
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44298 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44314 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44314 [200]: GET /api/inventory/stock?kind=PRODUCT&qualityStatus=RELEASED&pageSize=50
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44314 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44322 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44322 [422]: POST /api/deliveries/3/deliver
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44322 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44334 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44334 [200]: POST /api/deliveries/3/deliver
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44334 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44342 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44342 [200]: GET /api/salesOrders/1
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44342 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44344 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44344 [409]: POST /api/salesOrders/1/cancel
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44344 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44358 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44358 [200]: GET /api/documents/delivery/3?lang=fr
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44358 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44370 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44370 [201]: POST /api/invoices
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44370 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44374 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44374 [200]: PUT /api/invoices/1
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44374 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44380 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44380 [200]: POST /api/invoices/1/issue
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44380 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44388 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44388 [409]: PUT /api/invoices/1
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44388 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44400 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44400 [409]: POST /api/invoices/1/cancel
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44400 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44408 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44408 [200]: GET /api/customers/6
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44408 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44418 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44418 [200]: GET /api/salesOrders/1
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44418 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44430 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44430 [200]: GET /api/documents/invoice/1?lang=fr
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44430 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44432 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44432 [200]: GET /api/invoices/1
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44432 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44438 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44438 [200]: GET /api/cashAccounts
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44438 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44440 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44440 [409]: POST /api/payments
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44440 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44456 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44456 [201]: POST /api/payments
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44456 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44468 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44468 [200]: GET /api/invoices/1
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44468 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44484 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44484 [200]: GET /api/customers/6
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44484 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44496 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44496 [201]: POST /api/payments
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44496 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44506 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44506 [200]: GET /api/invoices/1
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44506 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44512 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44512 [409]: POST /api/payments
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44512 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44514 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44514 [200]: GET /api/customers/6
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44514 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44522 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44522 [201]: POST /api/payments
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44522 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44524 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44524 [200]: GET /api/customers/6/statement
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44524 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44532 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44532 [200]: GET /api/documents/statement/6?lang=fr
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44532 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44546 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44546 [200]: GET /api/documents/invoice/1?lang=ar
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44546 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44550 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44550 [201]: POST /api/invoices
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44550 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44564 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44564 [200]: POST /api/invoices/2/issue
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44564 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44570 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44570 [409]: DELETE /api/customers/8
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44570 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44582 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44582 [409]: POST /api/invoices/2/creditNotes
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44582 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44584 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44584 [201]: POST /api/invoices/2/creditNotes
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44584 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44598 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44598 [200]: POST /api/creditNotes/1/apply
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44598 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44612 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44612 [200]: GET /api/invoices/2
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44612 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44614 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44614 [200]: GET /api/customers/8
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44614 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44624 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44624 [409]: POST /api/creditNotes/1/apply
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44624 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44626 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44626 [200]: GET /api/creditNotes?customerId=8
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44626 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44632 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44632 [201]: POST /api/salesOrders
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44632 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44644 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44644 [200]: POST /api/salesOrders/4/confirm
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44644 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44650 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44650 [201]: POST /api/salesOrders/4/deliveries
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44650 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44666 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44666 [200]: POST /api/deliveries/4/deliver
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44666 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44672 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44672 [200]: GET /api/salesOrders/4
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44672 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44674 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44674 [201]: POST /api/invoices
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44674 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44678 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44678 [200]: POST /api/invoices/3/issue
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44678 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44686 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44686 [409]: POST /api/invoices
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44686 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44694 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44694 [200]: GET /api/vehicles
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44694 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44706 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44706 [201]: POST /api/vehicles
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44706 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44718 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44718 [409]: POST /api/vehicles
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44718 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44734 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44734 [200]: GET /api/drivers
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44734 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44740 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44740 [201]: POST /api/salesOrders
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44740 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44752 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44752 [200]: POST /api/salesOrders/5/confirm
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44752 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44766 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44766 [201]: POST /api/salesOrders/5/deliveries
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44766 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44772 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44772 [201]: POST /api/routes
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44772 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44784 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44784 [409]: POST /api/routes
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44784 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44794 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44794 [200]: POST /api/routes/1/start
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44794 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44802 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44802 [200]: GET /api/deliveries/5
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44802 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44818 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44818 [200]: POST /api/routes/1/stops/1/deliver
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44818 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44832 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44832 [409]: POST /api/routes/1/stops/1/deliver
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44832 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44836 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44836 [200]: POST /api/routes/1/complete
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44836 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44846 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44846 [200]: GET /api/routes?routeDate=2026-11-14
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44846 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44850 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44850 [200]: GET /api/deliveries?status=DELIVERED&pageSize=10
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44850 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44856 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44856 [200]: GET /api/customers/8
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44856 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44868 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44868 [201]: POST /api/payments
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44868 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44880 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44880 [200]: DELETE /api/customers/8
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44880 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44896 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44896 [200]: GET /api/customers?search=Client+%C3%89ph%C3%A9m%C3%A8re
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44896 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44904 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44904 [200]: GET /api/salesOrders?status=INVOICED
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44904 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44918 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44918 [200]: GET /api/invoices?status=PAID
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44918 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44932 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44932 [200]: GET /api/quotations?status=ACCEPTED
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44932 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44934 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44934 [404]: GET /api/documents/unknown/1
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44934 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44944 Accepted
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44944 [401]: POST /api/auth/login
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44944 Closing
-[Sat Nov 14 12:05:26 2026] 127.0.0.1:44950 Accepted
-[Sat Nov 14 12:05:27 2026] 127.0.0.1:44950 [401]: POST /api/auth/login
-[Sat Nov 14 12:05:27 2026] 127.0.0.1:44950 Closing
-[Sat Nov 14 12:05:27 2026] 127.0.0.1:44954 Accepted
-[Sat Nov 14 12:05:27 2026] 127.0.0.1:44954 [401]: POST /api/auth/login
-[Sat Nov 14 12:05:27 2026] 127.0.0.1:44954 Closing
-[Sat Nov 14 12:05:27 2026] 127.0.0.1:44958 Accepted
-[Sat Nov 14 12:05:27 2026] 127.0.0.1:44958 [401]: POST /api/auth/login
-[Sat Nov 14 12:05:27 2026] 127.0.0.1:44958 Closing
-[Sat Nov 14 12:05:27 2026] 127.0.0.1:44968 Accepted
-[Sat Nov 14 12:05:27 2026] 127.0.0.1:44968 [401]: POST /api/auth/login
-[Sat Nov 14 12:05:27 2026] 127.0.0.1:44968 Closing
-[Sat Nov 14 12:05:27 2026] 127.0.0.1:44980 Accepted
-[Sat Nov 14 12:05:27 2026] 127.0.0.1:44980 [429]: POST /api/auth/login
-[Sat Nov 14 12:05:27 2026] 127.0.0.1:44980 Closing
-[Sat Nov 14 12:05:27 2026] 127.0.0.1:44982 Accepted
-[Sat Nov 14 12:05:27 2026] 127.0.0.1:44982 [401]: POST /api/auth/login
-[Sat Nov 14 12:05:27 2026] 127.0.0.1:44982 Closing
+[Sat Nov 14 12:09:16 2026] PHP 8.2.35 Development Server (http://127.0.0.1:8080) started
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35656 Accepted
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35656 [200]: GET /api/health
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35656 Closing
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35662 Accepted
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35662 [200]: GET /api/health
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35662 Closing
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35674 Accepted
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35674 [200]: GET /api/health
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35674 Closing
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35680 Accepted
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35680 [401]: POST /api/auth/login
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35680 Closing
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35690 Accepted
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35690 [200]: POST /api/auth/login
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35690 Closing
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35692 Accepted
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35692 [403]: GET /api/products
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35692 Closing
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35708 Accepted
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35708 [422]: POST /api/auth/password
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35708 Closing
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35720 Accepted
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35720 [200]: POST /api/auth/password
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35720 Closing
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35728 Accepted
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35728 [401]: GET /api/auth/me
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35728 Closing
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35732 Accepted
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35732 [200]: POST /api/auth/login
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35732 Closing
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35744 Accepted
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35744 [200]: GET /api/auth/me
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35744 Closing
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35752 Accepted
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35752 [401]: GET /api/products
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35752 Closing
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35764 Accepted
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35764 [401]: GET /api/products
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35764 Closing
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35778 Accepted
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35778 [404]: GET /api/nope
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35778 Closing
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35788 Accepted
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35788 [405]: DELETE /api/products
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35788 Closing
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35804 Accepted
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35804 [422]: POST /api/products
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35804 Closing
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35808 Accepted
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35808 [200]: GET /api/products/categories
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35808 Closing
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35822 Accepted
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35822 [201]: POST /api/products
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35822 Closing
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35838 Accepted
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35838 [422]: POST /api/products
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35838 Closing
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35854 Accepted
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35854 [200]: GET /api/products?search=IT-120916
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35854 Closing
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35866 Accepted
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35866 [200]: PUT /api/products/8
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35866 Closing
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35868 Accepted
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35868 [200]: GET /api/products/8
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35868 Closing
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35884 Accepted
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35884 [404]: GET /api/products/999999
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35884 Closing
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35888 Accepted
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35888 [200]: DELETE /api/products/8
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35888 Closing
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35892 Accepted
+[Sat Nov 14 12:09:16 2026] 127.0.0.1:35892 [404]: GET /api/products/8
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:35892 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:35900 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:35900 [200]: GET /api/rawMaterials?pageSize=5
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:35900 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:35916 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:35916 [200]: GET /api/rawMaterials?hazardous=1&lowStock=1&pageSize=5
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:35916 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:35920 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:35920 [200]: GET /api/rawMaterials/categories
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:35920 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:35932 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:35932 [200]: GET /api/rawMaterials?pageSize=10
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:35932 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:35948 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:35948 [422]: POST /api/formulations
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:35948 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:35954 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:35954 [201]: POST /api/formulations
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:35954 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:35964 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:35964 [200]: GET /api/formulations?search=FML-0001
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:35964 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:35966 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:35966 [201]: POST /api/formulations/1/versions
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:35966 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:35978 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:35978 [422]: POST /api/formulations/1/versions/1/approve
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:35978 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:35988 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:35988 [200]: PUT /api/formulations/1/versions/1
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:35988 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36004 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36004 [422]: PUT /api/formulations/1/versions/1
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36004 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36016 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36016 [200]: POST /api/formulations/1/versions/1/approve
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36016 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36026 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36026 [200]: GET /api/formulations/1
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36026 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36032 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36032 [409]: PUT /api/formulations/1/versions/1
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36032 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36038 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36038 [409]: POST /api/formulations/1/versions/1/approve
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36038 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36052 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36052 [201]: POST /api/formulations/1/versions
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36052 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36062 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36062 [200]: PUT /api/formulations/1/versions/2
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36062 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36074 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36074 [200]: GET /api/formulations/1/compare?left=1&right=2
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36074 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36086 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36086 [200]: GET /api/formulations/1/versions
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36086 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36092 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36092 [200]: POST /api/formulations/1/archive
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36092 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36096 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36096 [404]: GET /api/formulations/999999
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36096 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36108 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36108 [200]: GET /api/inventory/warehouses
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36108 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36116 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36116 [200]: GET /api/inventory/summary
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36116 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36126 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36126 [200]: GET /api/inventory/movements?pageSize=5
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36126 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36134 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36134 [200]: GET /api/suppliers?pageSize=10
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36134 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36144 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36144 [200]: GET /api/suppliers/2
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36144 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36150 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36150 [404]: GET /api/suppliers/999999
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36150 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36166 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36166 [422]: POST /api/purchaseOrders
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36166 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36182 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36182 [404]: POST /api/purchaseOrders
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36182 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36196 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36196 [201]: POST /api/purchaseOrders
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36196 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36212 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36212 [409]: POST /api/purchaseOrders/1/receipts
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36212 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36220 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36220 [200]: POST /api/purchaseOrders/1/send
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36220 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36226 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36226 [422]: POST /api/purchaseOrders/1/receipts
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36226 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36236 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36236 [409]: POST /api/purchaseOrders/1/receipts
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36236 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36244 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36244 [404]: POST /api/purchaseOrders/1/receipts
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36244 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36246 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36246 [201]: POST /api/purchaseOrders/1/receipts
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36246 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36256 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36256 [200]: GET /api/inventory/stock?search=BT-TEST-1
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36256 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36258 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36258 [200]: GET /api/inventory/stock?kind=PRODUCT
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36258 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36268 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36268 [200]: GET /api/inventory/stock?warehouseId=3
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36268 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36284 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36284 [200]: GET /api/inventory/fefo?kind=MATERIAL&itemId=10&quantity=10
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36284 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36292 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36292 [409]: POST /api/inventory/adjust
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36292 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36298 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36298 [422]: POST /api/inventory/adjust
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36298 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36310 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36310 [200]: POST /api/inventory/adjust
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36310 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36320 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36320 [404]: POST /api/inventory/transfer
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36320 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36332 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36332 [422]: POST /api/inventory/transfer
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36332 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36338 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36338 [409]: POST /api/inventory/transfer
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36338 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36346 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36346 [409]: POST /api/inventory/transfer
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36346 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36350 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36350 [201]: POST /api/purchaseOrders/1/receipts
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36350 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36352 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36352 [200]: GET /api/purchaseOrders/1
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36352 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36356 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36356 [200]: GET /api/inventory/fefo?kind=MATERIAL&itemId=10&quantity=100
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36356 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36370 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36370 [200]: GET /api/inventory/stock?search=BT-TEST-2
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36370 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36384 Accepted
+[Sat Nov 14 12:09:17 2026] PHP Warning:  Undefined array key "reason" in /home/runner/work/BEAUTYCHEMICALS/BEAUTYCHEMICALS/backend/src/Controllers/InventoryController.php on line 136
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36384 [200]: POST /api/inventory/transfer
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36384 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36392 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36392 [409]: POST /api/inventory/transfer
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36392 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36408 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36408 [200]: GET /api/inventory/stock?search=BT-TEST-2&warehouseId=2
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36408 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36410 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36410 [200]: GET /api/inventory/movements?movementType=ADJUSTMENT&pageSize=5
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36410 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36426 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36426 [200]: GET /api/inventory/movements?movementType=TRANSFER&pageSize=5
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36426 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36436 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36436 [200]: GET /api/inventory/movements?movementType=IN&pageSize=10
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36436 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36448 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36448 [200]: GET /api/inventory/movements?kind=MATERIAL&batchId=2&pageSize=5
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36448 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36452 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36452 [200]: GET /api/inventory/summary
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36452 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36466 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36466 [201]: POST /api/purchaseOrders
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36466 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36476 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36476 [200]: POST /api/purchaseOrders/2/cancel
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36476 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36480 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36480 [409]: POST /api/purchaseOrders/2/send
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36480 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36492 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36492 [409]: POST /api/purchaseOrders/2/receipts
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36492 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36494 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36494 [409]: POST /api/purchaseOrders/1/cancel
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36494 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36508 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36508 [200]: GET /api/purchaseOrders?pageSize=10
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36508 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36512 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36512 [200]: GET /api/purchaseOrders?status=RECEIVED
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36512 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36518 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36518 [200]: GET /api/purchaseOrders?supplierId=2&search=BC-
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36518 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36526 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36526 [404]: GET /api/purchaseOrders/999999
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36526 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36530 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36530 [200]: GET /api/inventory/stock?kind=MATERIAL&availableOnly=1&pageSize=5
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36530 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36540 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36540 [200]: GET /api/inventory/stock?expiringDays=30&pageSize=5
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36540 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36554 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36554 [200]: GET /api/inventory/stock?expiringDays=120&pageSize=5
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36554 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36566 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36566 [401]: POST /api/inventory/adjust
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36566 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36568 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36568 [401]: GET /api/purchaseOrders
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36568 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36578 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36578 [200]: GET /api/inventory/stock?from=2026-13-01
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36578 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36594 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36594 [200]: GET /api/products?pageSize=1
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36594 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36600 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36600 [201]: POST /api/formulations
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36600 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36616 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36616 [201]: POST /api/formulations/2/versions
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36616 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36626 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36626 [200]: PUT /api/formulations/2/versions/3
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36626 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36632 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36632 [200]: POST /api/formulations/2/versions/3/approve
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36632 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36634 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36634 [201]: POST /api/formulations/2/versions
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36634 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36646 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36646 [201]: POST /api/purchaseOrders
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36646 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36656 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36656 [200]: POST /api/purchaseOrders/3/send
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36656 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36658 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36658 [201]: POST /api/purchaseOrders/3/receipts
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36658 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36670 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36670 [200]: GET /api/production/versions
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36670 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36686 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36686 [401]: GET /api/production/versions
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36686 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36702 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36702 [409]: POST /api/production/orders
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36702 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36710 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36710 [404]: POST /api/production/orders
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36710 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36720 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36720 [422]: POST /api/production/orders
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36720 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36728 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36728 [409]: POST /api/production/orders
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36728 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36736 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36736 [201]: POST /api/production/orders
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36736 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36752 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36752 [201]: POST /api/production/orders
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36752 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36758 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36758 [409]: POST /api/production/orders/2/start
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36758 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36766 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36766 [200]: GET /api/production/orders/2
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36766 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36776 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36776 [200]: POST /api/production/orders/1/start
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36776 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36786 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36786 [409]: POST /api/production/orders/1/start
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36786 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36798 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36798 [409]: POST /api/production/orders/1/consume
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36798 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36804 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36804 [409]: POST /api/production/orders/1/complete
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36804 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36820 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36820 [200]: POST /api/production/orders/1/consume
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36820 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36832 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36832 [200]: GET /api/inventory/stock?search=BT-PH5-A
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36832 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36848 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36848 [200]: GET /api/inventory/movements?movementType=PRODUCTION_OUT&pageSize=20
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36848 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36858 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36858 [200]: POST /api/production/orders/1/complete
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36858 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36872 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36872 [409]: POST /api/production/orders/1/complete
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36872 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36878 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36878 [422]: POST /api/production/orders/1/quality
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36878 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36888 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36888 [201]: POST /api/production/orders
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36888 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36902 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36902 [200]: POST /api/production/orders/3/start
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36902 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36906 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36906 [200]: POST /api/production/orders/3/consume
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36906 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36920 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36920 [200]: POST /api/production/orders/3/complete
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36920 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36928 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36928 [200]: POST /api/production/orders/3/quality
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36928 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36942 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36942 [200]: GET /api/inventory/stock?kind=PRODUCT&pageSize=10
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36942 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36952 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36952 [200]: GET /api/inventory/stock?kind=PRODUCT&qualityStatus=RELEASED
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36952 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36968 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36968 [200]: POST /api/production/orders/1/quality
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36968 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36984 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36984 [200]: GET /api/inventory/stock?kind=PRODUCT&qualityStatus=RELEASED
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:36984 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37000 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37000 [200]: GET /api/production/orders/1/genealogy
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37000 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37008 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37008 [404]: GET /api/production/orders/999999/genealogy
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37008 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37018 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37018 [200]: POST /api/production/orders/2/cancel
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37018 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37030 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37030 [409]: POST /api/production/orders/3/cancel
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37030 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37038 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37038 [409]: POST /api/production/orders/1/cancel
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37038 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37044 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37044 [200]: GET /api/production/orders?pageSize=10
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37044 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37056 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37056 [200]: GET /api/production/orders?status=COMPLETED
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37056 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37060 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37060 [200]: GET /api/production/orders?search=PRD-
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37060 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37074 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37074 [404]: GET /api/production/orders/999999
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37074 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37090 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37090 [401]: GET /api/production/orders
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37090 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37098 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37098 [200]: GET /api/dashboard/summary
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37098 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37108 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37108 [422]: GET /api/dashboard/summary?from=2026-13-99&to=2026-01-01
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37108 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37122 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37122 [200]: GET /api/notifications?limit=5
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37122 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37128 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37128 [422]: POST /api/notifications/read
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37128 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37138 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37138 [200]: POST /api/notifications/readAll
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37138 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37140 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37140 [200]: GET /api/settings
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37140 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37152 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37152 [200]: PUT /api/settings
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37152 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37160 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37160 [200]: GET /api/settings
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37160 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37168 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37168 [200]: GET /api/auditLogs?pageSize=10
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37168 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37176 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37176 [200]: GET /api/auditLogs?action=LOGIN&pageSize=10
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37176 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37184 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37184 [200]: GET /api/auditLogs?action=CREATE&pageSize=10
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37184 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37188 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37188 [200]: GET /api/auditLogs?action=APPROVE&pageSize=10
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37188 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37204 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37204 [200]: GET /api/users?pageSize=5
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37204 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37212 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37212 [200]: GET /api/roles
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37212 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37214 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37214 [200]: GET /api/permissions
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37214 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37218 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37218 [201]: POST /api/users
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37218 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37230 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37230 [200]: POST /api/auth/login
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37230 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37246 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37246 [200]: POST /api/auth/password
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37246 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37256 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37256 [200]: POST /api/auth/login
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37256 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37270 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37270 [200]: GET /api/products
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37270 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37284 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37284 [403]: POST /api/products
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37284 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37296 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37296 [403]: GET /api/users
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37296 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37306 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37306 [404]: GET /api/finance
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37306 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37320 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37320 [200]: POST /api/users/2/password
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37320 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37322 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37322 [401]: GET /api/products
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37322 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37334 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37334 [200]: DELETE /api/users/2
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37334 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37338 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37338 [200]: GET /api/inventory/stock?kind=PRODUCT&qualityStatus=RELEASED&availableOnly=1&pageSize=10
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37338 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37352 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37352 [200]: GET /api/customers
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37352 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37368 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37368 [201]: POST /api/customers
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37368 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37380 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37380 [422]: POST /api/customers
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37380 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37394 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37394 [200]: PUT /api/customers/6
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37394 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37402 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37402 [201]: POST /api/customers
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37402 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37418 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37418 [201]: POST /api/customers
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37418 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37432 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37432 [201]: POST /api/quotations
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37432 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37444 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37444 [200]: POST /api/quotations/1/send
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37444 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37452 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37452 [409]: POST /api/quotations/1/send
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37452 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37456 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37456 [200]: GET /api/documents/quotation/1?lang=fr
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37456 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37462 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37462 [200]: POST /api/quotations/1/accept
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37462 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37478 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37478 [409]: POST /api/quotations/1/accept
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37478 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37492 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37492 [201]: POST /api/salesOrders
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37492 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37504 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37504 [409]: POST /api/salesOrders/2/confirm
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37504 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37514 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37514 [200]: POST /api/salesOrders/1/confirm
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37514 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37518 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37518 [409]: POST /api/salesOrders/1/deliveries
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37518 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37522 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37522 [200]: GET /api/salesOrders/1
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37522 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37538 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37538 [200]: GET /api/products?pageSize=50
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37538 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37544 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37544 [201]: POST /api/salesOrders
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37544 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37554 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37554 [200]: POST /api/salesOrders/3/confirm
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37554 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37556 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37556 [409]: POST /api/salesOrders/3/deliveries
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37556 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37564 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37564 [200]: POST /api/salesOrders/3/cancel
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37564 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37578 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37578 [409]: POST /api/salesOrders/3/confirm
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37578 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37580 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37580 [201]: POST /api/salesOrders/1/deliveries
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37580 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37586 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37586 [200]: GET /api/salesOrders/1
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37586 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37588 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37588 [200]: GET /api/inventory/stock?kind=PRODUCT&qualityStatus=RELEASED&pageSize=50
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37588 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37598 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37598 [422]: POST /api/deliveries/3/deliver
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37598 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37614 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37614 [200]: POST /api/deliveries/3/deliver
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37614 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37622 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37622 [200]: GET /api/salesOrders/1
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37622 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37624 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37624 [409]: POST /api/salesOrders/1/cancel
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37624 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37626 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37626 [200]: GET /api/documents/delivery/3?lang=fr
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37626 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37630 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37630 [201]: POST /api/invoices
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37630 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37644 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37644 [200]: PUT /api/invoices/1
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37644 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37650 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37650 [200]: POST /api/invoices/1/issue
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37650 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37666 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37666 [409]: PUT /api/invoices/1
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37666 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37680 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37680 [409]: POST /api/invoices/1/cancel
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37680 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37686 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37686 [200]: GET /api/customers/6
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37686 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37690 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37690 [200]: GET /api/salesOrders/1
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37690 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37694 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37694 [200]: GET /api/documents/invoice/1?lang=fr
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37694 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37700 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37700 [200]: GET /api/invoices/1
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37700 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37716 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37716 [200]: GET /api/cashAccounts
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37716 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37724 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37724 [409]: POST /api/payments
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37724 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37734 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37734 [201]: POST /api/payments
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37734 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37746 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37746 [200]: GET /api/invoices/1
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37746 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37760 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37760 [200]: GET /api/customers/6
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37760 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37766 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37766 [201]: POST /api/payments
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37766 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37774 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37774 [200]: GET /api/invoices/1
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37774 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37786 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37786 [409]: POST /api/payments
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37786 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37788 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37788 [200]: GET /api/customers/6
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37788 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37798 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37798 [201]: POST /api/payments
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37798 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37802 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37802 [200]: GET /api/customers/6/statement
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37802 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37816 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37816 [200]: GET /api/documents/statement/6?lang=fr
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37816 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37830 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37830 [200]: GET /api/documents/invoice/1?lang=ar
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37830 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37840 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37840 [201]: POST /api/invoices
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37840 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37856 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37856 [200]: POST /api/invoices/2/issue
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37856 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37862 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37862 [409]: DELETE /api/customers/8
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37862 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37866 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37866 [409]: POST /api/invoices/2/creditNotes
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37866 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37878 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37878 [201]: POST /api/invoices/2/creditNotes
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37878 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37888 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37888 [200]: POST /api/creditNotes/1/apply
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37888 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37890 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37890 [200]: GET /api/invoices/2
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37890 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37902 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37902 [200]: GET /api/customers/8
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37902 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37914 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37914 [409]: POST /api/creditNotes/1/apply
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37914 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37928 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37928 [200]: GET /api/creditNotes?customerId=8
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37928 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37942 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37942 [201]: POST /api/salesOrders
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37942 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37944 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37944 [200]: POST /api/salesOrders/4/confirm
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37944 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37952 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37952 [201]: POST /api/salesOrders/4/deliveries
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37952 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37966 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37966 [200]: POST /api/deliveries/4/deliver
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37966 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37972 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37972 [200]: GET /api/salesOrders/4
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37972 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37978 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37978 [201]: POST /api/invoices
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37978 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37986 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37986 [200]: POST /api/invoices/3/issue
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:37986 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38000 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38000 [409]: POST /api/invoices
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38000 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38002 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38002 [200]: GET /api/vehicles
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38002 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38006 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38006 [201]: POST /api/vehicles
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38006 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38010 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38010 [409]: POST /api/vehicles
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38010 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38026 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38026 [200]: GET /api/drivers
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38026 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38036 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38036 [201]: POST /api/salesOrders
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38036 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38044 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38044 [200]: POST /api/salesOrders/5/confirm
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38044 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38046 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38046 [201]: POST /api/salesOrders/5/deliveries
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38046 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38048 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38048 [201]: POST /api/routes
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38048 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38060 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38060 [409]: POST /api/routes
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38060 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38068 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38068 [200]: POST /api/routes/1/start
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38068 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38082 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38082 [200]: GET /api/deliveries/5
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38082 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38092 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38092 [200]: POST /api/routes/1/stops/1/deliver
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38092 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38108 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38108 [409]: POST /api/routes/1/stops/1/deliver
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38108 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38110 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38110 [200]: POST /api/routes/1/complete
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38110 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38118 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38118 [200]: GET /api/routes?routeDate=2026-11-14
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38118 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38128 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38128 [200]: GET /api/deliveries?status=DELIVERED&pageSize=10
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38128 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38136 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38136 [200]: GET /api/customers/8
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38136 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38144 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38144 [201]: POST /api/payments
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38144 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38152 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38152 [200]: DELETE /api/customers/8
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38152 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38156 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38156 [200]: GET /api/customers?search=Client+%C3%89ph%C3%A9m%C3%A8re
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38156 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38170 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38170 [200]: GET /api/salesOrders?status=INVOICED
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38170 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38186 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38186 [200]: GET /api/invoices?status=PAID
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38186 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38196 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38196 [200]: GET /api/quotations?status=ACCEPTED
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38196 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38210 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38210 [404]: GET /api/documents/unknown/1
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38210 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38218 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38218 [401]: POST /api/auth/login
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38218 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38226 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38226 [401]: POST /api/auth/login
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38226 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38232 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38232 [401]: POST /api/auth/login
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38232 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38242 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38242 [401]: POST /api/auth/login
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38242 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38252 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38252 [401]: POST /api/auth/login
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38252 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38258 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38258 [429]: POST /api/auth/login
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38258 Closing
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38270 Accepted
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38270 [401]: POST /api/auth/login
+[Sat Nov 14 12:09:17 2026] 127.0.0.1:38270 Closing
 API integration tests against http://127.0.0.1:8080
   ok   the API answers on /api/health
   ok   health returns 200
@@ -1272,279 +1272,279 @@ API integration tests against http://127.0.0.1:8080
   ok   an unknown account is refused
 
 integration tests: 347 passed
-[2026-11-14T12:05:25Z] INFO request {"method":"GET","path":"/api/health","status":200,"user":null,"ms":3}
-[2026-11-14T12:05:25Z] INFO request {"method":"GET","path":"/api/health","status":200,"user":null,"ms":2}
-[2026-11-14T12:05:25Z] INFO request {"method":"GET","path":"/api/health","status":200,"user":null,"ms":1}
-[2026-11-14T12:05:25Z] INFO request {"method":"POST","path":"/api/auth/login","status":401,"user":null,"ms":165}
-[2026-11-14T12:05:25Z] INFO request {"method":"POST","path":"/api/auth/login","status":200,"user":null,"ms":168}
-[2026-11-14T12:05:25Z] INFO request {"method":"GET","path":"/api/products","status":403,"user":"admin","ms":2}
-[2026-11-14T12:05:25Z] INFO request {"method":"POST","path":"/api/auth/password","status":422,"user":"admin","ms":2}
-[2026-11-14T12:05:25Z] INFO request {"method":"POST","path":"/api/auth/password","status":200,"user":"admin","ms":6}
-[2026-11-14T12:05:25Z] INFO request {"method":"GET","path":"/api/auth/me","status":401,"user":null,"ms":1}
-[2026-11-14T12:05:25Z] INFO request {"method":"POST","path":"/api/auth/login","status":200,"user":null,"ms":4}
-[2026-11-14T12:05:25Z] INFO request {"method":"GET","path":"/api/auth/me","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:25Z] INFO request {"method":"GET","path":"/api/products","status":401,"user":null,"ms":0}
-[2026-11-14T12:05:25Z] INFO request {"method":"GET","path":"/api/products","status":401,"user":null,"ms":1}
-[2026-11-14T12:05:25Z] INFO request {"method":"GET","path":"/api/nope","status":404,"user":null,"ms":1}
-[2026-11-14T12:05:25Z] INFO request {"method":"DELETE","path":"/api/products","status":405,"user":null,"ms":0}
-[2026-11-14T12:05:25Z] INFO request {"method":"POST","path":"/api/products","status":422,"user":"admin","ms":2}
-[2026-11-14T12:05:25Z] INFO request {"method":"GET","path":"/api/products/categories","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:25Z] INFO request {"method":"POST","path":"/api/products","status":201,"user":"admin","ms":4}
-[2026-11-14T12:05:25Z] INFO request {"method":"POST","path":"/api/products","status":422,"user":"admin","ms":2}
-[2026-11-14T12:05:25Z] INFO request {"method":"GET","path":"/api/products","status":200,"user":"admin","ms":3}
-[2026-11-14T12:05:25Z] INFO request {"method":"PUT","path":"/api/products/8","status":200,"user":"admin","ms":5}
-[2026-11-14T12:05:25Z] INFO request {"method":"GET","path":"/api/products/8","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:25Z] INFO request {"method":"GET","path":"/api/products/999999","status":404,"user":"admin","ms":3}
-[2026-11-14T12:05:25Z] INFO request {"method":"DELETE","path":"/api/products/8","status":200,"user":"admin","ms":4}
-[2026-11-14T12:05:25Z] INFO request {"method":"GET","path":"/api/products/8","status":404,"user":"admin","ms":2}
-[2026-11-14T12:05:25Z] INFO request {"method":"GET","path":"/api/rawMaterials","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:25Z] INFO request {"method":"GET","path":"/api/rawMaterials","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:25Z] INFO request {"method":"GET","path":"/api/rawMaterials/categories","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:25Z] INFO request {"method":"GET","path":"/api/rawMaterials","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:25Z] INFO request {"method":"POST","path":"/api/formulations","status":422,"user":"admin","ms":1}
-[2026-11-14T12:05:25Z] INFO request {"method":"POST","path":"/api/formulations","status":201,"user":"admin","ms":5}
-[2026-11-14T12:05:25Z] INFO request {"method":"GET","path":"/api/formulations","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:25Z] INFO request {"method":"POST","path":"/api/formulations/1/versions","status":201,"user":"admin","ms":5}
-[2026-11-14T12:05:25Z] INFO request {"method":"POST","path":"/api/formulations/1/versions/1/approve","status":422,"user":"admin","ms":2}
-[2026-11-14T12:05:25Z] INFO request {"method":"PUT","path":"/api/formulations/1/versions/1","status":200,"user":"admin","ms":6}
-[2026-11-14T12:05:25Z] INFO request {"method":"PUT","path":"/api/formulations/1/versions/1","status":422,"user":"admin","ms":2}
-[2026-11-14T12:05:25Z] INFO request {"method":"POST","path":"/api/formulations/1/versions/1/approve","status":200,"user":"admin","ms":5}
-[2026-11-14T12:05:25Z] INFO request {"method":"GET","path":"/api/formulations/1","status":200,"user":"admin","ms":3}
-[2026-11-14T12:05:25Z] INFO request {"method":"PUT","path":"/api/formulations/1/versions/1","status":409,"user":"admin","ms":2}
-[2026-11-14T12:05:25Z] INFO request {"method":"POST","path":"/api/formulations/1/versions/1/approve","status":409,"user":"admin","ms":2}
-[2026-11-14T12:05:25Z] INFO request {"method":"POST","path":"/api/formulations/1/versions","status":201,"user":"admin","ms":6}
-[2026-11-14T12:05:25Z] INFO request {"method":"PUT","path":"/api/formulations/1/versions/2","status":200,"user":"admin","ms":6}
-[2026-11-14T12:05:25Z] INFO request {"method":"GET","path":"/api/formulations/1/compare","status":200,"user":"admin","ms":4}
-[2026-11-14T12:05:25Z] INFO request {"method":"GET","path":"/api/formulations/1/versions","status":200,"user":"admin","ms":5}
-[2026-11-14T12:05:25Z] INFO request {"method":"POST","path":"/api/formulations/1/archive","status":200,"user":"admin","ms":6}
-[2026-11-14T12:05:25Z] INFO request {"method":"GET","path":"/api/formulations/999999","status":404,"user":"admin","ms":2}
-[2026-11-14T12:05:25Z] INFO request {"method":"GET","path":"/api/inventory/warehouses","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:25Z] INFO request {"method":"GET","path":"/api/inventory/summary","status":200,"user":"admin","ms":4}
-[2026-11-14T12:05:25Z] INFO request {"method":"GET","path":"/api/inventory/movements","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:25Z] INFO request {"method":"GET","path":"/api/suppliers","status":200,"user":"admin","ms":3}
-[2026-11-14T12:05:25Z] INFO request {"method":"GET","path":"/api/suppliers/2","status":200,"user":"admin","ms":3}
-[2026-11-14T12:05:25Z] INFO request {"method":"GET","path":"/api/suppliers/999999","status":404,"user":"admin","ms":2}
-[2026-11-14T12:05:25Z] INFO request {"method":"POST","path":"/api/purchaseOrders","status":422,"user":"admin","ms":2}
-[2026-11-14T12:05:25Z] INFO request {"method":"POST","path":"/api/purchaseOrders","status":404,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/purchaseOrders","status":201,"user":"admin","ms":8}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/purchaseOrders/1/receipts","status":409,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/purchaseOrders/1/send","status":200,"user":"admin","ms":6}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/purchaseOrders/1/receipts","status":422,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/purchaseOrders/1/receipts","status":409,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/purchaseOrders/1/receipts","status":404,"user":"admin","ms":4}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/purchaseOrders/1/receipts","status":201,"user":"admin","ms":21}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/inventory/stock","status":200,"user":"admin","ms":4}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/inventory/stock","status":200,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/inventory/stock","status":200,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/inventory/fefo","status":200,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/inventory/adjust","status":409,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/inventory/adjust","status":422,"user":"admin","ms":1}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/inventory/adjust","status":200,"user":"admin","ms":5}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/inventory/transfer","status":404,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/inventory/transfer","status":422,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/inventory/transfer","status":409,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/inventory/transfer","status":409,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/purchaseOrders/1/receipts","status":201,"user":"admin","ms":9}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/purchaseOrders/1","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/inventory/fefo","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/inventory/stock","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/inventory/transfer","status":200,"user":"admin","ms":5}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/inventory/transfer","status":409,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/inventory/stock","status":200,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/inventory/movements","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/inventory/movements","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/inventory/movements","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/inventory/movements","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/inventory/summary","status":200,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/purchaseOrders","status":201,"user":"admin","ms":5}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/purchaseOrders/2/cancel","status":200,"user":"admin","ms":4}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/purchaseOrders/2/send","status":409,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/purchaseOrders/2/receipts","status":409,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/purchaseOrders/1/cancel","status":409,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/purchaseOrders","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/purchaseOrders","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/purchaseOrders","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/purchaseOrders/999999","status":404,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/inventory/stock","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/inventory/stock","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/inventory/stock","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/inventory/adjust","status":401,"user":null,"ms":0}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/purchaseOrders","status":401,"user":null,"ms":0}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/inventory/stock","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/products","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/formulations","status":201,"user":"admin","ms":4}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/formulations/2/versions","status":201,"user":"admin","ms":5}
-[2026-11-14T12:05:26Z] INFO request {"method":"PUT","path":"/api/formulations/2/versions/3","status":200,"user":"admin","ms":15}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/formulations/2/versions/3/approve","status":200,"user":"admin","ms":6}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/formulations/2/versions","status":201,"user":"admin","ms":6}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/purchaseOrders","status":201,"user":"admin","ms":5}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/purchaseOrders/3/send","status":200,"user":"admin","ms":4}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/purchaseOrders/3/receipts","status":201,"user":"admin","ms":9}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/production/versions","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/production/versions","status":401,"user":null,"ms":0}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/production/orders","status":409,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/production/orders","status":404,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/production/orders","status":422,"user":"admin","ms":1}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/production/orders","status":409,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/production/orders","status":201,"user":"admin","ms":7}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/production/orders","status":201,"user":"admin","ms":6}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/production/orders/2/start","status":409,"user":"admin","ms":4}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/production/orders/2","status":200,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/production/orders/1/start","status":200,"user":"admin","ms":8}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/production/orders/1/start","status":409,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/production/orders/1/consume","status":409,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/production/orders/1/complete","status":409,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/production/orders/1/consume","status":200,"user":"admin","ms":10}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/inventory/stock","status":200,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/inventory/movements","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/production/orders/1/complete","status":200,"user":"admin","ms":7}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/production/orders/1/complete","status":409,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/production/orders/1/quality","status":422,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/production/orders","status":201,"user":"admin","ms":6}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/production/orders/3/start","status":200,"user":"admin","ms":23}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/production/orders/3/consume","status":200,"user":"admin","ms":9}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/production/orders/3/complete","status":200,"user":"admin","ms":9}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/production/orders/3/quality","status":200,"user":"admin","ms":6}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/inventory/stock","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/inventory/stock","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/production/orders/1/quality","status":200,"user":"admin","ms":6}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/inventory/stock","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/production/orders/1/genealogy","status":200,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/production/orders/999999/genealogy","status":404,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/production/orders/2/cancel","status":200,"user":"admin","ms":5}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/production/orders/3/cancel","status":409,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/production/orders/1/cancel","status":409,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/production/orders","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/production/orders","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/production/orders","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/production/orders/999999","status":404,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/production/orders","status":401,"user":null,"ms":0}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/dashboard/summary","status":200,"user":"admin","ms":10}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/dashboard/summary","status":422,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/notifications","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/notifications/read","status":422,"user":"admin","ms":1}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/notifications/readAll","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/settings","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"PUT","path":"/api/settings","status":200,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/settings","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/auditLogs","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/auditLogs","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/auditLogs","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/auditLogs","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/users","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/roles","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/permissions","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/users","status":201,"user":"admin","ms":6}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/auth/login","status":200,"user":null,"ms":5}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/auth/password","status":200,"user":"viewer120526","ms":5}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/auth/login","status":200,"user":null,"ms":18}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/products","status":200,"user":"viewer120526","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/products","status":403,"user":"viewer120526","ms":1}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/users","status":403,"user":"viewer120526","ms":1}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/finance","status":404,"user":null,"ms":0}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/users/2/password","status":200,"user":"admin","ms":6}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/products","status":401,"user":null,"ms":1}
-[2026-11-14T12:05:26Z] INFO request {"method":"DELETE","path":"/api/users/2","status":200,"user":"admin","ms":4}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/inventory/stock","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/customers","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/customers","status":201,"user":"admin","ms":5}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/customers","status":422,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"PUT","path":"/api/customers/6","status":200,"user":"admin","ms":6}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/customers","status":201,"user":"admin","ms":5}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/customers","status":201,"user":"admin","ms":5}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/quotations","status":201,"user":"admin","ms":5}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/quotations/1/send","status":200,"user":"admin","ms":5}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/quotations/1/send","status":409,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/documents/quotation/1","status":200,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/quotations/1/accept","status":200,"user":"admin","ms":7}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/quotations/1/accept","status":409,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/salesOrders","status":201,"user":"admin","ms":6}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/salesOrders/2/confirm","status":409,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/salesOrders/1/confirm","status":200,"user":"admin","ms":6}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/salesOrders/1/deliveries","status":409,"user":"admin","ms":4}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/salesOrders/1","status":200,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/products","status":200,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/salesOrders","status":201,"user":"admin","ms":6}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/salesOrders/3/confirm","status":200,"user":"admin","ms":6}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/salesOrders/3/deliveries","status":409,"user":"admin","ms":5}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/salesOrders/3/cancel","status":200,"user":"admin","ms":17}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/salesOrders/3/confirm","status":409,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/salesOrders/1/deliveries","status":201,"user":"admin","ms":7}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/salesOrders/1","status":200,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/inventory/stock","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/deliveries/3/deliver","status":422,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/deliveries/3/deliver","status":200,"user":"admin","ms":5}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/salesOrders/1","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/salesOrders/1/cancel","status":409,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/documents/delivery/3","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/invoices","status":201,"user":"admin","ms":6}
-[2026-11-14T12:05:26Z] INFO request {"method":"PUT","path":"/api/invoices/1","status":200,"user":"admin","ms":5}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/invoices/1/issue","status":200,"user":"admin","ms":7}
-[2026-11-14T12:05:26Z] INFO request {"method":"PUT","path":"/api/invoices/1","status":409,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/invoices/1/cancel","status":409,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/customers/6","status":200,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/salesOrders/1","status":200,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/documents/invoice/1","status":200,"user":"admin","ms":4}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/invoices/1","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/cashAccounts","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/payments","status":409,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/payments","status":201,"user":"admin","ms":6}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/invoices/1","status":200,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/customers/6","status":200,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/payments","status":201,"user":"admin","ms":6}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/invoices/1","status":200,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/payments","status":409,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/customers/6","status":200,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/payments","status":201,"user":"admin","ms":5}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/customers/6/statement","status":200,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/documents/statement/6","status":200,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/documents/invoice/1","status":200,"user":"admin","ms":4}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/invoices","status":201,"user":"admin","ms":23}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/invoices/2/issue","status":200,"user":"admin","ms":7}
-[2026-11-14T12:05:26Z] INFO request {"method":"DELETE","path":"/api/customers/8","status":409,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/invoices/2/creditNotes","status":409,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/invoices/2/creditNotes","status":201,"user":"admin","ms":5}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/creditNotes/1/apply","status":200,"user":"admin","ms":5}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/invoices/2","status":200,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/customers/8","status":200,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/creditNotes/1/apply","status":409,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/creditNotes","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/salesOrders","status":201,"user":"admin","ms":5}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/salesOrders/4/confirm","status":200,"user":"admin","ms":6}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/salesOrders/4/deliveries","status":201,"user":"admin","ms":7}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/deliveries/4/deliver","status":200,"user":"admin","ms":5}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/salesOrders/4","status":200,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/invoices","status":201,"user":"admin","ms":6}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/invoices/3/issue","status":200,"user":"admin","ms":7}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/invoices","status":409,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/vehicles","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/vehicles","status":201,"user":"admin","ms":4}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/vehicles","status":409,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/drivers","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/salesOrders","status":201,"user":"admin","ms":5}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/salesOrders/5/confirm","status":200,"user":"admin","ms":5}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/salesOrders/5/deliveries","status":201,"user":"admin","ms":7}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/routes","status":201,"user":"admin","ms":6}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/routes","status":409,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/routes/1/start","status":200,"user":"admin","ms":5}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/deliveries/5","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/routes/1/stops/1/deliver","status":200,"user":"admin","ms":18}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/routes/1/stops/1/deliver","status":409,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/routes/1/complete","status":200,"user":"admin","ms":5}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/routes","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/deliveries","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/customers/8","status":200,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/payments","status":201,"user":"admin","ms":5}
-[2026-11-14T12:05:26Z] INFO request {"method":"DELETE","path":"/api/customers/8","status":200,"user":"admin","ms":5}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/customers","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/salesOrders","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/invoices","status":200,"user":"admin","ms":3}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/quotations","status":200,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"GET","path":"/api/documents/unknown/1","status":404,"user":"admin","ms":2}
-[2026-11-14T12:05:26Z] INFO request {"method":"POST","path":"/api/auth/login","status":401,"user":null,"ms":4}
-[2026-11-14T12:05:27Z] INFO request {"method":"POST","path":"/api/auth/login","status":401,"user":null,"ms":3}
-[2026-11-14T12:05:27Z] INFO request {"method":"POST","path":"/api/auth/login","status":401,"user":null,"ms":3}
-[2026-11-14T12:05:27Z] INFO request {"method":"POST","path":"/api/auth/login","status":401,"user":null,"ms":3}
-[2026-11-14T12:05:27Z] INFO request {"method":"POST","path":"/api/auth/login","status":401,"user":null,"ms":3}
-[2026-11-14T12:05:27Z] INFO request {"method":"POST","path":"/api/auth/login","status":429,"user":null,"ms":1}
-[2026-11-14T12:05:27Z] INFO request {"method":"POST","path":"/api/auth/login","status":401,"user":null,"ms":1}
+[2026-11-14T12:09:16Z] INFO request {"method":"GET","path":"/api/health","status":200,"user":null,"ms":3}
+[2026-11-14T12:09:16Z] INFO request {"method":"GET","path":"/api/health","status":200,"user":null,"ms":2}
+[2026-11-14T12:09:16Z] INFO request {"method":"GET","path":"/api/health","status":200,"user":null,"ms":1}
+[2026-11-14T12:09:16Z] INFO request {"method":"POST","path":"/api/auth/login","status":401,"user":null,"ms":164}
+[2026-11-14T12:09:16Z] INFO request {"method":"POST","path":"/api/auth/login","status":200,"user":null,"ms":168}
+[2026-11-14T12:09:16Z] INFO request {"method":"GET","path":"/api/products","status":403,"user":"admin","ms":2}
+[2026-11-14T12:09:16Z] INFO request {"method":"POST","path":"/api/auth/password","status":422,"user":"admin","ms":2}
+[2026-11-14T12:09:16Z] INFO request {"method":"POST","path":"/api/auth/password","status":200,"user":"admin","ms":5}
+[2026-11-14T12:09:16Z] INFO request {"method":"GET","path":"/api/auth/me","status":401,"user":null,"ms":1}
+[2026-11-14T12:09:16Z] INFO request {"method":"POST","path":"/api/auth/login","status":200,"user":null,"ms":4}
+[2026-11-14T12:09:16Z] INFO request {"method":"GET","path":"/api/auth/me","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:16Z] INFO request {"method":"GET","path":"/api/products","status":401,"user":null,"ms":0}
+[2026-11-14T12:09:16Z] INFO request {"method":"GET","path":"/api/products","status":401,"user":null,"ms":1}
+[2026-11-14T12:09:16Z] INFO request {"method":"GET","path":"/api/nope","status":404,"user":null,"ms":1}
+[2026-11-14T12:09:16Z] INFO request {"method":"DELETE","path":"/api/products","status":405,"user":null,"ms":0}
+[2026-11-14T12:09:16Z] INFO request {"method":"POST","path":"/api/products","status":422,"user":"admin","ms":2}
+[2026-11-14T12:09:16Z] INFO request {"method":"GET","path":"/api/products/categories","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:16Z] INFO request {"method":"POST","path":"/api/products","status":201,"user":"admin","ms":4}
+[2026-11-14T12:09:16Z] INFO request {"method":"POST","path":"/api/products","status":422,"user":"admin","ms":2}
+[2026-11-14T12:09:16Z] INFO request {"method":"GET","path":"/api/products","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:16Z] INFO request {"method":"PUT","path":"/api/products/8","status":200,"user":"admin","ms":5}
+[2026-11-14T12:09:16Z] INFO request {"method":"GET","path":"/api/products/8","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:16Z] INFO request {"method":"GET","path":"/api/products/999999","status":404,"user":"admin","ms":2}
+[2026-11-14T12:09:16Z] INFO request {"method":"DELETE","path":"/api/products/8","status":200,"user":"admin","ms":4}
+[2026-11-14T12:09:16Z] INFO request {"method":"GET","path":"/api/products/8","status":404,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/rawMaterials","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/rawMaterials","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/rawMaterials/categories","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/rawMaterials","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/formulations","status":422,"user":"admin","ms":1}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/formulations","status":201,"user":"admin","ms":4}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/formulations","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/formulations/1/versions","status":201,"user":"admin","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/formulations/1/versions/1/approve","status":422,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"PUT","path":"/api/formulations/1/versions/1","status":200,"user":"admin","ms":6}
+[2026-11-14T12:09:17Z] INFO request {"method":"PUT","path":"/api/formulations/1/versions/1","status":422,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/formulations/1/versions/1/approve","status":200,"user":"admin","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/formulations/1","status":200,"user":"admin","ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"PUT","path":"/api/formulations/1/versions/1","status":409,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/formulations/1/versions/1/approve","status":409,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/formulations/1/versions","status":201,"user":"admin","ms":7}
+[2026-11-14T12:09:17Z] INFO request {"method":"PUT","path":"/api/formulations/1/versions/2","status":200,"user":"admin","ms":6}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/formulations/1/compare","status":200,"user":"admin","ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/formulations/1/versions","status":200,"user":"admin","ms":4}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/formulations/1/archive","status":200,"user":"admin","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/formulations/999999","status":404,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/inventory/warehouses","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/inventory/summary","status":200,"user":"admin","ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/inventory/movements","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/suppliers","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/suppliers/2","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/suppliers/999999","status":404,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/purchaseOrders","status":422,"user":"admin","ms":1}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/purchaseOrders","status":404,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/purchaseOrders","status":201,"user":"admin","ms":7}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/purchaseOrders/1/receipts","status":409,"user":"admin","ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/purchaseOrders/1/send","status":200,"user":"admin","ms":4}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/purchaseOrders/1/receipts","status":422,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/purchaseOrders/1/receipts","status":409,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/purchaseOrders/1/receipts","status":404,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/purchaseOrders/1/receipts","status":201,"user":"admin","ms":7}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/inventory/stock","status":200,"user":"admin","ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/inventory/stock","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/inventory/stock","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/inventory/fefo","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/inventory/adjust","status":409,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/inventory/adjust","status":422,"user":"admin","ms":1}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/inventory/adjust","status":200,"user":"admin","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/inventory/transfer","status":404,"user":"admin","ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/inventory/transfer","status":422,"user":"admin","ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/inventory/transfer","status":409,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/inventory/transfer","status":409,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/purchaseOrders/1/receipts","status":201,"user":"admin","ms":8}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/purchaseOrders/1","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/inventory/fefo","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/inventory/stock","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/inventory/transfer","status":200,"user":"admin","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/inventory/transfer","status":409,"user":"admin","ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/inventory/stock","status":200,"user":"admin","ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/inventory/movements","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/inventory/movements","status":200,"user":"admin","ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/inventory/movements","status":200,"user":"admin","ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/inventory/movements","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/inventory/summary","status":200,"user":"admin","ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/purchaseOrders","status":201,"user":"admin","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/purchaseOrders/2/cancel","status":200,"user":"admin","ms":4}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/purchaseOrders/2/send","status":409,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/purchaseOrders/2/receipts","status":409,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/purchaseOrders/1/cancel","status":409,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/purchaseOrders","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/purchaseOrders","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/purchaseOrders","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/purchaseOrders/999999","status":404,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/inventory/stock","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/inventory/stock","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/inventory/stock","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/inventory/adjust","status":401,"user":null,"ms":0}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/purchaseOrders","status":401,"user":null,"ms":0}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/inventory/stock","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/products","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/formulations","status":201,"user":"admin","ms":4}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/formulations/2/versions","status":201,"user":"admin","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"PUT","path":"/api/formulations/2/versions/3","status":200,"user":"admin","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/formulations/2/versions/3/approve","status":200,"user":"admin","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/formulations/2/versions","status":201,"user":"admin","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/purchaseOrders","status":201,"user":"admin","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/purchaseOrders/3/send","status":200,"user":"admin","ms":4}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/purchaseOrders/3/receipts","status":201,"user":"admin","ms":8}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/production/versions","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/production/versions","status":401,"user":null,"ms":0}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/production/orders","status":409,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/production/orders","status":404,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/production/orders","status":422,"user":"admin","ms":1}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/production/orders","status":409,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/production/orders","status":201,"user":"admin","ms":6}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/production/orders","status":201,"user":"admin","ms":6}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/production/orders/2/start","status":409,"user":"admin","ms":4}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/production/orders/2","status":200,"user":"admin","ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/production/orders/1/start","status":200,"user":"admin","ms":7}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/production/orders/1/start","status":409,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/production/orders/1/consume","status":409,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/production/orders/1/complete","status":409,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/production/orders/1/consume","status":200,"user":"admin","ms":9}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/inventory/stock","status":200,"user":"admin","ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/inventory/movements","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/production/orders/1/complete","status":200,"user":"admin","ms":7}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/production/orders/1/complete","status":409,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/production/orders/1/quality","status":422,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/production/orders","status":201,"user":"admin","ms":6}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/production/orders/3/start","status":200,"user":"admin","ms":6}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/production/orders/3/consume","status":200,"user":"admin","ms":8}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/production/orders/3/complete","status":200,"user":"admin","ms":7}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/production/orders/3/quality","status":200,"user":"admin","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/inventory/stock","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/inventory/stock","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/production/orders/1/quality","status":200,"user":"admin","ms":7}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/inventory/stock","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/production/orders/1/genealogy","status":200,"user":"admin","ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/production/orders/999999/genealogy","status":404,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/production/orders/2/cancel","status":200,"user":"admin","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/production/orders/3/cancel","status":409,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/production/orders/1/cancel","status":409,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/production/orders","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/production/orders","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/production/orders","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/production/orders/999999","status":404,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/production/orders","status":401,"user":null,"ms":0}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/dashboard/summary","status":200,"user":"admin","ms":10}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/dashboard/summary","status":422,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/notifications","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/notifications/read","status":422,"user":"admin","ms":1}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/notifications/readAll","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/settings","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"PUT","path":"/api/settings","status":200,"user":"admin","ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/settings","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/auditLogs","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/auditLogs","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/auditLogs","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/auditLogs","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/users","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/roles","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/permissions","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/users","status":201,"user":"admin","ms":6}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/auth/login","status":200,"user":null,"ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/auth/password","status":200,"user":"viewer120917","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/auth/login","status":200,"user":null,"ms":4}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/products","status":200,"user":"viewer120917","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/products","status":403,"user":"viewer120917","ms":1}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/users","status":403,"user":"viewer120917","ms":1}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/finance","status":404,"user":null,"ms":0}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/users/2/password","status":200,"user":"admin","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/products","status":401,"user":null,"ms":1}
+[2026-11-14T12:09:17Z] INFO request {"method":"DELETE","path":"/api/users/2","status":200,"user":"admin","ms":4}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/inventory/stock","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/customers","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/customers","status":201,"user":"admin","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/customers","status":422,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"PUT","path":"/api/customers/6","status":200,"user":"admin","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/customers","status":201,"user":"admin","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/customers","status":201,"user":"admin","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/quotations","status":201,"user":"admin","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/quotations/1/send","status":200,"user":"admin","ms":4}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/quotations/1/send","status":409,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/documents/quotation/1","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/quotations/1/accept","status":200,"user":"admin","ms":7}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/quotations/1/accept","status":409,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/salesOrders","status":201,"user":"admin","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/salesOrders/2/confirm","status":409,"user":"admin","ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/salesOrders/1/confirm","status":200,"user":"admin","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/salesOrders/1/deliveries","status":409,"user":"admin","ms":4}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/salesOrders/1","status":200,"user":"admin","ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/products","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/salesOrders","status":201,"user":"admin","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/salesOrders/3/confirm","status":200,"user":"admin","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/salesOrders/3/deliveries","status":409,"user":"admin","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/salesOrders/3/cancel","status":200,"user":"admin","ms":7}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/salesOrders/3/confirm","status":409,"user":"admin","ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/salesOrders/1/deliveries","status":201,"user":"admin","ms":7}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/salesOrders/1","status":200,"user":"admin","ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/inventory/stock","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/deliveries/3/deliver","status":422,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/deliveries/3/deliver","status":200,"user":"admin","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/salesOrders/1","status":200,"user":"admin","ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/salesOrders/1/cancel","status":409,"user":"admin","ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/documents/delivery/3","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/invoices","status":201,"user":"admin","ms":6}
+[2026-11-14T12:09:17Z] INFO request {"method":"PUT","path":"/api/invoices/1","status":200,"user":"admin","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/invoices/1/issue","status":200,"user":"admin","ms":7}
+[2026-11-14T12:09:17Z] INFO request {"method":"PUT","path":"/api/invoices/1","status":409,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/invoices/1/cancel","status":409,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/customers/6","status":200,"user":"admin","ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/salesOrders/1","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/documents/invoice/1","status":200,"user":"admin","ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/invoices/1","status":200,"user":"admin","ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/cashAccounts","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/payments","status":409,"user":"admin","ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/payments","status":201,"user":"admin","ms":6}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/invoices/1","status":200,"user":"admin","ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/customers/6","status":200,"user":"admin","ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/payments","status":201,"user":"admin","ms":6}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/invoices/1","status":200,"user":"admin","ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/payments","status":409,"user":"admin","ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/customers/6","status":200,"user":"admin","ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/payments","status":201,"user":"admin","ms":4}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/customers/6/statement","status":200,"user":"admin","ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/documents/statement/6","status":200,"user":"admin","ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/documents/invoice/1","status":200,"user":"admin","ms":9}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/invoices","status":201,"user":"admin","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/invoices/2/issue","status":200,"user":"admin","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"DELETE","path":"/api/customers/8","status":409,"user":"admin","ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/invoices/2/creditNotes","status":409,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/invoices/2/creditNotes","status":201,"user":"admin","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/creditNotes/1/apply","status":200,"user":"admin","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/invoices/2","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/customers/8","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/creditNotes/1/apply","status":409,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/creditNotes","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/salesOrders","status":201,"user":"admin","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/salesOrders/4/confirm","status":200,"user":"admin","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/salesOrders/4/deliveries","status":201,"user":"admin","ms":7}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/deliveries/4/deliver","status":200,"user":"admin","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/salesOrders/4","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/invoices","status":201,"user":"admin","ms":6}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/invoices/3/issue","status":200,"user":"admin","ms":7}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/invoices","status":409,"user":"admin","ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/vehicles","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/vehicles","status":201,"user":"admin","ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/vehicles","status":409,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/drivers","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/salesOrders","status":201,"user":"admin","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/salesOrders/5/confirm","status":200,"user":"admin","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/salesOrders/5/deliveries","status":201,"user":"admin","ms":7}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/routes","status":201,"user":"admin","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/routes","status":409,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/routes/1/start","status":200,"user":"admin","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/deliveries/5","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/routes/1/stops/1/deliver","status":200,"user":"admin","ms":7}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/routes/1/stops/1/deliver","status":409,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/routes/1/complete","status":200,"user":"admin","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/routes","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/deliveries","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/customers/8","status":200,"user":"admin","ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/payments","status":201,"user":"admin","ms":4}
+[2026-11-14T12:09:17Z] INFO request {"method":"DELETE","path":"/api/customers/8","status":200,"user":"admin","ms":5}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/customers","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/salesOrders","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/invoices","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/quotations","status":200,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"GET","path":"/api/documents/unknown/1","status":404,"user":"admin","ms":2}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/auth/login","status":401,"user":null,"ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/auth/login","status":401,"user":null,"ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/auth/login","status":401,"user":null,"ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/auth/login","status":401,"user":null,"ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/auth/login","status":401,"user":null,"ms":3}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/auth/login","status":429,"user":null,"ms":1}
+[2026-11-14T12:09:17Z] INFO request {"method":"POST","path":"/api/auth/login","status":401,"user":null,"ms":1}
