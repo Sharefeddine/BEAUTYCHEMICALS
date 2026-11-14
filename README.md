@@ -39,7 +39,7 @@ backed by MySQL 8.
 | Persistence | MySQL 8 (InnoDB, `utf8mb4`) — accessed **only** through the PHP API |
 | REST API | Pure PHP 8 (no framework, no Composer), PDO prepared statements |
 | Security | Server-side RBAC, bcrypt (`password_hash`), bearer tokens, audit log |
-| Tests | JUnit 5.10 (surefire) |
+| Tests | JUnit 5.10 (surefire) for logic, **TestFX 4.0.18** for the user interface (real clicks and typing, headless via Xvfb) |
 
 The client never holds database credentials: it talks to the PHP API over HTTP. `data.mode`
 selects the data source (`MOCK` demo dataset, `API` PHP backend, or `AUTO` = probe then
@@ -163,7 +163,7 @@ database/seed/                       6 seeders: permissions, roles, reference da
 backend/public/index.php             front controller of the PHP REST API
 backend/src/                         Core (router, PDO, envelope), Security (auth, RBAC),
                                      Repositories (all SQL), Controllers, routes.php
-backend/tests/                       unit (25) + integration (77) suites, run in CI on MySQL 8
+backend/tests/                       unit (25) + integration (113) suites, run in CI on MySQL 8
 docs/                                architecture, ER diagram, design system, roadmap, RBAC
 .github/workflows/ci.yml             build + tests, publishes logs to the ci-reports branch
 ```
@@ -179,7 +179,8 @@ docs/                                architecture, ER diagram, design system, ro
 | [`docs/05-security-rbac.md`](docs/05-security-rbac.md) | 12 roles × permissions matrix, auth flow, audit rules |
 | [`docs/07-operations.md`](docs/07-operations.md) | Backups, restore drill, deployment, monitoring |
 | [`docs/PHASE-1-REPORT.md`](docs/PHASE-1-REPORT.md) | Phase 1 delivery report: verification, deliverables, review checklist |
-| [`docs/PHASE-2-REPORT.md`](docs/PHASE-2-REPORT.md) | Phase 2 report: 68-table database, seeds, PHP REST API, 77 end-to-end tests |
+| [`docs/PHASE-2-REPORT.md`](docs/PHASE-2-REPORT.md) | Phase 2 report: 68-table database, seeds, PHP REST API, 113 end-to-end tests |
+| [`docs/devRules.md`](docs/devRules.md) | The project's binding development rules, mirrored from the Google Doc `devRules` |
 | [`database/README.md`](database/README.md) | Schema conventions, installation, least-privilege account, enforced rules |
 
 ## 7. Editing the translations
@@ -200,10 +201,11 @@ must be translated in `tools/i18n/ar.py` and `tools/i18n/en.py`, otherwise the b
 `.github/workflows/ci.yml` runs two jobs on every push:
 
 1. **database + client** — validates the schema (identifiers, foreign keys, seed consistency,
-   generated ER document), then compiles the JavaFX client under Xvfb and runs its 37 tests;
+   generated ER document), then compiles the JavaFX client under Xvfb and runs its unit and
+   TestFX user-interface tests;
 2. **API** — starts a **MySQL 8 service container**, executes `database/schema/*.sql` and
    `database/seed/*.sql` for real, lints every PHP file, then runs the 25 unit tests and the
-   77 end-to-end HTTP tests against the running API.
+   113 end-to-end HTTP tests against the running API.
 
 The
 full Maven log, the surefire reports and a glyph inventory are published to the `ci-reports`

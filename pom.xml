@@ -23,6 +23,7 @@
     <poi.version>5.2.5</poi.version>
     <fontawesome.version>4.7.0-9.1.2</fontawesome.version>
     <junit.version>5.10.2</junit.version>
+    <testfx.version>4.0.18</testfx.version>
 
     <main.class>com.chemmanager.app.ChemManagerApp</main.class>
   </properties>
@@ -81,6 +82,20 @@
       <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
+
+    <!-- TestFX: user-interface tests driven through the real scene graph (clicks, typing, reads) -->
+    <dependency>
+      <groupId>org.testfx</groupId>
+      <artifactId>testfx-core</artifactId>
+      <version>${testfx.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.testfx</groupId>
+      <artifactId>testfx-junit5</artifactId>
+      <version>${testfx.version}</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>
@@ -109,6 +124,14 @@
         <version>3.2.5</version>
         <configuration>
           <argLine>-Duser.language=en -Duser.country=US -Dfile.encoding=UTF-8 -Dprism.order=sw -Dprism.lcdtext=false</argLine>
+          <!-- TestFX drives the glass robot against the Xvfb display provided by CI -->
+          <systemPropertyVariables>
+            <testfx.robot>glass</testfx.robot>
+            <testfx.headless>false</testfx.headless>
+            <testfx.animation.disabled>true</testfx.animation.disabled>
+            <prism.order>sw</prism.order>
+            <prism.lcdtext>false</prism.lcdtext>
+          </systemPropertyVariables>
         </configuration>
       </plugin>
 
