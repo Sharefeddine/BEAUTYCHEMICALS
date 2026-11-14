@@ -23,11 +23,17 @@ backed by MySQL 8.
 >   current purchase prices, approval that locks the version, version comparison, on both halves.
 >   The application never generates a formula — see
 >   [`docs/PHASE-3-REPORT.md`](docs/PHASE-3-REPORT.md).
-> * **Test harness:** 52 desktop tests — 5 of them driven by **TestFX** through the real user
->   interface (sign-in, password masking, shell, sidebar navigation, live Arabic mirroring) — and
->   25 + 113 API tests against a real MySQL 8. The rules the project is built under live in
->   [`docs/devRules.md`](docs/devRules.md) and in the Google Doc `devRules`.
-> * **Phase 4 — next:** inventory, warehouses, FEFO allocation and purchasing.
+> * **Phase 4 — complete:** inventory, warehouses, FEFO allocation and purchasing — batch-level
+>   stock summed from the batch rows, an append-only movement ledger, physical counts and transfers
+>   that always name a reason, suppliers, purchase orders and atomic goods receptions. The schema
+>   key of a batch now includes its warehouse, so one physical batch can be split between stores —
+>   see [`docs/PHASE-4-REPORT.md`](docs/PHASE-4-REPORT.md).
+> * **Test harness:** 55 desktop tests — 8 of them driven by **TestFX** through the real user
+>   interface (sign-in, password masking, shell, sidebar navigation, live Arabic mirroring,
+>   inventory, purchasing, suppliers) — and 25 + 181 API tests against a real MySQL 8. The rules
+>   the project is built under live in [`docs/devRules.md`](docs/devRules.md) and in the Google
+>   Doc `devRules`.
+> * **Phase 5 — next:** production orders, material consumption and batch genealogy.
 
 ---
 
@@ -167,7 +173,7 @@ database/seed/                       6 seeders: permissions, roles, reference da
 backend/public/index.php             front controller of the PHP REST API
 backend/src/                         Core (router, PDO, envelope), Security (auth, RBAC),
                                      Repositories (all SQL), Controllers, routes.php
-backend/tests/                       unit (25) + integration (113) suites, run in CI on MySQL 8
+backend/tests/                       unit (25) + integration (181) suites, run in CI on MySQL 8
 docs/                                architecture, ER diagram, design system, roadmap, RBAC
 .github/workflows/ci.yml             build + tests, publishes logs to the ci-reports branch
 ```
@@ -184,6 +190,8 @@ docs/                                architecture, ER diagram, design system, ro
 | [`docs/07-operations.md`](docs/07-operations.md) | Backups, restore drill, deployment, monitoring |
 | [`docs/PHASE-1-REPORT.md`](docs/PHASE-1-REPORT.md) | Phase 1 delivery report: verification, deliverables, review checklist |
 | [`docs/PHASE-2-REPORT.md`](docs/PHASE-2-REPORT.md) | Phase 2 report: 68-table database, seeds, PHP REST API, 113 end-to-end tests |
+| [`docs/PHASE-3-REPORT.md`](docs/PHASE-3-REPORT.md) | Phase 3 report: formulations, versioning, approval lock, comparison |
+| [`docs/PHASE-4-REPORT.md`](docs/PHASE-4-REPORT.md) | Phase 4 report: batches, FEFO, ledger, purchasing and goods reception |
 | [`docs/devRules.md`](docs/devRules.md) | The project's binding development rules, mirrored from the Google Doc `devRules` |
 | [`database/README.md`](database/README.md) | Schema conventions, installation, least-privilege account, enforced rules |
 
@@ -209,7 +217,7 @@ must be translated in `tools/i18n/ar.py` and `tools/i18n/en.py`, otherwise the b
    TestFX user-interface tests;
 2. **API** — starts a **MySQL 8 service container**, executes `database/schema/*.sql` and
    `database/seed/*.sql` for real, lints every PHP file, then runs the 25 unit tests and the
-   113 end-to-end HTTP tests against the running API.
+   181 end-to-end HTTP tests against the running API.
 
 The
 full Maven log, the surefire reports and a glyph inventory are published to the `ci-reports`

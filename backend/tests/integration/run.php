@@ -330,6 +330,307 @@ check('a formulation is archived without losing its versions', $response['status
 $response = call('GET', '/api/formulations/999999', null, $token);
 check('an unknown formulation answers 404', $response['status'] === 404);
 
+// ------------------------------------------------------------ inventory & purchasing (phase 4)
+$response = call('GET', '/api/inventory/warehouses', null, $token);
+$warehouses = $response['json']['data'] ?? [];
+check('the warehouses are seeded', $response['status'] === 200 && count($warehouses) === 3,
+    'count ' . count($warehouses));
+$materialWarehouseId = 0;
+$finishedWarehouseId = 0;
+$quarantineWarehouseId = 0;
+foreach ($warehouses as $warehouse) {
+    if (($warehouse['quarantine'] ?? false) === true) {
+        $quarantineWarehouseId = (int) $warehouse['id'];
+    } elseif (($warehouse['code'] ?? '') === 'MP') {
+        $materialWarehouseId = (int) $warehouse['id'];
+    } elseif (($warehouse['code'] ?? '') === 'PF') {
+        $finishedWarehouseId = (int) $warehouse['id'];
+    }
+}
+check('a quarantine warehouse exists', $quarantineWarehouseId > 0);
+check('the raw material and finished goods stores exist', $materialWarehouseId > 0 && $finishedWarehouseId > 0);
+
+$response = call('GET', '/api/inventory/summary', null, $token);
+$summary = $response['json']['data'] ?? [];
+check('the inventory summary is computed', $response['status'] === 200
+    && isset($summary['stockValue'], $summary['batchCount'], $summary['lowStockItems']), $response['raw']);
+check('an empty warehouse reports zero stock, not demo figures',
+    (float) ($summary['stockValue'] ?? -1) === 0.0 && (int) ($summary['batchCount'] ?? -1) === 0, $response['raw']);
+
+$response = call('GET', '/api/inventory/movements?pageSize=5', null, $token);
+check('the ledger starts empty', $response['status'] === 200
+    && (int) ($response['json']['meta']['total'] ?? -1) === 0, $response['raw']);
+
+$response = call('GET', '/api/suppliers?pageSize=10', null, $token);
+$suppliers = $response['json']['data'] ?? [];
+check('the suppliers are listed', $response['status'] === 200 && count($suppliers) >= 3, $response['raw']);
+$supplierId = (int) ($suppliers[0]['id'] ?? 0);
+check('a supplier exposes its purchasing history', isset($suppliers[0]['orderCount'], $suppliers[0]['materialCount']));
+$response = call('GET', '/api/suppliers/' . $supplierId, null, $token);
+check('a supplier is read with the materials it sells', $response['status'] === 200
+    && is_array($response['json']['data']['materials'] ?? null)
+    && is_array($response['json']['data']['recentOrders'] ?? null), $response['raw']);
+$response = call('GET', '/api/suppliers/999999', null, $token);
+check('an unknown supplier answers 404', $response['status'] === 404);
+
+$response = call('POST', '/api/purchaseOrders', ['supplierId' => $supplierId, 'items' => []], $token);
+check('an order without lines is refused', $response['status'] === 422, $response['raw']);
+$response = call('POST', '/api/purchaseOrders', ['supplierId' => 999999,
+    'items' => [['materialId' => $materialA, 'quantity' => 1, 'unitPrice' => 10]]], $token);
+check('an order for an unknown supplier answers 404', $response['status'] === 404, $response['raw']);
+
+$response = call('POST', '/api/purchaseOrders', [
+    'supplierId' => $supplierId,
+    'expectedDate' => (new DateTimeImmutable('+7 days'))->format('Y-m-d'),
+    'notes' => 'Commande de test phase 4',
+    'items' => [
+        ['materialId' => $materialA, 'quantity' => 100, 'unitPrice' => 150, 'vatRate' => 19],
+        ['materialId' => $materialB, 'quantity' => 50, 'unitPrice' => 200, 'vatRate' => 19],
+    ],
+], $token);
+$order = $response['json']['data'] ?? [];
+$orderId = (int) ($order['id'] ?? 0);
+$orderItemOne = (int) ($order['items'][0]['id'] ?? 0);
+$orderItemTwo = (int) ($order['items'][1]['id'] ?? 0);
+check('a purchase order is created as a draft', $response['status'] === 201
+    && ($order['status'] ?? '') === 'DRAFT' && $orderId > 0 && $orderItemOne > 0, $response['raw']);
+check('the order number is generated', str_starts_with((string) ($order['orderNumber'] ?? ''), 'BC-'));
+check('the totals are computed by the server', (float) ($order['amountHt'] ?? 0) === 25000.0
+    && (float) ($order['vatAmount'] ?? 0) === 4750.0 && (float) ($order['totalTtc'] ?? 0) === 29750.0,
+    $response['raw']);
+check('the order is denominated in Algerian dinars', ($order['currency'] ?? '') === 'DZD');
+
+$response = call('POST', '/api/purchaseOrders/' . $orderId . '/receipts', [
+    'warehouseId' => $materialWarehouseId,
+    'items' => [['orderItemId' => $orderItemOne, 'quantity' => 10, 'batchNumber' => 'BT-DRAFT']],
+], $token);
+check('a draft order cannot be received', $response['status'] === 409
+    && ($response['json']['error']['code'] ?? '') === 'PO_INVALID_STATE', $response['raw']);
+
+$response = call('POST', '/api/purchaseOrders/' . $orderId . '/send', null, $token);
+check('the order is sent to the supplier', $response['status'] === 200
+    && ($response['json']['data']['status'] ?? '') === 'SENT', $response['raw']);
+
+$response = call('POST', '/api/purchaseOrders/' . $orderId . '/receipts', [
+    'warehouseId' => $materialWarehouseId,
+    'items' => [['orderItemId' => $orderItemOne, 'quantity' => 500, 'batchNumber' => 'BT-OVER']],
+], $token);
+check('a reception above what remains is refused', $response['status'] === 422
+    && ($response['json']['error']['details']['items.0.quantity'] ?? '') === 'inventory.error.over_receipt',
+    $response['raw']);
+
+$response = call('POST', '/api/purchaseOrders/' . $orderId . '/receipts', [
+    'warehouseId' => $quarantineWarehouseId,
+    'release' => true,
+    'items' => [['orderItemId' => $orderItemOne, 'quantity' => 10, 'batchNumber' => 'BT-QUAR']],
+], $token);
+check('released goods cannot be received into quarantine', $response['status'] === 409
+    && ($response['json']['error']['code'] ?? '') === 'QUARANTINE_RECEPTION', $response['raw']);
+
+$response = call('POST', '/api/purchaseOrders/' . $orderId . '/receipts', [
+    'warehouseId' => 999999,
+    'items' => [['orderItemId' => $orderItemOne, 'quantity' => 10, 'batchNumber' => 'BT-NOWH']],
+], $token);
+check('a reception into an unknown warehouse answers 404', $response['status'] === 404, $response['raw']);
+
+$expiry = (new DateTimeImmutable('+8 months'))->format('Y-m-d');
+$response = call('POST', '/api/purchaseOrders/' . $orderId . '/receipts', [
+    'warehouseId' => $materialWarehouseId,
+    'items' => [['orderItemId' => $orderItemOne, 'quantity' => 40, 'batchNumber' => 'BT-TEST-1',
+        'expiryDate' => $expiry, 'productionDate' => (new DateTimeImmutable('today'))->format('Y-m-d')]],
+], $token);
+$receipt = $response['json']['data'] ?? [];
+check('a partial reception creates its receipt', $response['status'] === 201
+    && str_starts_with((string) ($receipt['receiptNumber'] ?? ''), 'BR-'), $response['raw']);
+check('received goods wait in quarantine', ($receipt['items'][0]['qualityStatus'] ?? '') === 'QUARANTINE');
+check('the received batch holds exactly the received quantity',
+    (float) ($receipt['items'][0]['batchQuantity'] ?? 0) === 40.0, $response['raw']);
+check('the order becomes PARTIAL', ($receipt['orderStatus'] ?? '') === 'PARTIAL', $response['raw']);
+
+$response = call('GET', '/api/inventory/stock?search=BT-TEST-1', null, $token);
+check('the received batch appears in stock', $response['status'] === 200
+    && (int) ($response['json']['meta']['total'] ?? 0) === 1, $response['raw']);
+$stockRow = $response['json']['data'][0] ?? [];
+check('the stock line carries the warehouse, the quantity and the expiry',
+    ($stockRow['warehouseName'] ?? '') !== '' && (float) ($stockRow['quantity'] ?? 0) === 40.0
+    && ($stockRow['expiryDate'] ?? '') === $expiry, $response['raw']);
+check('the stock line says the batch is quarantined',
+    ($stockRow['qualityStatus'] ?? '') === 'QUARANTINE' && ($stockRow['daysToExpiry'] ?? 0) > 200);
+$batchId = (int) ($stockRow['batchId'] ?? 0);
+
+$response = call('GET', '/api/inventory/stock?kind=PRODUCT', null, $token);
+check('finished goods stock is empty at this stage', $response['status'] === 200
+    && (int) ($response['json']['meta']['total'] ?? -1) === 0, $response['raw']);
+$response = call('GET', '/api/inventory/stock?warehouseId=' . $quarantineWarehouseId, null, $token);
+check('the quarantine warehouse is empty', $response['status'] === 200
+    && (int) ($response['json']['meta']['total'] ?? -1) === 0, $response['raw']);
+
+$response = call('GET', '/api/inventory/fefo?kind=MATERIAL&itemId=' . $materialA . '&quantity=10', null, $token);
+check('FEFO refuses to allocate quarantined stock', $response['status'] === 200
+    && ($response['json']['data']['sufficient'] ?? true) === false
+    && (float) ($response['json']['data']['allocated'] ?? -1) === 0.0, $response['raw']);
+
+$response = call('POST', '/api/inventory/adjust', [
+    'itemKind' => 'MATERIAL', 'batchId' => $batchId, 'countedQuantity' => 40, 'reason' => 'Comptage identique',
+], $token);
+check('an adjustment without a difference is refused', $response['status'] === 409
+    && ($response['json']['error']['code'] ?? '') === 'NO_ADJUSTMENT', $response['raw']);
+$response = call('POST', '/api/inventory/adjust', ['itemKind' => 'MATERIAL', 'batchId' => $batchId], $token);
+check('an adjustment without a reason is refused', $response['status'] === 422, $response['raw']);
+$response = call('POST', '/api/inventory/adjust', [
+    'itemKind' => 'MATERIAL', 'batchId' => $batchId, 'countedQuantity' => 45, 'reason' => 'Ecart constate au comptage',
+], $token);
+check('a physical count writes the difference', $response['status'] === 200
+    && (float) ($response['json']['data']['delta'] ?? 0) === 5.0
+    && (float) ($response['json']['data']['previousQuantity'] ?? 0) === 40.0, $response['raw']);
+
+$response = call('POST', '/api/inventory/transfer', [
+    'itemKind' => 'MATERIAL', 'batchId' => $batchId, 'targetWarehouseId' => 999999,
+    'quantity' => 1, 'reason' => 'test',
+], $token);
+check('a transfer to an unknown warehouse answers 404', $response['status'] === 404, $response['raw']);
+$response = call('POST', '/api/inventory/transfer', [
+    'itemKind' => 'MATERIAL', 'batchId' => $batchId, 'targetWarehouseId' => $materialWarehouseId,
+    'quantity' => 1, 'reason' => 'test',
+], $token);
+check('a transfer to the same warehouse is refused', $response['status'] === 422, $response['raw']);
+$response = call('POST', '/api/inventory/transfer', [
+    'itemKind' => 'MATERIAL', 'batchId' => $batchId, 'targetWarehouseId' => $finishedWarehouseId,
+    'quantity' => 1, 'reason' => 'test',
+], $token);
+check('a quarantined batch cannot enter a selling warehouse', $response['status'] === 409
+    && ($response['json']['error']['code'] ?? '') === 'QUARANTINE_RULE', $response['raw']);
+$response = call('POST', '/api/inventory/transfer', [
+    'itemKind' => 'MATERIAL', 'batchId' => $batchId, 'targetWarehouseId' => $finishedWarehouseId,
+    'quantity' => 500, 'reason' => 'test',
+], $token);
+check('a transfer cannot exceed the batch', $response['status'] === 409
+    && ($response['json']['error']['code'] ?? '') === 'INSUFFICIENT_STOCK', $response['raw']);
+
+$response = call('POST', '/api/purchaseOrders/' . $orderId . '/receipts', [
+    'warehouseId' => $materialWarehouseId,
+    'release' => true,
+    'items' => [
+        ['orderItemId' => $orderItemOne, 'quantity' => 60, 'batchNumber' => 'BT-TEST-2',
+            'expiryDate' => (new DateTimeImmutable('+2 months'))->format('Y-m-d')],
+        ['orderItemId' => $orderItemTwo, 'quantity' => 50, 'batchNumber' => 'BT-TEST-3',
+            'expiryDate' => (new DateTimeImmutable('+3 months'))->format('Y-m-d')],
+    ],
+], $token);
+$secondReceipt = $response['json']['data'] ?? [];
+check('the rest of the order is received', $response['status'] === 201
+    && ($secondReceipt['orderStatus'] ?? '') === 'RECEIVED', $response['raw']);
+check('a released reception is stored as RELEASED',
+    in_array('RELEASED', array_column($secondReceipt['items'] ?? [], 'qualityStatus'), true), $response['raw']);
+
+$response = call('GET', '/api/purchaseOrders/' . $orderId, null, $token);
+$reloaded = $response['json']['data'] ?? [];
+check('the order shows what was received line by line', $response['status'] === 200
+    && (float) ($reloaded['items'][0]['receivedQty'] ?? 0) === 100.0
+    && (float) ($reloaded['items'][0]['remainingQty'] ?? -1) === 0.0, $response['raw']);
+check('the order lists its two receptions', count($reloaded['receipts'] ?? []) === 2, $response['raw']);
+
+$response = call('GET', '/api/inventory/fefo?kind=MATERIAL&itemId=' . $materialA . '&quantity=100', null, $token);
+$fefo = $response['json']['data'] ?? [];
+check('FEFO serves the released batch first, earliest expiry first',
+    ($fefo['batches'][0]['batchNumber'] ?? '') === 'BT-TEST-2', $response['raw']);
+check('FEFO reports what it can serve and what is missing', (float) ($fefo['allocated'] ?? 0) === 60.0
+    && (float) ($fefo['shortfall'] ?? 0) === 40.0 && ($fefo['sufficient'] ?? true) === false, $response['raw']);
+
+$response = call('GET', '/api/inventory/stock?search=BT-TEST-2', null, $token);
+$releasedBatchId = (int) ($response['json']['data'][0]['batchId'] ?? 0);
+$response = call('POST', '/api/inventory/transfer', [
+    'itemKind' => 'MATERIAL', 'batchId' => $releasedBatchId, 'targetWarehouseId' => $finishedWarehouseId,
+    'quantity' => 20, 'reason' => 'Preparation atelier',
+], $token);
+check('a released batch transfers to another warehouse', $response['status'] === 200
+    && (float) ($response['json']['data']['remainingSourceQuantity'] ?? -1) === 40.0, $response['raw']);
+$response = call('POST', '/api/inventory/transfer', [
+    'itemKind' => 'MATERIAL', 'batchId' => $releasedBatchId, 'targetWarehouseId' => $quarantineWarehouseId,
+    'quantity' => 1, 'reason' => 'test',
+], $token);
+check('a released batch cannot enter quarantine', $response['status'] === 409
+    && ($response['json']['error']['code'] ?? '') === 'QUARANTINE_RULE', $response['raw']);
+
+$response = call('GET', '/api/inventory/stock?search=BT-TEST-2&warehouseId=' . $finishedWarehouseId, null, $token);
+$transferred = $response['json']['data'][0] ?? [];
+check('the transfer created the batch in the destination warehouse', $response['status'] === 200
+    && (float) ($transferred['quantity'] ?? 0) === 20.0, $response['raw']);
+
+$response = call('GET', '/api/inventory/movements?movementType=ADJUSTMENT&pageSize=5', null, $token);
+check('the ledger records the adjustment', $response['status'] === 200
+    && (int) ($response['json']['meta']['total'] ?? 0) === 1, $response['raw']);
+$movement = $response['json']['data'][0] ?? [];
+check('an adjustment names its reason and its author', ($movement['reason'] ?? '') !== ''
+    && ($movement['userName'] ?? '') !== '', $response['raw']);
+$response = call('GET', '/api/inventory/movements?movementType=TRANSFER&pageSize=5', null, $token);
+$transferRow = $response['json']['data'][0] ?? [];
+check('the ledger records the transfer with both warehouses', $response['status'] === 200
+    && ($transferRow['targetWarehouseName'] ?? '') !== '' && (float) ($transferRow['quantity'] ?? 0) === 20.0,
+    $response['raw']);
+$response = call('GET', '/api/inventory/movements?movementType=IN&pageSize=10', null, $token);
+check('the ledger records every reception', (int) ($response['json']['meta']['total'] ?? 0) === 3, $response['raw']);
+$response = call('GET', '/api/inventory/movements?kind=MATERIAL&batchId=' . $releasedBatchId . '&pageSize=5', null, $token);
+check('the ledger is filtered by batch', $response['status'] === 200
+    && (int) ($response['json']['meta']['total'] ?? 0) === 2, $response['raw']);
+
+$response = call('GET', '/api/inventory/summary', null, $token);
+$summary = $response['json']['data'] ?? [];
+check('the stock value is computed from the batches', (float) ($summary['stockValue'] ?? 0) > 0, $response['raw']);
+check('the summary counts the quarantined batches', (int) ($summary['quarantineBatches'] ?? 0) === 1, $response['raw']);
+check('the summary counts the batches and the warehouses',
+    (int) ($summary['batchCount'] ?? 0) === 4 && (int) ($summary['warehouseCount'] ?? 0) === 3, $response['raw']);
+
+$response = call('POST', '/api/purchaseOrders', [
+    'supplierId' => $supplierId,
+    'items' => [['materialId' => $materialB, 'quantity' => 5, 'unitPrice' => 90]],
+], $token);
+$draftOrderId = (int) ($response['json']['data']['id'] ?? 0);
+check('a second order is created', $response['status'] === 201, $response['raw']);
+$response = call('POST', '/api/purchaseOrders/' . $draftOrderId . '/cancel', ['reason' => 'Doublon'], $token);
+check('a draft order is cancelled', $response['status'] === 200
+    && ($response['json']['data']['status'] ?? '') === 'CANCELLED', $response['raw']);
+$response = call('POST', '/api/purchaseOrders/' . $draftOrderId . '/send', null, $token);
+check('a cancelled order cannot be sent', $response['status'] === 409
+    && ($response['json']['error']['code'] ?? '') === 'PO_INVALID_STATE', $response['raw']);
+$response = call('POST', '/api/purchaseOrders/' . $draftOrderId . '/receipts', [
+    'warehouseId' => $materialWarehouseId,
+    'items' => [['orderItemId' => 1, 'quantity' => 1, 'batchNumber' => 'BT-CANCELLED']],
+], $token);
+check('a cancelled order cannot be received', $response['status'] === 409, $response['raw']);
+$response = call('POST', '/api/purchaseOrders/' . $orderId . '/cancel', null, $token);
+check('a received order cannot be cancelled', $response['status'] === 409, $response['raw']);
+
+$response = call('GET', '/api/purchaseOrders?pageSize=10', null, $token);
+$orders = $response['json']['data'] ?? [];
+check('the orders are listed with their supplier and progress', $response['status'] === 200
+    && isset($orders[0]['supplierName'], $orders[0]['receivedQuantity']), $response['raw']);
+$response = call('GET', '/api/purchaseOrders?status=RECEIVED', null, $token);
+check('the orders are filtered by status', (int) ($response['json']['meta']['total'] ?? -1) === 1, $response['raw']);
+$response = call('GET', '/api/purchaseOrders?supplierId=' . $supplierId . '&search=BC-', null, $token);
+check('the orders are searched by number', (int) ($response['json']['meta']['total'] ?? -1) === 2, $response['raw']);
+$response = call('GET', '/api/purchaseOrders/999999', null, $token);
+check('an unknown order answers 404', $response['status'] === 404);
+
+$response = call('GET', '/api/inventory/stock?kind=MATERIAL&availableOnly=1&pageSize=5', null, $token);
+check('the stock list is filterable and paged', $response['status'] === 200
+    && (int) ($response['json']['meta']['total'] ?? 0) === 4, $response['raw']);
+$response = call('GET', '/api/inventory/stock?expiringDays=30&pageSize=5', null, $token);
+check('nothing expires within the month', $response['status'] === 200
+    && (int) ($response['json']['meta']['total'] ?? -1) === 0, $response['raw']);
+$response = call('GET', '/api/inventory/stock?expiringDays=120&pageSize=5', null, $token);
+check('the stock list finds what expires soon', $response['status'] === 200
+    && (int) ($response['json']['meta']['total'] ?? 0) >= 2, $response['raw']);
+
+$response = call('POST', '/api/inventory/adjust', [
+    'itemKind' => 'MATERIAL', 'batchId' => $batchId, 'countedQuantity' => 1, 'reason' => 'test',
+], null);
+check('an anonymous adjustment is refused', $response['status'] === 401, $response['raw']);
+$response = call('GET', '/api/purchaseOrders', null, null);
+check('the purchasing list needs a session', $response['status'] === 401, $response['raw']);
+$response = call('GET', '/api/inventory/stock?from=2026-13-01', null, $token);
+check('a malformed stock filter does not break the list', $response['status'] === 200, $response['raw']);
+
 // ------------------------------------------------------------ dashboard
 $response = call('GET', '/api/dashboard/summary', null, $token);
 check('the dashboard summary is served', $response['status'] === 200, $response['raw']);

@@ -193,7 +193,7 @@ CREATE TABLE materialBatches (
     createdAt     DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updatedAt     DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (id),
-    UNIQUE KEY uqMaterialBatchesNumber (materialId, batchNumber),
+    UNIQUE KEY uqMaterialBatchesNumber (materialId, batchNumber, warehouseId),
     KEY idxMaterialBatchesFefo (expiryDate, qualityStatus),
     KEY idxMaterialBatchesWarehouse (warehouseId),
     KEY idxMaterialBatchesSupplier (supplierId),
@@ -204,7 +204,7 @@ CREATE TABLE materialBatches (
     CONSTRAINT fkMaterialBatchesSupplier FOREIGN KEY (supplierId) REFERENCES suppliers (id)
         ON UPDATE CASCADE ON DELETE SET NULL,
     CONSTRAINT ckMaterialBatchesQuantity CHECK (quantity >= 0)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = 'FEFO is served by idxMaterialBatchesFefo';
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = 'FEFO is served by idxMaterialBatchesFefo; one batch number may exist in several warehouses once a transfer splits it';
 
 CREATE TABLE productBatches (
     id                BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -221,7 +221,7 @@ CREATE TABLE productBatches (
     createdAt         DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updatedAt         DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (id),
-    UNIQUE KEY uqProductBatchesNumber (productId, batchNumber),
+    UNIQUE KEY uqProductBatchesNumber (productId, batchNumber, warehouseId),
     KEY idxProductBatchesFefo (expiryDate, qualityStatus),
     KEY idxProductBatchesWarehouse (warehouseId),
     KEY idxProductBatchesOrder (productionOrderId),
@@ -230,7 +230,7 @@ CREATE TABLE productBatches (
     CONSTRAINT fkProductBatchesWarehouse FOREIGN KEY (warehouseId) REFERENCES warehouses (id)
         ON UPDATE CASCADE ON DELETE RESTRICT,
     CONSTRAINT ckProductBatchesQuantity CHECK (quantity >= 0)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = 'Finished goods batches, traceable to a production order';
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = 'Finished goods batches, traceable to a production order; a batch may be split across warehouses';
 
 -- ------------------------------------------------------------------ stock ledger
 CREATE TABLE stockMovements (

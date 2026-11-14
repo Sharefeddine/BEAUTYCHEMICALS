@@ -21,6 +21,15 @@ public final class ApiEndpoints {
     public static final String RAW_MATERIALS = "/api/rawMaterials";
     public static final String MATERIAL_CATEGORIES = "/api/rawMaterials/categories";
     public static final String FORMULATIONS = "/api/formulations";
+    public static final String INVENTORY_WAREHOUSES = "/api/inventory/warehouses";
+    public static final String INVENTORY_SUMMARY = "/api/inventory/summary";
+    public static final String INVENTORY_STOCK = "/api/inventory/stock";
+    public static final String INVENTORY_MOVEMENTS = "/api/inventory/movements";
+    public static final String INVENTORY_FEFO = "/api/inventory/fefo";
+    public static final String INVENTORY_ADJUST = "/api/inventory/adjust";
+    public static final String INVENTORY_TRANSFER = "/api/inventory/transfer";
+    public static final String SUPPLIERS = "/api/suppliers";
+    public static final String PURCHASE_ORDERS = "/api/purchaseOrders";
     public static final String NOTIFICATIONS = "/api/notifications";
     public static final String NOTIFICATIONS_READ = "/api/notifications/read";
     public static final String NOTIFICATIONS_READ_ALL = "/api/notifications/readAll";

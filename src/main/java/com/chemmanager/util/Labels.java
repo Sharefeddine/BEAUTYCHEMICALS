@@ -100,6 +100,66 @@ public final class Labels {
         };
     }
 
+    public static String quality(String quality) {
+        if (quality == null || quality.isBlank()) {
+            return "—";
+        }
+        return get("inventory.quality." + quality.toLowerCase(Locale.ROOT), humanize(quality));
+    }
+
+    public static String qualityStyle(String quality) {
+        if (quality == null) {
+            return "badge-neutral";
+        }
+        return switch (quality) {
+            case "RELEASED" -> "badge-success";
+            case "QUARANTINE" -> "badge-warning";
+            case "REJECTED" -> "badge-danger";
+            default -> "badge-neutral";
+        };
+    }
+
+    public static String movementType(String type) {
+        if (type == null || type.isBlank()) {
+            return "—";
+        }
+        return get("inventory.movement." + type.toLowerCase(Locale.ROOT), humanize(type));
+    }
+
+    public static String movementTypeStyle(String type) {
+        if (type == null) {
+            return "badge-neutral";
+        }
+        return switch (type) {
+            case "IN", "PRODUCTION_IN", "RETURN" -> "badge-success";
+            case "OUT", "PRODUCTION_OUT", "WASTE" -> "badge-danger";
+            case "TRANSFER" -> "badge-info";
+            case "ADJUSTMENT" -> "badge-warning";
+            default -> "badge-neutral";
+        };
+    }
+
+    public static String purchaseStatus(String status) {
+        if (status == null || status.isBlank()) {
+            return "—";
+        }
+        return get("purchasing.status." + status.toLowerCase(Locale.ROOT), humanize(status));
+    }
+
+    public static String purchaseStatusStyle(String status) {
+        if (status == null) {
+            return "badge-neutral";
+        }
+        return switch (status) {
+            case "DRAFT" -> "badge-neutral";
+            case "SENT" -> "badge-info";
+            case "PARTIAL" -> "badge-warning";
+            case "RECEIVED" -> "badge-success";
+            case "CANCELLED" -> "badge-danger";
+            default -> "badge-neutral";
+        };
+    }
+
     public static String materialCategory(String code) {
         return get("mcat." + (code == null ? "" : code.toLowerCase(Locale.ROOT)), humanize(code));
     }

@@ -10,18 +10,24 @@ import com.chemmanager.security.SessionContext;
 import com.chemmanager.service.api.ApiAuthService;
 import com.chemmanager.service.api.ApiDashboardService;
 import com.chemmanager.service.api.ApiFormulationService;
+import com.chemmanager.service.api.ApiInventoryService;
 import com.chemmanager.service.api.ApiNotificationService;
 import com.chemmanager.service.api.ApiProductService;
+import com.chemmanager.service.api.ApiPurchasingService;
 import com.chemmanager.service.api.ApiRawMaterialService;
 import com.chemmanager.service.api.ApiSettingsService;
+import com.chemmanager.service.api.ApiSupplierService;
 import com.chemmanager.service.api.ApiUserService;
 import com.chemmanager.service.mock.MockAuthService;
 import com.chemmanager.service.mock.MockDashboardService;
 import com.chemmanager.service.mock.MockFormulationService;
+import com.chemmanager.service.mock.MockInventoryService;
 import com.chemmanager.service.mock.MockNotificationService;
 import com.chemmanager.service.mock.MockProductService;
+import com.chemmanager.service.mock.MockPurchasingService;
 import com.chemmanager.service.mock.MockRawMaterialService;
 import com.chemmanager.service.mock.MockSettingsService;
+import com.chemmanager.service.mock.MockSupplierService;
 import com.chemmanager.service.mock.MockUserService;
 
 /**
@@ -43,6 +49,9 @@ public final class ServiceFactory {
     private static ProductService productService;
     private static RawMaterialService rawMaterialService;
     private static FormulationService formulationService;
+    private static InventoryService inventoryService;
+    private static PurchasingService purchasingService;
+    private static SupplierService supplierService;
     private static NotificationService notificationService;
     private static UserService userService;
     private static SettingsService settingsService;
@@ -85,6 +94,9 @@ public final class ServiceFactory {
             productService = new ApiProductService(apiClient);
             rawMaterialService = new ApiRawMaterialService(apiClient);
             formulationService = new ApiFormulationService(apiClient);
+            inventoryService = new ApiInventoryService(apiClient);
+            purchasingService = new ApiPurchasingService(apiClient);
+            supplierService = new ApiSupplierService(apiClient);
             notificationService = new ApiNotificationService(apiClient);
             userService = new ApiUserService(apiClient);
             settingsService = new ApiSettingsService(apiClient);
@@ -94,6 +106,9 @@ public final class ServiceFactory {
             productService = new MockProductService();
             rawMaterialService = new MockRawMaterialService();
             formulationService = new MockFormulationService();
+            inventoryService = new MockInventoryService();
+            purchasingService = new MockPurchasingService();
+            supplierService = new MockSupplierService();
             notificationService = new MockNotificationService();
             userService = new MockUserService();
             settingsService = new MockSettingsService();
@@ -141,6 +156,21 @@ public final class ServiceFactory {
     public static FormulationService formulations() {
         initialise();
         return formulationService;
+    }
+
+    public static InventoryService inventory() {
+        initialise();
+        return inventoryService;
+    }
+
+    public static PurchasingService purchasing() {
+        initialise();
+        return purchasingService;
+    }
+
+    public static SupplierService suppliers() {
+        initialise();
+        return supplierService;
     }
 
     public static NotificationService notifications() {

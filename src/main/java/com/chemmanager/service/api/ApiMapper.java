@@ -20,7 +20,14 @@ import com.chemmanager.model.Product;
 import com.chemmanager.model.ProductType;
 import com.chemmanager.model.RawMaterial;
 import com.chemmanager.model.Severity;
+import com.chemmanager.model.Supplier;
 import com.chemmanager.model.User;
+import com.chemmanager.model.inventory.InventorySummary;
+import com.chemmanager.model.inventory.StockBatch;
+import com.chemmanager.model.inventory.StockMovement;
+import com.chemmanager.model.inventory.Warehouse;
+import com.chemmanager.model.purchasing.GoodsReceipt;
+import com.chemmanager.model.purchasing.PurchaseOrder;
 import com.chemmanager.security.Permission;
 import com.chemmanager.security.Role;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -226,6 +233,192 @@ final class ApiMapper {
                 instant(node, "createdAt"),
                 emptyToNull(text(node, "moduleId", text(node, "linkModule", null))),
                 node.path("read").asBoolean(false));
+    }
+
+    // ------------------------------------------------------------------ phase 4: inventory, purchasing
+
+    static Warehouse warehouse(JsonNode node) {
+        return new Warehouse(
+                node.path("id").asLong(),
+                text(node, "code", ""),
+                text(node, "name", ""),
+                text(node, "address", ""),
+                node.path("quarantine").asBoolean(false));
+    }
+
+    static InventorySummary inventorySummary(JsonNode node) {
+        return new InventorySummary(
+                node.path("batchCount").asLong(0),
+                node.path("materialBatchCount").asLong(0),
+                node.path("productBatchCount").asLong(0),
+                decimalOrZero(node, "stockValue"),
+                node.path("quarantineBatches").asLong(0),
+                node.path("expiringBatches").asLong(0),
+                node.path("expiryWarningDays").asInt(60),
+                node.path("lowStockItems").asLong(0),
+                node.path("warehouseCount").asLong(0),
+                text(node, "currency", "DZD"));
+    }
+
+    static StockBatch stockBatch(JsonNode node) {
+        JsonNode days = node.path("daysToExpiry");
+        return new StockBatch(
+                text(node, "itemKind", "MATERIAL"),
+                node.path("batchId").asLong(0),
+                node.path("itemId").asLong(0),
+                text(node, "itemCode", ""),
+                text(node, "itemName", ""),
+                text(node, "batchNumber", ""),
+                node.path("warehouseId").asLong(0),
+                text(node, "warehouseName", ""),
+                decimalOrZero(node, "quantity"),
+                text(node, "unit", ""),
+                date(node, "productionDate"),
+                date(node, "expiryDate"),
+                days.isMissingNode() || days.isNull() ? null : days.asInt(),
+                node.path("expired").asBoolean(false),
+                text(node, "qualityStatus", "QUARANTINE"),
+                decimalOrZero(node, "unitCost"),
+                decimalOrZero(node, "stockValue"),
+                emptyToNull(text(node, "supplierName", null)));
+    }
+
+    static StockMovement stockMovement(JsonNode node) {
+        JsonNode target = node.path("targetWarehouseId");
+        return new StockMovement(
+                node.path("id").asLong(0),
+                text(node, "movementNumber", ""),
+                text(node, "movementType", "IN"),
+                text(node, "itemKind", "MATERIAL"),
+                node.path("batchId").asLong(0),
+                text(node, "batchNumber", ""),
+                text(node, "itemCode", ""),
+                text(node, "itemName", ""),
+                node.path("warehouseId").asLong(0),
+                text(node, "warehouseName", ""),
+                target.isMissingNode() || target.isNull() ? null : target.asLong(),
+                emptyToNull(text(node, "targetWarehouseName", null)),
+                decimalOrZero(node, "quantity"),
+                decimalOrZero(node, "unitCost"),
+                decimalOrZero(node, "value"),
+                text(node, "referenceType", ""),
+                text(node, "reason", ""),
+                text(node, "userName", ""),
+                dateTime(node, "occurredAt"));
+    }
+
+    static Supplier supplier(JsonNode node) {
+        List<Supplier.Material> materials = new ArrayList<>();
+        for (JsonNode row : node.path("materials")) {
+            materials.add(new Supplier.Material(
+                    row.path("id").asLong(0),
+                    text(row, "code", ""),
+                    text(row, "commercialName", ""),
+                    decimalOrZero(row, "purchasePrice"),
+                    text(row, "storageUnit", "")));
+        }
+        List<Supplier.Order> orders = new ArrayList<>();
+        for (JsonNode row : node.path("recentOrders")) {
+            orders.add(new Supplier.Order(
+                    row.path("id").asLong(0),
+                    text(row, "orderNumber", ""),
+                    date(row, "orderDate"),
+                    text(row, "status", ""),
+                    decimalOrZero(row, "totalTtc")));
+        }
+        return new Supplier(
+                node.path("id").asLong(0),
+                text(node, "code", ""),
+                text(node, "name", ""),
+                text(node, "contactName", ""),
+                text(node, "phone", ""),
+                text(node, "email", ""),
+                text(node, "address", ""),
+                text(node, "wilaya", ""),
+                text(node, "paymentTerms", ""),
+                decimalOrZero(node, "balance"),
+                node.path("isActive").asBoolean(true),
+                node.path("orderCount").asLong(0),
+                date(node, "lastOrderDate"),
+                node.path("materialCount").asLong(0),
+                materials,
+                orders);
+    }
+
+    static PurchaseOrder purchaseOrder(JsonNode node) {
+        List<PurchaseOrder.Line> items = new ArrayList<>();
+        for (JsonNode row : node.path("items")) {
+            items.add(new PurchaseOrder.Line(
+                    row.path("id").asLong(0),
+                    row.path("materialId").asLong(0),
+                    text(row, "materialCode", ""),
+                    text(row, "materialName", ""),
+                    decimalOrZero(row, "quantity"),
+                    text(row, "unit", ""),
+                    decimalOrZero(row, "unitPrice"),
+                    decimalOrZero(row, "vatRate"),
+                    decimalOrZero(row, "receivedQty"),
+                    decimalOrZero(row, "remainingQty"),
+                    decimalOrZero(row, "lineTotal")));
+        }
+        List<PurchaseOrder.Receipt> receipts = new ArrayList<>();
+        for (JsonNode row : node.path("receipts")) {
+            receipts.add(new PurchaseOrder.Receipt(
+                    row.path("id").asLong(0),
+                    text(row, "receiptNumber", ""),
+                    row.path("warehouseId").asLong(0),
+                    text(row, "warehouseName", ""),
+                    dateTime(row, "receivedAt"),
+                    text(row, "receivedByName", ""),
+                    row.path("itemCount").asLong(0)));
+        }
+        return new PurchaseOrder(
+                node.path("id").asLong(0),
+                text(node, "orderNumber", ""),
+                node.path("supplierId").asLong(0),
+                text(node, "supplierName", ""),
+                text(node, "status", "DRAFT"),
+                date(node, "orderDate"),
+                date(node, "expectedDate"),
+                decimalOrZero(node, "amountHt"),
+                decimalOrZero(node, "vatAmount"),
+                decimalOrZero(node, "totalTtc"),
+                text(node, "currency", "DZD"),
+                text(node, "notes", ""),
+                node.path("itemCount").asLong(0),
+                decimalOrZero(node, "receivedQuantity"),
+                node.path("receiptCount").asLong(0),
+                items,
+                receipts);
+    }
+
+    static GoodsReceipt goodsReceipt(JsonNode node) {
+        List<GoodsReceipt.Line> items = new ArrayList<>();
+        for (JsonNode row : node.path("items")) {
+            items.add(new GoodsReceipt.Line(
+                    row.path("id").asLong(0),
+                    row.path("materialId").asLong(0),
+                    text(row, "materialCode", ""),
+                    text(row, "materialName", ""),
+                    decimalOrZero(row, "quantity"),
+                    decimalOrZero(row, "unitPrice"),
+                    text(row, "batchNumber", ""),
+                    date(row, "expiryDate"),
+                    decimalOrZero(row, "batchQuantity"),
+                    text(row, "qualityStatus", "QUARANTINE")));
+        }
+        return new GoodsReceipt(
+                node.path("id").asLong(0),
+                text(node, "receiptNumber", ""),
+                node.path("orderId").asLong(0),
+                text(node, "orderNumber", ""),
+                node.path("warehouseId").asLong(0),
+                text(node, "warehouseName", ""),
+                dateTime(node, "receivedAt"),
+                text(node, "receivedByName", ""),
+                text(node, "notes", ""),
+                text(node, "orderStatus", ""),
+                items);
     }
 
     // ------------------------------------------------------------------ primitives

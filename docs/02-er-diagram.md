@@ -225,14 +225,14 @@ erDiagram
 - Keys: `uqWarehousesCode`
 
 #### `materialBatches`
-*FEFO is served by idxMaterialBatchesFefo*
+*FEFO is served by idxMaterialBatchesFefo; one batch number may exist in several warehouses once a transfer splits it*
 
 - `id` `BIGINT UNSIGNED` **PK**, `materialId` `BIGINT UNSIGNED`, `batchNumber` `VARCHAR(40)`, `warehouseId` `BIGINT UNSIGNED`, `supplierId` `BIGINT UNSIGNED` NULL, `quantity` `DECIMAL(15,3)`, `unit` `VARCHAR(12)`, `productionDate` `DATE` NULL, `expiryDate` `DATE` NULL, `qualityStatus` `ENUM('QUARANTINE','RELEASED','REJECTED')`, `purchasePrice` `DECIMAL(15,2)`, `releasedAt` `DATETIME` NULL, `releasedBy` `BIGINT UNSIGNED` NULL, `createdAt` `DATETIME`, `updatedAt` `DATETIME`
 - Keys: `uqMaterialBatchesNumber`, `idxMaterialBatchesFefo`, `idxMaterialBatchesWarehouse`, `idxMaterialBatchesSupplier`
 - References: `materialId` → `rawMaterials.id`, `warehouseId` → `warehouses.id`, `supplierId` → `suppliers.id`
 
 #### `productBatches`
-*Finished goods batches, traceable to a production order*
+*Finished goods batches, traceable to a production order; a batch may be split across warehouses*
 
 - `id` `BIGINT UNSIGNED` **PK**, `productId` `BIGINT UNSIGNED`, `batchNumber` `VARCHAR(40)`, `warehouseId` `BIGINT UNSIGNED`, `productionOrderId` `BIGINT UNSIGNED` NULL, `quantity` `DECIMAL(15,3)`, `unit` `VARCHAR(12)`, `productionDate` `DATE` NULL, `expiryDate` `DATE` NULL, `qualityStatus` `ENUM('QUARANTINE','RELEASED','REJECTED')`, `unitCost` `DECIMAL(15,4)`, `createdAt` `DATETIME`, `updatedAt` `DATETIME`
 - Keys: `uqProductBatchesNumber`, `idxProductBatchesFefo`, `idxProductBatchesWarehouse`, `idxProductBatchesOrder`

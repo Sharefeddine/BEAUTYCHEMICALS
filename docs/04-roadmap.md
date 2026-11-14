@@ -60,15 +60,21 @@ switches work without restart; no KPI is hardcoded; no button is inert.
 * **Acceptance:** an approved version cannot be edited (API rejects it with `409`), the cost
   recomputes when a material price changes, and every change is in the audit log.
 
-## Phase 4 — Inventory, warehouses, purchasing
+## Phase 4 — Inventory, warehouses, purchasing ✅ *(delivered)*
 
-* Warehouses, material/product batches, quarantined vs released stock, stock movements ledger.
-* FEFO allocation on issue, expiry alerts, negative-stock refusal unless `INVENTORY_ADJUST`.
-* Purchasing: requests → orders → partial goods receipts (creating batches) → supplier
-  invoices → payments; supplier master data screens.
-* Cycle counts and adjustments that create movements instead of rewriting history.
-* **Acceptance:** issuing a product consumes the oldest expiring batch first; a receipt
-  creates a batch visible in raw materials; balances equal the sum of movements.
+* ✅ Warehouses, material/product batches, quarantined vs released stock and the append-only
+  `stockMovements` ledger: stock is summed from the batches and never stored as a column.
+* ✅ FEFO allocation on issue, expiry alerts, quarantine walls, and a refusal (`409
+  NO_ADJUSTMENT`) when a count finds no difference; batch numbers are unique per warehouse so a
+  batch can be split between stores by a transfer.
+* ✅ Purchasing: orders (`DRAFT → SENT → PARTIAL → RECEIVED | CANCELLED`), atomic partial goods
+  receipts that create the batch, its expiry and its `IN` movement, supplier master data screens.
+* ✅ Physical counts and transfers that write a movement with a reason and the acting user instead
+  of rewriting history.
+* ⏳ Purchase requests, supplier invoices/payments and the quality-release screen belong to
+  Phases 5/7/8 — see `docs/PHASE-4-REPORT.md`.
+* **Acceptance:** a reception creates a batch visible in the stock list; issuing consumes the
+  oldest released batch first; balances equal the sum of the batches and of the movements.
 
 ## Phase 5 — Production
 

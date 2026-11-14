@@ -7,10 +7,13 @@ use ChemManager\Api\Controllers\AuthController;
 use ChemManager\Api\Controllers\DashboardController;
 use ChemManager\Api\Controllers\FormulationController;
 use ChemManager\Api\Controllers\HealthController;
+use ChemManager\Api\Controllers\InventoryController;
 use ChemManager\Api\Controllers\MaterialController;
 use ChemManager\Api\Controllers\NotificationController;
 use ChemManager\Api\Controllers\ProductController;
+use ChemManager\Api\Controllers\PurchaseController;
 use ChemManager\Api\Controllers\SettingsController;
+use ChemManager\Api\Controllers\SupplierController;
 use ChemManager\Api\Controllers\UserController;
 use ChemManager\Api\Core\Request;
 use ChemManager\Api\Core\Router;
@@ -29,6 +32,9 @@ return static function (Router $router, App $app): void {
     $productController = new ProductController($app);
     $formulationController = new FormulationController($app);
     $materialController = new MaterialController($app);
+    $inventoryController = new InventoryController($app);
+    $supplierController = new SupplierController($app);
+    $purchaseController = new PurchaseController($app);
     $settingsController = new SettingsController($app);
     $dashboardController = new DashboardController($app);
     $auditController = new AuditController($app);
@@ -79,6 +85,27 @@ return static function (Router $router, App $app): void {
     $router->add('PUT', '/api/formulations/{id}/versions/{versionId}', [$formulationController, 'updateVersion'], 'FORMULATIONS_EDIT');
     $router->add('POST', '/api/formulations/{id}/versions/{versionId}/approve', [$formulationController, 'approve'], 'FORMULATIONS_APPROVE');
     $router->add('GET', '/api/formulations/{id}/compare', [$formulationController, 'compare'], 'FORMULATIONS_VIEW');
+
+    // ------------------------------------------------------------------ inventory
+    $router->add('GET', '/api/inventory/warehouses', [$inventoryController, 'warehouses'], 'INVENTORY_VIEW');
+    $router->add('GET', '/api/inventory/summary', [$inventoryController, 'summary'], 'INVENTORY_VIEW');
+    $router->add('GET', '/api/inventory/stock', [$inventoryController, 'stock'], 'INVENTORY_VIEW');
+    $router->add('GET', '/api/inventory/movements', [$inventoryController, 'movements'], 'INVENTORY_VIEW');
+    $router->add('GET', '/api/inventory/fefo', [$inventoryController, 'fefo'], 'INVENTORY_VIEW');
+    $router->add('POST', '/api/inventory/adjust', [$inventoryController, 'adjust'], 'INVENTORY_ADJUST');
+    $router->add('POST', '/api/inventory/transfer', [$inventoryController, 'transfer'], 'INVENTORY_TRANSFER');
+
+    // ------------------------------------------------------------------ suppliers
+    $router->add('GET', '/api/suppliers', [$supplierController, 'index'], 'SUPPLIERS_VIEW');
+    $router->add('GET', '/api/suppliers/{id}', [$supplierController, 'show'], 'SUPPLIERS_VIEW');
+
+    // ------------------------------------------------------------------ purchasing
+    $router->add('GET', '/api/purchaseOrders', [$purchaseController, 'index'], 'PURCHASING_VIEW');
+    $router->add('GET', '/api/purchaseOrders/{id}', [$purchaseController, 'show'], 'PURCHASING_VIEW');
+    $router->add('POST', '/api/purchaseOrders', [$purchaseController, 'store'], 'PURCHASING_CREATE');
+    $router->add('POST', '/api/purchaseOrders/{id}/send', [$purchaseController, 'send'], 'PURCHASING_CREATE');
+    $router->add('POST', '/api/purchaseOrders/{id}/cancel', [$purchaseController, 'cancel'], 'PURCHASING_CREATE');
+    $router->add('POST', '/api/purchaseOrders/{id}/receipts', [$purchaseController, 'receive'], 'PURCHASING_APPROVE');
 
     // ------------------------------------------------------------------ users and permissions
     $router->add('GET', '/api/users', [$userController, 'index'], 'USERS_VIEW');

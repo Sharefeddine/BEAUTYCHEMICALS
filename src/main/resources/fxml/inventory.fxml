@@ -1,7 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.chemmanager.controller.inventory.InventoryController"
-      styleClass="content-area" spacing="16">
-    <VBox fx:id="placeholderHost" spacing="16"/>
+      styleClass="content-area" spacing="12">
+    <HBox alignment="CENTER_LEFT" spacing="12">
+        <Label fx:id="summaryLabel" text="" styleClass="text-muted"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <ComboBox fx:id="warehouseFilter" prefWidth="220"/>
+        <ComboBox fx:id="qualityFilter" prefWidth="165"/>
+        <Button fx:id="refreshButton" text="%common.refresh" styleClass="btn, btn-secondary, btn-sm"/>
+    </HBox>
+    <HBox fx:id="kpiRow" spacing="12"/>
+    <TabPane fx:id="tabs" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+        <Tab text="%inventory.tab.stock">
+            <VBox spacing="10">
+                <HBox alignment="CENTER_LEFT" spacing="8">
+                    <Button fx:id="adjustButton" text="%inventory.adjust" styleClass="btn, btn-secondary, btn-sm"/>
+                    <Button fx:id="transferButton" text="%inventory.transfer" styleClass="btn, btn-secondary, btn-sm"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                </HBox>
+                <VBox fx:id="stockHost" VBox.vgrow="ALWAYS"/>
+                <VBox fx:id="detailHost"/>
+            </VBox>
+        </Tab>
+        <Tab text="%inventory.tab.movements">
+            <VBox spacing="10">
+                <HBox alignment="CENTER_LEFT" spacing="8">
+                    <ComboBox fx:id="movementTypeFilter" prefWidth="185"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                </HBox>
+                <VBox fx:id="movementHost" VBox.vgrow="ALWAYS"/>
+            </VBox>
+        </Tab>
+    </TabPane>
 </VBox>
