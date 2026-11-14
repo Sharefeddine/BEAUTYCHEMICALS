@@ -1067,6 +1067,501 @@ check('the reset revokes the sessions of the user', $response['status'] === 401)
 $response = call('DELETE', '/api/users/' . $viewerUserId, null, $token);
 check('a user is soft deleted', $response['status'] === 200);
 
+// ------------------------------------------------------------ sales & distribution (phase 6)
+// The sellable stock is whatever the production run of the previous section released: the checks
+// below derive every quantity from that row instead of assuming a seeded amount.
+$response = call('GET', '/api/inventory/stock?kind=PRODUCT&qualityStatus=RELEASED&availableOnly=1&pageSize=10',
+    null, $token);
+$sellableRows = $response['json']['data'] ?? [];
+check('the released finished batch is the stock the sales module may sell',
+    $response['status'] === 200 && $sellableRows !== [], $response['raw']);
+$sellable = $sellableRows[0];
+$sellableProductId = (int) ($sellable['itemId'] ?? 0);
+$sellableBatchId = (int) ($sellable['batchId'] ?? 0);
+$sellableBefore = (float) ($sellable['quantity'] ?? 0);
+check('the sellable batch carries an expiry date and a number', $sellableBatchId > 0
+    && (string) ($sellable['batchNumber'] ?? '') !== '' && $sellableBefore > 0, $response['raw']);
+
+$response = call('GET', '/api/customers', null, $token);
+$seededCustomers = (int) ($response['json']['meta']['total'] ?? 0);
+check('customers are listed with their receivable', $response['status'] === 200 && $seededCustomers >= 5,
+    $response['raw']);
+check('a customer exposes the credit it still has', isset($response['json']['data'][0]['availableCredit'])
+    || array_key_exists('availableCredit', $response['json']['data'][0] ?? []), $response['raw']);
+
+$response = call('POST', '/api/customers', [
+    'name' => 'Boulangerie El Feth', 'type' => 'COMPANY', 'priceSegment' => 'WHOLESALE',
+    'creditLimit' => 50000, 'phone' => '+213 36 11 22 33', 'wilaya' => 'Sétif',
+    'address' => 'Rue de la gare',
+], $token);
+$mainCustomer = $response['json']['data'] ?? [];
+$mainCustomerId = (int) ($mainCustomer['id'] ?? 0);
+check('a customer is created with a generated code', $response['status'] === 201
+    && $mainCustomerId > 0 && str_starts_with((string) ($mainCustomer['code'] ?? ''), 'CL-'), $response['raw']);
+check('a new customer carries no balance', ($mainCustomer['balance'] ?? null) === 0.0
+    || (float) ($mainCustomer['balance'] ?? -1) === 0.0, $response['raw']);
+
+$response = call('POST', '/api/customers', ['name' => ''], $token);
+check('a customer without a name is refused', $response['status'] === 422
+    && isset($response['json']['error']['details']['name']), $response['raw']);
+
+$response = call('PUT', '/api/customers/' . $mainCustomerId, ['creditLimit' => 80000, 'notes' => 'Client test'],
+    $token);
+check('the credit limit of a customer can be raised', $response['status'] === 200
+    && (float) ($response['json']['data']['creditLimit'] ?? 0) === 80000.0, $response['raw']);
+
+$response = call('POST', '/api/customers', [
+    'name' => 'Comptant Témoin', 'priceSegment' => 'RETAIL', 'creditLimit' => 1,
+], $token);
+$cashCustomerId = (int) ($response['json']['data']['id'] ?? 0);
+check('a customer with a one dinar limit is accepted', $response['status'] === 201 && $cashCustomerId > 0,
+    $response['raw']);
+
+$response = call('POST', '/api/customers', ['name' => 'Client Éphémère', 'priceSegment' => 'RETAIL'], $token);
+$tempCustomerId = (int) ($response['json']['data']['id'] ?? 0);
+check('a third customer is created for the closing checks', $response['status'] === 201 && $tempCustomerId > 0,
+    $response['raw']);
+
+// ------------------------------------------------------------ quotation
+$response = call('POST', '/api/quotations', [
+    'customerId' => $mainCustomerId,
+    'validUntil' => date('Y-m-d', strtotime('+15 days')),
+    'notes' => 'Devis phase 6',
+    'items' => [['productId' => $sellableProductId, 'quantity' => 1]],
+], $token);
+$quotation = $response['json']['data'] ?? [];
+$quotationId = (int) ($quotation['id'] ?? 0);
+$quoteUnitPrice = (float) ($quotation['items'][0]['unitPrice'] ?? 0);
+$quoteTotal = (float) ($quotation['totalTtc'] ?? 0);
+check('a quotation is priced from the wholesale segment', $response['status'] === 201 && $quotationId > 0
+    && $quoteUnitPrice > 0 && $quoteTotal > $quoteUnitPrice, $response['raw']);
+check('the quotation totals add up', abs((float) $quotation['amountHt'] + (float) $quotation['vatAmount']
+    - $quoteTotal) < 0.011, $response['raw']);
+
+$response = call('POST', '/api/quotations/' . $quotationId . '/send', null, $token);
+check('a quotation is sent to the customer', $response['status'] === 200
+    && ($response['json']['data']['status'] ?? '') === 'SENT', $response['raw']);
+$response = call('POST', '/api/quotations/' . $quotationId . '/send', null, $token);
+check('a sent quotation cannot be sent twice', $response['status'] === 409
+    && ($response['json']['error']['code'] ?? '') === 'INVALID_STATUS', $response['raw']);
+
+$response = call('GET', '/api/documents/quotation/' . $quotationId . '?lang=fr', null, $token);
+check('the quotation prints as a French document', $response['status'] === 200
+    && str_contains($response['raw'], 'DEVIS')
+    && str_contains($response['raw'], (string) $quotation['quoteNumber']), substr($response['raw'], 0, 200));
+
+$response = call('POST', '/api/quotations/' . $quotationId . '/accept',
+    ['deliveryDate' => date('Y-m-d', strtotime('+2 days'))], $token);
+$accepted = $response['json']['data'] ?? [];
+$orderId = (int) ($accepted['order']['id'] ?? 0);
+check('accepting a quotation creates the order', $response['status'] === 200
+    && ($accepted['quotation']['status'] ?? '') === 'ACCEPTED'
+    && ($accepted['order']['status'] ?? '') === 'DRAFT' && $orderId > 0, $response['raw']);
+check('the order copies the quoted lines', count($accepted['order']['items'] ?? []) === 1
+    && (float) ($accepted['order']['items'][0]['quantity'] ?? 0) === 1.0, $response['raw']);
+$response = call('POST', '/api/quotations/' . $quotationId . '/accept', null, $token);
+check('an accepted quotation cannot be accepted twice', $response['status'] === 409, $response['raw']);
+
+// ------------------------------------------------------------ credit limit on confirmation
+$response = call('POST', '/api/salesOrders', [
+    'customerId' => $cashCustomerId,
+    'items' => [['productId' => $sellableProductId, 'quantity' => 1]],
+], $token);
+$blockedOrderId = (int) ($response['json']['data']['id'] ?? 0);
+check('an order is drafted for the customer with a one dinar limit', $response['status'] === 201
+    && $blockedOrderId > 0, $response['raw']);
+$response = call('POST', '/api/salesOrders/' . $blockedOrderId . '/confirm', null, $token);
+check('confirming over the credit limit is refused', $response['status'] === 409
+    && ($response['json']['error']['code'] ?? '') === 'CREDIT_LIMIT_EXCEEDED'
+    && isset($response['json']['error']['details']['creditLimit']), $response['raw']);
+check('the refusal says how much credit is left',
+    (float) ($response['json']['error']['details']['available'] ?? -1) === 1.0, $response['raw']);
+
+// ------------------------------------------------------------ order, delivery, invoice, payment
+$response = call('POST', '/api/salesOrders/' . $orderId . '/confirm', null, $token);
+check('the order is confirmed within the credit limit', $response['status'] === 200
+    && ($response['json']['data']['status'] ?? '') === 'CONFIRMED', $response['raw']);
+
+$response = call('POST', '/api/salesOrders/' . $orderId . '/deliveries',
+    ['items' => [['orderItemId' => (int) ($accepted['order']['items'][0]['id'] ?? 0), 'quantity' => 999]], $token);
+check('a delivery cannot ship more than the line ordered', $response['status'] === 409
+    && ($response['json']['error']['code'] ?? '') === 'DELIVERY_EXCEEDS_ORDER'
+    && isset($response['json']['error']['details']['remaining']), $response['raw']);
+$blockedOrder = call('GET', '/api/salesOrders/' . $orderId, null, $token);
+check('the refused delivery left the order untouched',
+    ($blockedOrder['json']['data']['deliveredQty'] ?? null) !== null
+    && (float) $blockedOrder['json']['data']['deliveredQty'] === 0.0, $blockedOrder['raw']);
+
+// A second catalogue line that has no released batch: it must refuse to ship, and the order can
+// still be cancelled because nothing ever left the warehouse.
+$releasedProductIds = array_map(static fn (array $row): int => (int) $row['itemId'], $sellableRows);
+$response = call('GET', '/api/products?pageSize=50', null, $token);
+$dryProductId = 0;
+foreach ($response['json']['data'] ?? [] as $product) {
+    if (!in_array((int) $product['id'], $releasedProductIds, true)) {
+        $dryProductId = (int) $product['id'];
+        break;
+    }
+}
+check('the catalogue holds a product without any released batch', $dryProductId > 0, $response['raw']);
+$response = call('POST', '/api/salesOrders', [
+    'customerId' => $mainCustomerId,
+    'items' => [['productId' => $dryProductId, 'quantity' => 1]],
+], $token);
+$dryOrderId = (int) ($response['json']['data']['id'] ?? 0);
+check('an order is drafted on the unavailable product', $response['status'] === 201 && $dryOrderId > 0,
+    $response['raw']);
+call('POST', '/api/salesOrders/' . $dryOrderId . '/confirm', null, $token);
+$response = call('POST', '/api/salesOrders/' . $dryOrderId . '/deliveries', [], $token);
+check('nothing ships when no released batch exists', $response['status'] === 409
+    && ($response['json']['error']['code'] ?? '') === 'SALES_STOCK_INSUFFICIENT'
+    && isset($response['json']['error']['details']['available']), $response['raw']);
+$response = call('POST', '/api/salesOrders/' . $dryOrderId . '/cancel', null, $token);
+check('an order that shipped nothing can be cancelled', $response['status'] === 200
+    && ($response['json']['data']['status'] ?? '') === 'CANCELLED', $response['raw']);
+$response = call('POST', '/api/salesOrders/' . $dryOrderId . '/confirm', null, $token);
+check('a cancelled order cannot be confirmed again', $response['status'] === 409, $response['raw']);
+
+$response = call('POST', '/api/salesOrders/' . $orderId . '/deliveries', [], $token);
+$delivery = $response['json']['data'] ?? [];
+$deliveryId = (int) ($delivery['id'] ?? 0);
+check('a delivery note is prepared from the order', $response['status'] === 201
+    && ($delivery['status'] ?? '') === 'PREPARED' && $deliveryId > 0, $response['raw']);
+check('the delivered unit is traced to the released batch',
+    ($delivery['items'][0]['productBatchId'] ?? 0) === $sellableBatchId, $response['raw']);
+$response = call('GET', '/api/salesOrders/' . $orderId, null, $token);
+check('preparing the delivery reserves the order', ($response['json']['data']['status'] ?? '') === 'RESERVED',
+    $response['raw']);
+check('the order line shows the delivered quantity',
+    (float) ($response['json']['data']['items'][0]['deliveredQty'] ?? -1) === 1.0, $response['raw']);
+
+$response = call('GET', '/api/inventory/stock?kind=PRODUCT&qualityStatus=RELEASED&pageSize=50', null, $token);
+$afterPicking = 0.0;
+foreach ($response['json']['data'] ?? [] as $row) {
+    if ((int) ($row['batchId'] ?? 0) === $sellableBatchId) {
+        $afterPicking = (float) $row['quantity'];
+    }
+}
+check('preparing the delivery takes the units out of the batch', $afterPicking < $sellableBefore
+    && abs(($sellableBefore - $afterPicking) - 1.0) < 0.001, $response['raw']);
+
+$response = call('POST', '/api/deliveries/' . $deliveryId . '/deliver', [], $token);
+check('a delivery without a signature is refused', $response['status'] === 422
+    && isset($response['json']['error']['details']['signedBy']), $response['raw']);
+$response = call('POST', '/api/deliveries/' . $deliveryId . '/deliver',
+    ['signedBy' => 'M. Belkacem'], $token);
+check('the customer signature closes the delivery', $response['status'] === 200
+    && ($response['json']['data']['status'] ?? '') === 'DELIVERED'
+    && ($response['json']['data']['signedBy'] ?? '') === 'M. Belkacem', $response['raw']);
+$response = call('GET', '/api/salesOrders/' . $orderId, null, $token);
+check('a delivered but unbilled order is partial', ($response['json']['data']['status'] ?? '') === 'PARTIAL',
+    $response['raw']);
+$response = call('POST', '/api/salesOrders/' . $orderId . '/cancel', null, $token);
+check('an order whose goods shipped cannot be cancelled', $response['status'] === 409
+    && ($response['json']['error']['code'] ?? '') === 'ORDER_HAS_DELIVERIES', $response['raw']);
+
+$response = call('GET', '/api/documents/delivery/' . $deliveryId . '?lang=fr', null, $token);
+check('the delivery note prints with its batch number', $response['status'] === 200
+    && str_contains($response['raw'], 'BON DE LIVRAISON')
+    && str_contains($response['raw'], (string) ($delivery['items'][0]['batchNumber'] ?? '')),
+    substr($response['raw'], 0, 160));
+
+$response = call('POST', '/api/invoices', ['orderId' => $orderId], $token);
+$invoice = $response['json']['data'] ?? [];
+$invoiceId = (int) ($invoice['id'] ?? 0);
+$invoiceTotal = round((float) ($invoice['totalTtc'] ?? 0), 2);
+check('the invoice bills what was delivered', $response['status'] === 201
+    && ($invoice['status'] ?? '') === 'DRAFT' && $invoiceId > 0
+    && abs($invoiceTotal - $quoteTotal) < 0.011, $response['raw']);
+check('the invoice line keeps the batch trace', ($invoice['items'][0]['productBatchId'] ?? 0)
+    === $sellableBatchId, $response['raw']);
+
+$response = call('PUT', '/api/invoices/' . $invoiceId, ['notes' => 'Livraison signée'], $token);
+check('a draft invoice can still be corrected', $response['status'] === 200
+    && ($response['json']['data']['notes'] ?? '') === 'Livraison signée', $response['raw']);
+
+$response = call('POST', '/api/invoices/' . $invoiceId . '/issue', null, $token);
+$issued = $response['json']['data'] ?? [];
+check('issuing freezes the invoice', $response['status'] === 200
+    && ($issued['status'] ?? '') === 'ISSUED' && ($issued['isFinalized'] ?? false) === true, $response['raw']);
+check('the invoice number is generated', str_starts_with((string) ($issued['invoiceNumber'] ?? ''), 'FA-'),
+    $response['raw']);
+$response = call('PUT', '/api/invoices/' . $invoiceId, ['notes' => 'Trop tard'], $token);
+check('an issued invoice refuses any modification', $response['status'] === 409
+    && ($response['json']['error']['code'] ?? '') === 'INVOICE_FINALIZED', $response['raw']);
+$response = call('POST', '/api/invoices/' . $invoiceId . '/cancel', null, $token);
+check('an issued invoice cannot be cancelled', $response['status'] === 409, $response['raw']);
+
+$response = call('GET', '/api/customers/' . $mainCustomerId, null, $token);
+check('issuing the invoice books the receivable', abs((float) ($response['json']['data']['balance'] ?? 0)
+    - $invoiceTotal) < 0.011, $response['raw']);
+$response = call('GET', '/api/salesOrders/' . $orderId, null, $token);
+check('a fully delivered and billed order is invoiced',
+    ($response['json']['data']['status'] ?? '') === 'INVOICED', $response['raw']);
+
+$response = call('GET', '/api/documents/invoice/' . $invoiceId . '?lang=fr', null, $token);
+check('the invoice prints with its totals', $response['status'] === 200
+    && str_contains($response['raw'], 'FACTURE')
+    && str_contains($response['raw'], (string) $issued['invoiceNumber']), substr($response['raw'], 0, 160));
+$response = call('GET', '/api/invoices/' . $invoiceId, null, $token);
+check('printing an invoice is counted', (int) ($response['json']['data']['printedCount'] ?? 0) === 1,
+    $response['raw']);
+
+$response = call('GET', '/api/cashAccounts', null, $token);
+$cashAccountId = (int) ($response['json']['data'][0]['id'] ?? 0);
+check('the cash accounts are listed for the payment', $response['status'] === 200
+    && $cashAccountId > 0, $response['raw']);
+
+$halfPayment = round($invoiceTotal / 2, 2);
+$response = call('POST', '/api/payments', [
+    'invoiceId' => $invoiceId, 'amount' => $invoiceTotal + 1, 'cashAccountId' => $cashAccountId,
+    'method' => 'CASH',
+], $token);
+check('a payment above the balance due is refused', $response['status'] === 409
+    && ($response['json']['error']['code'] ?? '') === 'PAYMENT_EXCEEDS_BALANCE'
+    && isset($response['json']['error']['details']['remaining']), $response['raw']);
+
+$response = call('POST', '/api/payments', [
+    'invoiceId' => $invoiceId, 'amount' => $halfPayment, 'cashAccountId' => $cashAccountId,
+    'method' => 'CASH', 'reference' => 'Caisse 1',
+], $token);
+$payment = $response['json']['data'] ?? [];
+check('a partial payment is recorded', $response['status'] === 201
+    && (float) ($payment['amount'] ?? 0) === $halfPayment, $response['raw']);
+check('the payment number is generated', str_starts_with((string) ($payment['paymentNumber'] ?? ''), 'ENC-'),
+    $response['raw']);
+$response = call('GET', '/api/invoices/' . $invoiceId, null, $token);
+check('the invoice becomes partially paid', ($response['json']['data']['status'] ?? '') === 'PARTIAL'
+    && abs((float) ($response['json']['data']['paidAmount'] ?? 0) - $halfPayment) < 0.011, $response['raw']);
+$response = call('GET', '/api/customers/' . $mainCustomerId, null, $token);
+check('the payment lowers the receivable', abs((float) ($response['json']['data']['balance'] ?? 0)
+    - ($invoiceTotal - $halfPayment)) < 0.011, $response['raw']);
+
+$response = call('POST', '/api/payments', [
+    'invoiceId' => $invoiceId, 'amount' => round($invoiceTotal - $halfPayment, 2),
+    'cashAccountId' => $cashAccountId, 'method' => 'TRANSFER', 'reference' => 'Virement BNA',
+], $token);
+check('the balance can be settled', $response['status'] === 201, $response['raw']);
+$response = call('GET', '/api/invoices/' . $invoiceId, null, $token);
+check('a settled invoice is paid', ($response['json']['data']['status'] ?? '') === 'PAID', $response['raw']);
+$response = call('POST', '/api/payments', [
+    'invoiceId' => $invoiceId, 'amount' => 100, 'cashAccountId' => $cashAccountId,
+], $token);
+check('a paid invoice accepts no further payment', $response['status'] === 409
+    && ($response['json']['error']['code'] ?? '') === 'INVOICE_NOT_PAYABLE', $response['raw']);
+$response = call('GET', '/api/customers/' . $mainCustomerId, null, $token);
+check('the customer is square again', abs((float) ($response['json']['data']['balance'] ?? -1)) < 0.011,
+    $response['raw']);
+
+$response = call('POST', '/api/payments', [
+    'customerId' => $mainCustomerId, 'amount' => 250, 'cashAccountId' => $cashAccountId, 'method' => 'CASH',
+], $token);
+check('a payment on account is accepted', $response['status'] === 201
+    && ($response['json']['data']['invoiceId'] ?? null) === null, $response['raw']);
+
+$response = call('GET', '/api/customers/' . $mainCustomerId . '/statement', null, $token);
+$statement = $response['json']['data'] ?? [];
+check('the statement lists the invoice, the payments and the on-account credit',
+    $response['status'] === 200 && count($statement['lines'] ?? []) >= 3, $response['raw']);
+check('the statement closes on the customer balance',
+    abs((float) ($statement['closingBalance'] ?? 0) - (float) ($statement['customer']['balance'] ?? 0)) < 0.011,
+    $response['raw']);
+$response = call('GET', '/api/documents/statement/' . $mainCustomerId . '?lang=fr', null, $token);
+check('the statement prints', $response['status'] === 200
+    && str_contains($response['raw'], 'RELEVÉ DE COMPTE'), substr($response['raw'], 0, 160));
+$response = call('GET', '/api/documents/invoice/' . $invoiceId . '?lang=ar', null, $token);
+check('an invoice also prints in Arabic, right to left', $response['status'] === 200
+    && str_contains($response['raw'], 'dir="rtl"') && str_contains($response['raw'], 'فاتورة'),
+    substr($response['raw'], 0, 160));
+
+// ------------------------------------------------------------ credit note on a counter sale
+$response = call('POST', '/api/invoices', [
+    'customerId' => $tempCustomerId,
+    'items' => [['productId' => $sellableProductId, 'quantity' => 1]],
+], $token);
+$counterInvoiceId = (int) ($response['json']['data']['id'] ?? 0);
+$counterTotal = round((float) ($response['json']['data']['totalTtc'] ?? 0), 2);
+check('a counter sale is invoiced without a delivery', $response['status'] === 201 && $counterInvoiceId > 0
+    && ($response['json']['data']['orderId'] ?? 0) === 0, $response['raw']);
+$response = call('POST', '/api/invoices/' . $counterInvoiceId . '/issue', null, $token);
+check('the counter invoice is issued', $response['status'] === 200
+    && ($response['json']['data']['status'] ?? '') === 'ISSUED', $response['raw']);
+
+$response = call('DELETE', '/api/customers/' . $tempCustomerId, null, $token);
+check('a customer who still owes money cannot be closed', $response['status'] === 409
+    && ($response['json']['error']['code'] ?? '') === 'CUSTOMER_HAS_BALANCE', $response['raw']);
+
+$response = call('POST', '/api/invoices/' . $counterInvoiceId . '/creditNotes',
+    ['amountHt' => $counterTotal * 2, 'reason' => 'Trop perçu'], $token);
+check('a credit note above what is due is refused', $response['status'] === 409
+    && ($response['json']['error']['code'] ?? '') === 'CREDIT_EXCEEDS_BALANCE', $response['raw']);
+
+$response = call('POST', '/api/invoices/' . $counterInvoiceId . '/creditNotes',
+    ['amountHt' => 100, 'vatRate' => 19, 'reason' => 'Retour de 2 bidons'], $token);
+$creditNote = $response['json']['data'] ?? [];
+$creditNoteId = (int) ($creditNote['id'] ?? 0);
+$creditTotal = round((float) ($creditNote['totalTtc'] ?? 0), 2);
+check('a credit note is issued on the invoice', $response['status'] === 201
+    && ($creditNote['status'] ?? '') === 'ISSUED' && $creditNoteId > 0
+    && abs($creditTotal - 119.0) < 0.011, $response['raw']);
+check('the credit note number is generated',
+    str_starts_with((string) ($creditNote['creditNumber'] ?? ''), 'AV-'), $response['raw']);
+
+$response = call('POST', '/api/creditNotes/' . $creditNoteId . '/apply', null, $token);
+check('applying the credit note corrects the receivable', $response['status'] === 200
+    && ($response['json']['data']['status'] ?? '') === 'APPLIED', $response['raw']);
+$response = call('GET', '/api/invoices/' . $counterInvoiceId, null, $token);
+check('the corrected invoice carries the credit',
+    abs((float) ($response['json']['data']['paidAmount'] ?? 0) - $creditTotal) < 0.011, $response['raw']);
+$response = call('GET', '/api/customers/' . $tempCustomerId, null, $token);
+check('the credit note lowers the customer balance',
+    abs((float) ($response['json']['data']['balance'] ?? 0) - ($counterTotal - $creditTotal)) < 0.011,
+    $response['raw']);
+$response = call('POST', '/api/creditNotes/' . $creditNoteId . '/apply', null, $token);
+check('an applied credit note cannot be applied twice', $response['status'] === 409, $response['raw']);
+$response = call('GET', '/api/creditNotes?customerId=' . $tempCustomerId, null, $token);
+check('credit notes are listed per customer', $response['status'] === 200
+    && (int) ($response['json']['meta']['total'] ?? 0) >= 1, $response['raw']);
+
+// ------------------------------------------------------------ partial delivery progress
+$response = call('POST', '/api/salesOrders', [
+    'customerId' => $mainCustomerId,
+    'items' => [['productId' => $sellableProductId, 'quantity' => 2]],
+], $token);
+$partialOrderId = (int) ($response['json']['data']['id'] ?? 0);
+$partialItemId = (int) ($response['json']['data']['items'][0]['id'] ?? 0);
+check('a second order is drafted for the progress checks', $response['status'] === 201
+    && $partialOrderId > 0, $response['raw']);
+call('POST', '/api/salesOrders/' . $partialOrderId . '/confirm', null, $token);
+$response = call('POST', '/api/salesOrders/' . $partialOrderId . '/deliveries',
+    ['items' => [['orderItemId' => $partialItemId, 'quantity' => 1]]], $token);
+$partialDeliveryId = (int) ($response['json']['data']['id'] ?? 0);
+check('a delivery can ship part of a line', $response['status'] === 201 && $partialDeliveryId > 0,
+    $response['raw']);
+call('POST', '/api/deliveries/' . $partialDeliveryId . '/deliver', ['signedBy' => 'Mme Cherif'], $token);
+$response = call('GET', '/api/salesOrders/' . $partialOrderId, null, $token);
+$partialOrder = $response['json']['data'] ?? [];
+check('the order reports its delivery progress', (float) ($partialOrder['deliveredQty'] ?? 0) === 1.0
+    && (float) ($partialOrder['items'][0]['deliveredQty'] ?? 0) === 1.0
+    && (float) ($partialOrder['items'][0]['quantity'] ?? 0) === 2.0, $response['raw']);
+check('half a line shipped reads as partial progress',
+    abs((float) ($partialOrder['deliveryProgress'] ?? 0) - 50.0) < 0.11, $response['raw']);
+$response = call('POST', '/api/invoices', ['orderId' => $partialOrderId], $token);
+$partialInvoiceId = (int) ($response['json']['data']['id'] ?? 0);
+check('only the delivered half can be invoiced', $response['status'] === 201
+    && (float) ($response['json']['data']['items'][0]['quantity'] ?? 0) === 1.0, $response['raw']);
+call('POST', '/api/invoices/' . $partialInvoiceId . '/issue', null, $token);
+$response = call('POST', '/api/invoices', ['orderId' => $partialOrderId], $token);
+check('the undelivered remainder cannot be invoiced yet', $response['status'] === 409
+    && ($response['json']['error']['code'] ?? '') === 'NOTHING_TO_INVOICE', $response['raw']);
+
+// ------------------------------------------------------------ distribution
+$response = call('GET', '/api/vehicles', null, $token);
+$vehicles = $response['json']['data'] ?? [];
+check('the fleet is listed', $response['status'] === 200 && count($vehicles) >= 2, $response['raw']);
+$vehicleId = (int) ($vehicles[0]['id'] ?? 0);
+check('a vehicle shows how many tours it has done', array_key_exists('routeCount', $vehicles[0] ?? []),
+    $response['raw']);
+$response = call('POST', '/api/vehicles', ['plate' => '19-9999-118', 'model' => 'Peugeot Partner',
+    'capacityKg' => 600], $token);
+$newVehicleId = (int) ($response['json']['data']['id'] ?? 0);
+check('a vehicle joins the fleet', $response['status'] === 201 && $newVehicleId > 0, $response['raw']);
+$response = call('POST', '/api/vehicles', ['plate' => '19-9999-118'], $token);
+check('the same plate cannot be registered twice', $response['status'] === 409, $response['raw']);
+$response = call('GET', '/api/drivers', null, $token);
+check('the drivers list answers even before the payroll exists', $response['status'] === 200
+    && is_array($response['json']['data']), $response['raw']);
+
+$response = call('POST', '/api/salesOrders', [
+    'customerId' => $mainCustomerId,
+    'items' => [['productId' => $sellableProductId, 'quantity' => 1]],
+], $token);
+$routeOrderId = (int) ($response['json']['data']['id'] ?? 0);
+call('POST', '/api/salesOrders/' . $routeOrderId . '/confirm', null, $token);
+$response = call('POST', '/api/salesOrders/' . $routeOrderId . '/deliveries', [], $token);
+$routeNoteId = (int) ($response['json']['data']['id'] ?? 0);
+$routeNoteNumber = (string) ($response['json']['data']['noteNumber'] ?? '');
+check('a delivery note waits to be routed', $response['status'] === 201
+    && ($response['json']['data']['status'] ?? '') === 'PREPARED', $response['raw']);
+
+$response = call('POST', '/api/routes', [
+    'vehicleId' => $vehicleId, 'routeDate' => date('Y-m-d'), 'wilayaZone' => 'Sétif centre',
+    'deliveryNoteIds' => [$routeNoteId],
+], $token);
+$route = $response['json']['data'] ?? [];
+$routeId = (int) ($route['id'] ?? 0);
+$stopId = (int) ($route['stops'][0]['id'] ?? 0);
+check('a tour is planned with its stop', $response['status'] === 201 && $routeId > 0
+    && ($route['status'] ?? '') === 'PLANNED' && ($route['stopCount'] ?? 0) === 1 && $stopId > 0,
+    $response['raw']);
+check('the tour shows which customer it serves',
+    ($route['stops'][0]['customerName'] ?? '') !== '' && ($route['stops'][0]['totalQuantity'] ?? 0) === 1.0,
+    $response['raw']);
+
+$response = call('POST', '/api/routes', [
+    'vehicleId' => $newVehicleId, 'routeDate' => date('Y-m-d'), 'deliveryNoteIds' => [$routeNoteId],
+], $token);
+check('a note cannot be planned on two tours', $response['status'] === 409
+    && ($response['json']['error']['code'] ?? '') === 'NOTE_ALREADY_PLANNED', $response['raw']);
+
+$response = call('POST', '/api/routes/' . $routeId . '/start', null, $token);
+check('the tour leaves and puts its notes in transit', $response['status'] === 200
+    && ($response['json']['data']['status'] ?? '') === 'IN_TRANSIT'
+    && ($response['json']['data']['stops'][0]['noteStatus'] ?? '') === 'IN_TRANSIT', $response['raw']);
+$response = call('GET', '/api/deliveries/' . $routeNoteId, null, $token);
+check('the delivery note follows the tour', ($response['json']['data']['status'] ?? '') === 'IN_TRANSIT',
+    $response['raw']);
+
+$response = call('POST', '/api/routes/' . $routeId . '/stops/' . $stopId . '/deliver',
+    ['remarks' => 'Livré au comptoir'], $token);
+check('delivering a stop signs the delivery note', $response['status'] === 200
+    && ($response['json']['data']['stops'][0]['status'] ?? '') === 'DELIVERED'
+    && ($response['json']['data']['stops'][0]['noteStatus'] ?? '') === 'DELIVERED', $response['raw']);
+$response = call('POST', '/api/routes/' . $routeId . '/stops/' . $stopId . '/deliver', [], $token);
+check('a settled stop cannot be settled twice', $response['status'] === 409, $response['raw']);
+
+$response = call('POST', '/api/routes/' . $routeId . '/complete', ['fuelCost' => 3500], $token);
+check('the tour is closed with its fuel cost', $response['status'] === 200
+    && ($response['json']['data']['status'] ?? '') === 'COMPLETED'
+    && (float) ($response['json']['data']['fuelCost'] ?? 0) === 3500.0, $response['raw']);
+check('the tour reports its delivered stops',
+    ($response['json']['data']['deliveredCount'] ?? 0) === 1, $response['raw']);
+
+$response = call('GET', '/api/routes?routeDate=' . date('Y-m-d'), null, $token);
+check('the tours of the day are listed', $response['status'] === 200
+    && (int) ($response['json']['meta']['total'] ?? 0) >= 1, $response['raw']);
+
+$response = call('GET', '/api/deliveries?status=DELIVERED&pageSize=10', null, $token);
+check('delivered notes are listed with their signature',
+    $response['status'] === 200 && (int) ($response['json']['meta']['total'] ?? 0) >= 3, $response['raw']);
+
+// ------------------------------------------------------------ closing a clean customer
+$response = call('GET', '/api/customers/' . $tempCustomerId, null, $token);
+$tempBalance = round((float) ($response['json']['data']['balance'] ?? 0), 2);
+$response = call('POST', '/api/payments', [
+    'customerId' => $tempCustomerId, 'amount' => $tempBalance, 'cashAccountId' => $cashAccountId,
+    'method' => 'CASH',
+], $token);
+check('the corrected counter sale is settled on account', $response['status'] === 201, $response['raw']);
+$response = call('DELETE', '/api/customers/' . $tempCustomerId, null, $token);
+check('a customer who owes nothing is deactivated', $response['status'] === 200
+    && ($response['json']['data']['isActive'] ?? true) === false, $response['raw']);
+$response = call('GET', '/api/customers?search=' . urlencode('Client Éphémère'), null, $token);
+check('a closed customer leaves the working list', $response['status'] === 200
+    && (int) ($response['json']['meta']['total'] ?? -1) === 0, $response['raw']);
+
+$response = call('GET', '/api/salesOrders?status=INVOICED', null, $token);
+check('invoiced orders are filtered', $response['status'] === 200
+    && (int) ($response['json']['meta']['total'] ?? 0) >= 1, $response['raw']);
+$response = call('GET', '/api/invoices?status=PAID', null, $token);
+check('the invoice list filters on the paid status', $response['status'] === 200
+    && isset($response['json']['meta']['summary']['outstanding']), $response['raw']);
+$response = call('GET', '/api/quotations?status=ACCEPTED', null, $token);
+check('accepted quotations are listed', $response['status'] === 200
+    && (int) ($response['json']['meta']['total'] ?? 0) >= 1, $response['raw']);
+$response = call('GET', '/api/documents/unknown/' . $invoiceId, null, $token);
+check('an unknown document type answers 404', $response['status'] === 404, $response['raw']);
+
 // ------------------------------------------------------------ lockout
 for ($attempt = 1; $attempt <= 5; $attempt++) {
     call('POST', '/api/auth/login', ['username' => $adminUser, 'password' => 'still-wrong']);

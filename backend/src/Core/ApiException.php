@@ -43,9 +43,9 @@ final class ApiException extends RuntimeException
         return new self(404, 'NOT_FOUND', $what . ' not found.');
     }
 
-    public static function conflict(string $message, string $code = 'CONFLICT'): self
+    public static function conflict(string $message, string $code = 'CONFLICT', array $details = []): self
     {
-        return new self(409, $code, $message);
+        return new self(409, $code, $message, $details);
     }
 
     public static function tooManyRequests(string $message, int $retryAfter = 120): self

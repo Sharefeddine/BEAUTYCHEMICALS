@@ -15,6 +15,7 @@ final class Response
     /** @var array<string,string> */
     private array $headers = ['Content-Type' => 'application/json; charset=utf-8'];
     private array $body = [];
+    private ?string $raw = null;
 
     public static function ok($data = null, array $meta = []): self
     {
@@ -41,6 +42,19 @@ final class Response
         return (new self())->status($status)->withBody(['success' => false, 'error' => $error]);
     }
 
+    /**
+     * A printable document (invoice, delivery note, quotation, statement) served as HTML: the
+     * desktop client shows it and prints it, and any browser can open the same URL.
+     */
+    public static function html(string $html, int $status = 200): self
+    {
+        $response = (new self())->status($status);
+        $response->headers['Content-Type'] = 'text/html; charset=utf-8';
+        $response->raw = $html;
+
+        return $response;
+    }
+
     public function status(int $status): self
     {
         $this->status = $status;
@@ -65,6 +79,11 @@ final class Response
         return (string) json_encode($this->body, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
 
+    public function raw(): ?string
+    {
+        return $this->raw;
+    }
+
     public function body(): array
     {
         return $this->body;
@@ -78,7 +97,7 @@ final class Response
                 header($name . ': ' . $value);
             }
         }
-        echo $this->json();
+        echo $this->raw ?? $this->json();
     }
 
     private function withBody(array $body): self

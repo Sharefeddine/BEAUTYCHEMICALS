@@ -13,7 +13,9 @@ use ChemManager\Api\Core\Request;
 use ChemManager\Api\Core\Response;
 use ChemManager\Api\Core\Router;
 use ChemManager\Api\Repositories\AuditRepository;
+use ChemManager\Api\Repositories\CustomerRepository;
 use ChemManager\Api\Repositories\DashboardRepository;
+use ChemManager\Api\Repositories\DistributionRepository;
 use ChemManager\Api\Repositories\FormulationRepository;
 use ChemManager\Api\Repositories\InventoryRepository;
 use ChemManager\Api\Repositories\MaterialRepository;
@@ -21,6 +23,7 @@ use ChemManager\Api\Repositories\NotificationRepository;
 use ChemManager\Api\Repositories\ProductRepository;
 use ChemManager\Api\Repositories\ProductionRepository;
 use ChemManager\Api\Repositories\PurchaseRepository;
+use ChemManager\Api\Repositories\SalesRepository;
 use ChemManager\Api\Repositories\SettingsRepository;
 use ChemManager\Api\Repositories\SupplierRepository;
 use ChemManager\Api\Repositories\UserRepository;
@@ -52,6 +55,9 @@ final class App
     public readonly SettingsRepository $settings;
     public readonly DashboardRepository $dashboard;
     public readonly AuditRepository $auditLogs;
+    public readonly CustomerRepository $customers;
+    public readonly SalesRepository $sales;
+    public readonly DistributionRepository $distribution;
     public readonly Router $router;
 
     public function __construct(?Config $config = null)
@@ -78,6 +84,9 @@ final class App
         $this->settings = new SettingsRepository($this->db);
         $this->dashboard = new DashboardRepository($this->db);
         $this->auditLogs = new AuditRepository($this->db);
+        $this->customers = new CustomerRepository($this->db);
+        $this->sales = new SalesRepository($this->db, $this->inventory, $this->customers);
+        $this->distribution = new DistributionRepository($this->db, $this->sales);
 
         $this->router = new Router();
         (require dirname(__DIR__, 2) . '/src/routes.php')($this->router, $this);

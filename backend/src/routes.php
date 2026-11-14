@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 use ChemManager\Api\Controllers\AuditController;
 use ChemManager\Api\Controllers\AuthController;
+use ChemManager\Api\Controllers\BillingController;
+use ChemManager\Api\Controllers\CustomerController;
 use ChemManager\Api\Controllers\DashboardController;
+use ChemManager\Api\Controllers\DistributionController;
+use ChemManager\Api\Controllers\DocumentController;
 use ChemManager\Api\Controllers\FormulationController;
 use ChemManager\Api\Controllers\HealthController;
 use ChemManager\Api\Controllers\InventoryController;
@@ -13,11 +17,13 @@ use ChemManager\Api\Controllers\NotificationController;
 use ChemManager\Api\Controllers\ProductController;
 use ChemManager\Api\Controllers\ProductionController;
 use ChemManager\Api\Controllers\PurchaseController;
+use ChemManager\Api\Controllers\SalesController;
 use ChemManager\Api\Controllers\SettingsController;
 use ChemManager\Api\Controllers\SupplierController;
 use ChemManager\Api\Controllers\UserController;
 use ChemManager\Api\Core\Request;
 use ChemManager\Api\Core\Router;
+use ChemManager\Api\Documents\DocumentRenderer;
 use ChemManager\Api\Http\App;
 
 /**
@@ -41,6 +47,11 @@ return static function (Router $router, App $app): void {
     $dashboardController = new DashboardController($app);
     $auditController = new AuditController($app);
     $notificationController = new NotificationController($app);
+    $customerController = new CustomerController($app);
+    $salesController = new SalesController($app);
+    $billingController = new BillingController($app);
+    $distributionController = new DistributionController($app);
+    $documentController = new DocumentController($app, new DocumentRenderer());
 
     // ------------------------------------------------------------------ public
     $router->add('GET', '/api/health', static fn (): \ChemManager\Api\Core\Response =>
@@ -139,6 +150,86 @@ return static function (Router $router, App $app): void {
     $router->add('GET', '/api/departments', [$userController, 'departments'], 'USERS_VIEW');
     $router->add('GET', '/api/roles/{id}/permissions', [$userController, 'rolePermissions'], 'USERS_VIEW');
     $router->add('PUT', '/api/roles/{id}/permissions', [$userController, 'updateRolePermissions'], 'USERS_MANAGE');
+
+    // ------------------------------------------------------------------ customers
+    $router->add('GET', '/api/customers', [$customerController, 'index'], 'CUSTOMERS_VIEW');
+    $router->add('GET', '/api/customers/selectable', [$customerController, 'selectable'], 'CUSTOMERS_VIEW');
+    $router->add('GET', '/api/customers/{id}', [$customerController, 'show'], 'CUSTOMERS_VIEW');
+    $router->add('GET', '/api/customers/{id}/statement', [$customerController, 'statement'], 'CUSTOMERS_VIEW');
+    $router->add('POST', '/api/customers', [$customerController, 'store'], 'SALES_CREATE');
+    $router->add('PUT', '/api/customers/{id}', [$customerController, 'update'], 'SALES_CREATE');
+    $router->add('DELETE', '/api/customers/{id}', [$customerController, 'destroy'], 'SALES_CREATE');
+
+    // ------------------------------------------------------------------ quotations
+    $router->add('GET', '/api/quotations', [$salesController, 'quotations'], 'SALES_VIEW');
+    $router->add('GET', '/api/quotations/{id}', [$salesController, 'quotation'], 'SALES_VIEW');
+    $router->add('POST', '/api/quotations', [$salesController, 'storeQuotation'], 'SALES_CREATE');
+    $router->add('POST', '/api/quotations/{id}/send', [$salesController, 'sendQuotation'], 'SALES_CREATE');
+    $router->add('POST', '/api/quotations/{id}/accept', [$salesController, 'acceptQuotation'], 'SALES_CREATE');
+    $router->add('POST', '/api/quotations/{id}/reject', [$salesController, 'rejectQuotation'], 'SALES_CREATE');
+
+    // ------------------------------------------------------------------ sales orders
+    $router->add('GET', '/api/salesOrders', [$salesController, 'orders'], 'SALES_VIEW');
+    $router->add('GET', '/api/salesOrders/{id}', [$salesController, 'order'], 'SALES_VIEW');
+    $router->add('POST', '/api/salesOrders', [$salesController, 'storeOrder'], 'SALES_CREATE');
+    $router->add('POST', '/api/salesOrders/{id}/confirm', [$salesController, 'confirmOrder'], 'SALES_CREATE');
+    $router->add('POST', '/api/salesOrders/{id}/cancel', [$salesController, 'cancelOrder'], 'SALES_CREATE');
+    $router->add('POST', '/api/salesOrders/{id}/deliveries', [$salesController, 'storeDelivery'], 'SALES_CREATE');
+
+    // ------------------------------------------------------------------ delivery notes
+    $router->add('GET', '/api/deliveries', [$salesController, 'deliveries'], 'DISTRIBUTION_VIEW');
+    $router->add('GET', '/api/deliveries/{id}', [$salesController, 'delivery'], 'DISTRIBUTION_VIEW');
+    $router->add('POST', '/api/deliveries/{id}/load', [$salesController, 'loadDelivery'], 'DISTRIBUTION_MANAGE');
+    $router->add('POST', '/api/deliveries/{id}/deliver', [$salesController, 'deliverDelivery'],
+        'DISTRIBUTION_MANAGE');
+    $router->add('POST', '/api/deliveries/{id}/return', [$salesController, 'returnDelivery'],
+        'DISTRIBUTION_MANAGE');
+
+    // ------------------------------------------------------------------ invoices
+    $router->add('GET', '/api/invoices', [$billingController, 'invoices'], 'SALES_VIEW');
+    $router->add('GET', '/api/invoices/{id}', [$billingController, 'invoice'], 'SALES_VIEW');
+    $router->add('POST', '/api/invoices', [$billingController, 'storeInvoice'], 'SALES_INVOICE');
+    $router->add('PUT', '/api/invoices/{id}', [$billingController, 'updateInvoice'], 'SALES_INVOICE');
+    $router->add('POST', '/api/invoices/{id}/issue', [$billingController, 'issueInvoice'], 'SALES_INVOICE');
+    $router->add('POST', '/api/invoices/{id}/cancel', [$billingController, 'cancelInvoice'], 'SALES_INVOICE');
+    $router->add('POST', '/api/invoices/{id}/creditNotes', [$billingController, 'storeCreditNote'],
+        'SALES_INVOICE');
+
+    // ------------------------------------------------------------------ payments
+    $router->add('GET', '/api/payments', [$billingController, 'payments'], 'FINANCE_VIEW');
+    $router->add('POST', '/api/payments', [$billingController, 'storePayment'], 'FINANCE_PAYMENT');
+    $router->add('GET', '/api/cashAccounts', [$billingController, 'cashAccounts'], 'FINANCE_VIEW');
+
+    // ------------------------------------------------------------------ credit notes
+    $router->add('GET', '/api/creditNotes', [$billingController, 'creditNotes'], 'FINANCE_VIEW');
+    $router->add('GET', '/api/creditNotes/{id}', [$billingController, 'creditNote'], 'FINANCE_VIEW');
+    $router->add('POST', '/api/creditNotes/{id}/apply', [$billingController, 'applyCreditNote'],
+        'FINANCE_PAYMENT');
+    $router->add('POST', '/api/creditNotes/{id}/cancel', [$billingController, 'cancelCreditNote'],
+        'SALES_INVOICE');
+
+    // ------------------------------------------------------------------ distribution
+    $router->add('GET', '/api/vehicles', [$distributionController, 'vehicles'], 'DISTRIBUTION_VIEW');
+    $router->add('POST', '/api/vehicles', [$distributionController, 'storeVehicle'], 'DISTRIBUTION_MANAGE');
+    $router->add('PUT', '/api/vehicles/{id}', [$distributionController, 'updateVehicle'],
+        'DISTRIBUTION_MANAGE');
+    $router->add('GET', '/api/drivers', [$distributionController, 'drivers'], 'DISTRIBUTION_VIEW');
+    $router->add('GET', '/api/routes', [$distributionController, 'routes'], 'DISTRIBUTION_VIEW');
+    $router->add('GET', '/api/routes/{id}', [$distributionController, 'route'], 'DISTRIBUTION_VIEW');
+    $router->add('POST', '/api/routes', [$distributionController, 'storeRoute'], 'DISTRIBUTION_MANAGE');
+    $router->add('POST', '/api/routes/{id}/load', [$distributionController, 'loadRoute'],
+        'DISTRIBUTION_MANAGE');
+    $router->add('POST', '/api/routes/{id}/start', [$distributionController, 'startRoute'],
+        'DISTRIBUTION_MANAGE');
+    $router->add('POST', '/api/routes/{id}/stops/{stopId}/deliver', [$distributionController, 'deliverStop'],
+        'DISTRIBUTION_MANAGE');
+    $router->add('POST', '/api/routes/{id}/complete', [$distributionController, 'completeRoute'],
+        'DISTRIBUTION_MANAGE');
+    $router->add('POST', '/api/routes/{id}/cancel', [$distributionController, 'cancelRoute'],
+        'DISTRIBUTION_MANAGE');
+
+    // ------------------------------------------------------------------ documents
+    $router->add('GET', '/api/documents/{type}/{id}', [$documentController, 'show'], 'SALES_VIEW');
 
     // ------------------------------------------------------------------ settings
     $router->add('GET', '/api/settings', [$settingsController, 'index'], 'SETTINGS_VIEW');
