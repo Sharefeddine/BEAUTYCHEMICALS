@@ -52,7 +52,7 @@ backed by MySQL 8.
 >   investigation-before-closure rule — and the report centre: eight reports (result, margin, cash
 >   flow, sales, purchases, stock valuation, production, chemical safety) with an Excel export, on
 >   top of the three statements of Phase 7 — see [`docs/PHASE-8-REPORT.md`](docs/PHASE-8-REPORT.md).
-> * **Test harness:** 134 desktop tests — 39 of them driven by **TestFX** through the real user
+> * **Test harness:** 135 desktop tests — 43 of them driven by **TestFX** through the real user
 >   interface (sign-in, password masking, shell, sidebar navigation, live Arabic mirroring,
 >   inventory, purchasing, suppliers, production, customers, sales, distribution, finance, expenses,
 >   employees, reports, safety, the report centre, focus ring, accessible names) — and 25 + 470 API
@@ -79,7 +79,9 @@ backed by MySQL 8.
 
 The client never holds database credentials: it talks to the PHP API over HTTP. `data.mode`
 selects the data source (`MOCK` demo dataset, `API` PHP backend, or `AUTO` = probe then
-fall back), so the application is runnable without any infrastructure.
+fall back). The packaged default is **`AUTO`** since Phase 8: the client now targets the finished
+API and still starts on the demo dataset when the backend does not answer. Pin `MOCK` to work
+offline, `API` to refuse the fallback; the test suite pins `MOCK` so it never needs a server.
 
 ## 2. Build and run
 
@@ -216,7 +218,7 @@ docs/                                architecture, ER diagram, design system, ro
 | [`docs/07-operations.md`](docs/07-operations.md) | Backups, restore drill, deployment, monitoring |
 | [`docs/PHASE-1-REPORT.md`](docs/PHASE-1-REPORT.md) | Phase 1 delivery report: verification, deliverables, review checklist |
 | [`docs/PHASE-2-REPORT.md`](docs/PHASE-2-REPORT.md) | Phase 2 report: 68-table database, seeds, PHP REST API, 113 end-to-end tests |
-| [`docs/PHASE-8-REPORT.md`](docs/PHASE-8-REPORT.md) | Phase 8 report: the chemical register, its validity window, the incident book and the report centre, 134 desktop tests and 470 API checks |
+| [`docs/PHASE-8-REPORT.md`](docs/PHASE-8-REPORT.md) | Phase 8 report: the chemical register, its validity window, the incident book and the report centre, 135 desktop tests and 470 API checks |
 | [`docs/PHASE-7-REPORT.md`](docs/PHASE-7-REPORT.md) | Phase 7 report: closed months, the cash book, expenses, payroll and the financial statements, 99 desktop tests and 439 API checks |
 | [`docs/PHASE-6-REPORT.md`](docs/PHASE-6-REPORT.md) | Phase 6 report: credit guard, the sales chain, frozen invoices, tours and printable documents, 79 desktop tests and 347 API checks |
 | [`docs/PHASE-5-REPORT.md`](docs/PHASE-5-REPORT.md) | Phase 5 report: production orders, quality release, batch genealogy, 71 desktop tests and 241 API checks |

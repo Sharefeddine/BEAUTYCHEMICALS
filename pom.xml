@@ -126,6 +126,8 @@
           <argLine>-Duser.language=en -Duser.country=US -Dfile.encoding=UTF-8 -Dprism.order=sw -Dprism.lcdtext=false</argLine>
           <!-- TestFX drives the glass robot against the Xvfb display provided by CI -->
           <systemPropertyVariables>
+            <!-- The suites drive the demo dataset: they never need a running PHP backend. -->
+            <data.mode>MOCK</data.mode>
             <testfx.robot>glass</testfx.robot>
             <testfx.headless>false</testfx.headless>
             <testfx.animation.disabled>true</testfx.animation.disabled>

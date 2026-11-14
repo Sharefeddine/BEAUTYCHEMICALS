@@ -119,14 +119,14 @@ all of them against `routes.php`.
 
 | Suite | What it covers |
 | --- | --- |
-| `SafetyServiceMockTest` (19) | the 3-year window, the missing and obsolete filters, paging and search, the material file, sheet registration and demotion, instructions upsert, pictogram set replacement, incident numbering, the lifecycle and its refusals |
+| `SafetyServiceMockTest` (20) | the 3-year window, the missing and obsolete filters, paging and search, the material file, sheet registration and demotion, instructions upsert, pictogram set replacement, incident numbering, the lifecycle and its refusals |
 | `ReportCentreServiceMockTest` (7) | the catalogue of eight, totals = sum of lines for sales / purchases / stock / production, the yield and unit cost, the safety join, the window |
 | `SafetyUiTest` (6) | KPIs, register rows, the risk filter, opening a substance file, the incident book and its selection, a read-only role, the Arabic layout |
 | `ReportCentreUiTest` (3) | the eight cards, switching to the warehouse valuation, the statements still below |
 | Integration suite (470 checks) | 26 new checks: pictograms, overview, the three risk filters, the material file, sheet registration and demotion, the missing-file refusal, the sheet library, instructions, the pictogram set and its refusal, the incident register and summary, reporting, the three lifecycle refusals, the read-only role, the eight reports, the sales and stock reconciliations, the production yield, the safety report, the impossible window |
 
-Desktop total: **134 tests** (35 TestFX-driven, up from 34 screens/tests to 39 scenes). Bundle
-parity: 3 bundles × **1455 keys**.
+Desktop total: **135 tests**, 43 of them TestFX-driven through the real interface (up from 34 before
+this phase). Bundle parity: 3 bundles × **1455 keys**.
 
 ### A flaky test, fixed at the root
 
@@ -145,7 +145,7 @@ tests)`):
 
 * PHP: lint of every file, unit suite, **470 integration checks** against MySQL 8 with seeds
   `01`…`09`; 173 routes; 68 tables; 0 schema problems.
-* Desktop: build of the client, **134 tests**, 0 failures; translation parity across FR / EN / AR
+* Desktop: build of the client, **135 tests**, 0 failures; translation parity across FR / EN / AR
   (1455 keys each); RTL preserved.
 
 ## 6. Deliverables
@@ -164,7 +164,8 @@ tests)`):
 | `src/main/java/com/chemmanager/model/safety/*`, `model/analytics/*` | 9 + 7 records |
 | `src/main/java/com/chemmanager/service/{SafetyService,ReportCentreService}.java` + `api/*` + `mock/*` | the two services, twice |
 | `src/test/java/com/chemmanager/support/UiWaits.java` | the FX-thread-safe scene probes |
-| `src/test/java/com/chemmanager/{service,ui}/*` | the four new suites |
+| `src/test/java/com/chemmanager/{service,ui}/*` | the four new suites (36 tests) |
+| `docs/PHASE-8-REPORT.md` | this report |
 
 ## 7. What is deliberately not in this phase
 
