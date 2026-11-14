@@ -171,7 +171,15 @@ public final class ProductionController {
     private void select(ProductionOrder order) {
         selected = order;
         updateActions(order);
-        FxTasks.run(() -> ServiceFactory.production().load(order.id()), this::renderDetail,
+        long requestedId = order.id();
+        // Two loads can be in flight when the filter changes quickly; a slow answer for an order the
+        // user has already left must not repaint the panel over the one he is looking at.
+        FxTasks.run(() -> ServiceFactory.production().load(requestedId),
+                loaded -> {
+                    if (selected != null && selected.id() == requestedId) {
+                        renderDetail(loaded);
+                    }
+                },
                 error -> Toasts.error(message(error)));
     }
 

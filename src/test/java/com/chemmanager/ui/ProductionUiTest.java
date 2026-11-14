@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import com.chemmanager.app.AppContext;
 import com.chemmanager.config.Theme;
@@ -207,9 +208,13 @@ class ProductionUiTest {
 
     /** Waits until the detail panel describes the given order and returns all of its label texts. */
     private static String detailText(FxRobot robot, String orderNumber) throws Exception {
-        WaitForAsyncUtils.waitFor(25, TimeUnit.SECONDS, () -> robot.lookup("#detailHost .label")
-                .queryAll().stream().anyMatch(node -> node instanceof Label label
-                        && label.getText() != null && label.getText().contains(orderNumber)));
+        try {
+            WaitForAsyncUtils.waitFor(25, TimeUnit.SECONDS, () -> robot.lookup("#detailHost .label")
+                    .queryAll().stream().anyMatch(node -> node instanceof Label label
+                            && label.getText() != null && label.getText().contains(orderNumber)));
+        } catch (TimeoutException timeout) {
+            // The assertion below reports what the panel actually shows, which says more than "Timeout".
+        }
 
         return robot.lookup("#detailHost .label").queryAll().stream()
                 .filter(node -> node instanceof Label)
