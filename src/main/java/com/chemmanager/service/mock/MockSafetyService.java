@@ -107,9 +107,9 @@ public final class MockSafetyService implements SafetyService {
                 "sds/MP-0003-REV-1.pdf", LocalDate.now().minusYears(5).minusMonths(2), "REV-1",
                 "Fournisseur - Chimie Sétif", true, true, LocalDateTime.now().minusYears(5)));
 
-        instructions.add(new SafetyInstructions(1, 1, "Gants nitrile, lunettes", "Lieu sec",
+        instructions.add(new SafetyInstructions(1L, 1, "Gants nitrile, lunettes", "Lieu sec",
                 "Éviter la poussière", "Rincer à l'eau", "Poudre ABC", "Balayer et collecter"));
-        instructions.add(new SafetyInstructions(2, 2, "Gants nitrile, visière, tablier", "Fût fermé, local ventilé",
+        instructions.add(new SafetyInstructions(2L, 2, "Gants nitrile, visière, tablier", "Fût fermé, local ventilé",
                 "Verser lentement dans l'eau", "Rincer 15 minutes", "Poudre ABC", "Absorber avec de la vermiculite"));
 
         materialPictograms.add(new String[]{"MP-0001", "GHS07"});

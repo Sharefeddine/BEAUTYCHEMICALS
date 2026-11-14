@@ -11,7 +11,7 @@ import com.chemmanager.component.Dialogs;
 import com.chemmanager.component.Icons;
 import com.chemmanager.component.StatusBadge;
 import com.chemmanager.component.Toasts;
-import com.chemmanager.context.AppContext;
+import com.chemmanager.app.AppContext;
 import com.chemmanager.localization.I18n;
 import com.chemmanager.model.analytics.ProductionReport;
 import com.chemmanager.model.analytics.PurchaseReport;

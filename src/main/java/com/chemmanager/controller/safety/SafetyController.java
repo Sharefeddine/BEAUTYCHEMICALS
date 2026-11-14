@@ -16,7 +16,7 @@ import com.chemmanager.component.Icons;
 import com.chemmanager.component.KpiCard;
 import com.chemmanager.component.StatusBadge;
 import com.chemmanager.component.Toasts;
-import com.chemmanager.context.AppContext;
+import com.chemmanager.app.AppContext;
 import com.chemmanager.dto.PagedResult;
 import com.chemmanager.localization.I18n;
 import com.chemmanager.model.safety.HazardPictogram;
