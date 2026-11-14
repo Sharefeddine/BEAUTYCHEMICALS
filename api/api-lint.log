@@ -15,6 +15,7 @@ No syntax errors detected in backend/src/Repositories/CustomerRepository.php
 No syntax errors detected in backend/src/Repositories/AuditRepository.php
 No syntax errors detected in backend/src/Repositories/DashboardRepository.php
 No syntax errors detected in backend/src/Repositories/InventoryRepository.php
+No syntax errors detected in backend/src/Repositories/ReportRepository.php
 No syntax errors detected in backend/src/Repositories/DistributionRepository.php
 No syntax errors detected in backend/src/autoload.php
 No syntax errors detected in backend/src/Security/Auth.php
@@ -28,6 +29,7 @@ No syntax errors detected in backend/src/Controllers/MaterialController.php
 No syntax errors detected in backend/src/Controllers/CustomerController.php
 No syntax errors detected in backend/src/Controllers/AuditController.php
 No syntax errors detected in backend/src/Controllers/DistributionController.php
+No syntax errors detected in backend/src/Controllers/ReportController.php
 No syntax errors detected in backend/src/Controllers/ExpenseController.php
 No syntax errors detected in backend/src/Controllers/NotificationController.php
 No syntax errors detected in backend/src/Controllers/FinanceController.php
