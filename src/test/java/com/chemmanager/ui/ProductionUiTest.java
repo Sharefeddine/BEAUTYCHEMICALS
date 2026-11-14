@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 import com.chemmanager.app.AppContext;
 import com.chemmanager.config.Theme;
+import com.chemmanager.dto.ProductionQuery;
 import com.chemmanager.config.ThemeManager;
 import com.chemmanager.localization.I18n;
 import com.chemmanager.navigation.NavigationModule;
@@ -29,6 +30,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -149,6 +151,7 @@ class ProductionUiTest {
 
     /** Selects a status in the toolbar filter and fires its action, as a user pick would. */
     private static void filterTo(FxRobot robot, String status) throws Exception {
+        long expected = ServiceFactory.production().search(ProductionQuery.initial(25).withStatus(status)).total();
         robot.interact(() -> {
             ComboBox<String> filter = statusFilter(robot);
             filter.getSelectionModel().select(status);
@@ -156,10 +159,8 @@ class ProductionUiTest {
             filter.fireEvent(new ActionEvent());
         });
         WaitForAsyncUtils.waitForFxEvents();
-        WaitForAsyncUtils.waitFor(25, TimeUnit.SECONDS, () -> {
-            Object current = statusFilter(robot).getValue();
-            return status.equals(current) && !robot.lookup("#tableHost .table-row-cell").queryAll().isEmpty();
-        });
+        WaitForAsyncUtils.waitFor(25, TimeUnit.SECONDS,
+                () -> status.equals(statusFilter(robot).getValue()) && rowCount(robot) == expected);
         WaitForAsyncUtils.waitForFxEvents();
     }
 
@@ -171,8 +172,11 @@ class ProductionUiTest {
         return (placeholder < 0 ? pattern : pattern.substring(0, placeholder)).trim();
     }
 
+    /** The number of filled rows: a table also renders empty filler rows to fill its viewport. */
     private static int rowCount(FxRobot robot) {
-        return robot.lookup("#tableHost .table-row-cell").queryAll().size();
+        return (int) robot.lookup("#tableHost .table-row-cell").queryAll().stream()
+                .filter(node -> node instanceof TableRow<?> row && !row.isEmpty())
+                .count();
     }
 
     /** Waits for the detail panel to reach a section and returns all of its label texts. */

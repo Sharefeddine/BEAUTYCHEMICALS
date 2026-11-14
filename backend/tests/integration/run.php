@@ -749,15 +749,49 @@ $response = call('POST', '/api/production/orders/' . $productionId . '/start', n
 $started = $response['json']['data'] ?? [];
 check('the order starts and reserves its material', $response['status'] === 200
     && ($started['status'] ?? '') === 'IN_PROGRESS', $response['raw']);
-check('the reservation is FEFO, batch by batch', count($started['materials'] ?? []) === 2
-    && ($started['materials'][0]['batchNumber'] ?? '') === 'BT-PH5-A'
-    && (float) ($started['materials'][0]['plannedQuantity'] ?? 0) === 60.0, $response['raw']);
+$plan = $production['plan'] ?? [];
+// The warehouse already holds released batches, so the reservation is read as a FEFO plan rather
+// than as a fixed list: per material, the earliest expiry goes first and the quantities add up to
+// the scaled bill of materials.
+$reserved = $started['materials'] ?? [];
+$reservedByMaterial = [];
+foreach ($reserved as $line) {
+    $reservedByMaterial[(string) $line['materialCode']][] = $line;
+}
+$fefoHolds = $reserved !== [];
+foreach ($reservedByMaterial as $lines) {
+    $expiries = array_map(static fn (array $line): string => (string) ($line['expiryDate'] ?? '9999-12-31'),
+        $lines);
+    $sorted = $expiries;
+    sort($sorted);
+    $fefoHolds = $fefoHolds && $expiries === $sorted;
+}
+$plannedPerMaterial = [];
+foreach ($plan as $plannedLine) {
+    $plannedPerMaterial[(string) $plannedLine['materialCode']] = $plannedLine['plannedQuantity'];
+}
+foreach ($reservedByMaterial as $code => $lines) {
+    $total = 0.0;
+    foreach ($lines as $line) {
+        $total += (float) $line['plannedQuantity'];
+    }
+    $fefoHolds = $fefoHolds && abs($total - (float) ($plannedPerMaterial[$code] ?? -1)) < 0.001;
+}
+check('the reservation is FEFO, batch by batch', $fefoHolds && count($reserved) >= 2, $response['raw']);
+
 $response = call('POST', '/api/production/orders/' . $productionId . '/start', null, $token);
 check('an order cannot be started twice', $response['status'] === 409, $response['raw']);
-$materialLineA = (int) ($started['materials'][0]['materialBatchId'] ?? 0);
-$materialLineB = (int) ($started['materials'][1]['materialBatchId'] ?? 0);
+
+$reservedStock = [];
+foreach ($reserved as $line) {
+    $reservedStock[(string) $line['batchNumber']] = (float) $line['plannedQuantity'];
+}
+$consumeAll = [];
+foreach ($reserved as $line) {
+    $consumeAll[] = ['materialBatchId' => (int) $line['materialBatchId'], 'quantity' => (float) $line['plannedQuantity']];
+}
 $response = call('POST', '/api/production/orders/' . $productionId . '/consume', [
-    'items' => [['materialBatchId' => $materialLineA, 'quantity' => 1000]],
+    'items' => [['materialBatchId' => (int) ($reserved[0]['materialBatchId'] ?? 0), 'quantity' => 100000]],
 ], $token);
 check('consuming more than the batch holds is refused', $response['status'] === 409
     && ($response['json']['error']['code'] ?? '') === 'PRODUCTION_STOCK', $response['raw']);
@@ -765,25 +799,31 @@ $response = call('POST', '/api/production/orders/' . $productionId . '/complete'
 check('an order without consumption cannot be completed', $response['status'] === 409
     && ($response['json']['error']['code'] ?? '') === 'PRODUCTION_NO_CONSUMPTION', $response['raw']);
 
-$response = call('POST', '/api/production/orders/' . $productionId . '/consume', [
-    'items' => [
-        ['materialBatchId' => $materialLineA, 'quantity' => 60],
-        ['materialBatchId' => $materialLineB, 'quantity' => 40],
-    ],
-], $token);
+$response = call('POST', '/api/production/orders/' . $productionId . '/consume', ['items' => $consumeAll], $token);
 $consumed = $response['json']['data'] ?? [];
+$consumedPerMaterial = [];
+$expectedCost = 0.0;
+foreach ($consumed['materials'] ?? [] as $line) {
+    $consumedPerMaterial[(string) $line['materialCode']] = ($consumedPerMaterial[(string) $line['materialCode']] ?? 0)
+        + (float) $line['consumedQuantity'];
+    $expectedCost += (float) $line['consumedQuantity'] * (float) $line['unitPrice'];
+}
 check('the operator records what was really used', $response['status'] === 200
-    && (float) ($consumed['consumedQuantity'] ?? 0) === 100.0, $response['raw']);
+    && (float) ($consumed['consumedQuantity'] ?? 0) === 100.0
+    && abs(($consumedPerMaterial[(string) ($plan[0]['materialCode'] ?? '')] ?? 0) - 60.0) < 0.001
+    && abs(($consumedPerMaterial[(string) ($plan[1]['materialCode'] ?? '')] ?? 0) - 40.0) < 0.001,
+    $response['raw']);
 check('the material cost is the real cost of the consumed batches',
     (float) ($consumed['materialCost'] ?? 0) > 0
-    && (float) ($consumed['materials'][0]['consumedQuantity'] ?? 0) === 60.0, $response['raw']);
+    && abs((float) ($consumed['materialCost'] ?? 0) - round($expectedCost, 2)) < 0.011, $response['raw']);
 $response = call('GET', '/api/inventory/stock?search=BT-PH5-A', null, $token);
 $stockA = $response['json']['data'][0] ?? [];
 check('the consumed material left the stock through the ledger',
-    (float) ($stockA['quantity'] ?? -1) === 40.0, $response['raw']);
-$response = call('GET', '/api/inventory/movements?movementType=PRODUCTION_OUT&pageSize=5', null, $token);
-check('two PRODUCTION_OUT movements were written', (int) ($response['json']['meta']['total'] ?? 0) === 2,
+    abs((float) ($stockA['quantity'] ?? -1) - (100.0 - (float) ($reservedStock['BT-PH5-A'] ?? 0))) < 0.001,
     $response['raw']);
+$response = call('GET', '/api/inventory/movements?movementType=PRODUCTION_OUT&pageSize=20', null, $token);
+check('one PRODUCTION_OUT movement per consumed batch was written',
+    (int) ($response['json']['meta']['total'] ?? 0) === count($reserved), $response['raw']);
 
 $response = call('POST', '/api/production/orders/' . $productionId . '/complete', [
     'actualQuantity' => 96, 'wasteQuantity' => 2, 'packagingCost' => 300, 'otherCost' => 120,
@@ -813,10 +853,15 @@ $response = call('POST', '/api/production/orders', [
 $rejectedRunId = (int) ($response['json']['data']['id'] ?? 0);
 $response = call('POST', '/api/production/orders/' . $rejectedRunId . '/start', null, $token);
 $rejectedLines = $response['json']['data']['materials'] ?? [];
-call('POST', '/api/production/orders/' . $rejectedRunId . '/consume', ['items' => [
-    ['materialBatchId' => (int) ($rejectedLines[0]['materialBatchId'] ?? 0), 'quantity' => 12],
-    ['materialBatchId' => (int) ($rejectedLines[1]['materialBatchId'] ?? 0), 'quantity' => 8],
-]], $token);
+$rejectedItems = [];
+foreach ($rejectedLines as $line) {
+    $rejectedItems[] = ['materialBatchId' => (int) $line['materialBatchId'],
+        'quantity' => (float) $line['plannedQuantity']];
+}
+$response = call('POST', '/api/production/orders/' . $rejectedRunId . '/consume', ['items' => $rejectedItems],
+    $token);
+check('the second run consumes its own reservation', $response['status'] === 200
+    && (float) ($response['json']['data']['consumedQuantity'] ?? 0) === 20.0, $response['raw']);
 $response = call('POST', '/api/production/orders/' . $rejectedRunId . '/complete',
     ['actualQuantity' => 18, 'wasteQuantity' => 2], $token);
 check('the second run is completed too', $response['status'] === 200
@@ -861,7 +906,8 @@ $response = call('GET', '/api/production/orders/' . $productionId . '/genealogy'
 $genealogy = $response['json']['data'] ?? [];
 check('the genealogy links the output to its material batches', $response['status'] === 200
     && ($genealogy['complete'] ?? false) === true
-    && count($genealogy['inputs'] ?? []) === 2 && count($genealogy['outputs'] ?? []) === 1, $response['raw']);
+    && count($genealogy['inputs'] ?? []) === count($reserved)
+    && count($genealogy['outputs'] ?? []) === 1, $response['raw']);
 check('every input names its supplier and its receipt', ($genealogy['inputs'][0]['supplierName'] ?? '') !== ''
     && ($genealogy['inputs'][0]['receiptNumber'] ?? '') !== ''
     && ($genealogy['inputs'][0]['purchaseOrderNumber'] ?? '') !== '', $response['raw']);
