@@ -1,16 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.chemmanager.ui.ReportsUiTest
 -------------------------------------------------------------------------------
-Tests run: 2, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 6.102 s <<< FAILURE! -- in com.chemmanager.ui.ReportsUiTest
-com.chemmanager.ui.ReportsUiTest.statementsAreRendered(FxRobot) -- Time elapsed: 3.076 s <<< FAILURE!
-org.opentest4j.AssertionFailedError: the result statement has a title:  | Résultat de 2026-11 |  | Facturé HT : 500 000,00 DZD | Avoirs : 20 800,00 DZD | Chiffre d’affaires net : 479 200,00 DZD | Coût des marchandises : 317 840,00 DZD | Marge brute : 161 360,00 DZD | Charges d’exploitation : 66 900,00 DZD | Résultat : 94 460,00 DZD | Charges par catégorie | Loyers · 45 000,00 DZD | Énergie · 12 400,00 DZD | Carburant · 9 500,00 DZD ==> expected: <true> but was: <false>
-	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
-	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
-	at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:63)
-	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:36)
-	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:214)
-	at com.chemmanager.ui.ReportsUiTest.statementsAreRendered(ReportsUiTest.java:80)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.231 s -- in com.chemmanager.ui.ReportsUiTest
